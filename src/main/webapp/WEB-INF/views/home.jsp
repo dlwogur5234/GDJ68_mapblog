@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page session="false" %>
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %> <%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -29,14 +28,21 @@
       </nav>
     </header>
     <article class="notice" id="slider">
-      <div class="noticeimg">
-        <img src="/resources/img/slidebanner1.png" alt="" />
+      <div class="slides">
+        <a href="#"
+          ><img src="/resources/img/slidebanner1.png" alt="" class="imgslide"
+        /></a>
+        <a href="#"
+          ><img src="/resources/img/slidebanner2.png" alt="" class="imgslide"
+        /></a>
+        <a href="#"
+          ><img src="/resources/img/slidebanner3.png" alt="" class="imgslide"
+        /></a>
       </div>
-      <div class="noticeimg slide_item">
-        <img src="/resources/img/slidebanner2.png" alt="" />
-      </div>
-      <div class="noticeimg slide_item">
-        <img src="/resources/img/slidebanner3.png" alt="" />
+
+      <div class="slider-controls">
+        <button onclick="prevSlide()">&#8249;</button>
+        <button onclick="nextSlide()">&#8250;</button>
       </div>
     </article>
     <section>
@@ -52,13 +58,17 @@
           <div>
             <a href="#">
               <h3>제목2</h3>
-              <div><img src="/resources/img/99A85F3C5C0DC6AD29.jpeg" alt="" /></div>
+              <div>
+                <img src="/resources/img/99A85F3C5C0DC6AD29.jpeg" alt="" />
+              </div>
             </a>
           </div>
           <div>
             <a href="#">
               <h3>제목3</h3>
-              <div><img src="/resources/img/singapore_merlion.jpg" alt="" /></div>
+              <div>
+                <img src="/resources/img/singapore_merlion.jpg" alt="" />
+              </div>
             </a>
           </div>
         </div>
