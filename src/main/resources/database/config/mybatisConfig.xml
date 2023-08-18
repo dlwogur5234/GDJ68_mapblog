@@ -8,6 +8,47 @@
 		<typeAlias type="java.lang.Long" alias="Long"/>
 		<typeAlias type="java.util.List" alias="List"/>
 		<typeAlias type="java.util.Map" alias="Map"/>
+	<!-- 병웅 11~20 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 혜령 21~30-->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 홍일 31~40 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 재혁 41~50 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 동휘 51~60 -->	
 	
 	</typeAliases>
 	
