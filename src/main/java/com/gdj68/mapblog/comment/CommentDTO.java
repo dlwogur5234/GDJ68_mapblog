@@ -1,27 +1,36 @@
-package com.gdj68.mapblog.comments;
+package com.gdj68.mapblog.comment;
 
 import java.sql.Date;
 
-public class CommentsDTO {
+public class CommentDTO {
 	
 	private Long commentNum;
-	private Long feedNum;
 	private String id;
 	private String contents;
-	private Date commentsDate;
+	private Date commentDate;
 	private Long likes;
+	private Long cGroup;
+	private Long cDepth;
+	
+	public Long getcGroup() {
+		return cGroup;
+	}
+	public void setcGroup(Long cGroup) {
+		this.cGroup = cGroup;
+	}
+	public Long getcDepth() {
+		return cDepth;
+	}
+	public void setcDepth(Long cDepth) {
+		this.cDepth = cDepth;
+	}
 	public Long getCommentNum() {
 		return commentNum;
 	}
 	public void setCommentNum(Long commentNum) {
 		this.commentNum = commentNum;
 	}
-	public Long getFeedNum() {
-		return feedNum;
-	}
-	public void setFeedNum(Long feedNum) {
-		this.feedNum = feedNum;
-	}
+	
 	public String getId() {
 		return id;
 	}
@@ -34,11 +43,12 @@ public class CommentsDTO {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public Date getCommentsDate() {
-		return commentsDate;
+
+	public Date getCommentDate() {
+		return commentDate;
 	}
-	public void setCommentsDate(Date commentsDate) {
-		this.commentsDate = commentsDate;
+	public void setCommentDate(Date commentDate) {
+		this.commentDate = commentDate;
 	}
 	public Long getLikes() {
 		return likes;
