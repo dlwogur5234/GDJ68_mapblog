@@ -39,7 +39,7 @@
 	
 	
 	<!-- 재혁 41~50 -->
-	
+	<typeAlias type="com.gdj68.mapblog.qna.QnaDTO" alias="QnaDTO"/>
 	
 	
 	
