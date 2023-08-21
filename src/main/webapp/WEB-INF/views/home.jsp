@@ -9,40 +9,23 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ page session="false" %>
     <title>home</title>
   </head>
   <body>
-    <header>
-      <div>
-        <a href="#"><div class="logo">로고자리</div></a>
-
-        <ul class="member">
-          <li class="login"><a href="#">로그인</a></li>
-          <li class="signup"><a href="#">회원가입</a></li>
-        </ul>
-      </div>
-      <nav class="navi">
-        <ul>
-          <li><a href="">홈</a></li>
-          <li><a href="">메뉴</a></li>
-          <li><a href="">메뉴</a></li>
-          <li><a href="">메뉴</a></li>
-        </ul>
-      </nav>
-    </header>
+ 	<c:import url="./temp/header.jsp"></c:import>
     <article class="notice" id="slider">
       <div class="slides">
         <a href="#"
-          ><img src="/resources/img/slidebanner1.png" alt="" class="imgslide"
+          ><img src="/resources/img/KakaoTalk_20230821_141558692_01.jpg" alt="" class="imgslide"
         /></a>
         <a href="#"
-          ><img src="/resources/img/slidebanner2.png" alt="" class="imgslide"
+          ><img src="/resources/img/KakaoTalk_20230821_141558692_02.jpg" alt="" class="imgslide"
         /></a>
         <a href="#"
-          ><img src="/resources/img/slidebanner3.png" alt="" class="imgslide"
+          ><img src="/resources/img/KakaoTalk_20230821_141558692.jpg" alt="" class="imgslide"
         /></a>
       </div>
 
       <div class="slider-controls">
-        <button onclick="prevSlide()">&#8249;</button>
-        <button onclick="nextSlide()">&#8250;</button>
+        <button onclick="prevSlide()" class="prevBtn">&#8249;</button>
+        <button onclick="nextSlide()" class="nextBtn">&#8250;</button>
       </div>
     </article>
     <section>
@@ -74,9 +57,7 @@ uri="http://java.sun.com/jsp/jstl/core" %> <%@ page session="false" %>
         </div>
       </article>
     </section>
-    <footer>
-      <div>푸터자리</div>
-    </footer>
+   <c:import url="./temp/footer.jsp"></c:import>
 
     <script src="/resources/js/index.js"></script>
   </body>

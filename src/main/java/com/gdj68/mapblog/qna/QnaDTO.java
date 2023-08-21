@@ -8,8 +8,7 @@ public class QnaDTO {
 	private String memberId;
 	private String qnaTitle;
 	private String qnaContents;
-	private String name;
-	private Date date;
+	private Date qnaDate;
 	
 	
 	public Long getQnaNum() {
@@ -36,16 +35,11 @@ public class QnaDTO {
 	public void setQnaContents(String qnaContents) {
 		this.qnaContents = qnaContents;
 	}
-	public String getName() {
-		return name;
+	public Date getQnaDate() {
+		return qnaDate;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setQnaDate(Date qnaDate) {
+		this.qnaDate = qnaDate;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
+	
 }

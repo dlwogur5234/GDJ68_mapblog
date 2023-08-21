@@ -4,5 +4,23 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="com.gdj68.mapblog.qna.QnaDAO">
-  	<select id=""></select>
+  	<select id="getTotal" resultType="Long">
+  		SELECT COUNT(QNANUM) FROM QNA
+  	</select>
+  	
+  	<select id="getList" parameterType="Pager" resultType="QnaDTO">
+  		SELECT *
+	FROM(
+		SELECT ROWNUM R, B.* 
+			FROM(SELECT * 
+				 FROM QNA	
+				) B
+				)
+			WHERE
+				R BETWEEN #{startRow} AND #{lastRow}
+  	</select>
+  	
+  	<insert id="setAdd" parameterType="QnaDTO">
+  		INSERT INTO QNA(QNANUM,MEMBERID,QNATITLE,QNACONTENTS,QNADATE) VALUES(#{qnaNum},#{memberId},#{qnaTitle},#{qnaContents},SYSDATE)
+  	</insert>
   </mapper>
