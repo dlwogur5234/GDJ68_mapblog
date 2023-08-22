@@ -5,13 +5,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-   
+   	
     <title>QnaList</title>
 </head>
-<c:import url="../temp/header.jsp"></c:import>
+
 <body>
+		<c:import url="../temp/header.jsp"></c:import>
+	
     <table>
-        <thead>
+       
             <thead>
                 <th>번호</th>
                 <th>제목</th>
@@ -21,15 +23,15 @@
                 <c:forEach items="${list}" var="q">
                 	<tr>
                         <td>${q.qnaNum}</td>
-                        <td>${q.qnaTitle}</td>
+	                        
+	                        	<td><a href="./detail?qnaNum=${q.qnaNum}" class="no-block">${q.qnaTitle}</a></td>
+	                        
                         <td>${q.qnaDate}</td>
                     </tr>
                 </c:forEach>
             </tbody>
-        </thead>
+       		<a class="btn btn-outline-secondary" href="./add" >공지추가</a>
 
     </table>
-    
-    <a href="./add" >공지추가</a>
 </body>
 </html>

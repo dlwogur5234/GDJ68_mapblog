@@ -1,6 +1,7 @@
 package com.gdj68.mapblog.qna;
 
 import java.sql.Date;
+import java.util.List;
 
 public class QnaDTO {
 	
@@ -9,6 +10,7 @@ public class QnaDTO {
 	private String qnaTitle;
 	private String qnaContents;
 	private Date qnaDate;
+	private List<QnaFileDTO> fileDTOs;
 	
 	
 	public Long getQnaNum() {
@@ -41,5 +43,7 @@ public class QnaDTO {
 	public void setQnaDate(Date qnaDate) {
 		this.qnaDate = qnaDate;
 	}
+
+	
 	
 }

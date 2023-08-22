@@ -12,6 +12,9 @@ a {
   color: black;
   text-decoration: none;
 }
+.no-block {
+  display: inline-block;
+}
 header {
   width: 1600px;
   height: 150px;
