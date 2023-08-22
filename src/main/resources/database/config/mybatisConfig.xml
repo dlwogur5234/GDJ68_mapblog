@@ -29,8 +29,8 @@
 	
 	
 	<!-- 홍일 31~40 -->
-	
-	
+	<typeAlias type="com.gdj68.mapblog.member.MemberDTO" alias="MemberDTO"/>
+
 	
 	
 	
@@ -49,7 +49,7 @@
 	
 	
 	<!-- 동휘 51~60 -->	
-	
+		
 	</typeAliases>
 	
 </configuration>				  
