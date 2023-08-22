@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gdj68.mapblog.meeting.MeetingDAO">
+  	
+  	<insert id="setAdd" parameterType="MeetingDTO">
+		INSERT INTO MEETING VALUES(MEETING_SEQ.NEXTVAL,#{id},#{title},#{contents},SYSDATE,#{meetingDate},#{lat},#{lng},0,0)	
+  	</insert>
+  	
+  	<select id="getList" resultType="MeetingDTO">
+  		SELECT * FROM MEETING
+  	</select>
+
+  	
+  	  	
+  </mapper>

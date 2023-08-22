@@ -1,4 +1,4 @@
-package com.gdj68.mapblog.comment.mettingComment;
+package com.gdj68.mapblog.meeting;
 
 import com.gdj68.mapblog.comment.CommentDTO;
 

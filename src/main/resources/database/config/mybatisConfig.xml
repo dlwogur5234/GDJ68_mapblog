@@ -48,7 +48,10 @@
 	
 	
 	
-	<!-- 동휘 51~60 -->	
+	<!-- 동휘 51~60 -->
+	<typeAlias type="com.gdj68.mapblog.meeting.MeetingDTO" alias="MeetingDTO"/>	
+	<typeAlias type="com.gdj68.mapblog.meeting.MeetingMemberDTO" alias="MeetingMemeberDTO"/>	
+	<typeAlias type="com.gdj68.mapblog.meeting.MeetingCommentDTO" alias="MeetingCommentDTO"/>	
 	
 	</typeAliases>
 	
