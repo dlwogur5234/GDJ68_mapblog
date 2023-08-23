@@ -19,9 +19,9 @@
 	
 	
 	<!-- 혜령 21~30-->
-	
-	
-	
+	<typeAlias type="com.gdj68.mapblog.feed.FeedDTO" alias="FeedDTO"/>
+	<typeAlias type="com.gdj68.mapblog.feed.FeedFileDTO" alias="FeedFileDTO"/>
+	<typeAlias type="com.gdj68.mapblog.util.Pager" alias="Pager"/>
 	
 	
 	
