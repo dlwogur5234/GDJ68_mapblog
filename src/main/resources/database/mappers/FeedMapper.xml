@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gdj68.mapblog.feed.FeedDAO">
+  
+  
+  	<!-- SEARCH -->
+  	<sql id = "searchSql">
+  	
+  		WHERE FEEDNUM>0
+  		
+		<choose>
+			<when test="kind=='id'">
+				AND ID LIKE '%'||#{search}||'%'
+			</when>
+			<when test="kind=='title'">
+				AND TITLE LIKE '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				AND CONTENTS LIKE '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+  	</sql>
+  	
+
+  	<!-- LIST -->
+  	<select id="getList" parameterType="Pager" resultType="FeedDTO">
+  		SELECT FEEDNUM, ID, TITLE, CONTENTS, CREATEDATE, TRIPDATE, HIT, LIKES FROM
+  			(SELECT ROWNUM R, F.* FROM
+  				(
+  					SELECT * FROM FEED
+  					
+  					<include refid="searchSql"></include>
+  					
+  					ORDER BY FEEDNUM DESC
+  				) F
+  			)
+  		WHERE R BETWEEN #{startRow} AND #{lastRow}
+  	</select>
+  	
+  	<!-- 
+  	<resultMap type="FeedDTO" id="getSelectResult">
+  		<id column="FEEDNUM" property="feedNum"/>
+  		<result column="ID" property="id"/>
+  		<result column="TITLE" property="title"/>
+  		<result column="CONTENTS" property="contents"/>
+  		<result column="CREATEDATE" property="createDate"/>
+  		<result column="TRIPDATE" property="tripDate"/>
+  		<result column="HIT" property="hit"/>
+  		<result column="LIKES" property="likes"/>
+  		<result column="PUBLICS" property="publics"/>
+  	</resultMap>
+  	 -->
+  	
+  	<!-- PAGER (GET TOTAL) -->
+  	<select id="getTotal" resultType="Long" parameterType="Pager">
+  		SELECT COUNT(FEEDNUM) FROM FEED
+  		<include refid="searchSql"></include>
+  	</select>
+	
+	
+	<select id="getSequence" resultType="Long">
+  		SELECT FEED_SEQ.NEXTVAL FROM DUAL
+  	</select>
+	
+
+	<!-- ADD -->
+	<insert id="setAdd" parameterType="FeedDTO">
+		<selectKey keyProperty="feedNum" resultType="Long" order="BEFORE">
+			SELECT FEED_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO FEED
+		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, SYSDATE, 0, 0, 0)
+		 
+	</insert>
+	
+	
+	<!-- FILE -->
+	<!-- FILE ADD -->
+  	<insert id="setFileAdd" parameterType="FeedFileDTO">
+  		INSERT INTO FEEDFILE (FILENUM, FEEDNUM, ORIGINALNAME, FILENAME)
+  		VALUES (FEEDFILE_SEQ.NEXTVAL, #{feedNum}, #{originalName}, #{fileName})
+  	</insert>
+  	
+  	<!-- FILE DELETE -->
+  	<delete id="setFileDelete" parameterType="FeedFileDTO">
+  		DELETE FEEDFILE WHERE FILENUM=#{fileNum}
+  	</delete>
+  	
+  	<!-- FILE DETAIL -->
+  	<select id="getFileDetail" parameterType="FeedFileDTO" resultType="FeedFileDTO">
+  		SELECT FILENUM, FILENAME FROM FEEDFILE WHERE FILENUM=#{fileNum}
+  	</select>
+	
+
+  </mapper>
