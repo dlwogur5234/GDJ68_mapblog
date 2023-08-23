@@ -9,7 +9,7 @@
 		<typeAlias type="java.util.List" alias="List"/>
 		<typeAlias type="java.util.Map" alias="Map"/>
 	<!-- 병웅 11~20 -->
-	
+		<typeAlias type="com.gdj68.mapblog.admin.member.AdminMemberDTO" alias="AdminMemberDTO"/>
 	
 	
 	
@@ -29,8 +29,8 @@
 	
 	
 	<!-- 홍일 31~40 -->
-	
-	
+	<typeAlias type="com.gdj68.mapblog.member.MemberDTO" alias="MemberDTO"/>
+
 	
 	
 	
