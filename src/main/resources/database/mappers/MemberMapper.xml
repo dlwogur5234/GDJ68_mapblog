@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gdj68.mapblog.member.MemberDAO">
+  	
+  	<delete id="deleteMember" parameterType="MemberDTO">
+		DELETE FROM MEMBER WHERE ID=#{id}  	
+  	</delete>
+  	
+  	<insert id="setJoin" parameterType="MemberDTO">
+  		INSERT INTO MEMBER (ID, PW, NAME, NICKNAME, EMAIL, PHONE, BIRTH, URL)
+  		VALUES (#{id}, #{pw}, #{name}, #{nickName}, #{email}, #{phone}, #{birth}, #{url})
+  	</insert>
+  	
+  	<select id="getLogin" resultType="MemberDTO" parameterType="MemberDTO">
+  		SELECT * FROM MEMBER
+  		WHERE ID=#{id} AND PW=#{pw}
+  	</select>
+  	
+  	<update id="setMemberUpdate" parameterType="MemberDTO">
+		UPDATE MEMBER SET
+		PW=#{pw}, NAME=#{name}, NICKNAME=#{nickName}, EMAIL=#{email}, PHONE=#{phone}, BIRTH=#{birth}, URL=#{url}
+		WHERE ID=#{id}
+	</update>
+	
+	 <select id="getIdCheck" parameterType="MemberDTO" resultType="MemberDTO">
+  		SELECT ID FROM MEMBER WHERE ID=#{id}
+  	</select>
+  	
+  	<select id="getUrlCheck" parameterType="MemberDTO" resultType="MemberDTO">
+  		SELECT URL FROM MEMBER WHERE URL=#{url}
+  	</select>
+  </mapper>

@@ -1,3 +1,6 @@
+
+const slide = document.getElementsByClassName(".slide");
+
 const slider = document.getElementById("slider");
 const slidesContainer = slider.querySelector(".slides");
 const images = slider.getElementsByClassName("imgslide");
@@ -25,3 +28,4 @@ updateSlidePosition();
 
 // Automatically move to the next slide every 5 seconds
 setInterval(nextSlide, 8000);
+
