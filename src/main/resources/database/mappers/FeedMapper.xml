@@ -60,7 +60,7 @@
   		<include refid="searchSql"></include>
   	</select>
 	
-	
+	<!-- GET SEQUENCE -->
 	<select id="getSequence" resultType="Long">
   		SELECT FEED_SEQ.NEXTVAL FROM DUAL
   	</select>
@@ -78,7 +78,7 @@
 	</insert>
 	
 	
-	<!-- FILE -->
+	<!-- FILE ************************ -->
 	<!-- FILE ADD -->
   	<insert id="setFileAdd" parameterType="FeedFileDTO">
   		INSERT INTO FEEDFILE (FILENUM, FEEDNUM, ORIGINALNAME, FILENAME)

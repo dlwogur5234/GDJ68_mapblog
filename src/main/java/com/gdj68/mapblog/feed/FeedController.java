@@ -47,6 +47,11 @@ public class FeedController {
 		
 		int result = feedService.setAdd(feedDTO, photos, session);
 		
+		// 안뜸
+		System.out.println(feedDTO.getId());
+		System.out.println(feedDTO.getTitle());
+		
+		// jsp 추가했을때 주석 없애기!!!
 //		String message = "등록 실패";
 //		
 //		if(result>0) {
