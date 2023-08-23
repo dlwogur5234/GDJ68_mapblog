@@ -1,22 +1,28 @@
 package com.gdj68.mapblog.qna;
 
 import java.sql.Date;
+import java.util.List;
 
 public class QnaDTO {
 	
-	private Long qnaNum;
+
 	private String memberId;
 	private String qnaTitle;
 	private String qnaContents;
-	private String name;
-	private Date date;
-	
-	
+	private Date qnaDate;
+	private List<QnaFileDTO> fileDTOs;
+	private Long qnaNum;
 	public Long getQnaNum() {
 		return qnaNum;
 	}
 	public void setQnaNum(Long qnaNum) {
 		this.qnaNum = qnaNum;
+	}
+	public List<QnaFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+	public void setFileDTOs(List<QnaFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -36,16 +42,13 @@ public class QnaDTO {
 	public void setQnaContents(String qnaContents) {
 		this.qnaContents = qnaContents;
 	}
-	public String getName() {
-		return name;
+	public Date getQnaDate() {
+		return qnaDate;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setQnaDate(Date qnaDate) {
+		this.qnaDate = qnaDate;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
+
+	
+	
 }

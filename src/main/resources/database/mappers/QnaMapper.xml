@@ -4,5 +4,70 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="com.gdj68.mapblog.qna.QnaDAO">
-  	<select id=""></select>
+  	<select id="getTotal" resultType="Long">
+  		SELECT COUNT(QNANUM) FROM QNA
+  	</select>
+  	
+  	<select id="getList" parameterType="Pager" resultType="QnaDTO">
+  		SELECT *
+	FROM(
+		SELECT ROWNUM R, B.* 
+			FROM(SELECT * 
+				 FROM QNA	
+				) B
+				)
+			WHERE
+				R BETWEEN #{startRow} AND #{lastRow}
+  	</select>
+  	
+  	<insert id="setAdd" parameterType="QnaDTO">
+  		<selectKey keyProperty="qnaNum" resultType="Long" order="BEFORE">
+  			SELECT QNA_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO QNA(QNANUM,MEMBERID,QNATITLE,QNACONTENTS,QNADATE) VALUES(#{qnaNum},#{memberId},#{qnaTitle},#{qnaContents},SYSDATE)
+  	</insert>
+  	
+  	<!-- <select id="getDetail" parameterType="QnaDTO" resultType="QnaDTO">
+  		SELECT * FROM QNA WHERE QNANUM = #{qnaNum}
+  	</select> -->
+  	<select id="getDetail" resultMap="getDetailResult" parameterType="QnaDTO">
+		SELECT Q.*,QF.*
+		FROM QNA Q
+		LEFT OUTER JOIN QNAFILE QF
+		ON (Q.QNANUM = QF.QNANUM)
+		WHERE Q.QNANUM = #{qnaNum}		
+  	</select> 
+  	
+  	<resultMap type="QnaDTO" id="getDetailResult">
+  		<id column="QNANUM" property="qnaNum"/>
+  		<result column="MEMBERID" property="memberId"/>
+  		<result column="QNATITLE" property="qnaTitle"/>
+  		<result column="QNACONTENTS" property="qnaContents"/>
+  		<result column="QNADATE" property="qnaDate"/>
+
+  		
+  		
+   		<collection property="fileDTOs" javaType="java.util.List" ofType="QnaFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORIGINALNAME" property="originalName"/>
+  		</collection>  
+  	</resultMap> 
+  	
+  	<select id="getSequence" resultType="Long">
+  		SELECT QNAFILE_SEQ.NEXTVAL FROM DUAL
+  	</select>
+  	<insert id="setFileAdd" parameterType="qnaFileDTO">
+  		INSERT INTO QNAFILE(FILENUM,QNANUM,ORIGINALNAME,FILENAME) VALUES(QNAFILE_SEQ.NEXTVAL,#{qnaNum},#{originalName},#{fileName}) 
+  	</insert>
+  	
+  	<update id="setUp" parameterType="QnaDTO">
+  		UPDATE QNA SET QNATITLE=#{qnaTitle},QNACONTENTS=#{qnaContents},QNADATE=SYSDATE WHERE QNANUM=#{qnaNum}
+  	</update>
+  	
+  	<delete id="setDel" parameterType="QnaDTO">
+  		DELETE FROM QNA WHERE QNANUM=#{qnaNum}
+  	</delete>
+  	
+  	
   </mapper>
