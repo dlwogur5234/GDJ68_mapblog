@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-   	
+   	<c:import url="../temp/bootStrap.jsp"></c:import>
     <title>QnaList</title>
 </head>
 
@@ -24,14 +24,36 @@
                 	<tr>
                         <td>${q.qnaNum}</td>
 	                        
-	                        	<td><a href="./detail?qnaNum=${q.qnaNum}" class="no-block">${q.qnaTitle}</a></td>
+	                        	<td><a href="./detail?qnaNum=${q.qnaNum}">${q.qnaTitle}</a></td>
 	                        
                         <td>${q.qnaDate}</td>
                     </tr>
                 </c:forEach>
             </tbody>
-       		<a class="btn btn-outline-secondary" href="./add" >공지추가</a>
+            
+            
 
     </table>
+    <nav aria-label="Page navigation example">
+		  <ul class="pagination">
+		    <li class="page-item ${pager.pre?'':'disabled'}">
+		      <a class="page-link" href="./list?page=${pager.page-1}" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		  
+		    <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
+		    <li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
+		    </c:forEach>
+		
+		    <li class="page-item ${pager.next?'':'disabled'}">
+		      <a class="page-link" href="./list?page=${pager.page+1}" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		
+		  </ul>
+		</nav>
+       		<a class="btn btn-outline-secondary" href="./add" >공지추가</a>
 </body>
 </html>

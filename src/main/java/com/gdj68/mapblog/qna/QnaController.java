@@ -30,21 +30,24 @@ public class QnaController {
 		return "qna/list";
 	}
 	@GetMapping("add")
-	public void setAdd() throws Exception{
-		
+	public String setAdd() throws Exception{
+		return "qna/add";
 	}
 	@PostMapping("add")
 	public String setAdd(QnaDTO qnaDTO,MultipartFile[] photos, HttpSession session) throws Exception{
-		qnaService.setAdd(qnaDTO,photos,session);
+		
+		int result = qnaService.setAdd(qnaDTO,photos,session);
+		
 		return "redirect:./list";
 		
 	}
 	@GetMapping("detail")
-	public ModelAndView getDetail(QnaDTO qnaDTO,ModelAndView mv) throws Exception{
-		qnaDTO=qnaService.getDetail(qnaDTO);
-		mv.addObject("dto", qnaDTO);
-		mv.setViewName("qna/detail");
-		return mv;
+	public String getDetail(QnaDTO qnaDTO,Model model) throws Exception{
+		System.out.println(qnaDTO.getQnaNum());
+		qnaDTO=qnaService.getDetail(qnaDTO);	
+		model.addAttribute("dto", qnaDTO);
+		
+		return "qna/detail";
 	}
 	@GetMapping("update")
 	public String setUp(QnaDTO qnaDTO,Model model) throws Exception{
@@ -53,8 +56,8 @@ public class QnaController {
 		return "qna/update";
 	}
 	@PostMapping("update")
-	public String setUp(QnaDTO qnaDTO) throws Exception{
-		int result =qnaService.setUp(qnaDTO);
+	public String setUp(QnaDTO qnaDTO, MultipartFile [] photos , HttpSession session) throws Exception{
+		int result =qnaService.setUp(qnaDTO,photos,session);
 		return "redirect:./list";
 	}
 	@PostMapping("delete")

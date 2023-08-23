@@ -27,7 +27,7 @@ public class FileManager extends AbstractView {
 		HttpServletResponse response) throws Exception {
 	// TODO Auto-generated method stub
 		System.out.println("FileManager");
-		String b = (String)model.get("qna");
+		String b = (String)model.get("board");
 		FileDTO fileDTO = (FileDTO)model.get("file");
 		//1. file 경로 준비
 		String path = "/resources/upload/"+b;

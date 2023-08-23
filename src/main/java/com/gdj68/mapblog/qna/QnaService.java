@@ -42,13 +42,15 @@ public class QnaService {
 			qnaFileDTO.setQnaNum(qnaDTO.getQnaNum());
 			result = qnaDAO.setFileAdd(qnaFileDTO);
 		}
+		System.out.println(qnaDTO.getMemberId());
 		return result;
 	}
 	
 	public QnaDTO getDetail(QnaDTO qnaDTO) throws Exception{
+		System.out.println(qnaDTO.getQnaNum());
 		return qnaDAO.getDetail(qnaDTO);
 	}
-	public int setUp(QnaDTO qnaDTO) throws Exception{
+	public int setUp(QnaDTO qnaDTO,MultipartFile[] photos , HttpSession session) throws Exception{
 		return qnaDAO.setUp(qnaDTO);
 	}
 	public int setDel(QnaDTO qnaDTO) throws Exception{

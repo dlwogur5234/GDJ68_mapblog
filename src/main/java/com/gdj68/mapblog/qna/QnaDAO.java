@@ -24,21 +24,22 @@ public class QnaDAO {
 		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}
 	public int setAdd(QnaDTO qnaDTO) throws Exception{
-		
+		System.out.println(qnaDTO.getMemberId());
 		return sqlSession.insert(NAMESPACE+"setAdd", qnaDTO);
 	}
 	public int setFileAdd(QnaFileDTO qnaFileDTO) throws Exception{
-		System.out.println(qnaFileDTO.getOriginalName());
 		return sqlSession.insert(NAMESPACE+"setFileAdd", qnaFileDTO);
 	}
 	public QnaDTO getDetail(QnaDTO qnaDTO) throws Exception{
+		
 		return sqlSession.selectOne(NAMESPACE+"getDetail", qnaDTO);
 	}
 	public int setUp(QnaDTO qnaDTO) throws Exception{
+		
 		return sqlSession.update(NAMESPACE+"setUp", qnaDTO);
 	}
 	public int setDel(QnaDTO qnaDTO) throws Exception{
-		System.out.println(qnaDTO.getQnaNum());
+		
 		return sqlSession.delete(NAMESPACE+"setDel", qnaDTO);
 	}
 	public long getSequence() throws Exception{

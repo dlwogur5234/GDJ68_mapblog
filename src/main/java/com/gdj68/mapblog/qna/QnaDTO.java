@@ -5,19 +5,24 @@ import java.util.List;
 
 public class QnaDTO {
 	
-	private Long qnaNum;
+
 	private String memberId;
 	private String qnaTitle;
 	private String qnaContents;
 	private Date qnaDate;
 	private List<QnaFileDTO> fileDTOs;
-	
-	
+	private Long qnaNum;
 	public Long getQnaNum() {
 		return qnaNum;
 	}
 	public void setQnaNum(Long qnaNum) {
 		this.qnaNum = qnaNum;
+	}
+	public List<QnaFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+	public void setFileDTOs(List<QnaFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
 	}
 	public String getMemberId() {
 		return memberId;

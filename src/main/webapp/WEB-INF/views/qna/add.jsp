@@ -10,7 +10,7 @@
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
 	<h1>add Page</h1>
-	<form  action="./add" method="post">
+	<form  action="./add" method="post" enctype="multipart/form-data">
 		<div class="input-group text-center"><span class="input-group-text" id="basic-addon2">제목</span><input  type="text" name="qnaTitle"></div><br>
 		<div class="input-group text-center"><span class="input-group-text" id="basic-addon2">내용</span><textarea class="input-group" rows="" cols="" name="qnaContents"></textarea></div><br>
 		<div class="input-group text-center"><span class="input-group-text" id="basic-addon2">작성자</span><input  type="text" name="memberId"></div><br>
