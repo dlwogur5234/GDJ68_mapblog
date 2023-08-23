@@ -12,6 +12,8 @@
 	
 </head>
 <body>
+	
+	<c:import url="../temp/adminHeader.jsp"></c:import>
 
 	<h1 class="a mb-5 text-center">Feed List</h1>
 

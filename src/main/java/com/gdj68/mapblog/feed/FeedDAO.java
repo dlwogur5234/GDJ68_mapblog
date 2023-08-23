@@ -40,4 +40,14 @@ public class FeedDAO {
 		return sqlSession.insert(NAMESPACE + "setFileAdd", feedFileDTO);
 	}
 	
+	// getDetail
+	public FeedDTO getDetail(FeedDTO feedDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getDetail", feedDTO);
+	}
+	
+	// getFileDetail
+	public FeedFileDTO getFileDetail(FeedFileDTO feedFileDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getFileDetail", feedFileDTO);
+	}
+	
 }

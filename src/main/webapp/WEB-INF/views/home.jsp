@@ -30,7 +30,7 @@
       <nav class="navi">
         <ul>
           <li><a href="">홈</a></li>
-          <li><a href="">메뉴</a></li>
+          <li><a href="/board/list">게시판(임의위치)</a></li>
           <li><a href="">메뉴</a></li>
           <li><a href="">메뉴</a></li>
         </ul>

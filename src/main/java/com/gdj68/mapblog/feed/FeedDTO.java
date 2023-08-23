@@ -11,10 +11,11 @@ public class FeedDTO {
 	private String contents;
 	private Date createDate;
 	private Date tripDate;
-	private Long hit;
-	private Long likes;
-	private Long publics;
+	private Long hit;			// 조회수
+	private Long likes;			// 좋아요
+	private Long publics;		// 공개여부
 	
+	// detail에 사진 여러개 나오게 하려구 추가
 	private List<FeedFileDTO> fileDTOs;
 	
 	

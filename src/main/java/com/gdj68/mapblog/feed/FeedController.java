@@ -1,6 +1,7 @@
 package com.gdj68.mapblog.feed;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +26,7 @@ public class FeedController {
 	/* ---------------------------------------------- */
 	
 	// getList
-	@GetMapping("list")
+	@RequestMapping(value="list", method = RequestMethod.GET)
 	public String getList(Pager pager, Model model) throws Exception {
 		List<FeedDTO> ar = feedService.getList(pager);
 		model.addAttribute("list", ar);
@@ -37,8 +38,8 @@ public class FeedController {
 	
 	// setAdd Form
 	@RequestMapping(value="add", method = RequestMethod.GET)
-	public void setAdd() throws Exception {
-//		return "board/add";
+	public String setAdd() throws Exception {
+		return "board/add";
 	}
 	
 	// setAdd Insert
@@ -47,21 +48,16 @@ public class FeedController {
 		
 		int result = feedService.setAdd(feedDTO, photos, session);
 		
-		// 안뜸
-		System.out.println(feedDTO.getId());
-		System.out.println(feedDTO.getTitle());
+		String message = "등록 실패";
 		
-		// jsp 추가했을때 주석 없애기!!!
-//		String message = "등록 실패";
-//		
-//		if(result>0) {
-//			message = "등록 성공";
-//		}
-//		
-//		model.addAttribute("message", message);
-//		model.addAttribute("url", "list");
+		if(result>0) {
+			message = "등록 성공";
+		}
+		
+		model.addAttribute("message", message);
+		model.addAttribute("url", "list");
 	
-		return "redirect:./list";
+		return "commons/result";
 
 	}
 	

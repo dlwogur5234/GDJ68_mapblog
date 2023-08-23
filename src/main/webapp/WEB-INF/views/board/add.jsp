@@ -12,32 +12,33 @@
 	
 </head>
 <body>
-
+	
+	<c:import url="../temp/adminHeader.jsp"></c:import>
+	
 	<section class="container mt-5">
 	
 	
 	<h1 class="a mb-5 text-center">Add Page</h1>
 	
 	
-	<form action="./add" method="post" enctype="multipart/form-data">
+	<form action="./add" method="post" id="frm" enctype="multipart/form-data">
 		
 		
 	
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">작성자</span>
-			<input type="text" name="id" class="form-control" placeholder="작성자를 입력해주세요.">
+			<input type="text" name="id" id="id" class="form-control">
 		</div>
 	
 	
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">제목</span>
-			<input type="text" name="title" class="form-control" placeholder="내용을 입력해주세요.">
+			<input type="text" name="title" id="title" class="form-control" placeholder="내용을 입력해주세요.">
 		</div>
 		
 		
-		<div>CONTENTS</div>
 		<div class="input-group mb-3">
-			<textarea class="form-control" name="contents" aria-label="With textarea" rows="10"></textarea>
+			<textarea class="form-control" name="contents" id="contents" aria-label="With textarea" rows="10"></textarea>
 		</div>
 		
 		<!-- 아직 구현 X
@@ -63,29 +64,43 @@
 		</div>
 		 -->
 
-
-
 		
 		
-		
-		<!-- Upload file *************************************** -->
-		<!-- 
-		<div class="container mt-4"> 사진첨부
-			<div class="input-group mb-3">
-				<label for="pic" class="form-label"></label><br>
-				<input type="file" name="photos" class="form-control" id="pic">
-			</div>
+		 <!-- Upload file *************************************** -->
+		<div class="mb-3">
+			<button type="button" class="btn btn-primary" id="add">File 추가</button>
 		</div>
-		 -->
-		
-		<button class="btn btn-primary btn-sm" type="submit">등록</button>
+
+		<!-- 파일첨부 추가되는 영역 -->
+		<div id="fileList" class="my-5"></div>
+
+
+		<button class="btn btn-primary btn-sm" type="button" id="btn">등록</button>
 		<button class="btn btn-primary btn-sm" type="submit">취소</button>
 	 
 	</form>
 	
 	</section>
 	
+<script src="../resources/js/feedFile.js"></script>
 	
+<script>
+	const btn = document.getElementById("btn");
+	const title = document.getElementById("title");
+	const frm = document.getElementById("frm")
+
+	btn.addEventListener("click", function(){
+		console.log(title.value=="");
+			console.log(title.value.length == 0);
+
+			if(title.value=="") {
+				alert("제목은 필수입니다.");
+				title.focus();
+			} else {
+				frm.submit();
+			}
+	})
+</script>
 
 </body>
 </html>

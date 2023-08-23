@@ -40,25 +40,13 @@
   		WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	
-  	<!-- 
-  	<resultMap type="FeedDTO" id="getSelectResult">
-  		<id column="FEEDNUM" property="feedNum"/>
-  		<result column="ID" property="id"/>
-  		<result column="TITLE" property="title"/>
-  		<result column="CONTENTS" property="contents"/>
-  		<result column="CREATEDATE" property="createDate"/>
-  		<result column="TRIPDATE" property="tripDate"/>
-  		<result column="HIT" property="hit"/>
-  		<result column="LIKES" property="likes"/>
-  		<result column="PUBLICS" property="publics"/>
-  	</resultMap>
-  	 -->
   	
   	<!-- PAGER (GET TOTAL) -->
   	<select id="getTotal" resultType="Long" parameterType="Pager">
   		SELECT COUNT(FEEDNUM) FROM FEED
   		<include refid="searchSql"></include>
   	</select>
+	
 	
 	<!-- GET SEQUENCE -->
 	<select id="getSequence" resultType="Long">
@@ -68,14 +56,44 @@
 
 	<!-- ADD -->
 	<insert id="setAdd" parameterType="FeedDTO">
+		
 		<selectKey keyProperty="feedNum" resultType="Long" order="BEFORE">
 			SELECT FEED_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-
+		
 		INSERT INTO FEED
 		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, SYSDATE, 0, 0, 0)
 		 
 	</insert>
+	
+	
+	<!-- Detail -->
+	<select id="getDetail" resultMap="getDetailResult" parameterType="FeedDTO">
+		SELECT F.*, FF.*
+		FROM FEED F
+			LEFT JOIN
+			FEEDFILE FF
+			ON (F.FEEDNUM = FF.FEEDNUM)
+		WHERE F.FEEDNUM = #{feedNum}
+	</select>
+	
+  	<resultMap type="FeedDTO" id="getDetailResult">
+  		<id column="FEEDNUM" property="feedNum"/>
+  		<result column="ID" property="id"/>
+  		<result column="TITLE" property="title"/>
+  		<result column="CONTENTS" property="contents"/>
+  		<result column="CREATEDATE" property="createDate"/>
+  		<result column="TRIPDATE" property="tripDate"/>
+  		<result column="HIT" property="hit"/>
+  		<result column="LIKES" property="likes"/>
+  		<result column="PUBLICS" property="publics"/>
+  		
+  		<collection property="fileDTOs" javaType="List" ofType="FeedFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="ORIGINALNAME" property="OriginalName"/>
+  			<result column="FILENAME" property="fileName"/>
+  		</collection>
+  	</resultMap>
 	
 	
 	<!-- FILE ************************ -->
