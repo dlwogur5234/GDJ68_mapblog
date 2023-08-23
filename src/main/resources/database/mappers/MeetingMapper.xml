@@ -6,13 +6,33 @@
   <mapper namespace="com.gdj68.mapblog.meeting.MeetingDAO">
   	
   	<insert id="setAdd" parameterType="MeetingDTO">
-		INSERT INTO MEETING VALUES(MEETING_SEQ.NEXTVAL,#{id},#{title},#{contents},SYSDATE,#{meetingDate},#{lat},#{lng},0,0)	
+  		<selectKey keyProperty="meetingNum" resultType="Long" order="BEFORE">
+  			SELECT MEETING_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,#{meetingDate},#{lat},#{lng},0,0)	
   	</insert>
   	
   	<select id="getList" resultType="MeetingDTO">
-  		SELECT * FROM MEETING
+  		SELECT * FROM MEETING WHERE MEETINGDATE > SYSDATE
   	</select>
 
+  	<select id="getDetail" parameterType="MeetingDTO" resultType="MeetingDTO">
+  		SELECT * FROM MEETING WHERE MEETINGNUM = #{meetingNum}
+  	</select>
   	
-  	  	
+  	<insert id="setMeetingJoin" parameterType="MeetingMemberDTO">
+  		INSERT INTO MEETINGMEMBER VALUES(MEETINGMEMBER_SEQ.NEXTVAL,#{meetingNum},#{id})
+  	</insert>  	
+  	
+  	<select id="getJoinCheck" parameterType="MeetingMemberDTO" resultType="Long">
+  		SELECT COUNT(*) FROM MEETINGMEMBER WHERE ID = #{id} AND MEETINGNUM=#{meetingNum}
+  	</select>
+  	
+  	<delete id="setMeetingQuit" parameterType="MeetingMemberDTO">
+  		DELETE MEETINGMEMBER WHERE ID = #{id} AND MEETINGNUM = #{meetingNum}
+  	</delete>
+  	
+  	<delete id="setMeetingDelete" parameterType="MeetingDTO">
+  		DELETE MEETING WHERE ID = #{id} AND MEETINGNUM = #{meetingNum}
+  	</delete>
   </mapper>

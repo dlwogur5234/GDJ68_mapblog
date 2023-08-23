@@ -17,7 +17,7 @@
     <p id="result"></p>
 
     <form class="mb-5 text-center form-control" action="./add" method="post" id="frm">
-	    <input type="hidden" name="id" value="user07">
+	    <input type="hidden" name="id" value="${sessionScope.member.id }">
 	    <input type="text" name="title" id="title">
 	    <textarea class="input-group" rows="" cols="" name="contents" id="contents"></textarea>
 	    <input type="date" name="meetingDate">

@@ -26,7 +26,27 @@ public class MeetingDAO {
 		return sqlSession.selectList(NAMESPACE+"getList");
 	}
 	
+	public MeetingDTO getDetail(MeetingDTO meetingDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getDetail", meetingDTO);
+		
+	}
 	
+	public int setMeetingJoin(MeetingMemberDTO meetingMemberDTO) throws Exception{
+		
+		return sqlSession.insert(NAMESPACE+"setMeetingJoin", meetingMemberDTO);
+	}
+	
+	public Long getJoinCheck(MeetingMemberDTO meetingMemberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getJoinCheck", meetingMemberDTO);
+	}
+	
+	public int setMeetingQuit(MeetingMemberDTO meetingMemberDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"setMeetingQuit", meetingMemberDTO);
+	}
+	
+	public int setMeetingDelete(MeetingDTO meetingDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"setMeetingDelete",meetingDTO);
+	}
 	
 	
 	
