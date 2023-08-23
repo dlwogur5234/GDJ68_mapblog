@@ -1,17 +1,11 @@
 package com.gdj68.mapblog.admin.member;
 
 public class AdminMemberDTO {
-	private Integer adminNum;
 	private String adminId;
 	private String adminPw;
 	private String adminName;
 	private String adminGrade;
-	public Integer getAdminNum() {
-		return adminNum;
-	}
-	public void setAdminNum(Integer adminNum) {
-		this.adminNum = adminNum;
-	}
+
 	public String getAdminId() {
 		return adminId;
 	}

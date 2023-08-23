@@ -49,7 +49,7 @@
 	      	<nav>
 		      	<ul class="nav">
 		      		<c:if test="${not empty adminMember}">
-			      		<li class="nav-item text-white me-3"><a href="">로그아웃</a></li>
+			      		<li class="nav-item text-white me-3"><a href="/admin/adminLogout">로그아웃</a></li>
 			      		<li class="nav-item text-white me-3"><a href="">mypage</a></li>
 		      		</c:if>
 		      	</ul>

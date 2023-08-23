@@ -35,6 +35,12 @@ public class AdminMemberController {
 		return "redirect:/admin/main";
 	}
 	
+	//logout
+	@GetMapping("admin/adminLogout")
+	public String getLogout(HttpSession session)throws Exception{
+		session.invalidate();
+		return "redirect:/admin";
+	}
 	
 	
 	
