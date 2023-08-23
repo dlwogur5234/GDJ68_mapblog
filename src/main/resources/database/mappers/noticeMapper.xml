@@ -4,11 +4,22 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="com.gdj68.mapblog.notice.noticeDAO">
+  	<select id="getTotal" resultType="Long">
+  		SELECT COUNT(NOTICENUM) FROM NOTICE
+  	</select>
   	<select id="getList" parameterType="Pager" resultType="NoticeDTO">
   		SELECT *
-  		FROM
-  		(SELECT ROWNUM R,B.*(SELECT  * FROM NOTICE) N)
- 		WHERE 
- 		R BETWEEN #{startRow} AND #{lastRow}
+	FROM(
+		SELECT ROWNUM R, B.* 
+			FROM(SELECT * 
+				 FROM NOTICE	
+				) B
+				)
+			WHERE
+				R BETWEEN #{startRow} AND #{lastRow}
   	</select>
+  	
+  	<insert id="setAdd" parameterType="noticeDTO">
+  		INSERT INTO NOTICE(NOTICENUM,ADMINID,SUBJECT,CONTENTS,NOTICEDATE) VALUES(NOTICE_SEQ.NEXTVAL,#{adminId},#{subject},#{contents},SYSDATE)
+  	</insert>
   </mapper>

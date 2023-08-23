@@ -19,4 +19,12 @@ public class NoticeDAO {
 	public List<NoticeDTO> getList(Pager pager) throws Exception{
 		return sqlSession.selectList(NAMESPACE+"getList", pager);
 	}
+	
+	public int setAdd(NoticeDTO noticeDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setAdd", noticeDTO);
+	}
+	public int setFileAdd(NoticeFileDTO noticeFileDTO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"setFileAdd", noticeFileDTO);
+	}
+	
 }

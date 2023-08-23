@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <li>
         <a href="#">소식</a>
         <ul>
-          <li>공지사항</li>
+          <li><a href="/notice/list">공지사항</a></li>
           <li><a href="/qna/list">QNA</a></li>
         </ul>
       </li>
