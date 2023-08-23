@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
-
-
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %> <%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -12,46 +9,23 @@
     <title>home</title>
   </head>
   <body>
-    <header>
-      <div>
-        <a href="#"><div class="logo">로고자리</div></a>
-
-        <ul class="member">
-    		<c:if test="${not empty sessionScope.member}">
-         		<li class="login"><a href="member/mypage">마이페이지</a></li>
-         		<li class="signup"><a href="member/logout">로그아웃</a></li>
-         	</c:if>
-        	<c:if test="${empty sessionScope.member}">
-         		<li class="login"><a href="member/login">로그인</a></li>
-         		<li class="signup"><a href="member/join">회원가입</a></li>
-         	</c:if>
-        </ul>
-      </div>
-      <nav class="navi">
-        <ul>
-          <li><a href="">홈</a></li>
-          <li><a href="">메뉴</a></li>
-          <li><a href="">메뉴</a></li>
-          <li><a href="">메뉴</a></li>
-        </ul>
-      </nav>
-    </header>
+ 	<c:import url="./temp/header.jsp"></c:import>
     <article class="notice" id="slider">
       <div class="slides">
         <a href="#"
-          ><img src="/resources/img/slidebanner1.png" alt="" class="imgslide"
+          ><img src="/resources/img/KakaoTalk_20230821_141558692_01.jpg" alt="" class="imgslide"
         /></a>
         <a href="#"
-          ><img src="/resources/img/slidebanner2.png" alt="" class="imgslide"
+          ><img src="/resources/img/KakaoTalk_20230821_141558692_02.jpg" alt="" class="imgslide"
         /></a>
         <a href="#"
-          ><img src="/resources/img/slidebanner3.png" alt="" class="imgslide"
+          ><img src="/resources/img/KakaoTalk_20230821_141558692.jpg" alt="" class="imgslide"
         /></a>
       </div>
 
       <div class="slider-controls">
-        <button onclick="prevSlide()">&#8249;</button>
-        <button onclick="nextSlide()">&#8250;</button>
+        <button onclick="prevSlide()" class="prevBtn">&#8249;</button>
+        <button onclick="nextSlide()" class="nextBtn">&#8250;</button>
       </div>
     </article>
     <section>
@@ -83,9 +57,7 @@
         </div>
       </article>
     </section>
-    <footer>
-      <div>푸터자리</div>
-    </footer>
+   <c:import url="./temp/footer.jsp"></c:import>
 
     <script src="/resources/js/index.js"></script>
   </body>
