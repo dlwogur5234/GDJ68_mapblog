@@ -44,4 +44,8 @@ public class NoticeService {
 		return result;
 		
 	}
+	
+	public NoticeDTO getDetail(NoticeDTO noticeDTO) throws Exception{
+		return noticeDAO.getDetail(noticeDTO);
+	}
 }

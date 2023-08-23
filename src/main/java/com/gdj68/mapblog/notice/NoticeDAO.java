@@ -26,5 +26,8 @@ public class NoticeDAO {
 	public int setFileAdd(NoticeFileDTO noticeFileDTO) throws Exception{
 		return sqlSession.insert(NAMESPACE+"setFileAdd", noticeFileDTO);
 	}
+	public NoticeDTO getDetail(NoticeDTO noticeDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getDetail", noticeDTO);
+	}
 	
 }

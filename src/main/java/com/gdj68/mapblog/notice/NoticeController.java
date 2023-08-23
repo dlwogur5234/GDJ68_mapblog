@@ -38,4 +38,11 @@ public class NoticeController {
 		
 		return "redirect:./list";
 	}
+	@GetMapping("detail")
+	public String getDetail(NoticeDTO noticeDTO, Model model) throws Exception{
+		noticeDTO=noticeService.getDetail(noticeDTO);
+		model.addAttribute("dto", noticeDTO);
+		
+		return "notice/detail";
+	}
 }

@@ -22,4 +22,32 @@
   	<insert id="setAdd" parameterType="noticeDTO">
   		INSERT INTO NOTICE(NOTICENUM,ADMINID,SUBJECT,CONTENTS,NOTICEDATE) VALUES(NOTICE_SEQ.NEXTVAL,#{adminId},#{subject},#{contents},SYSDATE)
   	</insert>
+  	
+  	<select id="getDetail" resultMap="getDetailResult" parameterType="NoticeDTO">
+  		SELECT N.*,NF.*
+  		FROM NOTICE N
+  		LEFT OUTER JOIN NOTICEFILE NF
+  		ON (N.NOTICENUM = NF.NOTICENUM)
+  		WHERE N.NOTICENUM = #{noticeNum}
+  	</select>
+  	<resultMap type="NoticeDTO" id="getDetailResult">
+  		<id column="NOTICENUM" property="noticeNum"/>
+  		<result column="ADMINID" property="adminId"/>
+  		<result column="SUBJECT" property="subject"/>
+  		<result column="CONTENTS" property="contents"/>
+  		<result column="NOTICEDATE" property="noticeDate"/>
+  		
+  		<collection property="fileDTOs" javaType="java.util.List" ofType="NoticeFileDTO">
+  			<id column="FILENUM" property="fileNum"/>
+  			<result column="FILENAME" property="fileName"/>
+  			<result column="ORIGINALNAME" property="originalName"/>
+  		</collection>
+  	</resultMap>
+  	
+  	<select id="getSequence" resultType="Long">
+  		SELECT NOTICEFILE_SEQ.NEXTVAL FROM DUAL
+  	</select>
+  	<insert id="setFileAdd">
+  		INSERT INTO NOTICEFILE VALUES(NOTICEFILE_SEQ.NEXTVAL,#{noticeNum},#{originalName},#{fileName})
+  	</insert>
   </mapper>
