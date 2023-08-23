@@ -34,7 +34,7 @@ public class FeedService {
 	// setAdd
 	public int setAdd(FeedDTO feedDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		
-		String path = "resources/upload/board/";
+		String path = "/resources/upload/board/";
 		
 		int result = feedDAO.setAdd(feedDTO);
 		
@@ -57,4 +57,12 @@ public class FeedService {
 		return result;
 	}
 	
+	
+	// getDetail
+	public FeedDTO getDetail(FeedDTO feedDTO) throws Exception {
+		feedDAO.setHitUpdate(feedDTO);
+		return feedDAO.getDetail(feedDTO);
+	}
+	
+
 }

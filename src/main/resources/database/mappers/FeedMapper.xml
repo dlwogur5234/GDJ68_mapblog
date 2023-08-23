@@ -90,7 +90,7 @@
   		
   		<collection property="fileDTOs" javaType="List" ofType="FeedFileDTO">
   			<id column="FILENUM" property="fileNum"/>
-  			<result column="ORIGINALNAME" property="OriginalName"/>
+  			<result column="ORIGINALNAME" property="originalName"/>
   			<result column="FILENAME" property="fileName"/>
   		</collection>
   	</resultMap>
@@ -112,6 +112,14 @@
   	<select id="getFileDetail" parameterType="FeedFileDTO" resultType="FeedFileDTO">
   		SELECT FILENUM, FILENAME FROM FEEDFILE WHERE FILENUM=#{fileNum}
   	</select>
+  	
+  	
+  	<!-- 조회수 ************************* -->
+  	<update id="setHitUpdate" parameterType="feedDTO">
+  		UPDATE FEED
+  		SET HIT = HIT + 1
+  		WHERE FEEDNUM = #{feedNum}
+  	</update>
 	
 
   </mapper>

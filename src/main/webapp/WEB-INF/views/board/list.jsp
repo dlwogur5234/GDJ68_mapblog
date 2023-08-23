@@ -37,8 +37,7 @@
 			<tr>
 				<td class="text-center">${f.feedNum}</td>
 				<td>${f.id}</td>
-				<td><a class="td text-black link-offset-2 link-underline link-underline-opacity-0" href="#">
-				<!-- 														 "./detail?num=${f.feedNum}" ▲ -->
+				<td><a class="td text-black link-offset-2 link-underline link-underline-opacity-0" href="./detail?feedNum=${f.feedNum}">
 				${f.title}</a></td>
 				<td>${f.createDate}</td>
 				<td>${f.tripDate}</td>

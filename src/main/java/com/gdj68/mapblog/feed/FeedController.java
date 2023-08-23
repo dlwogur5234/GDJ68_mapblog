@@ -61,4 +61,23 @@ public class FeedController {
 
 	}
 	
+	
+	// getDetail
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String getDetail(FeedDTO feedDTO, Model model) throws Exception {
+		feedDTO = feedService.getDetail(feedDTO);
+		
+		if(feedDTO != null) {
+			String message = "등록성공";
+			model.addAttribute("dto", feedDTO);
+			
+			return "board/detail";
+		} else {
+			model.addAttribute("message", "글을 불러올 수 없습니다.");
+			model.addAttribute("url", "list");
+			
+			return "commons/result";
+		}
+	}
+	
 }

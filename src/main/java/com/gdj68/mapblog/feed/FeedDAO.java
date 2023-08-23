@@ -50,4 +50,9 @@ public class FeedDAO {
 		return sqlSession.selectOne(NAMESPACE + "getFileDetail", feedFileDTO);
 	}
 	
+	// setHitUpdate
+	public int setHitUpdate(FeedDTO feedDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "setHitUpdate", feedDTO);
+	}
+	
 }
