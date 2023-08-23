@@ -58,4 +58,9 @@ public class MeetingService {
 		return meetingDAO.setMeetingDelete(meetingDTO);
 	}
 	
+	public int setUpdate(MeetingDTO meetingDTO) throws Exception {
+		int result = meetingDAO.setUpdate(meetingDTO);
+		return result;
+	}
+	
 }

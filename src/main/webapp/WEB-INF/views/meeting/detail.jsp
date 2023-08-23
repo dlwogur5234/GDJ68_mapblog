@@ -25,12 +25,20 @@
 			<button type="submit" >모임나가기</button>
 		</c:if>
 	</form>
+	</form>
+		<form action="./update">
+		<c:if test="${member.id eq dto.id }">
+			<input type="hidden" name="meetingNum" value="${dto.meetingNum}">
+			<input type="hidden" name="id" value="${member.id}">
+			<button type="submit" >모임수정</button>
+		</c:if>
+	</form>
 	<form action="./delete">
 		<c:if test="${member.id eq dto.id }">
 			<input type="hidden" name="meetingNum" value="${dto.meetingNum}">
 			<input type="hidden" name="id" value="${member.id}">
 			<button type="submit" >모임삭제</button>
 		</c:if>
-	</form>
+	
 </body>
 </html>

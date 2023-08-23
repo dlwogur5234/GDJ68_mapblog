@@ -16,19 +16,20 @@
     <div id="clickLatlng"></div>
     <p id="result"></p>
 
-    <form class="mb-5 text-center form-control" action="./add" method="post" id="frm">
+    <form class="mb-5 text-center form-control" action="./update" method="post" id="frm">
+	    <input type="hidden" name=meetingNum value="${dto.meetingNum }">
 	    <input type="hidden" name="id" value="${sessionScope.member.id }">
-	    <input type="text" name="title" id="title">
-	    <textarea class="input-group" rows="" cols="" name="contents" id="contents"></textarea>
-	    <input type="datetime-local" name="meetingDate" id="meetingDate">
-	    <input type="hidden" name="lat" id="lat">
-	    <input type="hidden" name="lng" id="lng">
+	    <input type="text" name="title" id="title" value="${dto.title }">
+	    <textarea class="input-group" rows="" cols="" name="contents" id="contents" value="${dto.contents }"></textarea>
+	    <input type="date" name="meetingDate" value="${dto.meetingDate }">
+	    <input type="hidden" name="lat" id="lat" value="${dto.lat}">
+	    <input type="hidden" name="lng" id="lng" value="${dto.lng}">
 	
 		<button id="btn" type="button">등록</button>
 
    	</form>
 
-    <script src="../resources/js/meeting/add.js"></script>
+    <script src="../resources/js/meeting/update.js"></script>
     <script>
     
     const btn = document.getElementById("btn");

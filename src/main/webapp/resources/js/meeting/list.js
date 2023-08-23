@@ -27,7 +27,7 @@ $('.a').each((i,e)=>{
         image : markerImage, // 마커 이미지 
         clickable : true
     });
-
+    
     infowindow = new kakao.maps.InfoWindow({
         content: $(e).attr('data-title') // 인포윈도우에 표시할 내용
     });

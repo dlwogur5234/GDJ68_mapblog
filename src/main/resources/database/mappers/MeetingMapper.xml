@@ -35,4 +35,10 @@
   	<delete id="setMeetingDelete" parameterType="MeetingDTO">
   		DELETE MEETING WHERE ID = #{id} AND MEETINGNUM = #{meetingNum}
   	</delete>
+  	
+  	<update id="setUpdate">
+  		UPDATE MEETING SET TITLE=#{title}, CONTENTS=#{contents},MEETINGDATE=#{meetingDate},LAT=#{lat},LNG=#{lng} WHERE MEETINGNUM=#{meetingNum}
+  	</update>
+  	
+  	
   </mapper>

@@ -71,5 +71,19 @@ public class MeetingController {
 		return "redirect:./list";
 	}
 	
+	@GetMapping("update")
+	public void setUpdate(MeetingDTO meetingDTO,HttpSession session,Model model) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map = meetingService.getDetail(meetingDTO,session);
+		meetingDTO = (MeetingDTO)map.get("meetingDTO");
+		model.addAttribute("dto", meetingDTO);
+	}
+	
+	@PostMapping("update")
+	public String setUpdate(MeetingDTO meetingDTO) throws Exception {
+		meetingService.setUpdate(meetingDTO);
+		return "redirect:./list";
+	}
+	
 	
 }
