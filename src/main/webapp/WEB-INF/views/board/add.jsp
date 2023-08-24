@@ -64,10 +64,20 @@
 		</div>
 		 -->
 
+		 <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
+			<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+			<label class="btn btn-outline-primary" for="btnradio1">전체공개</label>
+		  
+			<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+			<label class="btn btn-outline-primary" for="btnradio2">팔로워만</label>
+		  
+			<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+			<label class="btn btn-outline-primary" for="btnradio3">비공개</label>
+		  </div>
 		
-		
-		 <!-- Upload file *************************************** -->
+		<!-- Upload file *************************************** -->
 		<div class="mb-3">
+		<div class="mb-1">
 			<button type="button" class="btn btn-primary" id="add">File 추가</button>
 		</div>
 
@@ -75,8 +85,8 @@
 		<div id="fileList" class="my-5"></div>
 
 
-		<button class="btn btn-primary btn-sm" type="button" id="btn">등록</button>
-		<button class="btn btn-primary btn-sm" type="submit">취소</button>
+		<button class="btn btn-primary" type="button" id="btn">등록</button>
+		<button class="btn btn-primary" type="submit">취소</button>
 	 
 	</form>
 	

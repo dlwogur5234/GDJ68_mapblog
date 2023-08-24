@@ -41,10 +41,11 @@ $("#add").click(function(){
     count++;    
 
 
-    let f = '<div class="input-group mb-3" id="file'+idx+'">';
+  	 let f = '<div class="input-group mb-3" id="file'+idx+'">';
     
     f = f + '<input type="file" name="photos" class="form-control" id="pic">';
     f = f + '<span class=df> X </span>';
+    f = f + '<button type="button" class="btn btn-primary df"> X </button>';
     f = f + '</div>';
     idx++;
 
