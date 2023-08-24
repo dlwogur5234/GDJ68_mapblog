@@ -1,5 +1,13 @@
 let lat = $('#lat').val();
 let lng = $('#lng').val();
+let now_utc = Date.now();
+
+let timeOff = new Date().getTimezoneOffset()*60000;
+
+let today = new Date(now_utc-timeOff).toISOString().substring(0,16);
+console.log(today);
+
+$("#meetingDate").attr("min",'2023-08-24 15:37');
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 

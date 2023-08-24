@@ -9,7 +9,7 @@ public class MeetingDTO {
 	private String title;
 	private String contents;
 	private Date createDate;
-	private Date meetingDate;
+	private String meetingDate;
 	private Double lat;
 	private Double lng;
 	private Long hit;
@@ -59,10 +59,11 @@ public class MeetingDTO {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public Date getMeetingDate() {
+	
+	public String getMeetingDate() {
 		return meetingDate;
 	}
-	public void setMeetingDate(Date meetingDate) {
+	public void setMeetingDate(String meetingDate) {
 		this.meetingDate = meetingDate;
 	}
 	public Long getHit() {

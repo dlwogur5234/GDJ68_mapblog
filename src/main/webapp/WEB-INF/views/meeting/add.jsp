@@ -92,7 +92,7 @@
 			}else {
                 alert(meetingDate.value.replace('T',' '));
                 let s = meetingDate.value.replace('T',' ');
-                meetingDate2.value="2023-11-03 04:05:00";
+                meetingDate2.value=s;
                
                 
 				frm.submit();
