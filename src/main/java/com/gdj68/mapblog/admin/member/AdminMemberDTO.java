@@ -1,10 +1,13 @@
 package com.gdj68.mapblog.admin.member;
 
+import java.sql.Date;
+
 public class AdminMemberDTO {
 	private String adminId;
 	private String adminPw;
 	private String adminName;
 	private String adminGrade;
+	private Date adminCreateDate;
 
 	public String getAdminId() {
 		return adminId;
@@ -30,6 +33,13 @@ public class AdminMemberDTO {
 	public void setAdminGrade(String adminGrade) {
 		this.adminGrade = adminGrade;
 	}
+	public Date getAdminCreateDate() {
+		return adminCreateDate;
+	}
+	public void setAdminCreateDate(Date adminCreateDate) {
+		this.adminCreateDate = adminCreateDate;
+	}
+	
 	
 	
 

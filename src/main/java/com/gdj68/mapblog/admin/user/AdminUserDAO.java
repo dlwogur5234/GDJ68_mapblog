@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gdj68.mapblog.util.Pager;
+
 @Repository
 public class AdminUserDAO {
 
@@ -15,13 +17,13 @@ public class AdminUserDAO {
 	
 	
 	//total
-	public Long getUserTotal()throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"getUserTotal");
+	public Long getUserTotal(Pager pager)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getUserTotal", pager);
 	}
 	
 	//list
-	public List<AdminUserDTO> getUserList()throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getUserList");
+	public List<AdminUserDTO> getUserList(Pager pager)throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getUserList", pager);
 	}
 	
 	//detail

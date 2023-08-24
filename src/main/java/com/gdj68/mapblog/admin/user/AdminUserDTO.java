@@ -1,43 +1,106 @@
 package com.gdj68.mapblog.admin.user;
 
 import java.sql.Date;
+import java.util.List;
 
 public class AdminUserDTO {
 
 	private String id;
 	private String pw;
 	private String name;
+	private String nickName;
 	private String email;
-	private Date birth;
+	private String phone;
+	private String birth;
+	private String url;
+	private String createDate;
+	private List<AdminUserFileDTO> fileDTOs;
+	
+	
 	public String getId() {
 		return id;
 	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 	public String getPw() {
 		return pw;
 	}
+	
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+	
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getBirth() {
+	
+	public String getPhone() {
+		return phone;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	public String getBirth() {
 		return birth;
 	}
-	public void setBirth(Date birth) {
+	
+	public void setBirth(String birth) {
 		this.birth = birth;
+	}
+	public String getUrl() {
+		return url;
+	}
+	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	
+	public List<AdminUserFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+
+	public void setFileDTOs(List<AdminUserFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
+	}
+
+	@Override
+	public String toString() {
+		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", nickName=" + nickName + ", email=" + email
+				+ ", phone=" + phone + ", birth=" + birth + ", url=" + url + "]";
 	}
 	
 	

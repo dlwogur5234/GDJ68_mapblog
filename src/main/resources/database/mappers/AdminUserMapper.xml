@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gdj68.mapblog.admin.user.AdminUserDAO">
+  
+  	<!-- total -->
+  	<select id="getUserTotal" parameterType="com.gdj68.mapblog.util.Pager" resultType="Long">
+		SELECT COUNT(ID) FROM MEMBER
+		<include refid="searchSql"></include>
+	</select>
+	
+	<!-- search -->
+	<sql id="searchSql">
+  		WHERE ID IS NOT NULL
+						
+		<choose>
+			<when test="kind=='name'">
+				AND ID LIKE '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				AND NAME LIKE '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+  	</sql>
+	
+	<!-- list -->
+	<select id="getUserList" parameterType="com.gdj68.mapblog.util.Pager" resultType="AdminUserDTO" >
+		SELECT
+			* 
+		FROM	
+			(SELECT ROWNUM R, B.* FROM
+				(
+					SELECT * FROM MEMBER
+					<include refid="searchSql" />
+
+					ORDER BY CREATEDATE DESC
+				) B
+			)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+  	
+  	
+  	<!-- detail -->
+  	<select id="getUserDetail" resultMap="getUserDetailResult" parameterType="adminUserDTO">
+  		SELECT 
+  			M.*, PI.*
+  		FROM
+  			MEMBER M
+  			LEFT JOIN
+  			PROFILEIMG PI
+  			ON(M.ID=PI.ID)
+  		WHERE
+  			M.ID=#{id}
+  	</select>
+  	<resultMap type="adminUserDTO" id="getUserDetailResult">
+  		<id column="ID" property="id"/>
+  		<result column="PW" property="pw"/>
+  		<result column="NAME" property="name"/>
+  		<result column="NICKNAME" property="nickName"/>
+  		<result column="EMAIL" property="email"/>
+  		<result column="PHONE" property="phone"/>
+  		<result column="BIRTH" property="birth"/>
+  		<result column="URL" property="url"/>
+  		<result column="CREATEDATE" property="createDate"/>
+  		<collection property="fileDTOs" javaType="List" ofType="AdminUserFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="ORIGINALNAME" property="originalName"/>
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+  		
+  	</resultMap>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  </mapper>
