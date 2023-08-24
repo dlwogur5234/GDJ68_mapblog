@@ -48,4 +48,11 @@ public class NoticeService {
 	public NoticeDTO getDetail(NoticeDTO noticeDTO) throws Exception{
 		return noticeDAO.getDetail(noticeDTO);
 	}
+	public int setDelete(NoticeDTO noticeDTO) throws Exception{
+		return noticeDAO.setDelete(noticeDTO);
+		
+	}
+	public int setUpdate(NoticeDTO noticeDTO,MultipartFile[] photos,HttpSession session) throws Exception{
+		return noticeDAO.setUpdate(noticeDTO);
+	}
 }

@@ -54,6 +54,8 @@
 		
 		  </ul>
 		</nav>
+		<c:if test="${not empty adminMember}">
        		<a class="btn btn-outline-secondary" href="./add" >공지추가</a>
+       	</c:if>
 </body>
 </html>

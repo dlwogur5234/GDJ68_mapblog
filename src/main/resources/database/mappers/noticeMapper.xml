@@ -20,7 +20,10 @@
   	</select>
   	
   	<insert id="setAdd" parameterType="noticeDTO">
-  		INSERT INTO NOTICE(NOTICENUM,ADMINID,SUBJECT,CONTENTS,NOTICEDATE) VALUES(NOTICE_SEQ.NEXTVAL,#{adminId},#{subject},#{contents},SYSDATE)
+  		<selectKey keyProperty="noticeNum" resultType="Long" order="BEFORE">
+  			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+  		INSERT INTO NOTICE(NOTICENUM,ADMINID,SUBJECT,CONTENTS,NOTICEDATE) VALUES(#{noticeNum},#{adminId},#{subject},#{contents},SYSDATE)
   	</insert>
   	
   	<select id="getDetail" resultMap="getDetailResult" parameterType="NoticeDTO">
@@ -50,4 +53,12 @@
   	<insert id="setFileAdd">
   		INSERT INTO NOTICEFILE VALUES(NOTICEFILE_SEQ.NEXTVAL,#{noticeNum},#{originalName},#{fileName})
   	</insert>
+  	
+  	<delete id="setDelete" parameterType="noticeDTO">
+  		DELETE FROM NOTICE WHERE NOTICENUM = #{noticeNum}	
+  	</delete>
+  	
+  	<update id="setUpdate">
+  		UPDATE NOTICE SET SUBJECT=#{subject},CONTENTS=#{contents},NOTICEDATE=SYSDATE WHERE NOTICENUM=#{noticeNum}
+  	</update>
   </mapper>

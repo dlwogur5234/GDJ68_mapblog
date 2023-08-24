@@ -45,4 +45,20 @@ public class NoticeController {
 		
 		return "notice/detail";
 	}
+	@PostMapping("delete")
+	public String setDelete(NoticeDTO noticeDTO) throws Exception {
+		noticeService.setDelete(noticeDTO);
+		return "redirect:./list";
+	}
+	@GetMapping("update")
+	public String setUpdate(NoticeDTO noticeDTO , Model model) throws Exception{
+		noticeDTO=noticeService.getDetail(noticeDTO);
+		model.addAttribute("dto", noticeDTO);
+		return "notice/update";
+	}
+	@PostMapping("update")
+	public String setUpdate(NoticeDTO noticeDTO,MultipartFile [] photos,HttpSession session)throws Exception {
+		int result=noticeService.setUpdate(noticeDTO,photos,session);
+		return "redirect:./detail?noticeNum="+noticeDTO.getNoticeNum();
+	}
 }

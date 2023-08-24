@@ -46,11 +46,12 @@
 					</c:forEach> 
 		
 	
-	
+	<c:if test="${not empty adminMember}">
 	 <a href="./update?noticeNum=${dto.noticeNum}">수정</a>
 	<form action="./delete?noticeNum=${dto.noticeNum}" method="post"> 
 	<button type="submit">삭제</button> 
 	</form>
+	</c:if>
 	
 	
 	
