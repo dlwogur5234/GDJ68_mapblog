@@ -1,8 +1,11 @@
-let now_time = Date.now();
-let timeOff = new Date().getTimezoneOffset()*60000;
-let today = new Date(now_utc-timeOff).toISOString().substring(0,16);
+let now_utc = Date.now();
 
-$("meetingDate").attr("min",today);
+let timeOff = new Date().getTimezoneOffset()*60000;
+
+let today = new Date(now_utc-timeOff).toISOString().substring(0,16);
+console.log(today);
+
+$("#meetingDate").attr("min",'2023-08-24 15:37');
 
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
@@ -40,3 +43,4 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     $("#lng").val(latlng.getLng());
 
 });
+

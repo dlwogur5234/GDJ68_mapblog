@@ -20,7 +20,8 @@
 	    <input type="hidden" name="id" value="${sessionScope.member.id }">
 	    <input type="text" name="title" id="title">
 	    <textarea class="input-group" rows="" cols="" name="contents" id="contents"></textarea>
-	    <input type="datetime-local" name="meetingDate" id="meetingDate">
+	    <input type="datetime-local"  id="meetingDate">
+        <input type="hidden" name="meetingDate" id="meetingDate2">
 	    <input type="hidden" name="lat" id="lat">
 	    <input type="hidden" name="lng" id="lng">
 	
@@ -33,6 +34,8 @@
     
     const btn = document.getElementById("btn");
     const title = document.getElementById("title");
+    const meetingDate = document.getElementById('meetingDate');
+    const meetingDate2 = document.getElementById('meetingDate2');
 	const frm = document.getElementById("frm");
          $("#contents").summernote({
             height:400,
@@ -87,6 +90,11 @@
 				alert('제목은 필수 입니다.');
 				title.focus();
 			}else {
+                alert(meetingDate.value.replace('T',' '));
+                let s = meetingDate.value.replace('T',' ');
+                meetingDate2.value="2023-11-03 04:05:00";
+               
+                
 				frm.submit();
 			}
 		});
