@@ -15,7 +15,7 @@
 		</div>
 		<div>
 			<label>PW</label>
-			<input type="password" name="pw" placeholder="PW를 입력하세요" value="12341234">
+			<input type="password" name="pw" placeholder="PW를 입력하세요" value="12345">
 		</div>
 		<input type="submit" value="로그인">
 	</form>
