@@ -3,11 +3,10 @@ const pw2 = document.getElementById("pw2");
 const names = document.getElementById("name");
 const email = document.getElementById("email");
 const birth = document.getElementById("birth");
-const url = document.getElementById("url");
 const fr = document.getElementById("fr");
 const btn = document.getElementById("btn");
 
-let checkResults=[false,false,false,false,false,false];
+let checkResults=[false,false,false,false,false];
 
 // PW 체크
 pw.addEventListener("blur", function(){
@@ -58,21 +57,6 @@ names.addEventListener("blur", function(){
     }
 });
 
-// email 체크
-email.addEventListener("blur", function(){
-    let check = emptyCheck(email);
-    const nameResult = document.getElementById("emailResult");
-    emailResult.className="x";
-    emailResult.innerHTML="이메일 필수";
-    checkResults[3]=false;
-
-    if(!check){
-        emailResult.className="o";
-        emailResult.innerHTML="사용 가능한 이메일";
-        checkResults[3]=true;
-    }
-});
-
 // 생일 체크
 birth.addEventListener("change",function(){
     let check = emptyCheck(birth);
@@ -87,33 +71,6 @@ birth.addEventListener("change",function(){
         checkResults[4]=true;
     }
 })
-
-// url 체크
-url.addEventListener("blur", function(){
-
-    const urlResult = document.getElementById(url.id+"Result")
-    fetch("urlCheck?url="+url.value, {method:"get"})
-         .then((response)=>{return response.text()})
-         .then((r)=>{
-            if(r.trim()=='1'){
-                if(url.value == "" || url.value.length>20){
-                    urlResult.className="x";
-                    urlResult.innerHTML="URL은 필수이며 20글자 미만";
-                    checkResults[5]=false;
-                    
-                }else {
-                    urlResult.className="o";
-                    urlResult.innerHTML="사용 가능한 URL";
-                    checkResults[5]=true;
-                }
-            }else {
-                urlResult.className="x";
-                urlResult.innerHTML="이미 사용 중인 URL";
-                checkResults[5]=false;
-            }
-         })
-
-});
 
 // 변경하기 버튼
 btn.addEventListener("click",function(){
@@ -134,3 +91,39 @@ function emptyCheck(element){
         return false;
     }
 }
+
+//------------------------------------------------------------------
+
+// 이메일 인증
+let code;
+
+$('#emailBtn').click(function() {
+    const email = $('#email').val(); // 이메일 주소값 얻어오기
+    const checkInput = $('#emailCheckNum') // 인증번호 입력하는곳
+    const url1 = '/member/emailCheck?email='+email
+
+    $.ajax({
+        type : 'GET',
+        url : url1,
+        success : function (data) {
+            checkInput.attr('disabled', false);
+            code = data.trim();
+            alert('인증번호가 전송되었습니다.')     
+        }			
+    });
+
+$('#emailCheckNum').blur(function () {
+	const inputCode = $(this).val();
+	console.log(code);
+
+		if(inputCode === code){
+            checkResults[3]=true;
+            emailResult.className="o";
+            emailResult.innerHTML="이메일 인증 완료";
+            alert("일치: 인증되었습니다");
+		}else{
+            checkResults[3]=false;
+            alert("불일치: 다시 입력해주세요");
+		}
+	});
+});
