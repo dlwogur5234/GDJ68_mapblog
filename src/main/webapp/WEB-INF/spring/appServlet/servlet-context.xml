@@ -23,4 +23,6 @@
 	
 	<context:component-scan base-package="com.gdj68.mapblog" />
 	
+	<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+	<beans:bean id="naverLoginBO" class="com.gdj68.mapblog.member.naver.NaverLoginBO" />
 </beans:beans>

@@ -64,5 +64,52 @@ public class FeedService {
 		return feedDAO.getDetail(feedDTO);
 	}
 	
+	
+	// setDelete
+	public int setDelete(FeedDTO feedDTO) throws Exception {
+		return feedDAO.setDelete(feedDTO);
+	}
+	
+	
+	// setUpdate
+	public int setUpdate(FeedDTO feedDTO, MultipartFile [] files, HttpSession session) throws Exception {
+		return feedDAO.setUpdate(feedDTO);
+	}
+	
+	
+	// setFileDelete
+	public int setFileDelete(FeedFileDTO feedFileDTO, HttpSession session) throws Exception {
+		// 폴더 파일 삭제
+		feedFileDTO = feedDAO.getFileDetail(feedFileDTO);
+		boolean flag = fileManager.fileDelete(feedFileDTO, "/resources/upload/board/", session);
+		
+		if(flag) {
+			// DB에서 삭제
+			return feedDAO.setFileDelete(feedFileDTO);
+		}
+		
+		return 0;
+	}
+	
+	// setContentsImgDelete
+	public boolean setContentsImgDelete(String path, HttpSession session)throws Exception{
+		//path: /resources/upload/board/파일명
+		FeedFileDTO feedFileDTO = new FeedFileDTO();
+		
+//		System.out.println(path.substring(path.lastIndexOf("/")+1));
+		feedFileDTO.setFileName(path.substring(path.lastIndexOf("/") + 1));
+		
+		path = "/resources/upload/board/";
+		return fileManager.fileDelete(feedFileDTO, path, session);
+	}
+	
+	
+	// setContentsImg
+	public String setContentsImg(MultipartFile file, HttpSession session) throws Exception {
+		String path = "/resources/upload/board/";
+		String fileName = fileManager.fileSave(path, session, file);
+		return path + fileName;
+	}
+	
 
 }

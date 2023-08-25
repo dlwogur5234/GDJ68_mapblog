@@ -1,13 +1,42 @@
+const id = document.getElementById("id");
 const pw = document.getElementById("pw");
 const pw2 = document.getElementById("pw2");
-const names = document.getElementById("name");
-const email = document.getElementById("email");
 const birth = document.getElementById("birth");
 const url = document.getElementById("url");
-const fr = document.getElementById("fr");
-const btn = document.getElementById("btn");
+const nickName = document.getElementById("nickName");
+const fr = document.getElementById("fr")
+const btn = document.getElementById("btn")
 
-let checkResults=[false,false,false,false,false,false];
+let checkResults=[false,false,false,false,false,false.false];
+
+// ID 중복 체크
+id.addEventListener("blur", function(){
+
+    const idResult = document.getElementById(id.id+"Result")
+    fetch("../member/idCheck?id="+id.value, {method:"get"})
+         .then((response)=>{return response.text()})
+         .then((r)=>{
+            if(r.trim()=='1'){
+                if(id.value == "" || id.value.length>10){
+                    idResult.innerHTML="ID는 필수이며 10글자 미만";
+                    idResult.className="x";
+                    checkResults[0]=false;
+                    checkResults[1]=false;
+                    
+                }else {
+                    idResult.innerHTML="사용 가능한 ID";
+                    idResult.className="o";
+                    checkResults[0]=true;
+                    checkResults[1]=true;
+                }
+            }else {
+                idResult.innerHTML="이미 사용 중인 ID";
+                idResult.className="x";
+                checkResults[0]=false;
+                checkResults[1]=false;
+            }
+         })
+});
 
 // PW 체크
 pw.addEventListener("blur", function(){
@@ -15,17 +44,17 @@ pw.addEventListener("blur", function(){
     if(pw.value.length>5 && pw.value.length<12){
         pwResult.className="o";
         pwResult.innerHTML="사용 가능한 비밀번호";
-        checkResults[0]=true;
+        checkResults[2]=true;
     }else {
         pwResult.innerHTML="비밀번호는 6글자 이상 12글자 미만";
         pwResult.className="x";
-        checkResults[0]=false;
+        checkResults[2]=false;
     }
 })
 
 pw.addEventListener("change", function(){
     pw2.value="";
-    checkResults[1]=false;
+    checkResults[3]=false;
     pw2Result.innerHTML="";
 })
 
@@ -35,41 +64,11 @@ pw2.addEventListener("keyup",function(){
     if(pw2.value==pw.value){
         pw2Result.className="o";
         pw2Result.innerHTML="일치O"
-        checkResults[1]=true;
+        checkResults[3]=true;
     }else {
         pw2Result.className="x";
         pw2Result.innerHTML="일치X"
-        checkResults[1]=false;
-    }
-});
-
-// name 확인
-names.addEventListener("blur", function(){
-    let check = emptyCheck(names);
-    const nameResult = document.getElementById("nameResult");
-    nameResult.className="x";
-    nameResult.innerHTML="이름 필수";
-    checkResults[2]=false;
-
-    if(!check){
-        nameResult.className="o";
-        nameResult.innerHTML="사용 가능한 이름";
-        checkResults[2]=true;
-    }
-});
-
-// email 체크
-email.addEventListener("blur", function(){
-    let check = emptyCheck(email);
-    const nameResult = document.getElementById("emailResult");
-    emailResult.className="x";
-    emailResult.innerHTML="이메일 필수";
-    checkResults[3]=false;
-
-    if(!check){
-        emailResult.className="o";
-        emailResult.innerHTML="사용 가능한 이메일";
-        checkResults[3]=true;
+        checkResults[3]=false;
     }
 });
 
@@ -92,7 +91,7 @@ birth.addEventListener("change",function(){
 url.addEventListener("blur", function(){
 
     const urlResult = document.getElementById(url.id+"Result")
-    fetch("urlCheck?url="+url.value, {method:"get"})
+    fetch("../member/urlCheck?url="+url.value, {method:"get"})
          .then((response)=>{return response.text()})
          .then((r)=>{
             if(r.trim()=='1'){
@@ -115,7 +114,7 @@ url.addEventListener("blur", function(){
 
 });
 
-// 변경하기 버튼
+// 회원 가입 버튼
 btn.addEventListener("click",function(){
     console.log(checkResults);
     let c = checkResults.includes(false);
@@ -134,3 +133,30 @@ function emptyCheck(element){
         return false;
     }
 }
+
+// 닉네임 중복 체크
+nickName.addEventListener("blur", function(){
+
+    const nickNameResult = document.getElementById(nickName.id+"Result")
+    fetch("../member/nickNameCheck?nickName="+nickName.value, {method:"get"})
+         .then((response)=>{return response.text()})
+         .then((r)=>{
+            if(r.trim()=='1'){
+                if(nickName.value == "" || nickName.value.length>6){
+                    nickNameResult.innerHTML="닉네임은 필수이며 최대 6글자";
+                    nickNameResult.className="x";
+                    checkResults[6]=false;
+                    
+                }else {
+                    nickNameResult.innerHTML="사용 가능한 닉네임";
+                    nickNameResult.className="o";
+                    checkResults[6]=true;
+                }
+            }else {
+                nickNameResult.innerHTML="이미 사용 중인 닉네임";
+                nickNameResult.className="x";
+                checkResults[6]=false;
+            }
+         })
+
+});

@@ -31,21 +31,35 @@
 		<p>
 			개인 URL : ${member.url}
 		</p>
+	
+		<p>
+			<img alt="" src="../resources/upload/member/${memberFile.fileName}">
+		</p>
+	
 		
 		<a href="./update">회원수정</a>
 		<form action="./delete" id="fr2">
 			<input type="button" id="dm" value="회원탈퇴">
 		</form>
+		<form action="./updateImg" id="fr3">
+			<input type="button" id="ic" value="프로필 사진 변경">
+		</form>
 	</div>
 
 	<script>
 		const dm = document.getElementById("dm")
+		const ic = document.getElementById("ic")
 		const fr2 = document.getElementById("fr2")
+		const fr3 = document.getElementById("fr3")
 
 		dm.addEventListener('click', function(){
 			if (confirm("회원 탈퇴하시겠습니까?")) {
             	fr2.submit();
         	}
+		})
+
+		ic.addEventListener('click', function(){
+			fr3.submit();
 		})
 	</script>
 </body>
