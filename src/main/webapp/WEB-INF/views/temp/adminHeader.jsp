@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="/resources/css/header.css" />
 
 			<nav>
 		      	<ul class="nav">
@@ -25,21 +26,34 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 	        <li class="nav-item">
+
+	          <a class="nav-link active" aria-current="page" href="/admin/main">Home</a>
+
 	          <a class="nav-link active" aria-current="page" href="../">Home</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="../board/list">Board</a>
+
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">Link</a>
+	          <a class="nav-link" href="#">AdminMember관리</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/adminUser/userList">회원관리</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="/adminUser/userList">Mapper메인관리</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">사내공지사항</a>
 	        </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-	            Dropdown
+	            게시판 관리
 	          </a>
 	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="#">Action</a></li>
-	            <li><a class="dropdown-item" href="#">Another action</a></li>
+	            <li><a class="dropdown-item" href="#">공지사항관리</a></li>
+	            <li><a class="dropdown-item" href="#">QNA관리</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="#">Something else here</a></li>
 	          </ul>
@@ -52,8 +66,8 @@
 	      	<nav>
 		      	<ul class="nav">
 		      		<c:if test="${not empty adminMember}">
-			      		<li class="nav-item text-white me-3"><a href="">로그아웃</a></li>
-			      		<li class="nav-item text-white me-3"><a href="">mypage</a></li>
+			      		<li class="nav-item text-white me-3"><a href="/admin/adminLogout">로그아웃</a></li>
+			      		<li class="nav-item text-white me-3"><a href="">내정보</a></li>
 		      		</c:if>
 		      	</ul>
 			</nav>

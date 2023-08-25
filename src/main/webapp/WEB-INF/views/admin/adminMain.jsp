@@ -16,7 +16,9 @@
 <body>
 	<c:import url="../temp/adminHeader.jsp"></c:import>
 	<h1>MainPage</h1>
-
+	<a>
+		<img alt="" src="/resources/img/KakaoTalk_20230821_141558692.jpg">
+	</a>
 
 </body>
 </html>
