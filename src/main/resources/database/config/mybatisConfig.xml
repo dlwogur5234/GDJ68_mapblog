@@ -31,6 +31,8 @@
 	
 	<!-- 홍일 31~40 -->
 	<typeAlias type="com.gdj68.mapblog.member.MemberDTO" alias="MemberDTO"/>
+	<typeAlias type="com.gdj68.mapblog.member.MemberFileDTO" alias="MemberFileDTO"/>
+	<typeAlias type="com.gdj68.mapblog.file.FileDTO" alias="FileDTO"/>
 
 	
 	

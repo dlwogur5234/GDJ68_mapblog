@@ -10,8 +10,8 @@
   	</delete>
   	
   	<insert id="setJoin" parameterType="MemberDTO">
-  		INSERT INTO MEMBER (ID, PW, NAME, NICKNAME, EMAIL, PHONE, BIRTH, URL)
-  		VALUES (#{id}, #{pw}, #{name}, #{nickName}, #{email}, #{phone}, #{birth}, #{url})
+  		INSERT INTO MEMBER (ID, PW, NAME, NICKNAME, EMAIL, PHONE, BIRTH, URL, CREATEDATE)
+  		VALUES (#{id}, #{pw}, #{name}, #{nickName}, #{email}, #{phone}, #{birth}, #{url}, SYSDATE)
   	</insert>
   	
   	<select id="getLogin" resultType="MemberDTO" parameterType="MemberDTO">
@@ -21,7 +21,7 @@
   	
   	<update id="setMemberUpdate" parameterType="MemberDTO">
 		UPDATE MEMBER SET
-		PW=#{pw}, NAME=#{name}, NICKNAME=#{nickName}, EMAIL=#{email}, PHONE=#{phone}, BIRTH=#{birth}, URL=#{url}
+		PW=#{pw}, NAME=#{name}, NICKNAME=#{nickName}, EMAIL=#{email}, PHONE=#{phone}, BIRTH=#{birth}
 		WHERE ID=#{id}
 	</update>
 	
@@ -32,4 +32,22 @@
   	<select id="getUrlCheck" parameterType="MemberDTO" resultType="MemberDTO">
   		SELECT URL FROM MEMBER WHERE URL=#{url}
   	</select>
+  	
+  	<select id="getNickNameCheck" parameterType="MemberDTO" resultType="MemberDTO">
+  		SELECT NICKNAME FROM MEMBER WHERE NICKNAME=#{nickName}
+  	</select>
+  	
+  	<insert id="setFileAdd" parameterType="MemberFileDTO">
+		INSERT INTO PROFILEIMG (FILENUM, ID, FILENAME, ORIGINALNAME)
+		VALUES (PROFILEIMG_SEQ.NEXTVAL, #{id}, #{fileName}, #{originalName})
+	</insert>
+	
+	<select id="getMemberFile" resultType="MemberFileDTO" parameterType="MemberDTO">
+  		SELECT * FROM PROFILEIMG
+  		WHERE ID=#{id}
+  	</select>
+  	
+   	<delete id="deleteMemberFile" parameterType="FileDTO">
+		DELETE FROM PROFILEIMG WHERE FILENUM=#{fileNum}  	
+  	</delete>
   </mapper>

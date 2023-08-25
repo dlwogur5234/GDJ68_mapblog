@@ -4,6 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gdj68.mapblog.file.FileDTO;
+
 @Repository
 public class MemberDAO {
 	
@@ -34,6 +36,22 @@ public class MemberDAO {
 
 	public MemberDTO getUrlCheck(MemberDTO memberDTO) {
 		return sqlSession.selectOne(NAMESPACE+"getUrlCheck", memberDTO);
+	}
+
+	public int setFileAdd(MemberFileDTO memberFileDTO) {
+		return sqlSession.insert(NAMESPACE+"setFileAdd", memberFileDTO);
+	}
+
+	public MemberFileDTO getMemberFile(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getMemberFile", memberDTO);
+	}
+
+	public int deleteMemberFile(FileDTO fileDTO) {
+		return sqlSession.delete(NAMESPACE+"deleteMemberFile", fileDTO);
+	}
+
+	public MemberDTO getNickNameCheck(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"getNickNameCheck", memberDTO);
 	}
 	
 }
