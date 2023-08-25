@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gdj68.mapblog.follow.FollowDAO">
+  
+  	<select id="selectFollowTotal" resultType="Long" parameterType="FollowDTO"> <!-- 한유저의 팔로우 총 인원수 -->
+<!--   		SELECT COUNT(TOUSER) FROM FOLLOW F INNER JOIN MEMBER M
+  		ON FROMUSER = ID 
+  		WHERE FROMUSER = #{id} -->
+  		SELECT COUNT(toUSER) FROM FOLLOW
+  		WHERE fromUSER = #{fromUser}
+  	</select>
+  	
+  	 <select id="selectFollowList">한유저가 팔로우 요청을 한 유저 조회  
+ 		SELECT TOUSER FROM FOLLOW WHERE FROMUSER = #{fromUser}
+  	</select>
+  	<select id="selectFollowerTotal"> 한 유저의 팔로워 총 인원수
+  		SELECT COUNT(FROMUSER) FROM FOLLOW WHERE TOUSER = #{toUser} 
+  	</select>
+  	<select id="selectFollowerList"> 한 유저가 팔로루 요청을 당한 유저 최근에 받은순으로 조회
+  		SELECT FROMUSER FROM FOLLOW WHERE TOUSER = #{toUser} ORDER BY FOLLOWNUM DESC
+  	</select> 
+  </mapper> 
