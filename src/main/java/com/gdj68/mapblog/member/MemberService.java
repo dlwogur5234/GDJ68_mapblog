@@ -79,5 +79,9 @@ public class MemberService {
 	public MemberDTO getNickNameCheck(MemberDTO memberDTO) {
 		return memberDAO.getNickNameCheck(memberDTO);
 	}
+
+	public MemberDTO findIdPw(MemberDTO memberDTO) {
+		return memberDAO.findIdPw(memberDTO);
+	}
 	
 }

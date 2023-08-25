@@ -34,21 +34,6 @@
 		<div id="nameResult" class="x">이름을 확인하세요(필수)</div><br>
 		
 		<div class="mb-3">
-		  <label for="nickName" class="form-label">NickName</label>
-		  <input type="text" name="nickName" value="${member.nickName}" class="form-control" id="nickName" placeholder="NickName을 입력하세요">
-		</div>
-		<div class="o">(닉네임은 필수 아님)</div><br>
-		
-		<div>
-			<label>EMAIL</label>
-			<input type="text" id="email" name="email" placeholder="EMAIL을 입력하세요">
-		</div>
-		<button type="button" id="emailBtn">이메일 인증</button>
-		<input id="emailCheckNum" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-		<div id="emailResult" class="x">이메일 인증 필수 (인증버튼 클릭 후 약 10초 후 메일 도착)</div><br>
-		<div>
-		
-		<div class="mb-3">
 		  <label for="phone" class="form-label">Phone</label>
 		  <input type="text" name="phone" value="${member.phone}" class="form-control" id="phone" placeholder="Phone#을 입력하세요">
 		</div>

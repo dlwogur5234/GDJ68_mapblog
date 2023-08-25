@@ -41,7 +41,7 @@
 		<div>
 			<label>NICKNAME</label>
 			<input type="text" id="nickName" name="nickName" placeholder="NICKNAME을 입력하세요">
-		<div id="nickNameResult" class="x">닉네임을 확인하세요(필수)</div><br>
+		<div id="nickNameResult" class="x">닉네임을 확인하세요(필수) / 닉네임은 추후 변경할 수 없으니 신중하게 입력해주세요</div><br>
 		</div>
 		<div>
 			<label>EMAIL</label>
