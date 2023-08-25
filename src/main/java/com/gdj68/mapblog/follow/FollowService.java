@@ -15,7 +15,10 @@ public class FollowService {
 	private FollowDAO followDAO;
 	
 	public List<FollowDTO> selectFollowList(FollowDTO followDTO,HttpSession session) throws Exception{
-		session.getAttribute("member");
+		
+		MemberDTO memberDTO=(MemberDTO)session.getAttribute("member");
+		followDTO.setFromUser(memberDTO.getId());
+		followDTO.setToUser(memberDTO.getId());
 		return followDAO.selectFollowList(followDTO);
 	}
 	
@@ -23,5 +26,22 @@ public class FollowService {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		followDTO.setFromUser(memberDTO.getId());
 		return followDAO.selectfFollowTotal(followDTO);
+	}
+	public long selectFollowerTotal(FollowDTO followDTO, HttpSession session) throws Exception{
+		MemberDTO memberDTO=(MemberDTO)session.getAttribute("member");
+		followDTO.setToUser(memberDTO.getId());
+		return followDAO.selectFollowerTotal(followDTO);
+	}
+	public List<FollowDTO> selectFollowerList(FollowDTO followDTO,HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		followDTO.setFromUser(memberDTO.getId());
+		followDTO.setToUser(memberDTO.getId());
+		return followDAO.selectFollowerList(followDTO);
+	}
+	public int insertFollowAdd(FollowDTO followDTO, HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		followDTO.setFromUser(memberDTO.getId());
+		followDTO.setToUser(memberDTO.getId());
+		return followDAO.insertFollowAdd(followDTO);
 	}
 }

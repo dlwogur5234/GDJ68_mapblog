@@ -54,8 +54,10 @@
 		
 		  </ul>
 		</nav>
-		<c:if test="${not empty member} ">
+		<nav>
+		<c:if test="${not empty member}">
        		<a class="btn btn-outline-secondary" href="./add" >공지추가</a>
-       		</c:if>
+       	</c:if>
+       	</nav>
 </body>
 </html>
