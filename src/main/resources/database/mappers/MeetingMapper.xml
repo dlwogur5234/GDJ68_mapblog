@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gdj68.mapblog.meeting.MeetingDAO">
+  	
+  	<insert id="setAdd" parameterType="MeetingDTO">
+  		<selectKey keyProperty="meetingNum" resultType="Long" order="BEFORE">
+  			SELECT MEETING_SEQ.NEXTVAL FROM DUAL
+  		</selectKey>
+		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),#{lat},#{lng},0,0)	
+  	</insert>
+  	
+  	<select id="getList" resultType="MeetingDTO">
+  		SELECT * FROM MEETING WHERE MEETINGDATE > SYSDATE
+  	</select>
+
+  	<select id="getDetail" parameterType="MeetingDTO" resultType="MeetingDTO">
+  		SELECT * FROM MEETING WHERE MEETINGNUM = #{meetingNum}
+  	</select>
+  	
+  	<insert id="setMeetingJoin" parameterType="MeetingMemberDTO">
+  		INSERT INTO MEETINGMEMBER VALUES(MEETINGMEMBER_SEQ.NEXTVAL,#{meetingNum},#{id})
+  	</insert>  	
+  	
+  	<select id="getJoinCheck" parameterType="MeetingMemberDTO" resultType="Long">
+  		SELECT COUNT(*) FROM MEETINGMEMBER WHERE ID = #{id} AND MEETINGNUM=#{meetingNum}
+  	</select>
+  	
+  	<delete id="setMeetingQuit" parameterType="MeetingMemberDTO">
+  		DELETE MEETINGMEMBER WHERE ID = #{id} AND MEETINGNUM = #{meetingNum}
+  	</delete>
+  	
+  	<delete id="setMeetingDelete" parameterType="MeetingDTO">
+  		DELETE MEETING WHERE ID = #{id} AND MEETINGNUM = #{meetingNum}
+  	</delete>
+  	
+  	<update id="setUpdate">
+  		UPDATE MEETING SET TITLE=#{title}, CONTENTS=#{contents},MEETINGDATE=to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),LAT=#{lat},LNG=#{lng} WHERE MEETINGNUM=#{meetingNum}
+  	</update>
+  	
+  	
+  </mapper>
