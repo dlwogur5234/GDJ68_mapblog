@@ -29,14 +29,8 @@
 
 	          <a class="nav-link active" aria-current="page" href="/admin/main">Home</a>
 
-	          <a class="nav-link active" aria-current="page" href="../">Home</a>
-	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="../board/list">Board</a>
-
-	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link" href="#">AdminMember관리</a>
+	          <a class="nav-link" href="/adminMember/adminList">AdminMember관리</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" href="/adminUser/userList">회원관리</a>

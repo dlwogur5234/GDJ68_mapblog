@@ -15,4 +15,12 @@
 		ADMINID=#{adminId} AND ADMINPW=#{adminPw}
   	</select>
   	
+  	<!-- admin계정 생성 -->
+  	<insert id="getAdminJoin" parameterType="AdminMemberDTO">
+  		INSERT
+  		INTO
+  			ADMINMEMBER
+  		VALUES
+  			(#{adminId}, #{adminPw}, #{adminName}, #{adminGrade}, SYSDATE)
+  	</insert>
   </mapper>

@@ -11,7 +11,14 @@ public class AdminMemberService {
 	
 	//로그인
 	public AdminMemberDTO getAdminLogin(AdminMemberDTO adminMemberDTO)throws Exception{
+		
 		return adminMemberDAO.getAdminLogin(adminMemberDTO);
 	}
 	
+	
+	//join
+	public int setAdminJoin(AdminMemberDTO adminMemberDTO)throws Exception{
+		
+		return adminMemberDAO.setAdminJoin(adminMemberDTO);
+	}
 }

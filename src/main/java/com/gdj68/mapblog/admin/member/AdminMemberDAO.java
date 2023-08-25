@@ -13,10 +13,13 @@ public class AdminMemberDAO {
 	
 	private final String NAMESPACE="com.gdj68.mapblog.admin.member.AdminMemberDAO.";
 	
+	
+	//join
 	public int setAdminJoin(AdminMemberDTO adminMemberDTO)throws Exception{
 		return sqlSession.insert(NAMESPACE+"setAdminJoin", adminMemberDTO);
 	}
 	
+	//login
 	public AdminMemberDTO getAdminLogin(AdminMemberDTO adminMemberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getAdminLogin", adminMemberDTO);
 	}
