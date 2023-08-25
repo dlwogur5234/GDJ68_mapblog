@@ -8,12 +8,12 @@ let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 let checked = true;
 
-let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-    
+// let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+let imageSrc = "../resources/img/marker2.png";    
 $('.a').each((i,e)=>{
     
     // 마커 이미지의 이미지 크기 입니다
-    let imageSize = new kakao.maps.Size(24, 35); 
+    let imageSize = new kakao.maps.Size(42, 53); 
     
     // 마커 이미지를 생성합니다    
     let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
