@@ -22,4 +22,10 @@ public class FollowDAO {
 	public long selectFollowerTotal(FollowDTO followDTO) throws Exception{
 		return session.selectOne(NAMESPACE+"selectFollowerTotal", followDTO);
 	}
+	public List<FollowDTO> selectFollowerList(FollowDTO followDTO) throws Exception{
+		return session.selectList(NAMESPACE+"selectFollowerList", followDTO);
+	}
+	public int insertFollowAdd(FollowDTO followDTO) throws Exception{
+		return session.insert(NAMESPACE+"insertFollowAdd", followDTO);
+	}
 }

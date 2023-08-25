@@ -24,7 +24,12 @@
 		 WHERE TOUSER=#{toUser}
   	</select>
   	
-  	<select id="selectFollowerList"> <!-- 한 유저가 팔로루 요청을 당한 유저 최근에 받은순으로 조회 -->
+  	<select id="selectFollowerList" parameterType="FollowDTO" resultType="FollowDTO"> <!-- 한 유저가 팔로루 요청을 당한 유저 최근에 받은순으로 조회 -->
   		SELECT FROMUSER FROM FOLLOW WHERE TOUSER = #{toUser} ORDER BY FOLLOWNUM DESC
   	</select> 
+  	
+  	<insert id="insertFollowAdd" parameterType="FollowDTO">
+  		INSERT INTO FOLLOW VALUES(FOLLOW_SEQ.NEXTVAL,#(fromUser),#{toUser})
+  	</insert>
+ 
   </mapper> 
