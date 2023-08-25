@@ -19,10 +19,13 @@ public class FollowController {
 	private FollowService followService;
 	
 	@GetMapping("list")
-	public String selectFollowTotal(FollowDTO followDTO,Model model,HttpSession session) throws Exception{
-
+	public String selectFollowerTotal(FollowDTO followDTO,Model model,HttpSession session) throws Exception{
+		long followerCnt=followService.selectFollowerTotal(followDTO, session);
+		model.addAttribute("followerCnt",followerCnt);
 		long followCnt = followService.selectFollowTotal(followDTO, session);
 		model.addAttribute("followCnt", followCnt);
+		List<FollowDTO> ar=followService.selectFollowList(followDTO, session);
+		model.addAttribute("followList", ar);
 		return "follow/list";
 	}
 }

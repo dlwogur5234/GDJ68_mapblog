@@ -10,6 +10,11 @@
 <body>
 	<h1>follow페이지</h1>
 	
-	<div>팔로우 :${followCnt}</div>
+	<div>팔로우 :${followCnt}</div> 
+	<c:forEach items="${followList}" var="f">
+	<div>${f.toUser}</div>
+	</c:forEach>
+	
+	<div>팔로워 :${followerCnt}</div>
 </body>
 </html>
