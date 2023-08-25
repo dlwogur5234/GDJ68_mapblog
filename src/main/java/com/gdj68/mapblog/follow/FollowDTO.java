@@ -1,9 +1,14 @@
 package com.gdj68.mapblog.follow;
 
+import com.gdj68.mapblog.member.MemberDTO;
+
 public class FollowDTO {
 	private Long followNum;
 	private String fromUser;
 	private String toUser;
+//	private MemberDTO memberDTO;
+	private String id;
+	
 	public Long getFollowNum() {
 		return followNum;
 	}
@@ -22,6 +27,19 @@ public class FollowDTO {
 	public void setToUser(String toUser) {
 		this.toUser = toUser;
 	}
+//	public MemberDTO getMemberDTO() {
+//		return memberDTO;
+//	}
+//	public void setMemberDTO(MemberDTO memberDTO) {
+//		this.memberDTO = memberDTO;
+//	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	
 	
 }
