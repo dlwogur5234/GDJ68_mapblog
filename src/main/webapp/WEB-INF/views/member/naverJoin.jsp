@@ -15,9 +15,10 @@
 
 <body>
 	
-	<h1>회원 가입</h1>
+	<h1>네이버로 회원 가입</h1>
 	
-	<form action="./join" method="POST" id="fr" enctype="multipart/form-data">
+
+	<form action="../member/join" method="POST" id="fr" enctype="multipart/form-data">
 		<div>
 			<label>ID</label>
 			<input type="text" id="id" name="id" placeholder="ID를 입력하세요">
@@ -35,22 +36,17 @@
 		<div id="pw2Result" class="x">PASSWORD 일치 여부를 확인하세요(필수)</div><br>
 		<div>
 			<label>NAME</label>
-			<input type="text" id="name" name="name" placeholder="NAME을 입력하세요">
-		</div>
-		<div id="nameResult" class="x">이름을 확인하세요(필수)</div><br>
+			<input type="text" id="name" name="name" value="${naverMember.name}" readonly>
+		</div><br>
 		<div>
 			<label>NICKNAME</label>
-			<input type="text" id="nickName" name="nickName" placeholder="NICKNAME을 입력하세요">
-		<div id="nickNameResult" class="x">닉네임을 확인하세요(필수)</div><br>
+			<input type="text" id="nickName" name="nickName" placeholder="닉네임을 입력하세요">
 		</div>
+		<div id="nickNameResult" class="x">닉네임을 확인하세요(필수)</div><br>
 		<div>
 			<label>EMAIL</label>
-			<input type="text" id="email" name="email" placeholder="EMAIL을 입력하세요">
-		</div>
-		<button type="button" id="emailBtn">이메일 인증</button>
-		<input id="emailCheckNum" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-		<div id="emailResult" class="x">이메일 인증 필수 (인증버튼 클릭 후 약 10초 후 메일 도착)</div><br>
-		<div>
+			<input type="text" id="email" name="email" value="${naverMember.email}" readonly>
+		</div><br>
 			<label>PHONE</label>
 			<input type="text" id="phone" name="phone" placeholder="PHONE#을 입력하세요">
 		</div>
@@ -76,6 +72,6 @@
 		<input type="button" class="btn btn-primary" id="btn" value="회원가입"></button>
 	</div>
 
-	<script src="../resources/js/member/members.js"></script>
+	<script src="../resources/js/member/naverJoin.js"></script>
 </body>
 </html>

@@ -1,7 +1,13 @@
 package com.gdj68.mapblog.member;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.gdj68.mapblog.file.FileDTO;
+import com.gdj68.mapblog.util.FileManager;
 
 
 @Service
@@ -9,9 +15,21 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO memberDAO;
+	@Autowired
+	private FileManager fileManager;
 	
-	public int setJoin(MemberDTO memberDTO) throws Exception{
+	public int setJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
+		
+		String path="/resources/upload/member/";
 		int result = memberDAO.setJoin(memberDTO);
+		
+		String fileName = fileManager.fileSave(path, session, photo);
+		MemberFileDTO memberFileDTO = new MemberFileDTO();
+		memberFileDTO.setOriginalName(photo.getOriginalFilename());
+		memberFileDTO.setFileName(fileName);
+		memberFileDTO.setId(memberDTO.getId());
+		result = memberDAO.setFileAdd(memberFileDTO);
+		
 		return result;
 	}
 
@@ -34,7 +52,32 @@ public class MemberService {
 	public MemberDTO getUrlCheck(MemberDTO memberDTO) {
 		return memberDAO.getUrlCheck(memberDTO);
 	}
-	
 
+	public MemberFileDTO getMemberFile(MemberDTO memberDTO) {
+		return memberDAO.getMemberFile(memberDTO);
+	}
+
+	public MemberFileDTO setUpdateImg(MultipartFile photo, MemberFileDTO memberFileDTO, FileDTO fileDTO, HttpSession session) throws Exception {
+		String path="/resources/upload/member/";
+		boolean deleteResult = fileManager.fileDelete(fileDTO, path, session);
+		
+		if(deleteResult){
+			memberDAO.deleteMemberFile(fileDTO);
+			// 여기 까지 ok
+			
+			String fileName = fileManager.fileSave(path, session, photo);
+			MemberFileDTO memberFileDTO2 = new MemberFileDTO();
+			memberFileDTO2.setOriginalName(photo.getOriginalFilename());
+			memberFileDTO2.setFileName(fileName);
+			memberFileDTO2.setId(memberFileDTO.getId());
+			int result = memberDAO.setFileAdd(memberFileDTO2);
+			return memberFileDTO2;
+		}
+		return null;
+	}
+
+	public MemberDTO getNickNameCheck(MemberDTO memberDTO) {
+		return memberDAO.getNickNameCheck(memberDTO);
+	}
 	
 }

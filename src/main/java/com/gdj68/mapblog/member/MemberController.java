@@ -1,14 +1,19 @@
 package com.gdj68.mapblog.member;
 
+import java.util.Random;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
-import com.gdj68.mapblog.member.MemberDTO;
+import com.gdj68.mapblog.file.FileDTO;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 @Controller
 @RequestMapping("/member/*")
@@ -17,22 +22,22 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	// ȸ������
+	// 회원가입
 	@RequestMapping(value = "join", method = RequestMethod.GET)
 	public String setJoin() throws Exception{
 		return "member/join";
 	}
 	
 	@RequestMapping(value = "join", method = RequestMethod.POST)
-	public String setJoin(MemberDTO memberDTO) throws Exception{
-		
-		System.out.println(memberDTO.toString());	
-		memberService.setJoin(memberDTO);
+	public String setJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
+			
+		System.out.println(photo);
+		memberService.setJoin(memberDTO, photo, session);
 			
 		return "redirect:./login";
 	}
-	
-	// �α���
+
+	// 로그인
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String getLogin(HttpSession session) throws Exception{
 		return "member/login";
@@ -40,15 +45,21 @@ public class MemberController {
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String getLogin(MemberDTO memberDTO, HttpSession session, Model model)throws Exception{
+		
+		MemberFileDTO memberFileDTO;
+		memberFileDTO = memberService.getMemberFile(memberDTO);
 		memberDTO = memberService.getLogin(memberDTO);
 		
 		if(memberDTO != null) {
 			session.setAttribute("member", memberDTO);
 		}
+		if(memberFileDTO != null) {
+			session.setAttribute("memberFile", memberFileDTO);
+		}
 		return "redirect:../";	
 	}
 	
-	// �α׾ƿ�
+	// 로그아웃
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String getLogout(HttpSession session)throws Exception{
 		session.invalidate();
@@ -56,13 +67,13 @@ public class MemberController {
 		return "redirect:../";
 	}
 	
-	// ����������
+	// 마이페이지
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
 	public String MyPage()throws Exception{
 		return "member/mypage";
 	}
 	
-	// ȸ������ ������Ʈ
+	// 회원정보 수정
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public String setMemberUpdate()throws Exception{
 		return "member/update";
@@ -74,12 +85,29 @@ public class MemberController {
 		memberDTO.setId(sessionMember.getId());
 		int result = memberService.setMemberUpdate(memberDTO);
 		if(result>0) {
-			session.setAttribute("member", memberDTO);
+			
 		}	 
 		return "redirect:./mypage";
 	}
 	
-	// ȸ�� Ż��
+	// 프로필 사진 수정
+	@RequestMapping(value = "updateImg", method = RequestMethod.GET)
+	public String setUpdateImg()throws Exception{
+		return "member/updateImg";
+	}
+	
+	@RequestMapping(value = "updateImg", method = RequestMethod.POST)
+	public String setUpdateImg(MemberFileDTO memberFileDTO, MultipartFile photo, HttpSession session)throws Exception{
+		FileDTO fileDTO = (FileDTO)memberFileDTO;
+		
+		MemberFileDTO result = memberService.setUpdateImg(photo, memberFileDTO, fileDTO, session);
+		
+		session.setAttribute("memberFile", result);
+		
+		return "redirect:./mypage";
+	}
+	
+	// 회원 탈퇴
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String deleteMember(HttpSession session)throws Exception{
 		MemberDTO sessionMember = (MemberDTO)session.getAttribute("member");
@@ -88,34 +116,78 @@ public class MemberController {
 		return "redirect:../";
 	}
 	
-	// ID �ߺ�üũ
+	// ID 중복체크
 	@RequestMapping(value = "idCheck", method = RequestMethod.GET)
 	public String getIdCheck(MemberDTO memberDTO, Model model)throws Exception{
 		memberDTO = memberService.getIdCheck(memberDTO);
 		
-		// �⺻��: �ߺ�O
 		int result=0;
 		if(memberDTO == null) {
-			// �ߺ�X
 			result=1;
 		}		
 		model.addAttribute("result", result);	
 		return "commons/ajaxResult";
 	}
 	
-	// URL �ߺ�üũ
+	// URL 중복체크
 	@RequestMapping(value = "urlCheck", method = RequestMethod.GET)
 	public String getUrlCheck(MemberDTO memberDTO, Model model)throws Exception{
 		memberDTO = memberService.getUrlCheck(memberDTO);
 		
-		// �⺻��: �ߺ�O
 		int result=0;	
 		if(memberDTO == null) {
-			// �ߺ�X
 			result=1;
 		}		
 		model.addAttribute("result", result);		
 		return "commons/ajaxResult";
 	}
 	
+	// 닉네임 중복체크
+	@RequestMapping(value = "nickNameCheck", method = RequestMethod.GET)
+	public String getNickNameCheck(MemberDTO memberDTO, Model model)throws Exception{
+		memberDTO = memberService.getNickNameCheck(memberDTO);
+		
+		int result=0; // 중복o	
+		if(memberDTO == null) {
+			result=1; // 중복x
+		}		
+		model.addAttribute("result", result);		
+		return "commons/ajaxResult";
+	}
+	
+	// email 본인 인증
+	@Autowired
+	private JavaMailSenderImpl mailSender;
+	@RequestMapping(value = "emailCheck", method = RequestMethod.GET)
+	public String getEmailCheck(String email, Model model)throws Exception{
+		// 난수의 범위 111111 ~ 999999 (6자리 난수)
+		Random r = new Random();
+		int checkNum = r.nextInt(888888) + 111111;
+		
+		String setFrom = "exnngod@naver.com"; // email-config에 설정한 자신의 이메일 주소를 입력 
+		String toMail = email;
+		String title = "MAPPER 회원 가입 인증 이메일"; // 이메일 제목 
+		String content = 
+				"MAPPER를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
+                "<br><br>" + 
+			    "인증 번호는 " + checkNum + "입니다." + 
+			    "<br>" + 
+			    "해당 인증번호를 인증번호 확인란에 기입하여 주세요."; //이메일 내용 삽입
+		
+		MimeMessage message = mailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message,true,"utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			// true 전달 > html 형식으로 전송 , 작성하지 않으면 단순 텍스트로 전달.
+			helper.setText(content,true);
+			mailSender.send(message);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("result", checkNum);		
+		return "commons/ajaxResult";
+    }
 }
