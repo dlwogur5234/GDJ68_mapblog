@@ -42,9 +42,9 @@
 	<typeAlias type="com.gdj68.mapblog.qna.QnaDTO" alias="QnaDTO"/>
 	<typeAlias type="com.gdj68.mapblog.util.Pager" alias="Pager"/>
 	<typeAlias type="com.gdj68.mapblog.qna.QnaFileDTO" alias="QnaFileDTO"/>
-	
-	
-	
+	<typeAlias type="com.gdj68.mapblog.notice.NoticeDTO" alias="NoticeDTo"/>
+	<typeAlias type="com.gdj68.mapblog.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
+	<typeAlias type="com.gdj68.mapblog.follow.FollowDTO" alias="FollowDTO"/>
 	
 	
 	

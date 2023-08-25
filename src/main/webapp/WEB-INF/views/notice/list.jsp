@@ -20,13 +20,13 @@
                 <th>일자</th>
             </thead>
             <tbody>
-                <c:forEach items="${list}" var="q">
+                <c:forEach items="${list}" var="n">
                 	<tr>
-                        <td>${q.qnaNum}</td>
+                        <td>${n.noticeNum}</td>
 	                        
-	                        	<td><a href="./detail?qnaNum=${q.qnaNum}">${q.qnaTitle}</a></td>
+	                        	<td><a href="./detail?noticeNum=${n.noticeNum}">${n.subject}</a></td>
 	                        
-                        <td>${q.qnaDate}</td>
+                        <td>${n.noticeDate}</td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -54,8 +54,8 @@
 		
 		  </ul>
 		</nav>
-		<c:if test="${not empty member} ">
+		<c:if test="${not empty adminMember}">
        		<a class="btn btn-outline-secondary" href="./add" >공지추가</a>
-       		</c:if>
+       	</c:if>
 </body>
 </html>

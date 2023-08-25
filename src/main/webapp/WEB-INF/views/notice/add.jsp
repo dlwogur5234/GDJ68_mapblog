@@ -5,8 +5,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>Insert title here</title>
   </head>
   <body>
     <c:import url="../temp/header.jsp"></c:import>
@@ -14,7 +14,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <form action="./add" method="post" enctype="multipart/form-data">
       <div class="input-group text-center">
         <span class="input-group-text" id="basic-addon2">제목</span
-        ><input type="text" name="qnaTitle" />
+        ><input type="text" name="subject" />
       </div>
       <br />
       <div class="input-group text-center">
@@ -23,13 +23,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
           class="input-group"
           rows=""
           cols=""
-          name="qnaContents"
+          name="contents"
         ></textarea>
       </div>
       <br />
       <div class="input-group text-center">
         <span class="input-group-text" id="basic-addon2">작성자</span
-        ><input type="text" name="memberId" />
+        ><input type="text" name="adminId" />
       </div>
       <br />
 
