@@ -39,6 +39,12 @@ public class MeetingController {
 		model.addAttribute("list", ar);
 	}
 	
+	@GetMapping("myList")
+	public void getMyList(Model model,HttpSession session) throws Exception {
+		List<MeetingDTO> ar = meetingService.getMyList(session);
+		model.addAttribute("myList", ar);
+	}
+	
 	@GetMapping("detail")
 	public void getDetail(MeetingDTO meetingDTO, Model model,HttpSession session)throws Exception {
 		System.out.println(meetingDTO.getMeetingNum());

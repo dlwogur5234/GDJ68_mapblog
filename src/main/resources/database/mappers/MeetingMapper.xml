@@ -44,5 +44,12 @@
   		SELECT COUNT(*) FROM MEETINGMEMBER WHERE MEETINGNUM=#{meetingNum}
   	</select>
   	
+  	<select id="getMyList" parameterType="MeetingMemberDTO" resultType="MeetingDTO">
+  		SELECT m.* 
+		FROM MEETING m 
+		INNER JOIN MEETINGMEMBER mb
+		ON m.meetingnum = mb.meetingnum
+		WHERE mb.id = #{id} AND M.MEETINGDATE > SYSDATE
+  	</select>
   	
   </mapper>

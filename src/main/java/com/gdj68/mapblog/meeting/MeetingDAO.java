@@ -26,6 +26,11 @@ public class MeetingDAO {
 		return sqlSession.selectList(NAMESPACE+"getList");
 	}
 	
+	public List<MeetingDTO> getMyList(MeetingMemberDTO meetingMemberDTO) throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+"getMyList",meetingMemberDTO);
+	}
+	
 	public MeetingDTO getDetail(MeetingDTO meetingDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getDetail", meetingDTO);
 		
