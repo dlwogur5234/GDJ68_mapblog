@@ -10,6 +10,7 @@ const url = document.getElementById("url");
 const nickName = document.getElementById("nickName");
 
 
+
 let checkResults=[false,false,false,false,false,false,false,false,false];
 
 // ID 중복 체크
@@ -137,6 +138,7 @@ btn.addEventListener("click",function(){
     console.log(checkResults);
     let c = checkResults.includes(false);
     if(!c){
+        alert("회원가입 완료. 로그인해주세요");
         fr.submit();
     }else {
         alert("필수 항목을 전부 입력하세요");
@@ -155,9 +157,16 @@ function emptyCheck(element){
 //----------------------------------------------------------
 
 // 이메일 인증
+email.addEventListener('change', function(){
+    checkResults[5]=false;
+    emailResult.className="x";
+    emailResult.innerHTML="이메일 인증 필수 (인증버튼 클릭 후 약 10초 후 메일 도착)";
+})
+
 let code;
 
 $('#emailBtn').click(function() {
+
     const email = $('#email').val(); // 이메일 주소값 얻어오기
     const checkInput = $('#emailCheckNum') // 인증번호 입력하는곳
     const url1 = '/member/emailCheck?email='+email

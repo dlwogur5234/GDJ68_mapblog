@@ -52,6 +52,12 @@ public class MemberController {
 		
 		if(memberDTO != null) {
 			session.setAttribute("member", memberDTO);
+			session.removeAttribute("loginFailed");
+			session.removeAttribute("updateResult");
+		}else {
+			session.setAttribute("loginFailed", "1");
+			session.removeAttribute("updateResult");
+			return "redirect:./login";
 		}
 		if(memberFileDTO != null) {
 			session.setAttribute("memberFile", memberFileDTO);
@@ -85,7 +91,9 @@ public class MemberController {
 		memberDTO.setId(sessionMember.getId());
 		int result = memberService.setMemberUpdate(memberDTO);
 		if(result>0) {
-			
+			session.removeAttribute("member");
+			session.setAttribute("updateResult", "1");
+			return "redirect:./login";
 		}	 
 		return "redirect:./mypage";
 	}
@@ -190,4 +198,22 @@ public class MemberController {
 		model.addAttribute("result", checkNum);		
 		return "commons/ajaxResult";
     }
+	
+	// 아이디 비밀번호 찾기
+	@RequestMapping(value = "find", method = RequestMethod.GET)
+	public String find() throws Exception{
+		return "member/find";
+	}
+	
+	// 아이디 비밀번호 찾기 기능
+	@RequestMapping(value = "findIdPw", method = RequestMethod.GET)
+	public String findIdPw(String email, Model model) throws Exception{
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setEmail(email);
+		memberDTO = memberService.findIdPw(memberDTO);
+		String found = "ID: "+memberDTO.getId()+" / PW: "+memberDTO.getPw();
+		model.addAttribute("result", found);
+		
+		return "commons/ajaxResult";
+	}
 }

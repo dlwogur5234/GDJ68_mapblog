@@ -1,3 +1,5 @@
+alert("네이버 ID 인증되었습니다. 추가 정보를 입력하여 회원가입을 완료해주세요");
+
 const id = document.getElementById("id");
 const pw = document.getElementById("pw");
 const pw2 = document.getElementById("pw2");
@@ -119,6 +121,7 @@ btn.addEventListener("click",function(){
     console.log(checkResults);
     let c = checkResults.includes(false);
     if(!c){
+        alert("회원가입 완료. 등록하신 아이디로 로그인 또는 네이버 인증을 통해 로그인하시면 됩니다");
         fr.submit();
     }else {
         alert("필수 항목을 전부 입력하세요");

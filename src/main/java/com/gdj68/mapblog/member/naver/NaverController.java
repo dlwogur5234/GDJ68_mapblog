@@ -97,6 +97,8 @@ public class NaverController {
 				return "/member/naverLoginS";
 			}else {
 				session.setAttribute("naverMember", memberDTO);
+				session.removeAttribute("loginFailed");
+				session.removeAttribute("updateResult");
 				return "/member/naverJoin";
 			}			
 		}
