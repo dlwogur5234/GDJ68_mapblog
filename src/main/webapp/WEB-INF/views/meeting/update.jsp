@@ -23,6 +23,7 @@
 	    <textarea class="input-group" rows="" cols="" name="contents" id="contents" value="${dto.contents }"></textarea>
 	    <input type="datetime-local"  id="meetingDate" value="${dto.meetingDate }">
 	    <input type="hidden" name="meetingDate" id="meetingDate2">
+	    <input type="number" id="personnel" min="2" max="10" name="personnel">
 	    <input type="hidden" name="lat" id="lat" value="${dto.lat}">
 	    <input type="hidden" name="lng" id="lng" value="${dto.lng}">
 	

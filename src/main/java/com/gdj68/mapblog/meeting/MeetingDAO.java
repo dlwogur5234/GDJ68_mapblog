@@ -52,6 +52,10 @@ public class MeetingDAO {
 		return sqlSession.update(NAMESPACE+"setUpdate",meetingDTO);
 	}
 	
+	public long getPersonnelCheck(MeetingMemberDTO meetingMemberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getPersonnelCheck", meetingMemberDTO);
+	}
+	
 	
 	
 }

@@ -21,6 +21,7 @@
 	    <input type="text" name="title" id="title">
 	    <textarea class="input-group" rows="" cols="" name="contents" id="contents"></textarea>
 	    <input type="datetime-local"  id="meetingDate">
+        <input type="number" id="personnel" min="2" max="10" name="personnel">
         <input type="hidden" name="meetingDate" id="meetingDate2">
 	    <input type="hidden" name="lat" id="lat">
 	    <input type="hidden" name="lng" id="lng">

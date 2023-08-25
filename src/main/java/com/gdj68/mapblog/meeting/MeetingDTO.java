@@ -14,9 +14,16 @@ public class MeetingDTO {
 	private Double lng;
 	private Long hit;
 	private Long likes;
+	private Long personnel;
 
 	
 
+	public Long getPersonnel() {
+		return personnel;
+	}
+	public void setPersonnel(Long personnel) {
+		this.personnel = personnel;
+	}
 	public Double getLat() {
 		return lat;
 	}
