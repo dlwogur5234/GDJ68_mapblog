@@ -37,7 +37,7 @@
 		</p>
 	
 		
-		<a href="./update">회원수정</a>
+		<a href="./update">기본정보수정</a>
 		<form action="./delete" id="fr2">
 			<input type="button" id="dm" value="회원탈퇴">
 		</form>
@@ -60,6 +60,10 @@
 
 		ic.addEventListener('click', function(){
 			fr3.submit();
+		})
+
+		nc.addEventListener('click', function(){
+			fr4.submit();
 		})
 	</script>
 </body>

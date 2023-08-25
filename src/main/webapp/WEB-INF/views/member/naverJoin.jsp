@@ -42,7 +42,7 @@
 			<label>NICKNAME</label>
 			<input type="text" id="nickName" name="nickName" placeholder="닉네임을 입력하세요">
 		</div>
-		<div id="nickNameResult" class="x">닉네임을 확인하세요(필수)</div><br>
+		<div id="nickNameResult" class="x">닉네임을 확인하세요(필수) / 닉네임은 추후 변경할 수 없으니 신중하게 입력해주세요</div><br>
 		<div>
 			<label>EMAIL</label>
 			<input type="text" id="email" name="email" value="${naverMember.email}" readonly>

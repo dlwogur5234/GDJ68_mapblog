@@ -53,5 +53,9 @@ public class MemberDAO {
 	public MemberDTO getNickNameCheck(MemberDTO memberDTO) {
 		return sqlSession.selectOne(NAMESPACE+"getNickNameCheck", memberDTO);
 	}
+
+	public MemberDTO findIdPw(MemberDTO memberDTO) {
+		return sqlSession.selectOne(NAMESPACE+"findIdPw", memberDTO);
+	}
 	
 }

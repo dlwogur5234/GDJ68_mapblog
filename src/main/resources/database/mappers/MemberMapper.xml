@@ -21,7 +21,7 @@
   	
   	<update id="setMemberUpdate" parameterType="MemberDTO">
 		UPDATE MEMBER SET
-		PW=#{pw}, NAME=#{name}, NICKNAME=#{nickName}, EMAIL=#{email}, PHONE=#{phone}, BIRTH=#{birth}
+		PW=#{pw}, NAME=#{name}, PHONE=#{phone}, BIRTH=#{birth}
 		WHERE ID=#{id}
 	</update>
 	
@@ -35,6 +35,10 @@
   	
   	<select id="getNickNameCheck" parameterType="MemberDTO" resultType="MemberDTO">
   		SELECT NICKNAME FROM MEMBER WHERE NICKNAME=#{nickName}
+  	</select>
+  	
+  	<select id="findIdPw" parameterType="MemberDTO" resultType="MemberDTO">
+  		SELECT ID, PW FROM MEMBER WHERE EMAIL=#{email}
   	</select>
   	
   	<insert id="setFileAdd" parameterType="MemberFileDTO">
