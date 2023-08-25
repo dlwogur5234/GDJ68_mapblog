@@ -25,19 +25,9 @@ public class FeedDAO {
 		return sqlSession.selectList(NAMESPACE + "getList", pager);
 	}
 	
-	// getTotal
-	public Long getTotal(Pager pager) throws Exception {
-		return sqlSession.selectOne(NAMESPACE + "getTotal", pager);
-	}
-	
 	// setAdd
 	public int setAdd(FeedDTO feedDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE + "setAdd", feedDTO);
-	}
-	
-	// setFileAdd
-	public int setFileAdd(FeedFileDTO feedFileDTO) throws Exception {
-		return sqlSession.insert(NAMESPACE + "setFileAdd", feedFileDTO);
 	}
 	
 	// getDetail
@@ -45,9 +35,37 @@ public class FeedDAO {
 		return sqlSession.selectOne(NAMESPACE + "getDetail", feedDTO);
 	}
 	
+	// setDelete
+	public int setDelete(FeedDTO feedDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE + "setDelete", feedDTO);
+	}
+	
+	// setUpdate
+	public int setUpdate(FeedDTO feedDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "setUpdate", feedDTO);
+	}
+
+	// getTotal
+	public Long getTotal(Pager pager) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getTotal", pager);
+	}
+
+	
+	/* -------- FILE -------- */
+	
+	// setFileAdd
+	public int setFileAdd(FeedFileDTO feedFileDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE + "setFileAdd", feedFileDTO);
+	}
+	
 	// getFileDetail
 	public FeedFileDTO getFileDetail(FeedFileDTO feedFileDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getFileDetail", feedFileDTO);
+	}
+	
+	// setFileDelete
+	public int setFileDelete(FeedFileDTO feedFileDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE + "setFileDelete", feedFileDTO);
 	}
 	
 	// setHitUpdate

@@ -62,9 +62,26 @@
 		</selectKey>
 		
 		INSERT INTO FEED
-		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, SYSDATE, 0, 0, 0)
+		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, #{tripDate}, 0, 0, #{publics})
 		 
 	</insert>
+	
+	
+	<!-- Delete -->
+	<delete id="setDelete" parameterType="FeedDTO">
+		DELETE FEED WHERE FEEDNUM = #{feedNum}
+	</delete>
+	
+
+	<!-- Update -->
+	<update id="setUpdate" parameterType="FeedDTO">
+		UPDATE FEED SET
+		TITLE = #{title},
+		CONTENTS = #{contents},
+		TRIPDATE = #{tripDate},
+		PUBLICS = #{publics}
+		WHERE FEEDNUM = #{feedNum}	
+	</update>
 	
 	
 	<!-- Detail -->

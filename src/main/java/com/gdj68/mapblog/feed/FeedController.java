@@ -25,7 +25,7 @@ public class FeedController {
 	
 	/* ---------------------------------------------- */
 	
-	// getList
+	// List
 	@RequestMapping(value="list", method = RequestMethod.GET)
 	public String getList(Pager pager, Model model) throws Exception {
 		List<FeedDTO> ar = feedService.getList(pager);
@@ -36,13 +36,13 @@ public class FeedController {
 	}
 	
 	
-	// setAdd Form
+	// Add Form
 	@RequestMapping(value="add", method = RequestMethod.GET)
 	public String setAdd() throws Exception {
 		return "board/add";
 	}
 	
-	// setAdd Insert
+	// Add Insert
 	@RequestMapping(value="add", method = RequestMethod.POST)
 	public String setAdd(FeedDTO feedDTO, MultipartFile [] photos, HttpSession session, Model model) throws Exception {
 		
@@ -62,7 +62,7 @@ public class FeedController {
 	}
 	
 	
-	// getDetail
+	// Detail
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String getDetail(FeedDTO feedDTO, Model model) throws Exception {
 		feedDTO = feedService.getDetail(feedDTO);
@@ -78,6 +78,73 @@ public class FeedController {
 			
 			return "commons/result";
 		}
+	}
+	
+	
+	// Delete
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String setDelete(FeedDTO feedDTO) throws Exception {
+		int result = feedService.setDelete(feedDTO);
+		
+		return "redirect:./list";
+	}
+	
+	
+	// Update form
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public String setUpdate(FeedDTO feedDTO, Model model) throws Exception {
+		feedDTO = feedService.getDetail(feedDTO);
+		model.addAttribute("dto", feedDTO);
+		
+		return "board/update";
+	}
+	
+	
+	// Update POST
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String setUpdate(FeedDTO feedDTO, MultipartFile [] photos, HttpSession session) throws Exception {
+		int result = feedService.setUpdate(feedDTO, photos, session);
+		
+		return("redirect:./detail?feedNum=" + feedDTO.getFeedNum());
+	}
+	
+	
+	// fileDelete
+	@RequestMapping(value = "fileDelete", method = RequestMethod.GET)
+	public String setFileDelete(FeedFileDTO feedFileDTO, HttpSession session, Model model) throws Exception {
+		
+		int result = feedService.setFileDelete(feedFileDTO, session);
+		model.addAttribute("result", result);
+		
+		return "commons/ajaxResult";
+	}
+	
+	
+	// setContentsImgDelete
+	@RequestMapping(value = "setContentsImgDelete", method = RequestMethod.POST)
+	public String setContentsImgDelete(String path, HttpSession session, Model model)throws Exception{
+		
+		boolean check= feedService.setContentsImgDelete(path, session);
+		
+		model.addAttribute("result", check);
+		
+		return "commons/ajaxResult";
+	}
+	
+	
+	// setContentsImg
+	@RequestMapping(value = "setContentsImg", method = RequestMethod.POST)
+	public String setContentsImg(MultipartFile files, HttpSession session, Model model)throws Exception{
+		
+//		System.out.println("setContentsImg");
+		System.out.println(files.getOriginalFilename());
+		
+		String path = feedService.setContentsImg(files, session);
+		
+		model.addAttribute("result", path);
+		
+		return "commons/ajaxResult";
+		
 	}
 	
 }

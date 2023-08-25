@@ -15,10 +15,10 @@ let idx = 0;
 for(del of deletes){
     del.addEventListener("click", function(){
         let num = this.getAttribute("data-delete-num");
-        let check = confirm("삭제시 복구 불가");
+        let check = confirm("정말로 삭제하시겠습니까?");
 
         if(check){
-            fetch("./fileDelete?fileNum=" + num, {method:"get"})
+            fetch("./fileDelete?fileNum=" + fileNum, {method:"get"})
                 .then((result)=>{return result.text()}) // result.text를 반환받겠다
                 .then((r)=>{
                     //  console.log("삭제 결과", r) 
@@ -44,7 +44,6 @@ $("#add").click(function(){
   	 let f = '<div class="input-group mb-3" id="file'+idx+'">';
     
     f = f + '<input type="file" name="photos" class="form-control" id="pic">';
-    f = f + '<span class=df> X </span>';
     f = f + '<button type="button" class="btn btn-primary df"> X </button>';
     f = f + '</div>';
     idx++;
