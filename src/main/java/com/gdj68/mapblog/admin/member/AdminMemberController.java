@@ -42,6 +42,33 @@ public class AdminMemberController {
 		return "redirect:/admin";
 	}
 	
+	//join
+	@GetMapping("admin/adminJoin")
+	public String setAdminJoin()throws Exception{
+		return "admin/adminMember/adminJoin";
+	}
+	@PostMapping("admin/adminJoin")
+	public String setAdminJoin(AdminMemberDTO adminMemberDTO)throws Exception{
+		
+		return "redirect:/admin/main";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
