@@ -31,10 +31,17 @@ public class FollowController {
 		model.addAttribute("followerList", followerList);
 		return "follow/list";
 	}
-	@PostMapping("list")
+	@PostMapping("add")
 	public String insertFollowAdd(FollowDTO followDTO, HttpSession session,Model model)throws Exception{
 		int followAdd=followService.insertFollowAdd(followDTO, session);
 		model.addAttribute("followAdd", followAdd);
+		return "redirect:follow/list";
+	}
+	@PostMapping("deleteFollow")
+	public String deleteFollow(FollowDTO followDTO , HttpSession session , Model model)throws Exception{
+		int followDel = followService.deleteFollow(followDTO, session);
+		model.addAttribute("followDel", followDel);
+		
 		return "redirect:follow/list";
 	}
 }

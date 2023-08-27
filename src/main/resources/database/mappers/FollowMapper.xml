@@ -31,5 +31,9 @@
   	<insert id="insertFollowAdd" parameterType="FollowDTO">
   		INSERT INTO FOLLOW VALUES(FOLLOW_SEQ.NEXTVAL,#(fromUser),#{toUser})
   	</insert>
+  	
+  	<delete id="deleteFollow" parameterType="FollowDTo">
+  		DELETE FROM FOLLOW WHERE FROMUSER=#{fromUser} AND TOUSER=#{toUser}	
+  	</delete>
  
   </mapper> 

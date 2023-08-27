@@ -28,4 +28,7 @@ public class FollowDAO {
 	public int insertFollowAdd(FollowDTO followDTO) throws Exception{
 		return session.insert(NAMESPACE+"insertFollowAdd", followDTO);
 	}
+	public int deleteFollow(FollowDTO followDTO) throws Exception {
+		return session.delete(NAMESPACE+"deleteFollow", followDTO);
+	}
 }

@@ -8,10 +8,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <title>follow</title>
   </head>
   <body>
-  
-  	
     <h1>follow페이지</h1>
-	
+
     <div>팔로우 :${followCnt}</div>
     <c:forEach items="${followList}" var="f">
       <div>${f.toUser} <button>삭제</button></div>
@@ -48,7 +46,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
     <div>팔로워 :${followerCnt}</div>
     <c:forEach items="${followerList}" var="f">
-      <div>${f.fromUser} <button>팔로우</button></div>
+      <div>${f.fromUser} 
+        <form action="deleteFollow" method="POST">
+        <input type="hidden" name="fromUser" value="${followDel.fromUser}">
+        <input type="hidden" name="toUser" value="${followDel.toUser}"> 
+          <input type="hidden" name="followNum" value="${followDel.followNum}"> 
+        <button type="submit" id="followButton">팔로우</button>
+        </form>
+      </div>
     </c:forEach>
     <nav aria-label="Page navigation example">
       <ul class="pagination">

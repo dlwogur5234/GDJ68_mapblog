@@ -44,4 +44,10 @@ public class FollowService {
 		followDTO.setToUser(memberDTO.getId());
 		return followDAO.insertFollowAdd(followDTO);
 	}
+	public int deleteFollow(FollowDTO followDTO,HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		followDTO.setFromUser(memberDTO.getId());
+		followDTO.setToUser(memberDTO.getId());
+		return followDAO.deleteFollow(followDTO);
+	}
 }
