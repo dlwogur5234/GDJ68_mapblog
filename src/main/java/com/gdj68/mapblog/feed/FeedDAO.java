@@ -68,9 +68,20 @@ public class FeedDAO {
 		return sqlSession.delete(NAMESPACE + "setFileDelete", feedFileDTO);
 	}
 	
+	
+	/* -------- 조회수 -------- */
+	
 	// setHitUpdate
 	public int setHitUpdate(FeedDTO feedDTO) throws Exception {
 		return sqlSession.update(NAMESPACE + "setHitUpdate", feedDTO);
+	}
+	
+	
+	/* -------- 좋아요 -------- */
+	
+	// getFindLike
+	public Long getFindLikes(LikesDTO likesDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getFindLikes", likesDTO);
 	}
 	
 }

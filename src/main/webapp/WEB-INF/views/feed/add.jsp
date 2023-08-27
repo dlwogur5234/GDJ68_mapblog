@@ -9,11 +9,15 @@
 <title>Insert title here</title>
 
 	<c:import url="../temp/bootStrap.jsp"></c:import>
+
+	<!-- summernote (Without Bootstrap (lite)) -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script> -->
 	
 </head>
 <body>
 	
-	<c:import url="../temp/adminHeader.jsp"></c:import>
+	<c:import url="../temp/header.jsp"></c:import>
 	
 	<section class="container mt-5">
 	
@@ -39,13 +43,31 @@
 	
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">제목</span>
-			<input type="text" name="title" id="title" class="form-control" placeholder="내용을 입력해주세요.">
+			<input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력해주세요.">
 		</div>
-		
+
+		<!-- <div id="summernote" name="contents"></div>
+		<script>
+			$('#summernote').summernote({
+			  placeholder: 'Hello stand alone ui',
+			  tabsize: 2,
+			  height: 450,
+			  toolbar: [
+				['style', ['style']],
+				['font', ['bold', 'underline', 'clear']],
+				['color', ['color']],
+				['para', ['ul', 'ol', 'paragraph']],
+				['table', ['table']],
+				['insert', ['link', 'picture', 'video']],
+				['view', ['fullscreen', 'codeview', 'help']]
+			  ]
+			});
+		  </script> -->
 		
 		<div class="input-group mb-3">
 			<textarea class="form-control" name="contents" id="contents" aria-label="With textarea" rows="10"></textarea>
 		</div>
+		
 		
 		<div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group">
 			<input type="radio" value="0" class="btn-check publics" name="publics" id="publics1" autocomplete="off" checked>
@@ -75,7 +97,7 @@
 	</section>
 	
 <script src="/resources/js/feedFile.js"></script>
-<script src="/resources/js/feedAdd.js"></script>
+<script src="/resources/js/feed/feedAdd.js"></script>
 
 </body>
 </html>

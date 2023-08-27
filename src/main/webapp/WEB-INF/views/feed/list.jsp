@@ -8,17 +8,56 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d19d0bc22748e1c8a814e507a6e96ed2"></script>
 	<c:import url="../temp/bootStrap.jsp"></c:import>
 	
 </head>
 <body>
 	
-	<c:import url="../temp/adminHeader.jsp"></c:import>
+	<c:import url="../temp/header.jsp"></c:import>
 
 	<h1 class="a mb-5 text-center">Feed List</h1>
 
-	<!-- LIST 목록 -->
-	<table class="table table-striped-columns table-hover">
+
+	<!-- 지도 담을 영역 -->
+	<div id="map" style="width:600px;height:600px;"></div>
+
+	<div>
+        <input type="text" id="searchMap">
+        <button id="searchMapBtn">검색</button>
+    </div>
+
+    <div id="address"></div>
+
+<!-- 	
+	<div class="photoList">
+		<div class="title_area">
+			<h4><strong class="blind">리스트</strong></h4>
+		</div>
+
+		<ul>
+			<c:forEach items="${requestScope.list}" var="f" varStatus="i">
+				<li>
+					<p class="thumb">
+						<a href="">
+							<img src="#" alt="">
+						</a>
+					</p>
+					<a href="#"><strong>${f.title}</strong></a>
+					<p class="createDate">${f.createDate}</p>
+				</li>
+
+			</c:forEach>
+		</ul>
+
+	</div>
+	 -->
+
+
+
+	
+
+	<table class="table table-striped-columns table-hover mt-5">
 	
 	  <thead class="table table-dark text-center">
 	    <tr>
@@ -47,7 +86,8 @@
 		</c:forEach>
 	  </tbody>
 	</table>
-	
+
+
 	
 	<!-- Pager -->
 	<nav class="container" aria-label="Page navigation example">
@@ -65,11 +105,13 @@
 		</ul>
 	</nav>
 	
+
 	<!-- 글쓰기 버튼 -->
 	<a class="btn btn-primary" href="./add">글쓰기</a>
 	
+
 	<!-- 검색 Search -->
-	<%-- 
+<!-- 	
 	<div class="d-inline-flex p-2 justify-content-center">
 		<form class="input-group" id="frm" action="./list" method="get" value="${pager.search}">
 		
@@ -86,10 +128,9 @@
 			<div class="col-auto">
 				<button type="submit" class="btn btn-primary">검색</button>
 			</div>
-		
 		</form>
-	</div>
-	 --%>
+	</div> -->
+
 	
 	
 	<div class="d-inline-flex p-2 justify-content-center">
@@ -105,6 +146,9 @@
 		  </div>
 	  </form>
 	</div>
+
+
+	<script src="/resources/js/kakao.js"></script>
 
 
 </body>

@@ -39,8 +39,22 @@
   			)
   		WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
-  	
-  	
+
+  	 <!-- 
+  	 <select id="getList" resultMap="getDetailResult" parameterType="FeedDTO">
+  		SELECT FEEDNUM, ID, TITLE, CONTENTS, CREATEDATE, TRIPDATE, HIT, LIKES FROM
+  			(SELECT ROWNUM R, F.* FROM
+  				(
+  					SELECT * FROM FEED
+  					
+  					<include refid="searchSql"></include>
+  					
+  					ORDER BY FEEDNUM DESC
+  				) F
+  			)
+  		WHERE R BETWEEN #{startRow} AND #{lastRow}
+  	 </select>
+  	 -->
   	<!-- PAGER (GET TOTAL) -->
   	<select id="getTotal" resultType="Long" parameterType="Pager">
   		SELECT COUNT(FEEDNUM) FROM FEED
@@ -137,6 +151,13 @@
   		SET HIT = HIT + 1
   		WHERE FEEDNUM = #{feedNum}
   	</update>
-	
+  	
+  	
+  	<!-- 좋아요 ************************* -->
+  	
+  	<!-- 좋아요 클릭 여부 -->
+	<select id="getFindLikes" resultType="Long">
+		SELECT COUNT(*) FROM LIKES WHERE ID=#{id} AND FEEDNUM=#{feedNum}
+	</select>
 
   </mapper>

@@ -1,7 +1,7 @@
 package com.gdj68.mapblog.feed;
 
 import java.util.List;
-import java.util.Locale;
+//import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,13 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gdj68.mapblog.util.Pager;
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/feed/*")
 public class FeedController {
 	
 	@Autowired
@@ -26,24 +26,24 @@ public class FeedController {
 	/* ---------------------------------------------- */
 	
 	// List
-	@RequestMapping(value="list", method = RequestMethod.GET)
+	@GetMapping("list")
 	public String getList(Pager pager, Model model) throws Exception {
 		List<FeedDTO> ar = feedService.getList(pager);
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);
 		
-		return "board/list";
+		return "feed/list";
 	}
 	
 	
 	// Add Form
-	@RequestMapping(value="add", method = RequestMethod.GET)
+	@GetMapping("add")
 	public String setAdd() throws Exception {
-		return "board/add";
+		return "feed/add";
 	}
 	
 	// Add Insert
-	@RequestMapping(value="add", method = RequestMethod.POST)
+	@PostMapping("add")
 	public String setAdd(FeedDTO feedDTO, MultipartFile [] photos, HttpSession session, Model model) throws Exception {
 		
 		int result = feedService.setAdd(feedDTO, photos, session);
@@ -63,15 +63,16 @@ public class FeedController {
 	
 	
 	// Detail
-	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String getDetail(FeedDTO feedDTO, Model model) throws Exception {
+	@GetMapping("detail")
+	public String getDetail(FeedDTO feedDTO, Model model, LikesDTO likesDTO) throws Exception {
 		feedDTO = feedService.getDetail(feedDTO);
 		
 		if(feedDTO != null) {
-			String message = "등록성공";
+//			String message = "등록성공";
 			model.addAttribute("dto", feedDTO);
+//			model.addAttribute("dto", feedDTO);
 			
-			return "board/detail";
+			return "feed/detail";
 		} else {
 			model.addAttribute("message", "글을 불러올 수 없습니다.");
 			model.addAttribute("url", "list");
@@ -82,35 +83,35 @@ public class FeedController {
 	
 	
 	// Delete
-	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@PostMapping("delete")
 	public String setDelete(FeedDTO feedDTO) throws Exception {
-		int result = feedService.setDelete(feedDTO);
+//		int result = feedService.setDelete(feedDTO);
 		
 		return "redirect:./list";
 	}
 	
 	
 	// Update form
-	@RequestMapping(value = "update", method = RequestMethod.GET)
+	@GetMapping("update")
 	public String setUpdate(FeedDTO feedDTO, Model model) throws Exception {
 		feedDTO = feedService.getDetail(feedDTO);
 		model.addAttribute("dto", feedDTO);
 		
-		return "board/update";
+		return "feed/update";
 	}
 	
 	
 	// Update POST
-	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@PostMapping("update")
 	public String setUpdate(FeedDTO feedDTO, MultipartFile [] photos, HttpSession session) throws Exception {
-		int result = feedService.setUpdate(feedDTO, photos, session);
+//	/	int result = feedService.setUpdate(feedDTO, photos, session);
 		
 		return("redirect:./detail?feedNum=" + feedDTO.getFeedNum());
 	}
 	
 	
 	// fileDelete
-	@RequestMapping(value = "fileDelete", method = RequestMethod.GET)
+	@GetMapping("fileDelete")
 	public String setFileDelete(FeedFileDTO feedFileDTO, HttpSession session, Model model) throws Exception {
 		
 		int result = feedService.setFileDelete(feedFileDTO, session);
@@ -121,7 +122,7 @@ public class FeedController {
 	
 	
 	// setContentsImgDelete
-	@RequestMapping(value = "setContentsImgDelete", method = RequestMethod.POST)
+	@PostMapping("setContentsImgDelete")
 	public String setContentsImgDelete(String path, HttpSession session, Model model)throws Exception{
 		
 		boolean check= feedService.setContentsImgDelete(path, session);
@@ -133,7 +134,7 @@ public class FeedController {
 	
 	
 	// setContentsImg
-	@RequestMapping(value = "setContentsImg", method = RequestMethod.POST)
+	@PostMapping("setContentsImg")
 	public String setContentsImg(MultipartFile files, HttpSession session, Model model)throws Exception{
 		
 //		System.out.println("setContentsImg");

@@ -13,7 +13,7 @@
 </head>
 <body>
 	
-	<c:import url="../temp/adminHeader.jsp"></c:import>
+	<c:import url="../temp/header.jsp"></c:import>
 
 
 	<p class="mb-5"></p>
@@ -63,16 +63,16 @@
 		
 		
 	<hr class="hr" />
-		
+	
 
-	<button class="btn btn-primary c1" data-url="update" id="update">수정</button>
-	<button class="btn btn-danger c1" data-url="delete" id="del" data-delete-name="feedNum" data-delete-num="${dto.feedNum}">삭제</button>
-	<button class="btn btn-primary" onclick="location.href='./list'">목록</button>
+	<button class="btn btn-primary c1" type="button" id="update" data-url="update">수정</button>
+	<button class="btn btn-danger c1" type="button" id="delete" data-url="delete">삭제</button>
+	<button class="btn btn-primary" id="list">목록</button>
 
 	
 	</section>
 
-	<script src="/resources/js/feedDelete.js"></script>
+	<script src="/resources/js/feed/feedDelete.js"></script>
 	
 
 </body>
