@@ -33,7 +33,7 @@ $('.a').each((i,e)=>{
     });
     kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-    kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker));
 });
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -50,30 +50,43 @@ function makeOutListener(infowindow) {
     };
 };
 
+let overlay = "";
 
+function makeClickListener(map, marker) {
 
-function makeClickListener(map, marker, infowindow) {
-    // let clickFunction ={
-    //     ch: true,
-    //     f1 : function(){
-    //         infowindow.open(map,marker);
-    //     }
-    // }
-    // if(checked){   
-    //     return clickFunction;
-
-    // }else{
-    //     return clickFunction.f2;
-    // }
+ 
     return function() {
-        infowindow.open(map, marker);
+ 
         console.log(marker.Gb);
         $.ajax({
             type:"GET",
             url:"./detail?meetingNum="+marker.Gb,
             success: function(r){
                 console.log(r);
+                content = r;
+                 overlay = new kakao.maps.CustomOverlay({
+                    content: content,
+                    map: map,
+                    position: marker.getPosition(),
+                    yAnchor: 1       
+                });
+                overlay.setMap(map); 
+                console.log(overlay);
+                console.log(marker.getPosition());
+                
+
             }
         })
+      
+    
     };
 }
+// function closeOverlay() {
+//     overlay.setMap(null);     
+// }
+// $("body").on("click", "#.close", function(){
+    
+// });
+$("body").on("click","#close_overlay", function(){
+    overlay.setMap(null);
+})

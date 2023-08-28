@@ -1,3 +1,29 @@
+// let centertLat;
+// let centerLng;
+
+// getLocation();
+// function getLocation() {
+//     if (navigator.geolocation) { // GPS를 지원하면
+//       navigator.geolocation.getCurrentPosition(function(position) {
+//         // alert(position.coords.latitude + ' ' + position.coords.longitude);
+//         centertLat = position.coords.latitude;
+//         console.log(centertLat);
+//         centerLng = position.coords.longitude;
+//         console.log(centerLng);
+//         getKakaoMap(centertLat,centerLng)
+//       }, function(error) {
+//         console.error(error);
+//       }, {
+//         enableHighAccuracy: false,
+//         maximumAge: 0,
+//         timeout: Infinity
+//       });
+//     } else {
+//       alert('GPS를 지원하지 않습니다');
+//     }
+//   }
+
+// function getKakaoMap(centertLat,centerLng){
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -77,3 +103,4 @@ function makeClickListener(map, marker, infowindow) {
         })
     };
 }
+// }
