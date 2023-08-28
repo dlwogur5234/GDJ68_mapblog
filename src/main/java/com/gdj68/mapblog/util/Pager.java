@@ -1,6 +1,8 @@
 package com.gdj68.mapblog.util;
 
-public class Pager {
+
+
+public class Pager{
 	
 
 
@@ -199,8 +201,6 @@ public class Pager {
 	public void setSearch(String search) {
 		this.search = search;
 	}
-
-	
 
 
 }

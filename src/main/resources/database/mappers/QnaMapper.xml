@@ -10,13 +10,13 @@
   	
   	<select id="getList" parameterType="Pager" resultType="QnaDTO">
   		SELECT *
-	FROM(
+		FROM(
 		SELECT ROWNUM R, B.* 
 			FROM(SELECT * 
-				 FROM QNA	
+				 FROM QNA	 
 				) B
 				)
-			WHERE
+		WHERE
 				R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	
@@ -24,7 +24,7 @@
   		<selectKey keyProperty="qnaNum" resultType="Long" order="BEFORE">
   			SELECT QNA_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-  		INSERT INTO QNA(QNANUM,MEMBERID,QNATITLE,QNACONTENTS,QNADATE) VALUES(#{qnaNum},#{memberId},#{qnaTitle},#{qnaContents},SYSDATE)
+  		INSERT INTO QNA(QNANUM,MEMBERID,QNATITLE,QNACONTENTS,QNADATE,PRIVATECONTENTS) VALUES(#{qnaNum},#{memberId},#{qnaTitle},#{qnaContents},SYSDATE,#{privateContents})
   	</insert>
   	
   	<!-- <select id="getDetail" parameterType="QnaDTO" resultType="QnaDTO">

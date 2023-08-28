@@ -3,7 +3,9 @@ package com.gdj68.mapblog.qna;
 import java.sql.Date;
 import java.util.List;
 
-public class QnaDTO {
+import com.gdj68.mapblog.util.Pager;
+
+public class QnaDTO{
 	
 
 	private String memberId;
@@ -12,6 +14,14 @@ public class QnaDTO {
 	private Date qnaDate;
 	private List<QnaFileDTO> fileDTOs;
 	private Long qnaNum;
+	private int privateContents;
+	
+	public int getPrivateContents() {
+		return privateContents;
+	}
+	public void setPrivateContents(int privateContents) {
+		this.privateContents = privateContents;
+	}
 	public Long getQnaNum() {
 		return qnaNum;
 	}

@@ -1,6 +1,8 @@
 package com.gdj68.mapblog.qna;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
 
@@ -18,9 +21,28 @@ public class QnaService {
 	@Autowired
 	private FileManager fileManager;
 	
+	//login한 qna만 보기
+	public List<QnaDTO> getList (MemberDTO memberDTO , Pager pager) throws Exception{
+		pager.setPerPage(3L);
+		pager.makeRowNum();
+		
+		pager.makePageNum(qnaDAO.getTotal(pager));
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("member", memberDTO);
+		map.put("pager", pager);
+		
+		return qnaDAO.getList(map);
+	}
+	
 	public List<QnaDTO> getList(Pager pager) throws Exception {
 		pager.makeRowNum();
 		pager.makePageNum(qnaDAO.getTotal(pager));
+		/*
+		 * Map<String, Object> params = new HashMap<>(); params.put("pager", pager);
+		 * params.put("qnaDTO", qnaDTO);
+		 */
+		
 		return qnaDAO.getList(pager);
 	}
 	

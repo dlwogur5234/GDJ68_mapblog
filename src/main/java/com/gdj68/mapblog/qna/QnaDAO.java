@@ -1,6 +1,7 @@
 package com.gdj68.mapblog.qna;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,19 @@ public class QnaDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.gdj68.mapblog.qna.QnaDAO.";
+	//내가 쓴 qna만 보기
+	public List<QnaDTO> getMemberIdTotal(Map<String, Object> map) throws Exception{
+		return sqlSession.selectList(NAMESPACE+"getList", map);
+	}
+
 	
 	
 	public Long getTotal(Pager pager) throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getTotal");
 	}
 	public List<QnaDTO> getList(Pager pager) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getList", pager);
+		
+		return sqlSession.selectList(NAMESPACE+"getList",pager);
 	}
 	public int setAdd(QnaDTO qnaDTO) throws Exception{
 		System.out.println(qnaDTO.getMemberId());
