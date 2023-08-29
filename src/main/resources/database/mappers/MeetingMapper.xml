@@ -9,7 +9,7 @@
   		<selectKey keyProperty="meetingNum" resultType="Long" order="BEFORE">
   			SELECT MEETING_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),#{lat},#{lng},0,0)	
+		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),#{lat},#{lng},0,0,#{personnel})	
   	</insert>
   	
   	<select id="getList" resultType="MeetingDTO">
@@ -37,8 +37,19 @@
   	</delete>
   	
   	<update id="setUpdate">
-  		UPDATE MEETING SET TITLE=#{title}, CONTENTS=#{contents},MEETINGDATE=to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),LAT=#{lat},LNG=#{lng} WHERE MEETINGNUM=#{meetingNum}
+  		UPDATE MEETING SET TITLE=#{title}, CONTENTS=#{contents},MEETINGDATE=to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),LAT=#{lat},LNG=#{lng},PERSONNEL=#{personnel} WHERE MEETINGNUM=#{meetingNum}
   	</update>
   	
+  	<select id="getPersonnelCheck" parameterType="MeetingMemberDTO" resultType="Long">
+  		SELECT COUNT(*) FROM MEETINGMEMBER WHERE MEETINGNUM=#{meetingNum}
+  	</select>
+  	
+  	<select id="getMyList" parameterType="MeetingMemberDTO" resultType="MeetingDTO">
+  		SELECT m.* 
+		FROM MEETING m 
+		INNER JOIN MEETINGMEMBER mb
+		ON m.meetingnum = mb.meetingnum
+		WHERE mb.id = #{id} AND M.MEETINGDATE > SYSDATE
+  	</select>
   	
   </mapper>

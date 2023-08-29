@@ -7,20 +7,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e&libraries=services"></script>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
+    <input type="text" id="adrs"><button id="btn2" type="button">검색</button>
 	 <div id="map" style="width:1000px;height:800px;"></div>
     <div id="clickLatlng"></div>
     <p id="result"></p>
 
     <form class="mb-5 text-center form-control" action="./add" method="post" id="frm">
 	    <input type="hidden" name="id" value="${sessionScope.member.id }">
-	    <input type="text" name="title" id="title">
-	    <textarea class="input-group" rows="" cols="" name="contents" id="contents"></textarea>
-	    <input type="datetime-local"  id="meetingDate">
+	    제목<input type="text" name="title" id="title"><br>
+	    내용<textarea class="input-group" rows="" cols="" name="contents" id="contents"></textarea>
+	    모임날짜<input type="datetime-local"  id="meetingDate">
+        정원<input type="number" id="personnel" min="2" max="10" name="personnel">
         <input type="hidden" name="meetingDate" id="meetingDate2">
 	    <input type="hidden" name="lat" id="lat">
 	    <input type="hidden" name="lng" id="lng">
@@ -29,7 +31,7 @@
 
    	</form>
 
-    <script src="../resources/js/meeting/add.js"></script>
+    
     <script>
     
     const btn = document.getElementById("btn");
@@ -98,6 +100,13 @@
 				frm.submit();
 			}
 		});
+
+        // kakao.maps.load(function() {
+        // // v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
+        // let map = new kakao.maps.Map(node, options);
+        // });
+
     </script>
+    <script src="../resources/js/meeting/addTest.js" defer></script>
 </body>
 </html>

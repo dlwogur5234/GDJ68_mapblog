@@ -26,6 +26,11 @@ public class MeetingDAO {
 		return sqlSession.selectList(NAMESPACE+"getList");
 	}
 	
+	public List<MeetingDTO> getMyList(MeetingMemberDTO meetingMemberDTO) throws Exception {
+		
+		return sqlSession.selectList(NAMESPACE+"getMyList",meetingMemberDTO);
+	}
+	
 	public MeetingDTO getDetail(MeetingDTO meetingDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getDetail", meetingDTO);
 		
@@ -50,6 +55,10 @@ public class MeetingDAO {
 	
 	public int setUpdate(MeetingDTO meetingDTO) throws Exception {
 		return sqlSession.update(NAMESPACE+"setUpdate",meetingDTO);
+	}
+	
+	public long getPersonnelCheck(MeetingMemberDTO meetingMemberDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"getPersonnelCheck", meetingMemberDTO);
 	}
 	
 	

@@ -31,6 +31,13 @@ public class MeetingService {
 		return meetingDAO.getList();
 	}
 	
+	public List<MeetingDTO> getMyList(HttpSession session) throws Exception{
+		MeetingMemberDTO meetingMemberDTO = new MeetingMemberDTO();
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		meetingMemberDTO.setId(memberDTO.getId());
+		return meetingDAO.getMyList(meetingMemberDTO);
+	}
+	
 	public Map<String,Object> getDetail(MeetingDTO meetingDTO,HttpSession session) throws Exception {
 		MeetingMemberDTO meetingMemberDTO = new MeetingMemberDTO();
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
@@ -38,9 +45,11 @@ public class MeetingService {
 		meetingMemberDTO.setMeetingNum(meetingDTO.getMeetingNum());
 		long result = meetingDAO.getJoinCheck(meetingMemberDTO);
 		meetingDTO = meetingDAO.getDetail(meetingDTO);
+		long personnel = meetingDAO.getPersonnelCheck(meetingMemberDTO);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		map.put("meetingDTO", meetingDTO);
+		map.put("personnel", personnel);
 		return map;
 	}
 	

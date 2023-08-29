@@ -6,14 +6,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+</style>
 </head>
 <body>
-	<div>${dto.id}</div>
-	<div>${dto.title }</div>
-	<div>${dto.contents }</div>
-	<div>${dto.meetingDate }</div>
+	
+		<div class="desc">${dto.id}</div>
+		<div class="desc">${dto.contents }</div>
+		<div class="desc">${dto.meetingDate }</div>
+		<div class="desc">${personnel}/${dto.personnel }</div>
+	
 	<form action="./meetingJoin" method="post">
-		<c:if test="${not empty sessionScope.member && sessionScope.member.id ne dto.id && result<1}">
+		<c:if test="${not empty sessionScope.member && sessionScope.member.id ne dto.id && result<1 && personnel<dto.personnel}">
 			<input type="hidden" name="meetingNum" value="${dto.meetingNum}">
 			<button type="submit" name="join" value="true" id="btn">참가신청</button>
 		</c:if>
@@ -39,6 +44,6 @@
 			<input type="hidden" name="id" value="${member.id}">
 			<button type="submit" >모임삭제</button>
 		</c:if>
-	
+
 </body>
 </html>

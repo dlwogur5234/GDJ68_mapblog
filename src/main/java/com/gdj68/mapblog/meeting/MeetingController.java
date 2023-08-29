@@ -39,16 +39,25 @@ public class MeetingController {
 		model.addAttribute("list", ar);
 	}
 	
+	@GetMapping("myList")
+	public void getMyList(Model model,HttpSession session) throws Exception {
+		List<MeetingDTO> ar = meetingService.getMyList(session);
+		model.addAttribute("myList", ar);
+	}
+	
 	@GetMapping("detail")
 	public void getDetail(MeetingDTO meetingDTO, Model model,HttpSession session)throws Exception {
 		System.out.println(meetingDTO.getMeetingNum());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map = meetingService.getDetail(meetingDTO,session);
 		long result = (Long)map.get("result");
+		long personnel = (Long)map.get("personnel");
 		System.out.println("result 값 : "+result);
+		System.out.println("personnel 값 : "+personnel);
 		meetingDTO = (MeetingDTO)map.get("meetingDTO");
 		model.addAttribute("dto",meetingDTO);
 		model.addAttribute("result", result);
+		model.addAttribute("personnel", personnel);
 	}
 	
 	@PostMapping("meetingJoin")

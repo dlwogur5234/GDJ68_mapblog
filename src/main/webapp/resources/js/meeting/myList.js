@@ -26,7 +26,6 @@ function getLocation() {
     }
   }
 
-
 $('#btn2').on("click",function(){
     console.log($('#adrs').val());
     getKakaoMap(centertLat,centerLng);
@@ -35,7 +34,7 @@ $('#btn2').on("click",function(){
 function getKakaoMap(centertLat,centerLng){
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(centertLat, centerLng), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(centertLat,centerLng), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
@@ -64,12 +63,12 @@ if($('#adrs').val()!=""){
 
 let checked = true;
 
-let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-    
+// let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+let imageSrc = "../resources/img/marker2.png";    
 $('.a').each((i,e)=>{
     
     // 마커 이미지의 이미지 크기 입니다
-    let imageSize = new kakao.maps.Size(24, 35); 
+    let imageSize = new kakao.maps.Size(42, 53); 
     
     // 마커 이미지를 생성합니다    
     let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
@@ -89,7 +88,7 @@ $('.a').each((i,e)=>{
     });
     kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-    kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker));
 });
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -106,36 +105,44 @@ function makeOutListener(infowindow) {
     };
 };
 
+let overlay = "";
 
+function makeClickListener(map, marker) {
 
-function makeClickListener(map, marker, infowindow) {
-    // let clickFunction ={
-    //     ch: true,
-    //     f1 : function(){
-    //         infowindow.open(map,marker);
-    //     }
-    // }
-    // if(checked){   
-    //     return clickFunction;
-
-    // }else{
-    //     return clickFunction.f2;
-    // }
+ 
     return function() {
-        infowindow.open(map, marker);
+ 
         console.log(marker.Gb);
         $.ajax({
             type:"GET",
             url:"./detail?meetingNum="+marker.Gb,
             success: function(r){
-                $('#detail').html(r);
+                console.log(r);
+                content = r;
+                 overlay = new kakao.maps.CustomOverlay({
+                    content: content,
+                    map: map,
+                    position: marker.getPosition(),
+                    yAnchor: 1       
+                });
+                overlay.setMap(map); 
+                console.log(overlay);
+                console.log(marker.getPosition());
+                
+
             }
         })
+      
+    
     };
 }
+// function closeOverlay() {
+//     overlay.setMap(null);     
+// }
+// $("body").on("click", "#.close", function(){
+    
+// });
+$("body").on("click","#close_overlay", function(){
+    overlay.setMap(null);
+})
 }
-
-
-
-
-
