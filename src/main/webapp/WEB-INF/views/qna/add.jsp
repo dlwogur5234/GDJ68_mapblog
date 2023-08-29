@@ -28,10 +28,15 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       </div>
       <br />
       <div class="input-group text-center">
-        <span class="input-group-text" id="basic-addon2">작성자</span
-        ><input type="text" name="memberId" />
+        <span class="input-group-text" id="basic-addon2">작성자</span>
+        <input type="text" name="memberId" value="${member.id}"/>
       </div>
       <br />
+
+      <select name="privateContents">
+        <option value="0">비밀글</option>
+        <option value="1" selected>공개글</option>
+      </select>
 
       <div>
         <button type="button" class="my btn btn-danger" id="fileBtn">
@@ -49,6 +54,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
       <button type="submit">등록</button>
     </form>
-    <script src="/resources/js/fileAdd.js"></script>
+    <script src="/resources/js/temp/fileAdd.js"></script>
   </body>
 </html>
+
+
+
