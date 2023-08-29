@@ -1,7 +1,9 @@
 package com.gdj68.mapblog.member;
 
+import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import com.gdj68.mapblog.file.FileDTO;
+import com.gdj68.mapblog.util.Pager;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -21,6 +25,12 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	// 회원가입을 위한 필수 동의 사항
+	@RequestMapping(value = "beforeJoin", method = RequestMethod.GET)
+	public String beforeJoin() throws Exception{
+		return "member/beforeJoin";
+	}
 	
 	// 회원가입
 	@RequestMapping(value = "join", method = RequestMethod.GET)
@@ -119,7 +129,7 @@ public class MemberController {
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String deleteMember(HttpSession session)throws Exception{
 		MemberDTO sessionMember = (MemberDTO)session.getAttribute("member");
-		int result = memberService.deleteMember(sessionMember);
+		memberService.deleteMember(sessionMember);
 		session.invalidate();		
 		return "redirect:../";
 	}
@@ -215,5 +225,70 @@ public class MemberController {
 		model.addAttribute("result", found);
 		
 		return "commons/ajaxResult";
+	}
+	
+	// 회원 검색
+	@RequestMapping(value = "searchMember", method = RequestMethod.GET)
+	public String searchMember() throws Exception{
+		return "member/searchMember";
+	}
+	
+	@RequestMapping(value = "searchMember", method = RequestMethod.POST)
+	public String searchMember(Model model, MemberSearchDTO memberSearchDTO, HttpSession session) throws Exception{
+		
+		MemberDTO uDTO = (MemberDTO)session.getAttribute("member");
+		String uID = uDTO.getId();
+		memberSearchDTO.setId(uID);
+		// ml은 차단하지 않은 멤버 리스트
+		List<MemberDTO> ml = memberService.searchMember(memberSearchDTO);
+		
+		// il은 차단한 멤버 리스트
+		List<IgnoreDTO> il = memberService.didYouIgnore(uDTO);
+		
+		model.addAttribute("list", ml);
+		model.addAttribute("ignore", il);
+		
+		return "member/searchList";
+	}
+	
+	// 회원 차단하기
+	@RequestMapping(value = "ignore", method = RequestMethod.GET)
+	public String ignore(String ignored, HttpSession session) throws Exception{
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		String uID = memberDTO.getId();
+		
+		IgnoreDTO ignoreDTO = new IgnoreDTO();
+		ignoreDTO.setIgnored(ignored);
+		ignoreDTO.setIgnoring(uID);
+		memberService.ignore(ignoreDTO);
+		
+		return "redirect:./searchIgnore";
+	}
+	
+	// 회원 차단 해제
+	@RequestMapping(value = "ignoreCancle", method = RequestMethod.GET)
+	public String ignoreCancle(String ignored, HttpSession session) throws Exception{
+		
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		String uID = memberDTO.getId();
+		
+		IgnoreDTO ignoreDTO = new IgnoreDTO();
+		ignoreDTO.setIgnored(ignored);
+		ignoreDTO.setIgnoring(uID);
+		memberService.ignoreCancle(ignoreDTO);
+		
+		return "redirect:./searchIgnore";
+	}
+	
+	// 내가 차단한 회원 조회
+	@RequestMapping(value = "searchIgnore", method = RequestMethod.GET)
+	public String searchIgnore(HttpSession session, Model model) throws Exception{
+		MemberDTO memeberDTO = (MemberDTO)session.getAttribute("member");
+		List<IgnoreDTO> il = memberService.didYouIgnore(memeberDTO);
+		
+		model.addAttribute("ignore", il);
+		
+		return "member/ignoreList";
 	}
 }

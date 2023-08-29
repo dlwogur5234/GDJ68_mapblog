@@ -31,7 +31,14 @@
 		<p>
 			개인 URL : ${member.url}
 		</p>
-	
+		<p>
+			<c:if test="${member.publics eq 1}">
+        		전체 공개
+       		</c:if>
+			<c:if test="${member.publics eq 0}">
+        		전체 비공개
+       		</c:if>
+		</p>
 		<p>
 			<img alt="" src="../resources/upload/member/${memberFile.fileName}">
 		</p>
@@ -43,7 +50,11 @@
 		</form>
 		<form action="./updateImg" id="fr3">
 			<input type="button" id="ic" value="프로필 사진 변경">
-		</form>
+		</form><br>
+		<!-- <form action="./searchMember" id="fr4"> -->
+			<input type="button" id="searchMember" value="회원 검색" onclick="window.open('http://localhost:82/member/searchMember', '회원 검색', 'width=500, height=700')">
+		<!-- </form> -->
+		<input type="button" id="searchIgnore" value="내가 차단한 회원 조회" onclick="window.open('http://localhost:82/member/searchIgnore', '차단한 회원 검색', 'width=500, height=700')">
 	</div>
 
 	<script>
@@ -51,6 +62,8 @@
 		const ic = document.getElementById("ic")
 		const fr2 = document.getElementById("fr2")
 		const fr3 = document.getElementById("fr3")
+		const fr4 = document.getElementById("fr4")
+		const searchMember = document.getElementById("searchMember")
 
 		dm.addEventListener('click', function(){
 			if (confirm("회원 탈퇴하시겠습니까?")) {
@@ -62,9 +75,9 @@
 			fr3.submit();
 		})
 
-		nc.addEventListener('click', function(){
-			fr4.submit();
-		})
+		// searchMember.addEventListener('click', function(){
+		// 	fr4.submit();
+		// })
 	</script>
 </body>
 </html>

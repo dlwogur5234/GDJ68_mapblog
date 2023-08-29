@@ -1,5 +1,8 @@
 package com.gdj68.mapblog.member;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -57,5 +60,20 @@ public class MemberDAO {
 	public MemberDTO findIdPw(MemberDTO memberDTO) {
 		return sqlSession.selectOne(NAMESPACE+"findIdPw", memberDTO);
 	}
-	
+
+	public List<MemberDTO> searchMember(MemberSearchDTO memberSearchDTO) {
+		return sqlSession.selectList(NAMESPACE+"searchMember", memberSearchDTO);
+	}
+
+	public List<IgnoreDTO> didYouIgnore(MemberDTO memberDTO) {
+		return sqlSession.selectList(NAMESPACE+"didYouIgnore", memberDTO);
+	}
+
+	public int ignoreCancle(IgnoreDTO ignoreDTO) {
+		return sqlSession.delete(NAMESPACE+"ignoreCancle", ignoreDTO);
+	}
+
+	public int ignore(IgnoreDTO ignoreDTO) {
+		return sqlSession.insert(NAMESPACE+"ignore", ignoreDTO);
+	}
 }

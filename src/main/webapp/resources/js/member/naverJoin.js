@@ -9,7 +9,7 @@ const nickName = document.getElementById("nickName");
 const fr = document.getElementById("fr")
 const btn = document.getElementById("btn")
 
-let checkResults=[false,false,false,false,false,false.false];
+let checkResults=[false,false,false,false,false,false,false,false];
 
 // ID 중복 체크
 id.addEventListener("blur", function(){
@@ -118,6 +118,11 @@ url.addEventListener("blur", function(){
 
 // 회원 가입 버튼
 btn.addEventListener("click",function(){
+
+    // 공개여부 체크 확인
+    let publics = $('input:radio[name=publics]').is(":checked");
+    checkResults[7] = publics;
+
     console.log(checkResults);
     let c = checkResults.includes(false);
     if(!c){
@@ -162,4 +167,13 @@ nickName.addEventListener("blur", function(){
             }
          })
 
+});
+
+// 공개여부 체크 관련
+$("input:radio[name=publics]").click(function(){
+            
+    if($('input:radio[name=publics]').is(":checked")){
+        publicsResult.className="o";
+        publicsResult.innerHTML="공개여부 체크 되었습니다";
+    }
 });

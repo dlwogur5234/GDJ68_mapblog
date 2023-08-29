@@ -77,12 +77,10 @@ public class NaverController {
 			JSONObject response_obj = (JSONObject)jsonObj.get("response");
 			
 			System.out.println(response_obj);
-			
 			//response의 값 파싱
 			String email = (String)response_obj.get("email");
 			String name = (String)response_obj.get("name");
-			String nickName = (String)response_obj.get("nickname");
-			
+					
 			MemberDTO memberDTO = new MemberDTO();
 			memberDTO.setEmail(email);
 			memberDTO.setName(name);
@@ -92,10 +90,12 @@ public class NaverController {
 			
 			if(memberDTO2 != null) {
 				//4. 세션에 저장
+				System.out.println("기존 정보 있음");
 				session.setAttribute("member", memberDTO2);				
 				model.addAttribute("result", apiResult);
 				return "/member/naverLoginS";
 			}else {
+				System.out.println("기존 정보 없음");
 				session.setAttribute("naverMember", memberDTO);
 				session.removeAttribute("loginFailed");
 				session.removeAttribute("updateResult");

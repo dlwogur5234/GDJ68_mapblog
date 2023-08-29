@@ -65,7 +65,14 @@
 			<input type="text" id="url" name="url" placeholder="사용할 URL을 입력하세요">
 		</div>
 		<div id="urlResult" class="x">URL을 확인하세요(필수) / URL은 추후 변경할 수 없으니 신중하게 입력해주세요</div><br>
-
+		<div>
+				<label>계정 공개 여부</label><br>
+			<input type="radio" id="p1" name="publics" value="1">
+			<label for="p1">전체 공개</label>
+			<input type="radio" id="p2" name="publics" value="0">
+			<label for="p2">전체 비공개</label><br>
+			<div id="publicsResult" class="x">공개여부를 확인하세요(필수)</div>
+		</div><br>
 		<div>
 			<label for="pic" class="form-label">프로필 사진</label>
 			<input type="file" name="photo" class="form-control" id="pic">
@@ -73,7 +80,7 @@
 	</form>
 	
 	<div class="mb-3">
-		<input type="button" class="btn btn-primary" id="btn" value="회원가입"></button>
+		<input type="button" class="btn btn-primary" id="btn" value="회원가입">
 	</div>
 
 	<script src="../resources/js/member/members.js"></script>

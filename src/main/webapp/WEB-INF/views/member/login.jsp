@@ -31,8 +31,10 @@
 		</div>
 		<input type="submit" value="로그인">
 	</form>
-	<button type="button" onclick="location.href='./find' ">아이디/비밀번호 찾기</button>
+	<button type="button" onclick="location.href='./find' ">아이디/비밀번호 찾기</button><br>
 	<div id="naver_id_login"><a href="../naver/login">
-	<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+	<img width="200" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+	<div id="kakao_id_login"><a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=9df9221dadf27f4338ac3350e1787ae9&redirect_uri=http://localhost:82/kakao/login">
+	<img width="200" src="/resources/img/kakaoLogin.png"/></a></div>
 </body>
 </html>
