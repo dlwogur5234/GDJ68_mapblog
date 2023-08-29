@@ -11,12 +11,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <ul class="member">
    		<c:if test="${not empty sessionScope.member}">
-        		<li class="login"><a href="member/mypage">마이페이지</a></li>
-        		<li class="signup"><a href="member/logout">로그아웃</a></li>
+        		<li class="login"><a href="/member/mypage">마이페이지</a></li>
+        		<li class="signup"><a href="/member/logout">로그아웃</a></li>
         	</c:if>
        	<c:if test="${empty sessionScope.member}">
-        		<li class="login"><a href="member/login">로그인</a></li>
-        		<li class="signup"><a href="member/beforeJoin">회원가입</a></li>
+        		<li class="login"><a href="/member/login">로그인</a></li>
+        		<li class="signup"><a href="/member/join">회원가입</a></li>
         </c:if>
     </ul>
   </div>

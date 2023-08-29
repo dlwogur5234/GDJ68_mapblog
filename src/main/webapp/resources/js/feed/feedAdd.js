@@ -10,6 +10,19 @@ value = value*1;
 
 
 
+
+
+// let tripDate = document.getElementById("tripDate");
+
+// tripDate.addEventListener("change", function(){
+//     console.log(tripDate.value);
+//     console.log(typeof tripDate);
+
+//     tripDate = 
+// })
+
+
+
 // 글 ADD
 btn.addEventListener("click", function(){
     console.log(title.value=="");

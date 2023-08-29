@@ -38,6 +38,7 @@
 				  </tr>
 				  <tr>
 				    <td>${dto.qnaContents}</td>
+				    <td>${memberId}</td>
 				  </tr>
 				</table>
 				
@@ -46,11 +47,15 @@
 					</c:forEach> 
 		
 	
-	
+	<c:choose>
+	<c:when test="${dto.memberId eq member.id}">
 	 <a href="./update?qnaNum=${dto.qnaNum}">수정</a>
 	<form action="./delete?qnaNum=${dto.qnaNum}" method="post"> 
 	<button type="submit">삭제</button> 
 	</form>
+	</c:when>
+	</c:choose>
+	
 	
 	
 	
