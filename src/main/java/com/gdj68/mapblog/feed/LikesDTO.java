@@ -1,29 +1,38 @@
 package com.gdj68.mapblog.feed;
 
 public class LikesDTO {
-	
-	private Long likesNum;
+
+	private Integer likesNum;
 	private String id;
-	private Long feedNum;
-	
-	
-	public Long getLikesNum() {
+	private Integer feedNum;
+
+	public int getLikesNum() {
 		return likesNum;
 	}
-	public void setLikesNum(Long likesNum) {
+
+	public void setLikesNum(int likesNum) {
 		this.likesNum = likesNum;
 	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Long getFeedNum() {
+
+	public int getFeedNum() {
 		return feedNum;
 	}
-	public void setFeedNum(Long feedNum) {
+
+	public void setFeedNum(int feedNum) {
 		this.feedNum = feedNum;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "LikesDTO [likesNum=" + likesNum + ", id=" + id + ", feedNum=" + feedNum + "]";
+	}
+
 }

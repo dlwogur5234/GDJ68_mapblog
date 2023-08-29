@@ -94,14 +94,14 @@ btn.addEventListener('click',function(){
     address.innerHTML=""
     map(query);
 })
-map(query);
 function map(query){
-    url = 'https://dapi.kakao.com/v2/local/search/address.json?query='+query;
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + encodeURIComponent(query);
         fetch(url, {
             method:"GET", 
             headers : {
             "Content-type" : "application/json;charset=UTF-8",
-            "Authorization" : "KakaoAK ${40beb712ef49b2baf56fe3191ca324dc}"
+            // "Authorization" : "KakaoAK ${40beb712ef49b2baf56fe3191ca324dc}"
+            "Authorization" : "KakaoAK 40beb712ef49b2baf56fe3191ca324dc"
         }
         })
         .then((response)=>{return response.json()}) 

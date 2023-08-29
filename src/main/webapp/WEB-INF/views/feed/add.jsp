@@ -37,7 +37,7 @@
 	
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">작성자</span>
-			<input type="text" name="id" id="id" class="form-control">
+			<input type="text" value="${member.id}" name="id" id="id" class="form-control">
 		</div>
 	
 	

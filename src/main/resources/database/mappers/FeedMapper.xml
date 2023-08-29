@@ -8,24 +8,22 @@
   
   	<!-- SEARCH -->
   	<sql id = "searchSql">
-  	
-  		WHERE FEEDNUM>0
-  		
 		<choose>
 			<when test="kind=='id'">
-				AND ID LIKE '%'||#{search}||'%'
+				AND U.ID LIKE '%'||#{search}||'%'
 			</when>
 			<when test="kind=='title'">
-				AND TITLE LIKE '%'||#{search}||'%'
+				AND U.TITLE LIKE '%'||#{search}||'%'
 			</when>
 			<otherwise>
-				AND CONTENTS LIKE '%'||#{search}||'%'
+				AND U.CONTENTS LIKE '%'||#{search}||'%'
 			</otherwise>
 		</choose>
   	</sql>
   	
 
   	<!-- LIST -->
+  	<!-- 
   	<select id="getList" parameterType="Pager" resultType="FeedDTO">
   		SELECT FEEDNUM, ID, TITLE, CONTENTS, CREATEDATE, TRIPDATE, HIT, LIKES FROM
   			(SELECT ROWNUM R, F.* FROM
@@ -39,7 +37,62 @@
   			)
   		WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
-
+  	 -->
+	<select id="getList" parameterType="Pager" resultType="FeedDTO">
+	SELECT TOTALCOUNT - RNUMS + 1 AS RNUM
+	     , FEED.*
+	  FROM (
+	        SELECT ROW_NUMBER() OVER(ORDER BY U.FEEDNUM DESC) RNUMS
+	             , COUNT(*) OVER() TOTALCOUNT
+	             , U.FEEDNUM
+	             , U.ID
+	             , U.TITLE
+	             , U.CONTENTS
+	             , U.CREATEDATE
+	             , U.TRIPDATE
+	             , U.HIT
+	             , (SELECT COUNT(*)
+	                  FROM LIKES
+	                 WHERE FEEDNUM = U.FEEDNUM) AS LIKES
+	          FROM (SELECT FEEDNUM
+	                     , ID
+	                     , TITLE
+	                     , CONTENTS
+	                     , CREATEDATE
+	                     , TRIPDATE
+	                     , HIT
+	                  FROM FEED
+	                 WHERE PUBLICS = 0
+	                UNION ALL
+	                SELECT FEEDNUM
+	                     , ID
+	                     , TITLE
+	                     , CONTENTS
+	                     , CREATEDATE
+	                     , TRIPDATE
+	                     , HIT
+	                  FROM FEED F
+	                     , FOLLOW W
+	                 WHERE F.PUBLICS = 1
+	                   AND (F.ID = W.FROMUSER OR F.ID = W.TOUSER)
+	                UNION ALL
+	                SELECT F.FEEDNUM
+	                     , F.ID
+	                     , F.TITLE
+	                     , F.CONTENTS
+	                     , F.CREATEDATE
+	                     , F.TRIPDATE
+	                     , F.HIT
+	                  FROM FEED F
+	                 WHERE F.PUBLICS = 2
+	                   AND F.ID = #{id}
+	               ) U
+	             , MEMBER M
+	         WHERE U.ID = M.ID --MEMBER에 존재하는 ID와 JOIN
+	         <include refid="searchSql"></include>
+	       ) FEED
+	 WHERE RNUMS BETWEEN #{startRow} AND #{lastRow}
+	</select>
   	 <!-- 
   	 <select id="getList" resultMap="getDetailResult" parameterType="FeedDTO">
   		SELECT FEEDNUM, ID, TITLE, CONTENTS, CREATEDATE, TRIPDATE, HIT, LIKES FROM
@@ -56,10 +109,12 @@
   	 </select>
   	 -->
   	<!-- PAGER (GET TOTAL) -->
-  	<select id="getTotal" resultType="Long" parameterType="Pager">
-  		SELECT COUNT(FEEDNUM) FROM FEED
-  		<include refid="searchSql"></include>
-  	</select>
+	<select id="getTotal" resultType="Long" parameterType="Pager">
+	 SELECT COUNT(FEEDNUM)
+	   FROM FEED U
+	 WHERE 1 = 1
+		<include refid="searchSql"></include>
+	</select>
 	
 	
 	<!-- GET SEQUENCE -->
@@ -100,12 +155,24 @@
 	
 	<!-- Detail -->
 	<select id="getDetail" resultMap="getDetailResult" parameterType="FeedDTO">
-		SELECT F.*, FF.*
-		FROM FEED F
-			LEFT JOIN
-			FEEDFILE FF
-			ON (F.FEEDNUM = FF.FEEDNUM)
-		WHERE F.FEEDNUM = #{feedNum}
+	SELECT F.FEEDNUM
+	    , F.ID
+	    , F.TITLE
+	    , F.CONTENTS
+	    , F.CREATEDATE
+	    , F.TRIPDATE
+	    , F.HIT
+	    , (SELECT COUNT(*)
+	         FROM LIKES
+	        WHERE FEEDNUM = F.FEEDNUM) AS LIKES
+	    , F.PUBLICS
+	    , FF.ORIGINALNAME
+	    , FF.FILENAME
+	  FROM FEED F
+	     , FEEDFILE FF
+	 WHERE F.FEEDNUM = FF.FEEDNUM(+)
+	 			<!-- left outer join 이라는 뜻! -->
+	   AND F.FEEDNUM = #{feedNum}
 	</select>
 	
   	<resultMap type="FeedDTO" id="getDetailResult">
@@ -160,4 +227,28 @@
 		SELECT COUNT(*) FROM LIKES WHERE ID=#{id} AND FEEDNUM=#{feedNum}
 	</select>
 
+	<!-- 좋아요 체크 -->
+	<select id="checkLikes" parameterType="LikesDto" resultType="Integer">
+	SELECT COUNT(*)
+	  FROM LIKES
+	 WHERE FEEDNUM = #{feedNum}
+	   AND ID = #{id}
+	</select>
+
+	<!-- 좋아요 등록 -->
+	<insert id="addLikes" parameterType="LikesDto">
+	INSERT INTO LIKES (LIKESNUM, ID, FEEDNUM)
+	VALUES (LIKES_SEQ.NEXTVAL, #{id}, #{feedNum})
+	</insert>
+
+	<!-- 좋아요 카운트 -->
+	<select id="countLikes" parameterType="LikesDto" resultType="Integer">
+	SELECT COUNT(*)
+	  FROM LIKES
+	 WHERE FEEDNUM = #{feedNum}
+	</select>
+	
+	<delete id="deleteLikes" parameterType="LikesDto">
+	DELETE LIKES WHERE ID = #{id} AND FEEDNUM = #{feedNum}
+	</delete>
   </mapper>

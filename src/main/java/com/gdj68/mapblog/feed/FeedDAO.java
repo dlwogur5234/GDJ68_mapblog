@@ -10,37 +10,35 @@ import com.gdj68.mapblog.util.Pager;
 
 @Repository
 public class FeedDAO {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
-	
-	private final String NAMESPACE="com.gdj68.mapblog.feed.FeedDAO.";
-	
-	
+
+	private final String NAMESPACE = "com.gdj68.mapblog.feed.FeedDAO.";
+
 	/* -------------------------------------------------------------- */
-	
-	
-	// getList
+
+	// 리스트
 	public List<FeedDTO> getList(Pager pager) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getList", pager);
 	}
-	
-	// setAdd
+
+	// 글 작성
 	public int setAdd(FeedDTO feedDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE + "setAdd", feedDTO);
 	}
-	
-	// getDetail
+
+	// 글 디테일
 	public FeedDTO getDetail(FeedDTO feedDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getDetail", feedDTO);
 	}
-	
-	// setDelete
+
+	// 글 삭제
 	public int setDelete(FeedDTO feedDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE + "setDelete", feedDTO);
 	}
-	
-	// setUpdate
+
+	// 글 수정
 	public int setUpdate(FeedDTO feedDTO) throws Exception {
 		return sqlSession.update(NAMESPACE + "setUpdate", feedDTO);
 	}
@@ -50,38 +48,54 @@ public class FeedDAO {
 		return sqlSession.selectOne(NAMESPACE + "getTotal", pager);
 	}
 
-	
 	/* -------- FILE -------- */
-	
-	// setFileAdd
+
+	// 파일 추가
 	public int setFileAdd(FeedFileDTO feedFileDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE + "setFileAdd", feedFileDTO);
 	}
-	
-	// getFileDetail
+
+	// 파일 디테일
 	public FeedFileDTO getFileDetail(FeedFileDTO feedFileDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getFileDetail", feedFileDTO);
 	}
-	
-	// setFileDelete
+
+	// 파일 삭제
 	public int setFileDelete(FeedFileDTO feedFileDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE + "setFileDelete", feedFileDTO);
 	}
-	
-	
+
 	/* -------- 조회수 -------- */
-	
-	// setHitUpdate
+
+	// 조회수 추가
 	public int setHitUpdate(FeedDTO feedDTO) throws Exception {
 		return sqlSession.update(NAMESPACE + "setHitUpdate", feedDTO);
 	}
-	
-	
+
 	/* -------- 좋아요 -------- */
-	
-	// getFindLike
+
+	// 좋아요 눌렀는지 확인
 	public Long getFindLikes(LikesDTO likesDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getFindLikes", likesDTO);
 	}
 	
+	// 좋아요 체크
+	public int checkLikes(LikesDTO likesDto) {
+		return sqlSession.selectOne(NAMESPACE + "checkLikes", likesDto);
+	}
+
+	// 좋아요 등록
+	public int addLikes(LikesDTO likesDto) {
+		return sqlSession.insert(NAMESPACE + "addLikes", likesDto);
+	}
+
+	// 좋아요 카운트
+	public int countLikes(LikesDTO likesDto) {
+		return sqlSession.selectOne(NAMESPACE + "countLikes", likesDto);
+	}
+
+	// 좋아요 삭제
+	public int deleteLikes(LikesDTO likesDto) {
+		return sqlSession.delete(NAMESPACE + "deleteLikes", likesDto);
+	}
 }
