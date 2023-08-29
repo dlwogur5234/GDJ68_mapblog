@@ -48,7 +48,6 @@
 	<typeAlias type="com.gdj68.mapblog.notice.NoticeDTO" alias="NoticeDTO"/>
 	<typeAlias type="com.gdj68.mapblog.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
 	<typeAlias type="com.gdj68.mapblog.follow.FollowDTO" alias="FollowDTO"/>
-	<typeAlias type="com.gdj68.mapblog.util.QueryParam" alias="QueryParam"/>
 	
 	
 	
