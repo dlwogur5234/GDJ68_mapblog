@@ -27,7 +27,7 @@
     </form><br>
 
     <div class="mb-3">
-		<input type="button" class="btn btn-primary" id="btn" value="변경하기"></button>
+		<input type="button" class="btn btn-primary" id="btn" value="변경하기">
 	</div>
 	
 	<script>

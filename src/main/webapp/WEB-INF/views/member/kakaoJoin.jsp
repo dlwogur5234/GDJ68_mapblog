@@ -15,7 +15,7 @@
 
 <body>
 	
-	<h1>네이버로 회원 가입</h1>
+	<h1>카카오로 회원 가입</h1>
 	
 
 	<form action="../member/join" method="POST" id="fr" enctype="multipart/form-data">
@@ -36,8 +36,10 @@
 		<div id="pw2Result" class="x">PASSWORD 일치 여부를 확인하세요(필수)</div><br>
 		<div>
 			<label>NAME</label>
-			<input type="text" id="name" name="name" value="${naverMember.name}" readonly>
-		</div><br>
+			<input type="text" id="name" name="name" placeholder="이름을 입력하세요">
+		</div>
+		<div id="nameResult" class="x">이름을 확인하세요(필수)</div>
+		<div><br>
 		<div>
 			<label>NICKNAME</label>
 			<input type="text" id="nickName" name="nickName" placeholder="닉네임을 입력하세요">
@@ -45,10 +47,11 @@
 		<div id="nickNameResult" class="x">닉네임을 확인하세요(필수) / 닉네임은 추후 변경할 수 없으니 신중하게 입력해주세요</div><br>
 		<div>
 			<label>EMAIL</label>
-			<input type="text" id="email" name="email" value="${naverMember.email}" readonly>
+			<input type="text" id="email" name="email" value="${kakaoMember.email}" readonly>
 		</div><br>
 			<label>PHONE</label>
 			<input type="text" id="phone" name="phone" placeholder="PHONE#을 입력하세요">
+		</div>
 		<div class="o">(폰번호는 필수 아님)</div><br>
 		<div>
 			<label>BIRTH</label>
@@ -60,11 +63,6 @@
 			<input type="text" id="url" name="url" placeholder="사용할 URL을 입력하세요">
 		</div>
 		<div id="urlResult" class="x">URL을 확인하세요(필수) / URL은 추후 변경할 수 없으니 신중하게 입력해주세요</div><br>
-
-		<div>
-			<label for="pic" class="form-label">프로필 사진</label>
-			<input type="file" name="photo" class="form-control" id="pic">
-		</div>
 		<div>
 				<label>계정 공개 여부</label><br>
 			<input type="radio" id="p1" name="publics" value="1">
@@ -73,12 +71,16 @@
 			<label for="p2">전체 비공개</label><br>
 			<div id="publicsResult" class="x">공개여부를 확인하세요(필수)</div>
 		</div><br>
+		<div>
+			<label for="pic" class="form-label">프로필 사진</label>
+			<input type="file" name="photo" class="form-control" id="pic">
+		</div>
 	</form>
 	
 	<div class="mb-3">
 		<input type="button" class="btn btn-primary" id="btn" value="회원가입">
 	</div>
 
-	<script src="../resources/js/member/naverJoin.js"></script>
+	<script src="../resources/js/member/kakaoJoin.js"></script>
 </body>
 </html>

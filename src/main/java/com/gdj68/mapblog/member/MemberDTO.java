@@ -12,6 +12,7 @@ public class MemberDTO {
 	private String phone;
 	private String birth;
 	private String url;
+	private int publics;
 	
 	
 	public String getId() {
@@ -75,6 +76,14 @@ public class MemberDTO {
 	
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public int getPublics() {
+		return publics;
+	}
+
+	public void setPublics(int publics) {
+		this.publics = publics;
 	}
 
 	@Override

@@ -10,8 +10,8 @@
   	</delete>
   	
   	<insert id="setJoin" parameterType="MemberDTO">
-  		INSERT INTO MEMBER (ID, PW, NAME, NICKNAME, EMAIL, PHONE, BIRTH, URL, CREATEDATE)
-  		VALUES (#{id}, #{pw}, #{name}, #{nickName}, #{email}, #{phone}, #{birth}, #{url}, SYSDATE)
+  		INSERT INTO MEMBER (ID, PW, NAME, NICKNAME, EMAIL, PHONE, BIRTH, URL, CREATEDATE, PUBLICS)
+  		VALUES (#{id}, #{pw}, #{name}, #{nickName}, #{email}, #{phone}, #{birth}, #{url}, SYSDATE, #{publics})
   	</insert>
   	
   	<select id="getLogin" resultType="MemberDTO" parameterType="MemberDTO">
@@ -21,7 +21,7 @@
   	
   	<update id="setMemberUpdate" parameterType="MemberDTO">
 		UPDATE MEMBER SET
-		PW=#{pw}, NAME=#{name}, PHONE=#{phone}, BIRTH=#{birth}
+		PW=#{pw}, NAME=#{name}, PHONE=#{phone}, BIRTH=#{birth}, PUBLICS=#{publics}
 		WHERE ID=#{id}
 	</update>
 	
@@ -54,4 +54,25 @@
    	<delete id="deleteMemberFile" parameterType="FileDTO">
 		DELETE FROM PROFILEIMG WHERE FILENUM=#{fileNum}  	
   	</delete>
+  	
+  	<select id="searchMember" resultType="MemberDTO" parameterType="MemberSearchDTO">
+  		SELECT ID FROM MEMBER 
+  		WHERE ID LIKE '%'||#{keyword}||'%' AND PUBLICS != 0 AND ID NOT IN (
+  			SELECT IGNORED FROM IGNORE WHERE IGNORING = #{id}
+  		)
+  	</select>
+  	
+  	 <select id="didYouIgnore" resultType="IgnoreDTO" parameterType="MemberDTO">
+  		SELECT IGNORED FROM IGNORE 
+  		WHERE IGNORING = #{id}
+  	</select>
+  	
+  	<delete id="ignoreCancle" parameterType="IgnoreDTO">
+		DELETE FROM IGNORE WHERE IGNORING=#{ignoring} AND IGNORED=#{ignored}  	
+  	</delete>
+  	
+   	<insert id="ignore" parameterType="IgnoreDTO">
+  		INSERT INTO IGNORE (IGNORENUM, IGNORING, IGNORED)
+  		VALUES (IGNORE_SEQ.NEXTVAL, #{ignoring}, #{ignored})
+  	</insert>
   </mapper>

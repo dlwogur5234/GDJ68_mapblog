@@ -45,9 +45,18 @@
 		</div>
 		<div id="birthResult" class="x">생일을 확인하세요(필수)</div><br>
 		
+		<div>
+			<label>계정 공개 여부</label><br>
+			<input type="radio" id="p1" name="publics" value="1">
+			<label for="p1">전체 공개</label>
+			<input type="radio" id="p2" name="publics" value="0">
+			<label for="p2">전체 비공개</label><br>
+		<div id="publicsResult" class="x">공개여부를 확인하세요(필수)</div>
+		</div><br>
+
 		<input type="hidden" name="url" value="${member.url}">
 
-		<input type="button" id="btn" value="변경하기"></button>
+		<input type="button" id="btn" value="변경하기">
 	</form>
 	
 	<script src="../resources/js/member/membersUpdate.js"></script>

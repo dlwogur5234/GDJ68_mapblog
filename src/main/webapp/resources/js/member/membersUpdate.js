@@ -5,7 +5,7 @@ const birth = document.getElementById("birth");
 const fr = document.getElementById("fr");
 const btn = document.getElementById("btn");
 
-let checkResults=[false,false,false,false];
+let checkResults=[false,false,false,false,false];
 
 // PW 체크
 pw.addEventListener("blur", function(){
@@ -73,6 +73,11 @@ birth.addEventListener("change",function(){
 
 // 변경하기 버튼
 btn.addEventListener("click",function(){
+
+    // 공개여부 체크 확인
+    let publics = $('input:radio[name=publics]').is(":checked");
+    checkResults[4] = publics;
+
     console.log(checkResults);
     let c = checkResults.includes(false);
     if(!c){
@@ -90,3 +95,12 @@ function emptyCheck(element){
         return false;
     }
 }
+
+// 공개여부 체크 관련
+$("input:radio[name=publics]").click(function(){
+            
+    if($('input:radio[name=publics]').is(":checked")){
+        publicsResult.className="o";
+        publicsResult.innerHTML="공개여부 체크 되었습니다";
+    }
+});

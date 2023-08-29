@@ -1,5 +1,9 @@
 package com.gdj68.mapblog.member;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gdj68.mapblog.file.FileDTO;
 import com.gdj68.mapblog.util.FileManager;
+import com.gdj68.mapblog.util.Pager;
 
 
 @Service
@@ -82,6 +87,22 @@ public class MemberService {
 
 	public MemberDTO findIdPw(MemberDTO memberDTO) {
 		return memberDAO.findIdPw(memberDTO);
+	}
+
+	public List<MemberDTO> searchMember(MemberSearchDTO memberSearchDTO) {
+		return memberDAO.searchMember(memberSearchDTO);	
+	}
+
+	public List<IgnoreDTO> didYouIgnore(MemberDTO memberDTO) {
+		return memberDAO.didYouIgnore(memberDTO);	
+	}
+
+	public int ignoreCancle(IgnoreDTO ignoreDTO) {
+		return memberDAO.ignoreCancle(ignoreDTO);
+	}
+
+	public int ignore(IgnoreDTO ignoreDTO) {
+		return memberDAO.ignore(ignoreDTO);
 	}
 	
 }
