@@ -7,11 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e&libraries=services"></script>   
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
+    <input type="text" id="adrs"><button id="btn2" type="button">검색</button>
 	 <div id="map" style="width:1000px;height:800px;"></div>
     <div id="clickLatlng"></div>
     <p id="result"></p>
@@ -19,11 +20,11 @@
     <form class="mb-5 text-center form-control" action="./update" method="post" id="frm">
 	    <input type="hidden" name=meetingNum value="${dto.meetingNum }">
 	    <input type="hidden" name="id" value="${sessionScope.member.id }">
-	    <input type="text" name="title" id="title" value="${dto.title }">
-	    <textarea class="input-group" rows="" cols="" name="contents" id="contents" value="${dto.contents }"></textarea>
-	    <input type="datetime-local"  id="meetingDate" value="${dto.meetingDate }">
+	    제목<input type="text" name="title" id="title" value="${dto.title }"><br>
+	    내용<textarea class="input-group" rows="" cols="" name="contents" id="contents" value="${dto.contents }"></textarea>
+	    모임날짜<input type="datetime-local"  id="meetingDate" value="${dto.meetingDate }">
 	    <input type="hidden" name="meetingDate" id="meetingDate2">
-	    <input type="number" id="personnel" min="2" max="10" name="personnel">
+	    모집인원<input type="number" id="personnel" min="2" max="10" name="personnel" value="${dto.personnel}">
 	    <input type="hidden" name="lat" id="lat" value="${dto.lat}">
 	    <input type="hidden" name="lng" id="lng" value="${dto.lng}">
 	
@@ -31,7 +32,7 @@
 
    	</form>
 
-    <script src="../resources/js/meeting/update.js"></script>
+    
     <script>
     
     const btn = document.getElementById("btn");
@@ -97,6 +98,10 @@
 				frm.submit();
 			}
 		});
+
+   
     </script>
+
+    <script src="../resources/js/meeting/update.js" defer></script>
 </body>
 </html>

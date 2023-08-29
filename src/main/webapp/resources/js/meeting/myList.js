@@ -1,10 +1,65 @@
+let centertLat =33.450701;
+let centerLng =126.570667;
+
+getLocation();
+function getLocation() {
+    if (navigator.geolocation) { // GPS를 지원하면
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // alert(position.coords.latitude + ' ' + position.coords.longitude);
+        centertLat = position.coords.latitude;
+        console.log(centertLat);
+        centerLng = position.coords.longitude;
+        console.log(centerLng);
+        getKakaoMap(centertLat,centerLng)
+      }, function(error) {
+        console.error(error);
+        alert('GPS 지원을 동의하지 않으셨습니다.')
+        getKakaoMap(centertLat,centerLng);
+      }, {
+        enableHighAccuracy: false,
+        maximumAge: 0,
+        timeout: Infinity
+      });
+    } else {
+      alert('GPS를 지원하지 않습니다');
+      getKakaoMap(centertLat,centerLng);
+    }
+  }
+
+$('#btn2').on("click",function(){
+    console.log($('#adrs').val());
+    getKakaoMap(centertLat,centerLng);
+});
+
+function getKakaoMap(centertLat,centerLng){
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(centertLat,centerLng), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
 let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+if($('#adrs').val()!=""){
+    // 주소-좌표 변환 객체를 생성합니다
+  let geocoder = new kakao.maps.services.Geocoder();
+
+  // 주소로 좌표를 검색합니다
+  geocoder.addressSearch($('#adrs').val(), function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+    if (status === kakao.maps.services.Status.OK) {
+
+      let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+     
+      map.setCenter(coords);
+      
+    }else{
+      alert('검색 실패');    
+   }
+  })
+
+}
 
 let checked = true;
 
@@ -90,3 +145,4 @@ function makeClickListener(map, marker) {
 $("body").on("click","#close_overlay", function(){
     overlay.setMap(null);
 })
+}
