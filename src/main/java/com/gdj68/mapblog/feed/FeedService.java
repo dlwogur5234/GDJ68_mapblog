@@ -22,7 +22,7 @@ public class FeedService {
 	
 	/* ----------------------------------------------------------- */
 	
-	// getList
+	// 리스트
 	public List<FeedDTO> getList(Pager pager) throws Exception {
 		pager.makeRowNum();
 		Long total = feedDAO.getTotal(pager);
@@ -31,7 +31,7 @@ public class FeedService {
 		return feedDAO.getList(pager);
 	}
 	
-	// setAdd
+	// 글 추가
 	public int setAdd(FeedDTO feedDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		
 		String path = "/resources/upload/board/";
@@ -58,26 +58,26 @@ public class FeedService {
 	}
 	
 	
-	// getDetail
+	// 글 디테일
 	public FeedDTO getDetail(FeedDTO feedDTO) throws Exception {
 		feedDAO.setHitUpdate(feedDTO);
 		return feedDAO.getDetail(feedDTO);
 	}
 	
 	
-	// setDelete
+	// 글 삭제
 	public int setDelete(FeedDTO feedDTO) throws Exception {
 		return feedDAO.setDelete(feedDTO);
 	}
 	
 	
-	// setUpdate
+	// 글 수정
 	public int setUpdate(FeedDTO feedDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		return feedDAO.setUpdate(feedDTO);
 	}
 	
 	
-	// setFileDelete
+	// 파일 삭제
 	public int setFileDelete(FeedFileDTO feedFileDTO, HttpSession session) throws Exception {
 		// 폴더 파일 삭제
 		feedFileDTO = feedDAO.getFileDetail(feedFileDTO);
@@ -87,29 +87,46 @@ public class FeedService {
 			// DB에서 삭제
 			return feedDAO.setFileDelete(feedFileDTO);
 		}
-		
+
 		return 0;
 	}
-	
-	// setContentsImgDelete
-	public boolean setContentsImgDelete(String path, HttpSession session)throws Exception{
-		//path: /resources/upload/board/파일명
+
+	// 콘텐츠 이미지 삭제
+	public boolean setContentsImgDelete(String path, HttpSession session) throws Exception {
+		// path: /resources/upload/board/파일명
 		FeedFileDTO feedFileDTO = new FeedFileDTO();
-		
+
 //		System.out.println(path.substring(path.lastIndexOf("/")+1));
 		feedFileDTO.setFileName(path.substring(path.lastIndexOf("/") + 1));
-		
+
 		path = "/resources/upload/board/";
 		return fileManager.fileDelete(feedFileDTO, path, session);
 	}
-	
-	
-	// setContentsImg
+
+	// 콘텐츠 이미지 추가
 	public String setContentsImg(MultipartFile file, HttpSession session) throws Exception {
 		String path = "/resources/upload/board/";
 		String fileName = fileManager.fileSave(path, session, file);
 		return path + fileName;
 	}
-	
 
+	// 좋아요 체크
+	public int checkLikes(LikesDTO likesDto) {
+		return feedDAO.checkLikes(likesDto);
+	}
+
+	// 좋아요 등록
+	public int addLikes(LikesDTO likesDto) {
+		return feedDAO.addLikes(likesDto);
+	}
+
+	// 좋아요 카운트
+	public int countLikes(LikesDTO likesDto) {
+		return feedDAO.countLikes(likesDto);
+	}
+
+	// 좋아요 삭제
+	public int deleteLikes(LikesDTO likesDto) {
+		return feedDAO.deleteLikes(likesDto);
+	}
 }

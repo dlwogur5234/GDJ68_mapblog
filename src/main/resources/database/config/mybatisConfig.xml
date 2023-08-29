@@ -18,13 +18,12 @@
 	
 	
 	
-	
 	<!-- 혜령 21~30-->
 	<typeAlias type="com.gdj68.mapblog.feed.FeedDTO" alias="FeedDTO"/>
 	<typeAlias type="com.gdj68.mapblog.feed.FeedFileDTO" alias="FeedFileDTO"/>
 	<typeAlias type="com.gdj68.mapblog.util.Pager" alias="Pager"/>
-	
-	
+	<typeAlias type="com.gdj68.mapblog.feed.LikesDTO" alias="LikesDTO"/>
+	<typeAlias type="java.lang.Integer" alias="Integer"/>	
 	
 	
 	
@@ -35,8 +34,6 @@
 	<typeAlias type="com.gdj68.mapblog.file.FileDTO" alias="FileDTO"/>
 	<typeAlias type="com.gdj68.mapblog.member.MemberSearchDTO" alias="MemberSearchDTO"/>
 	<typeAlias type="com.gdj68.mapblog.member.IgnoreDTO" alias="IgnoreDTO"/>
-	
-	
 	
 	
 	

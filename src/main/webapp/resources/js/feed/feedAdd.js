@@ -11,6 +11,7 @@ value = value*1;
 
 
 
+
 // let tripDate = document.getElementById("tripDate");
 
 // tripDate.addEventListener("change", function(){
@@ -19,7 +20,6 @@ value = value*1;
 
 //     tripDate = 
 // })
-
 
 
 
