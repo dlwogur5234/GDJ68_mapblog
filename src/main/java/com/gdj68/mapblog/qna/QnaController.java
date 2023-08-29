@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,6 +22,8 @@ import com.gdj68.mapblog.util.Pager;
 public class QnaController {
 	@Autowired
 	private QnaService qnaService;
+	
+
 	
 	@GetMapping("list")
 	public String getList(Pager pager,Model model) throws Exception{
@@ -43,16 +46,23 @@ public class QnaController {
 		
 	}
 	@GetMapping("detail")
-	public String getDetail(QnaDTO qnaDTO,Model model) throws Exception{
-		System.out.println(qnaDTO.getQnaNum());
-		qnaDTO=qnaService.getDetail(qnaDTO);	
+	public String getDetail(QnaDTO qnaDTO,Model model,HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		qnaDTO=qnaService.getDetail(qnaDTO,memberDTO);	
 		model.addAttribute("dto", qnaDTO);
+		
+		if(qnaDTO == null) {
+			String message ="비공개 글 입니다";
+			model.addAttribute("message", message);
+			model.addAttribute("url", "./list");
+			return "commons/result";
+		}
 		
 		return "qna/detail";
 	}
 	@GetMapping("update")
-	public String setUp(QnaDTO qnaDTO,Model model) throws Exception{
-		qnaDTO= qnaService.getDetail(qnaDTO);
+	public String setUp(QnaDTO qnaDTO,Model model,MemberDTO memberDTO) throws Exception{
+		qnaDTO= qnaService.getDetail(qnaDTO,memberDTO);
 		model.addAttribute("dto", qnaDTO);
 		return "qna/update";
 	}

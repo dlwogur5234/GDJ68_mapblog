@@ -21,19 +21,9 @@ public class QnaService {
 	@Autowired
 	private FileManager fileManager;
 	
-	//login한 qna만 보기
-	public List<QnaDTO> getList (MemberDTO memberDTO , Pager pager) throws Exception{
-		pager.setPerPage(3L);
-		pager.makeRowNum();
-		
-		pager.makePageNum(qnaDAO.getTotal(pager));
-		
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("member", memberDTO);
-		map.put("pager", pager);
-		
-		return qnaDAO.getList(map);
-	}
+	
+	
+	
 	
 	public List<QnaDTO> getList(Pager pager) throws Exception {
 		pager.makeRowNum();
@@ -68,9 +58,20 @@ public class QnaService {
 		return result;
 	}
 	
-	public QnaDTO getDetail(QnaDTO qnaDTO) throws Exception{
-		System.out.println(qnaDTO.getQnaNum());
-		return qnaDAO.getDetail(qnaDTO);
+	public QnaDTO getDetail(QnaDTO qnaDTO,MemberDTO memberDTO) throws Exception{
+		
+		qnaDTO=qnaDAO.getDetail(qnaDTO);
+		System.out.println(qnaDTO.getPrivateContents());
+		if(qnaDTO.getPrivateContents() == 0 ) {
+			if(memberDTO != null && memberDTO.getId().equals(qnaDTO.getMemberId())) {
+				return qnaDAO.getDetail(qnaDTO);
+			}
+			else {
+				return null;
+			}
+		}else {
+		return qnaDTO;
+		}
 	}
 	public int setUp(QnaDTO qnaDTO,MultipartFile[] photos , HttpSession session) throws Exception{
 		return qnaDAO.setUp(qnaDTO);

@@ -16,11 +16,7 @@ public class QnaDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	private final String NAMESPACE="com.gdj68.mapblog.qna.QnaDAO.";
-	//내가 쓴 qna만 보기
-	public List<QnaDTO> getMemberIdTotal(Map<String, Object> map) throws Exception{
-		return sqlSession.selectList(NAMESPACE+"getList", map);
-	}
-
+	
 	
 	
 	public Long getTotal(Pager pager) throws Exception{

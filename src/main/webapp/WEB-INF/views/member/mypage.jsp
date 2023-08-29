@@ -32,9 +32,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       </form>
     </div>
 
-	<div id="followList">
-		
-	</div>
+    <div id="myQnaList"></div>
 
     <script>
       const dm = document.getElementById("dm");
@@ -51,26 +49,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       ic.addEventListener("click", function () {
         fr3.submit();
       });
-      
-      
     </script>
-     <script src="/resources/js/follow/followList.js"></script>
-    <!-- <script type="text/javascript">
-    let page = 1;
-
-    $.ajax({
-      type: "GET",
-      url: "../follow/list",
-      data: {
-        page: page,
-      },
-      success: function (response) {
-        $("#followList").html(response.trim());
-      },
-      error: function () {
-        console.log("error");
-      },
-    });
-    </script> -->
+    <!-- <script src="/resources/js/follow/followList.js"></script> -->
+    <script src="/resources/js/qna/myQnaList.js"></script>
   </body>
 </html>

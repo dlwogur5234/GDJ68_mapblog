@@ -3,7 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+  
   <mapper namespace="com.gdj68.mapblog.qna.QnaDAO">
+  
+  
   	<select id="getTotal" resultType="Long">
   		SELECT COUNT(QNANUM) FROM QNA
   	</select>
@@ -44,6 +48,7 @@
   		<result column="QNATITLE" property="qnaTitle"/>
   		<result column="QNACONTENTS" property="qnaContents"/>
   		<result column="QNADATE" property="qnaDate"/>
+  		<result column="PRIVATECONTENTS" property="privateContents"/>
 
   		
   		

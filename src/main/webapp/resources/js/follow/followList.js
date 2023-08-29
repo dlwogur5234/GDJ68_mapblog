@@ -1,4 +1,3 @@
-alert("test");
 let page = 1;
 
 $.ajax({
