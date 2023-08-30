@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdj68.mapblog.admin.member.AdminMemberDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
@@ -58,12 +59,15 @@ public class QnaService {
 		return result;
 	}
 	
-	public QnaDTO getDetail(QnaDTO qnaDTO,MemberDTO memberDTO) throws Exception{
-		
+	public QnaDTO getDetail(QnaDTO qnaDTO,MemberDTO memberDTO,AdminMemberDTO adminMemberDTO) throws Exception{
+		/*
+		 * boolean result = memberDTO != null &&
+		 * memberDTO.getId().equals(qnaDTO.getMemberId());
+		 */
 		qnaDTO=qnaDAO.getDetail(qnaDTO);
 		System.out.println(qnaDTO.getPrivateContents());
 		if(qnaDTO.getPrivateContents() == 0 ) {
-			if(memberDTO != null && memberDTO.getId().equals(qnaDTO.getMemberId())) {
+			if((memberDTO != null && memberDTO.getId().equals(qnaDTO.getMemberId())) || adminMemberDTO != null) {
 				return qnaDAO.getDetail(qnaDTO);
 			}
 			else {

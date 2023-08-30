@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gdj68.mapblog.admin.member.AdminMemberDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
@@ -48,9 +49,10 @@ public class QnaController {
 	@GetMapping("detail")
 	public String getDetail(QnaDTO qnaDTO,Model model,HttpSession session) throws Exception{
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		qnaDTO=qnaService.getDetail(qnaDTO,memberDTO);	
+		AdminMemberDTO adminMemberDTO = (AdminMemberDTO)session.getAttribute("adminMember");
+		qnaDTO=qnaService.getDetail(qnaDTO,memberDTO,adminMemberDTO);	
 		model.addAttribute("dto", qnaDTO);
-		
+	
 		if(qnaDTO == null) {
 			String message ="비공개 글 입니다";
 			model.addAttribute("message", message);
@@ -61,9 +63,12 @@ public class QnaController {
 		return "qna/detail";
 	}
 	@GetMapping("update")
-	public String setUp(QnaDTO qnaDTO,Model model,MemberDTO memberDTO) throws Exception{
-		qnaDTO= qnaService.getDetail(qnaDTO,memberDTO);
+	public String setUp(QnaDTO qnaDTO,Model model,HttpSession session) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		AdminMemberDTO adminMemberDTO = (AdminMemberDTO)session.getAttribute("adminMember");
+		qnaDTO= qnaService.getDetail(qnaDTO, memberDTO,adminMemberDTO);
 		model.addAttribute("dto", qnaDTO);
+		System.out.println(qnaDTO.getMemberId());
 		return "qna/update";
 	}
 	@PostMapping("update")
