@@ -25,12 +25,13 @@
 	<h1 class="a mb-5 text-center">Update Page</h1>
 	
 	
-	<form action="./update" method="post" id="frm" enctype="multipart/form-data">
+	<form action="./update" method="post" id="updateFrm" enctype="multipart/form-data">
 		
 		
 		<!-- feedNum hidden 처리 -->
-		<input type="hidden" name="feedNum" value="${dto.feedNum}">
-
+		<input type="hidden" name="feedNum" id="feedNum" value="${dto.feedNum}">
+		<!-- 작성자 id -->
+		<input type="hidden" name="id" value="${sessionScope.member.id}">
 
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">여행날짜</span>
@@ -38,12 +39,6 @@
 			<input type="date" name="tripDate" class="form-control" id="updateTripDate" value="${dto.tripDate}">
 		</div>
 		
-
-		<div class="input-group mb-3">
-			<span class="input-group-text" id="basic-addon1">작성자</span>
-			<input type="text" name="id" id="id" class="form-control" value="${dto.id}">
-		</div>
-	
 	
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">제목</span>
@@ -111,8 +106,8 @@
 			</c:forEach>
 		</div>
 
-		<button class="btn btn-primary c1" type="button" id="update" data-url="update">등록</button>
-		<button class="btn btn-primary c1" type="button" id="cancle" data-cancle-num="${dto.feedNum}">취소</button>
+		<button class="btn btn-primary c1" type="submit" id="update" data-url="update">등록</button>
+		<button class="btn btn-primary c1" type="button" id="cancle">취소</button>
 	 
 	</form>
 	

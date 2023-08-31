@@ -21,10 +21,10 @@
 	<!-- 혜령 21~30-->
 	<typeAlias type="com.gdj68.mapblog.feed.FeedDTO" alias="FeedDTO"/>
 	<typeAlias type="com.gdj68.mapblog.feed.FeedFileDTO" alias="FeedFileDTO"/>
+	<typeAlias type="com.gdj68.mapblog.comment.feedComment.FeedCommentDTO" alias="FeedCommentDTO"/>
 	<typeAlias type="com.gdj68.mapblog.util.Pager" alias="Pager"/>
 	<typeAlias type="com.gdj68.mapblog.feed.LikesDTO" alias="LikesDTO"/>
 	<typeAlias type="java.lang.Integer" alias="Integer"/>	
-	
 	
 	
 	

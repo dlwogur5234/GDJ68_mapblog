@@ -98,4 +98,18 @@ public class FeedDAO {
 	public int deleteLikes(LikesDTO likesDto) {
 		return sqlSession.delete(NAMESPACE + "deleteLikes", likesDto);
 	}
+	
+	// 좋아요 게시글 리스트
+	public List<FeedDTO> getLikesList(Pager pager) {
+		return sqlSession.selectList(NAMESPACE + "getLikesList", pager);
+	}
+	
+	// 좋아요 게시글 카운트
+	public Long getLikesCount(Pager pager) {
+		return sqlSession.selectOne(NAMESPACE + "getLikesCount", pager);
+	}
+
 }
+
+
+
