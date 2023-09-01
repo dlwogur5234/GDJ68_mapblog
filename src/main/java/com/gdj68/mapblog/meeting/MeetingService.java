@@ -72,4 +72,11 @@ public class MeetingService {
 		return result;
 	}
 	
+	public int setAddComment(MeetingCommentDTO commentDTO) throws Exception {
+		return meetingDAO.setAddComment(commentDTO);
+	}
+	
+	public List<MeetingCommentDTO> getCommentList(MeetingCommentDTO commentDTO) throws Exception {
+		return meetingDAO.getCommentList(commentDTO);
+	}
 }

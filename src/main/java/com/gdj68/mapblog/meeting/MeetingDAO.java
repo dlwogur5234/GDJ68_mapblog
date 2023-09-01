@@ -61,6 +61,12 @@ public class MeetingDAO {
 		return sqlSession.selectOne(NAMESPACE+"getPersonnelCheck", meetingMemberDTO);
 	}
 	
+	public int setAddComment(MeetingCommentDTO commentDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"setAddComment",commentDTO);
+	}
 	
+	public List<MeetingCommentDTO> getCommentList(MeetingCommentDTO commentDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"getCommentList", commentDTO);
+	}
 	
 }

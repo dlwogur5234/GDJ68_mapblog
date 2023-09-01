@@ -129,8 +129,16 @@ function makeClickListener(map, marker, infowindow) {
             url:"./detail?meetingNum="+marker.Gb,
             success: function(r){
                 $('#detail').html(r);
+              //   $.ajax({
+              //     type:"GET",
+              //     url:"./getComment?meetingNum="+marker.Gb,
+              //     success: function(r){
+              //         $('#commentList').html(r);
+              //     }
+              // })
             }
         })
+    
     };
 }
 }

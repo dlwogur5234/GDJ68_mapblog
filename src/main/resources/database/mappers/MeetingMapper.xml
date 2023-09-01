@@ -52,4 +52,14 @@
 		WHERE mb.id = #{id} AND M.MEETINGDATE > SYSDATE
   	</select>
   	
+  	<insert id="setAddComment" parameterType="MeetingCommentDTO">
+  		INSERT INTO MEETINGCOMMENT VALUES (MEETINGCOMMENT_SEQ.NEXTVAL,#{meetingNum},#{id},#{contents},SYSDATE,0,#{meetingNum},0)
+  	</insert>
+  	
+  	<select id="getCommentList" parameterType="MeetingCommentDTO" resultType="MeetingCommentDTO">
+  		SELECT * FROM MEETINGCOMMENT
+  		WHERE MEETINGNUM = #{meetingNum}
+  	</select>
+  	
+  	
   </mapper>

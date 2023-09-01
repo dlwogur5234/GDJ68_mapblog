@@ -94,5 +94,22 @@ public class MeetingController {
 		return "redirect:./list";
 	}
 	
+	@PostMapping("addComment")
+	public String setAddComment(MeetingCommentDTO commentDTO) throws Exception {
+		System.out.println("controller 진입");
+		System.out.println(commentDTO.getContents());
+		System.out.println(commentDTO.getId());
+		long ms = commentDTO.getMeetingNum();
+		int result = meetingService.setAddComment(commentDTO);
+		return "redirect:./getComment?meetingNum="+ms;
+	}
+	
+	@GetMapping("getComment")
+	public String getCommentList(MeetingCommentDTO commentDTO,Model model) throws Exception {
+		List<MeetingCommentDTO> ar = meetingService.getCommentList(commentDTO);
+		model.addAttribute("commentList", ar);
+		return "meeting/commentList";
+	}
+	
 	
 }

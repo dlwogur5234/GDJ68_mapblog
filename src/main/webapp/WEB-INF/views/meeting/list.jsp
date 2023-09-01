@@ -16,7 +16,7 @@
 	<div class="a" data-meetingNum="${d.meetingNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat }" data-lng="${d.lng }" id="${i.index}"></div>
 	</c:forEach>
 	<div id="map" style="width:900px;height:700px;float:left;border: solid 1px;margin-right: 300px;"></div>
-	<div id="detail" style="float:left;text-align:center;">detail테스트</div>
+	<div id="detail" style="float:left;text-align:center;"></div>
 
 
 
