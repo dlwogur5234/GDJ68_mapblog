@@ -40,3 +40,41 @@ $(document).ready(function(){
         })	
 
 });
+
+// $('#commentList').on('click','#btn',function(){
+//     console.log($('#commentList').attr('data-commentNum'));
+//   });
+
+  $('#btn3').on('click',function(){
+    console.log("sdsds2");
+  });
+
+//   $('#commentList').on('click','#btn',function(){
+//     console.log("sdsds3");
+//   });
+
+//   $('.butt').on('click',function(){
+//     console.log("sdsds3");
+//   });
+
+
+    $('#commentList').on('click','.butt',function(){
+        var commentNum2 = $(this).closest("div").data("commentNum")
+        console.log(commentNum2);
+        $.ajax({
+            type:'get',
+            url:'deleteComment',
+            data:{
+                commentNum:commentNum2
+            },
+            success:function(result){
+               
+            },
+            error:function(){
+                console.log('error');
+            }
+        })
+    })
+
+
+  

@@ -69,4 +69,7 @@ public class MeetingDAO {
 		return sqlSession.selectList(NAMESPACE+"getCommentList", commentDTO);
 	}
 	
+	public int setDeleteComment(MeetingCommentDTO commentDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"setDeleteComment", commentDTO);
+	}
 }

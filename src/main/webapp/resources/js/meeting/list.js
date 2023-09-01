@@ -143,6 +143,10 @@ function makeClickListener(map, marker, infowindow) {
 }
 }
 
+// $('#detail').on('click','#commentList',function(){
+  
+// })
+
 
 
 

@@ -61,5 +61,7 @@
   		WHERE MEETINGNUM = #{meetingNum}
   	</select>
   	
-  	
+  	<delete id="setDeleteComment" parameterType="MeetingCommentDTO">
+  		DELETE MEETINGCOMMENT WHERE COMMENTNUM = #{commentNum}
+  	</delete>
   </mapper>
