@@ -37,10 +37,10 @@ public class FeedController {
 	@GetMapping("list")
 	public String getList(Pager pager, Model model, HttpSession session) throws Exception {
 
-		MemberDTO memberDto = (MemberDTO)session.getAttribute("member");
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 
-	      if (memberDto != null) {
-	         pager.setId(memberDto.getId());
+	      if (memberDTO != null) {
+	         pager.setId(memberDTO.getId());
 	      }
 
 		List<FeedDTO> ar = feedService.getList(pager);
@@ -113,7 +113,7 @@ public class FeedController {
 	// Update POST
 	@PostMapping("update")
 	public String setUpdate(FeedDTO feedDTO, MultipartFile[] photos, HttpSession session) throws Exception {
-		// int result = feedService.setUpdate(feedDTO, photos, session);
+		int result = feedService.setUpdate(feedDTO, photos, session);
 
 		return ("redirect:./detail?feedNum=" + feedDTO.getFeedNum());
 	}
@@ -155,29 +155,54 @@ public class FeedController {
 
 	@PostMapping("addLikes")
 	@ResponseBody
-	public Map<String, Integer> addLikes(LikesDTO likesDto, HttpSession session) throws Exception {
+	public Map<String, Integer> addLikes(LikesDTO likesDTO, HttpSession session, Model model) throws Exception {
 
-		MemberDTO memberDto = (MemberDTO) session.getAttribute("member");
-		likesDto.setId(memberDto.getId());
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		likesDTO.setId(memberDTO.getId());
 		
-		LOGGER.info("LIKES DTO : {}", likesDto);
+		model.addAttribute("memberDTO", memberDTO);
+		
 
 		Map<String, Integer> resultMap = new HashMap<String, Integer>();
 
-		int check = feedService.checkLikes(likesDto);
+		int check = feedService.checkLikes(likesDTO);
 		
-		LOGGER.info("check : {}", check);
+		model.addAttribute("check", check);
 
 		if (check == 0) {
-			resultMap.put("result", feedService.addLikes(likesDto));
+			resultMap.put("result", feedService.addLikes(likesDTO));
 		} else {
-			resultMap.put("result", feedService.deleteLikes(likesDto));
+			resultMap.put("result", feedService.deleteLikes(likesDTO));
 		}
 
-		resultMap.put("count", feedService.countLikes(likesDto));
+		resultMap.put("count", feedService.countLikes(likesDTO));
 
-		LOGGER.info("resultMap : {}", resultMap);
+		model.addAttribute("resultMap", resultMap);
 
 		return resultMap;
 	}
+	
+	
+	// 좋아요 리스트	
+	@GetMapping("likesList")
+	public String getLikesList(Model model, HttpSession session, Pager pager) {
+
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		
+		if (memberDTO == null) {
+			model.addAttribute("memberDTO", memberDTO);
+			return "redirect:/member/login";
+		}
+
+		pager.setId(memberDTO.getId());
+		
+		List<FeedDTO> getLikesList = feedService.getLikesList(pager);
+
+		model.addAttribute("getLikesList", getLikesList);
+		model.addAttribute("pager", pager);
+
+		return "feed/likesList";
+	}
+
+	
 }

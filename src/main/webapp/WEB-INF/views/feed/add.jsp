@@ -25,21 +25,15 @@
 	<h1 class="a mb-5 text-center">Add Page</h1>
 	
 	
-	<form action="./add" method="post" id="frm" enctype="multipart/form-data">
+	<form action="./add" method="post" id="addFrm" enctype="multipart/form-data">
 		
-
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">여행날짜</span>
 			<label for="tripDate" class="form-label"></label>
 			<input type="date" name="tripDate" class="form-control" id="tripDate" placeholder="연도 / 월 / 일">
 		</div>
 		
-	
-		<div class="input-group mb-3">
-			<span class="input-group-text" id="basic-addon1">작성자</span>
-			<input type="text" value="${member.id}" name="id" id="id" class="form-control">
-		</div>
-	
+		<input type="hidden" name="id" value="${sessionScope.member.id}">
 	
 		<div class="input-group mb-3">
 			<span class="input-group-text" id="basic-addon1">제목</span>
@@ -89,14 +83,14 @@
 		<div id="fileList" class="my-5"></div>
 
 
-		<button class="btn btn-primary" type="button" id="btn">등록</button>
+		<button class="btn btn-primary" type="button" id="addBtn">등록</button>
 		<button class="btn btn-primary" type="button" id="cancle">취소</button>
 	 
 	</form>
 	
 	</section>
 	
-<script src="/resources/js/feedFile.js"></script>
+<script src="/resources/js/feed/feedFile.js"></script>
 <script src="/resources/js/feed/feedAdd.js"></script>
 
 </body>

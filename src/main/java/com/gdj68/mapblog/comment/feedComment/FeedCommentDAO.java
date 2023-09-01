@@ -13,4 +13,5 @@ public class FeedCommentDAO {
 	private final String NAMESPACE="com.gdj68.mapblog.comment.feedComment.FeedCommentDAO.";
 	
 	
+	
 }

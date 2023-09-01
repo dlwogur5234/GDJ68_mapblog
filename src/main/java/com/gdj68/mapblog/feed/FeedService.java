@@ -129,4 +129,15 @@ public class FeedService {
 	public int deleteLikes(LikesDTO likesDto) {
 		return feedDAO.deleteLikes(likesDto);
 	}
+	
+	// 좋아요 리스트
+	public List<FeedDTO> getLikesList(Pager pager) {
+
+		pager.makeRowNum();
+		Long total = feedDAO.getLikesCount(pager);
+		pager.makePageNum(total);
+
+		return feedDAO.getLikesList(pager);
+	}
+	
 }

@@ -8,14 +8,17 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d19d0bc22748e1c8a814e507a6e96ed2"></script>
 	<c:import url="../temp/bootStrap.jsp"></c:import>
 
-	<style>
-		.goDetail {cursor: pointer;}	
-	</style>
 </head>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
 
 	<h1 class="a mb-5 text-center">Feed List</h1>
+
+
+	<form action="" id="frm">
+		<!-- feedNum hidden처리 -->
+		<input type="hidden" id="feedNum" name="feedNum" value="${dto.feedNum}">
+	</form>
 
 	<!-- div.container start -->
 	<div class="conatiner">
@@ -32,6 +35,8 @@
 				<div id="address"></div>
 			</div>
 
+
+
 				<div class="col-md-6 sideBar">
 					<div class="sideBar--wrap">
 						<div class="row row-cols-md-3 g-3">
@@ -44,17 +49,15 @@
 											<rect width="100%" height="100%" fill="#55595c"></rect>
 
 											<!-- 이미지 -->
+											<a class="text-white link-offset-2 link-underline link-underline-opacity-0" href="./detail?feedNum=${f.feedNum}">
 											<image class="goDetail" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
 											<text class="goDetail" id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${f.title}</text>
+											</a>
 										</svg>
 
 										<div class="card-body" style="position:relative; width:100%;">
 										<small class="text-muted text-start" style="position:relative; float:left;">${f.createDate}</small>
-										<button type="button" style="position:relative; float:right;" class="btn btn-sm btn-outline-secondary justify-content-end">♡ ${f.likes}</button>
-
-										<!-- 글 번호 -->
-										<!-- feedNum hidden처리 -->
-										<input type="hidden" id="feedNum" name="feedNum" value="${f.feedNum}">
+										<button type="button" id="likes" style="position:relative; float:right;" class="btn btn-sm btn-outline-secondary justify-content-end">♡ ${f.likes}</button>
 										</div>
 
 										<div style="clear:both"></div>
@@ -64,6 +67,8 @@
 						</div>
 					</div>
 				</div>
+				
+
 
 		</div>
 		<!-- div.row g-2 end -->
@@ -89,6 +94,8 @@
 
 	<!-- 글쓰기 버튼 -->
 	<c:if test="${not empty member}">
+		<!-- 해당 블로그의 주인인지 판별하는 것도 추가해야될듯..? -->
+
 		<a class="btn btn-primary" href="./add">글쓰기</a>
 	</c:if>
 
@@ -97,7 +104,6 @@
 		<form class="input-group" action="./list" method="get">
 			<select name="kind" class="form-select rounded" style="width:100px" aria-label="Default select example">
 				<option value="title">제목</option>
-				<option value="id">작성자</option>
 				<option value="contents">내용</option>
 			</select>
 			<input type="text" name="search" class="form-control rounded me-2" style="width:280px" aria-label="Amount (to the nearest dollar)">
@@ -108,8 +114,14 @@
 	</div>
 
 	<script src="/resources/js/kakao.js"></script>
-	<script src="/resources/js/feed/feedList.js"></script>
 
+	<!-- 로그인 안 했을 시에 로그인 페이지로 보내줌 -->
+	<c:if test="${sessionScope.member.id == null}">
+		<script>
+			alert("로그인 하신 후에 사용해주세요");
+			location.href="../member/login"; 
+		</script>
+	</c:if>
 
 </body>
 </html>
