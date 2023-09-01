@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+import com.gdj68.mapblog.member.AgreeDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 
 
@@ -77,7 +78,7 @@ public class KakaoController {
 		}else {
 			System.out.println("기존 정보 없음");
 			session.setAttribute("kakaoMember", memberDTO);
-			return "/member/kakaoJoin";
+			return "/member/beforeKakaoJoin";
 		}			
 	
 	}
@@ -119,5 +120,13 @@ public class KakaoController {
 			session.invalidate();
 	        
 			return "redirect:../";
+	}
+	
+	// 카카오 회원가입(모델은 동의 사항 데이터 전달을 위해 필요) 
+	@RequestMapping(value = "join", method = RequestMethod.GET)
+	public String midJoin(AgreeDTO agreeDTO, Model model) throws Exception{
+		model.addAttribute("agree", agreeDTO);
+		
+		return "member/kakaoJoin";
 	}
 }

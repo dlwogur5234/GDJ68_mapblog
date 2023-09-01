@@ -104,5 +104,9 @@ public class MemberService {
 	public int ignore(IgnoreDTO ignoreDTO) {
 		return memberDAO.ignore(ignoreDTO);
 	}
+
+	public int setAgree(AgreeDTO agreeDTO) {
+		return memberDAO.setAgree(agreeDTO);
+	}
 	
 }
