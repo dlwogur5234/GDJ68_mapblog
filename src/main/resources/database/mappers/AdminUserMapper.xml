@@ -17,13 +17,14 @@
 						
 		<choose>
 			<when test="kind=='name'">
-				AND ID LIKE '%'||#{search}||'%'
+				AND NAME LIKE '%'||#{search}||'%'
 			</when>
 			<otherwise>
-				AND NAME LIKE '%'||#{search}||'%'
+				AND ID LIKE '%'||#{search}||'%'
 			</otherwise>
 		</choose>
   	</sql>
+
 	
 	<!-- list -->
 	<select id="getUserList" parameterType="com.gdj68.mapblog.util.Pager" resultType="AdminUserDTO" >

@@ -9,7 +9,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="../temp/header.jsp"></c:import>
+	<c:if test="${empty adminMember}">
+		<c:import url="../temp/header.jsp"></c:import>
+	</c:if>
+	<c:if test="${not empty adminMember}">
+		<c:import url="../temp/adminHeader.jsp"></c:import>
+	</c:if>
+	
 	<h1>detail</h1>
 
 	<!-- Getter, Setter 의 이름 : 메서드에서 get을 제외하고 첫번째글자를 소문자로 바꾼것 -->

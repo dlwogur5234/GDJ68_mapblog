@@ -12,7 +12,7 @@
 		<typeAlias type="com.gdj68.mapblog.admin.member.AdminMemberDTO" alias="AdminMemberDTO"/>
 		<typeAlias type="com.gdj68.mapblog.admin.user.AdminUserDTO" alias="AdminUserDTO"/>
 		<typeAlias type="com.gdj68.mapblog.admin.user.AdminUserFileDTO" alias="AdminUserFileDTO"/>
-	
+		<typeAlias type="com.gdj68.mapblog.admin.member.RoleDTO" alias="RoleDTO"/>
 	
 	
 	
