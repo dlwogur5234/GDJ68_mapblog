@@ -1,6 +1,9 @@
 package com.gdj68.mapblog.admin.member;
 
 import java.sql.Date;
+import java.util.List;
+
+
 
 public class AdminMemberDTO {
 	private String adminId;
@@ -8,6 +11,7 @@ public class AdminMemberDTO {
 	private String adminName;
 	private String adminGrade;
 	private Date adminCreateDate;
+	private List<RoleDTO> roles;
 
 	public String getAdminId() {
 		return adminId;
@@ -38,6 +42,12 @@ public class AdminMemberDTO {
 	}
 	public void setAdminCreateDate(Date adminCreateDate) {
 		this.adminCreateDate = adminCreateDate;
+	}
+	public List<RoleDTO> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<RoleDTO> roles) {
+		this.roles = roles;
 	}
 	
 	

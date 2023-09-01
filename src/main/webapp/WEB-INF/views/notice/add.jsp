@@ -9,7 +9,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <title>Insert title here</title>
   </head>
   <body>
-    <c:import url="../temp/header.jsp"></c:import>
+    <c:import url="../temp/adminHeader.jsp"></c:import>
     <h1>add Page</h1>
     <form action="./add" method="post" enctype="multipart/form-data">
       <div class="input-group text-center">

@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:import url="../temp/header.jsp"></c:import>
+<c:import url="../temp/adminHeader.jsp"></c:import>
 <form action="./update" method="post">
 <table class="table table-dark table-hover">
 		<thead>

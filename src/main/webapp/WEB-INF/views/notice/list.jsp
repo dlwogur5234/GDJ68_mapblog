@@ -10,7 +10,12 @@
 </head>
 
 <body>
+	<c:if test="${empty adminMember}">
 		<c:import url="../temp/header.jsp"></c:import>
+	</c:if>
+	<c:if test="${not empty adminMember}">
+		<c:import url="../temp/adminHeader.jsp"></c:import>
+	</c:if>
 	
     <table>
        

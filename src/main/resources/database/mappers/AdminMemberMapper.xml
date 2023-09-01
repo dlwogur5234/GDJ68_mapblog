@@ -6,21 +6,145 @@
   <mapper namespace="com.gdj68.mapblog.admin.member.AdminMemberDAO">
   
   	<!-- 로그인 -->
-   	<select id="getAdminLogin" resultType="AdminMemberDTO" parameterType="AdminMemberDTO">
+<!--    	<select id="getAdminLogin" resultType="AdminMemberDTO" parameterType="AdminMemberDTO">
   		SELECT
   			*
 		FROM
 			ADMINMEMBER 
 		WHERE 
 		ADMINID=#{adminId} AND ADMINPW=#{adminPw}
-  	</select>
+  	</select> -->
+  	
+  		<!-- 로그인 -->
+	<select id="getAdminLogin" resultMap="getAdminLoginResult" parameterType="AdminMemberDTO">
+		SELECT M.*, R.*
+		FROM ADMINMEMBER M
+ 			 INNER JOIN
+			 ADMINROLE AR
+			 ON (M.ADMINID=AR.ADMINID)
+			 INNER JOIN
+			 ROLE R
+			 ON (AR.ROLENUM=R.ROLENUM) 
+		WHERE M.ADMINID=#{adminId} AND M.ADMINPW=#{adminPw}
+	</select>
+	
+	<resultMap type="AdminMemberDTO" id="getAdminLoginResult">
+		<id column="ADMINID" property="adminId" />
+		<result column="ADMINPW" property="adminPw"/>
+		<result column="ADMINNAME" property="adminName"/>
+		<result column="ADMINGRADE" property="adminGrade"/>
+		<result column="ADMINCREATEDATE" property="adminCreateDate"/>
+		
+		<collection property="roles" javaType="List" ofType="RoleDTO">
+			<id column="ROLENUM" property="roleNum"/>
+			<result column="ROLENAME" property="roleName"/>
+		</collection>
+		
+	</resultMap>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   	
   	<!-- admin계정 생성 -->
-  	<insert id="getAdminJoin" parameterType="AdminMemberDTO">
+  	<insert id="setAdminJoin" parameterType="AdminMemberDTO">
   		INSERT
   		INTO
   			ADMINMEMBER
   		VALUES
   			(#{adminId}, #{adminPw}, #{adminName}, #{adminGrade}, SYSDATE)
   	</insert>
+  	
+  	<!-- admin계정 삭제 -->
+  	<delete id="setAdminDelete" parameterType="AdminMemberDTO">
+  		DELETE
+  		FROM
+  			ADMINMEMBER
+  		WHERE
+  			ADMINID = #{adminId}
+  	</delete>
+  	
+  	<!-- admin계정 업데이트 -->
+  	<update id="setAdminUpdate" parameterType="AdminMemberDTO">
+  		UPDATE
+  			ADMINMEMBER
+  		SET
+  			ADMINID = #{adminId},
+  			ADMINPW = #{adminPw},
+  			ADMINNAME = #{adminName},
+  			ADMINGRADE = #{adminGrade}
+  		WHERE
+  			ADMINID = #{adminId}
+  			
+  	</update>
+  	
+  	<!-- total -->
+  	<select id="getAdminMemberTotal" parameterType="com.gdj68.mapblog.util.Pager" resultType="Long">
+		SELECT COUNT(ADMINID) FROM ADMINMEMBER
+		<include refid="searchSql"></include>
+	</select>
+  	
+  	<!-- search -->
+	<sql id="searchSql">
+  		WHERE ADMINID IS NOT NULL
+						
+		<choose>
+			<when test="kind=='name'">
+				AND ADMINGRADE LIKE '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				AND ADMINNAME LIKE '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+  	</sql>
+  	
+  	<!-- list -->
+	<select id="getAdminMemberList" parameterType="com.gdj68.mapblog.util.Pager" resultType="AdminMemberDTO" >
+		SELECT
+			* 
+		FROM	
+			(SELECT ROWNUM R, B.* FROM
+				(
+					SELECT * FROM ADMINMEMBER
+					<include refid="searchSql" />
+
+					ORDER BY ADMINCREATEDATE DESC
+				) B
+			)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+  	
+  	<!-- detail -->
+  	<select id="getAdminMemberDetail" resultType="AdminMemberDTO" parameterType="AdminMemberDTO">
+  		SELECT 
+  			*
+  		FROM
+  			ADMINMEMBER
+  		WHERE
+  			ADMINID=#{adminId}
+  	</select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   </mapper>
