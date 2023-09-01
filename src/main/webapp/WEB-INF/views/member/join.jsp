@@ -18,6 +18,8 @@
 	<h1>회원 가입</h1>
 	
 	<form action="./join" method="POST" id="fr" enctype="multipart/form-data">
+		<input type="hidden" name="agree1" value="${agree.agree1}">
+		<input type="hidden" name="agree2" value="${agree.agree2}">
 		<div>
 			<label>ID</label>
 			<input type="text" id="id" name="id" placeholder="ID를 입력하세요">

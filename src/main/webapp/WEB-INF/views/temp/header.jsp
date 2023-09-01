@@ -16,7 +16,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         	</c:if>
        	<c:if test="${empty sessionScope.member}">
         		<li class="login"><a href="/member/login">로그인</a></li>
-        		<li class="signup"><a href="/member/join">회원가입</a></li>
+        		<li class="signup"><a href="/member/beforeJoin">회원가입</a></li>
         </c:if>
     </ul>
   </div>

@@ -3,7 +3,6 @@ package com.gdj68.mapblog.member;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import com.gdj68.mapblog.file.FileDTO;
-import com.gdj68.mapblog.util.Pager;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -32,17 +30,20 @@ public class MemberController {
 		return "member/beforeJoin";
 	}
 	
-	// 회원가입
+	// 회원가입(모델은 동의 사항 데이터 전달을 위해 필요) 
 	@RequestMapping(value = "join", method = RequestMethod.GET)
-	public String setJoin() throws Exception{
+	public String midJoin(AgreeDTO agreeDTO, Model model) throws Exception{
+		model.addAttribute("agree", agreeDTO);
+		
 		return "member/join";
 	}
 	
 	@RequestMapping(value = "join", method = RequestMethod.POST)
-	public String setJoin(MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
+	public String setJoin(AgreeDTO agreeDTO, MemberDTO memberDTO, MultipartFile photo, HttpSession session) throws Exception{
 			
 		System.out.println(photo);
 		memberService.setJoin(memberDTO, photo, session);
+		memberService.setAgree(agreeDTO);
 			
 		return "redirect:./login";
 	}

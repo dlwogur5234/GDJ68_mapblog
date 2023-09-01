@@ -75,4 +75,9 @@
   		INSERT INTO IGNORE (IGNORENUM, IGNORING, IGNORED)
   		VALUES (IGNORE_SEQ.NEXTVAL, #{ignoring}, #{ignored})
   	</insert>
+  	
+  	<insert id="setAgree" parameterType="AgreeDTO">
+  		INSERT INTO AGREE (ID, AGREE1, AGREE2)
+  		VALUES (#{id}, #{agree1}, #{agree2})
+  	</insert>
   </mapper>

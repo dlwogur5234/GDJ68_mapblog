@@ -34,7 +34,7 @@
 	<typeAlias type="com.gdj68.mapblog.file.FileDTO" alias="FileDTO"/>
 	<typeAlias type="com.gdj68.mapblog.member.MemberSearchDTO" alias="MemberSearchDTO"/>
 	<typeAlias type="com.gdj68.mapblog.member.IgnoreDTO" alias="IgnoreDTO"/>
-	
+	<typeAlias type="com.gdj68.mapblog.member.AgreeDTO" alias="AgreeDTO"/>
 	
 	
 	

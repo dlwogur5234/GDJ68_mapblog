@@ -15,7 +15,7 @@
 
 <body>
 	
-	<h1>회원 가입에 필요한 정보 제공 동의 여부 확인</h1>
+	<h1>(카카오)회원 가입에 필요한 정보 제공 동의 여부 확인</h1>
     <form action="./join" method="get" id="fr">
         <input type="checkbox" id="a">
         <label for="all">필수 사항 모두 동의</label>
@@ -41,5 +41,5 @@
 
     <button id="btn">동의 후 회원가입</button>
 </body>
-<script src="../resources/js/member/beforeJoin.js"></script>
+<script src="../resources/js/member/beforeKakaoJoin.js"></script>
 </html>

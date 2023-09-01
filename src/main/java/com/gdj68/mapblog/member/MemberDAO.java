@@ -76,4 +76,8 @@ public class MemberDAO {
 	public int ignore(IgnoreDTO ignoreDTO) {
 		return sqlSession.insert(NAMESPACE+"ignore", ignoreDTO);
 	}
+
+	public int setAgree(AgreeDTO agreeDTO) {
+		return sqlSession.insert(NAMESPACE+"setAgree", agreeDTO);
+	}
 }

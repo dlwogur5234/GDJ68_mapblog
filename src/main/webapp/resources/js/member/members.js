@@ -8,6 +8,8 @@ const btn = document.getElementById("btn");
 const fr = document.getElementById("fr");
 const url = document.getElementById("url");
 const nickName = document.getElementById("nickName");
+const hId = document.getElementById("hId");
+const fr2 = document.getElementById("fr2");
 
 
 
