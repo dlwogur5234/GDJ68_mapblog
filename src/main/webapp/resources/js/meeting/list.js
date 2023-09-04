@@ -65,7 +65,8 @@ if($('#adrs').val()!=""){
 let checked = true;
 
 let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-    
+markerList();
+function markerList(){    
 $('.a').each((i,e)=>{
     
     // 마커 이미지의 이미지 크기 입니다
@@ -91,6 +92,7 @@ $('.a').each((i,e)=>{
     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
     kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
 });
+}
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 function makeOverListener(map, marker, infowindow) {
