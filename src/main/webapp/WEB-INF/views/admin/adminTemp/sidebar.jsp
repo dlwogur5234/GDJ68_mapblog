@@ -65,8 +65,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="/adminUser/userList">User관리</a>
-                        <a class="collapse-item" href="/admin/adminList">Admin관리</a>
+                        <a class="collapse-item" href="/admin/adminUser/userList">User관리</a>
+                        <a class="collapse-item" href="/admin/member/adminList">Admin관리</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
@@ -84,8 +84,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="/notice/list">공지사항게시판</a>
-                        <a class="collapse-item" href="/qna/list">QNA게시판</a>
+                        <a class="collapse-item" href="/admin/adminNotice/list">공지사항게시판</a>
+                        <a class="collapse-item" href="/admin/adminQna/list">QNA게시판</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="adminTemplate/404.html">404 Page</a>

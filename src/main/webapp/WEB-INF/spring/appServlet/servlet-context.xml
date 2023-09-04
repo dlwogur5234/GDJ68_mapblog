@@ -17,16 +17,25 @@
 	
 	<!-- Interceptor 설정 -->
 	
-	<beans:bean class="com.gdj68.mapblog.interceptor.AdminInterceptor" id="adminInterceptor"></beans:bean>
 	<interceptors>
 		<interceptor>
-				<mapping path="/admin/adminList"/>
-				<exclude-mapping path="/admin/adminLogin"/>
+				<mapping path="/admin/member/adminList"/>
+				<exclude-mapping path="/admin/member/adminLogin"/>
 				<exclude-mapping path="/*"/>
 				
-				<beans:ref bean="adminInterceptor"/>
-			</interceptor>
-		</interceptors>
+				<beans:bean class="com.gdj68.mapblog.interceptors.AdminInterceptor"></beans:bean>
+		</interceptor>
+	
+	<!-- Admin Login Interceptor -->
+		<interceptor>
+				<mapping path="/admin/**"/>
+				<exclude-mapping path="/admin/member/adminLogin"/>
+				<exclude-mapping path="/*"/>
+
+				<beans:bean class="com.gdj68.mapblog.interceptors.LoginInterceptor"></beans:bean>
+		</interceptor>
+
+	</interceptors>
 
 
 

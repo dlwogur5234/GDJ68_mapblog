@@ -15,7 +15,7 @@ import com.gdj68.mapblog.util.Pager;
 
 
 @Controller
-@RequestMapping("/admin/*")
+@RequestMapping("/admin/member/*")
 public class AdminMemberController {
 
 	@Autowired

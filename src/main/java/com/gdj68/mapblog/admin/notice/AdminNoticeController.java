@@ -17,7 +17,7 @@ import com.gdj68.mapblog.notice.NoticeService;
 import com.gdj68.mapblog.util.Pager;
 
 @Controller
-@RequestMapping("/adminNotice/*")
+@RequestMapping("/admin/adminNotice/*")
 public class AdminNoticeController {
 	@Autowired
 	private NoticeService noticeService;
@@ -29,13 +29,13 @@ public class AdminNoticeController {
 		model.addAttribute("list", ar);
 		model.addAttribute("pager", pager);
 		
-		return "notice/list";
+		return "admin/adminNotice/adminNoticeList";
 	}
 	
 	//add
 	@GetMapping("add")
 	public String setAdd(NoticeDTO noticeDTO) throws Exception {
-		return "notice/add";
+		return "admin/adminNotice/adminNoticeAdd";
 	}
 	@PostMapping("add")
 	public String setAdd(NoticeDTO noticeDTO , MultipartFile[] photos,HttpSession session) throws Exception{
@@ -50,7 +50,7 @@ public class AdminNoticeController {
 		noticeDTO=noticeService.getDetail(noticeDTO);
 		model.addAttribute("dto", noticeDTO);
 		
-		return "notice/detail";
+		return "admin/adminNotice/adminNoticeDetail";
 	}
 	
 	//delete
@@ -65,7 +65,7 @@ public class AdminNoticeController {
 	public String setUpdate(NoticeDTO noticeDTO , Model model) throws Exception{
 		noticeDTO=noticeService.getDetail(noticeDTO);
 		model.addAttribute("dto", noticeDTO);
-		return "notice/update";
+		return "admin/adminNotice/adminNoticeUpdate";
 	}
 	@PostMapping("update")
 	public String setUpdate(NoticeDTO noticeDTO,MultipartFile [] photos,HttpSession session)throws Exception {
