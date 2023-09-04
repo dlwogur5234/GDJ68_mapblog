@@ -44,6 +44,38 @@
 			<input type="hidden" name="id" value="${member.id}">
 			<button type="submit" >모임삭제</button>
 		</c:if>
+	</form>
+	
+	<form action="./addComment" method="post" id="frm2">
+		<input type="hidden" id="meetingNum2" name="meetingNum" value="${dto.meetingNum}">
+		<input type="hidden" id="commentId" name="id" value="${member.id}">
+		<input type="text" id="commentContents">
+		<button type="button" id="addComment">댓글등록</button>
+	</form>
+	
+	<div id="commentList"></div>
+	
+	
+	<script src="../resources/js/meeting/detail.js"></script>
 
+	<!-- <script type="text/javascript">
+			
+			
+			btn.addEventListener("click", function(){
+			console.log(title.value=="");
+			console.log(title.value.length == 0);
+			if(title.value==""){
+				alert('제목은 필수 입니다.');
+				title.focus();
+			}else {
+                alert(meetingDate.value.replace('T',' '));
+                let s = meetingDate.value.replace('T',' ');
+                meetingDate2.value=s;
+               
+                
+				frm.submit();
+			}
+		});
+	</script> -->
 </body>
 </html>
