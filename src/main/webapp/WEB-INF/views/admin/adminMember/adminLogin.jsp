@@ -53,7 +53,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form action="admin/adminLogin" method="post">
+                                    <form action="/admin/member/adminLogin" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 id="adminId" name="adminId"

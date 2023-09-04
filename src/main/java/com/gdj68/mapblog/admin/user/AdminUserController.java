@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gdj68.mapblog.util.Pager;
 
 @Controller
-@RequestMapping("/adminUser/*")
+@RequestMapping("/admin/adminUser/*")
 public class AdminUserController {
 
 	@Autowired

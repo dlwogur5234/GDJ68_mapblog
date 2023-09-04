@@ -31,8 +31,8 @@
 	      	<nav>
 		      	<ul class="nav">
 		      		<c:if test="${not empty adminMember}">
-			      		<li class="nav-item text-white me-3"><a href="/admin/adminLogout">로그아웃</a></li>
-			      		<li class="nav-item text-white me-3"><a href="/admin/adminMyPage">내정보</a></li>
+			      		<li class="nav-item text-white me-3"><a href="/admin/member/adminLogout">로그아웃</a></li>
+			      		<li class="nav-item text-white me-3"><a href="/admin/member/adminMyPage">내정보</a></li>
 		      		</c:if>
 		      	</ul>
 			</nav>

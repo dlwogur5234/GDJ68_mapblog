@@ -1,4 +1,4 @@
-package com.gdj68.mapblog.interceptor;
+package com.gdj68.mapblog.interceptors;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,12 +24,13 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		List<RoleDTO> roles= adminMemberDTO.getRoles();
 		for(RoleDTO roleDTO:roles) {
 			if(roleDTO.getRoleName().equals("MASTER")) {
+				
 				return true;
 			}
 		}
 		
 		request.setAttribute("message", "권한이 불충분");
-		request.setAttribute("url", "/");
+		request.setAttribute("url", "/admin/main");
 		
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/commons/result.jsp");
 		try {
