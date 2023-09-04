@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdj68.mapblog.admin.member.AdminMemberDTO;
 import com.gdj68.mapblog.member.MemberDTO;
+import com.gdj68.mapblog.qna.qnaComment.QnaCommentDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
 
@@ -21,10 +23,27 @@ public class QnaService {
 	@Autowired
 	private FileManager fileManager;
 	
+	//qnaComment
+	public List<QnaCommentDTO> getCommentList(Pager pager, QnaCommentDTO qnaCommentDTO) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		pager.makeRowNum();
+		pager.makePageNum(qnaDAO.getCommentTotal(qnaCommentDTO));
+		map.put("pager",pager);
+		map.put("comment", qnaCommentDTO);
+		return qnaDAO.getCommentList(map);
+	}
+	public int setCommentAdd(QnaCommentDTO qnaCommentDTO) throws Exception{
+		return qnaDAO.setCommentAdd(qnaCommentDTO);
+	}
+	public int setCommentDelete(QnaCommentDTO qnaCommentDTO) throws Exception{
+		return qnaDAO.setCommentDel(qnaCommentDTO);
+	}
+	public int setCommentUp(QnaCommentDTO qnaCommentDTO) throws Exception{
+		return qnaDAO.setCommentUp(qnaCommentDTO);
+	}
 	
 	
-	
-	
+	//qna
 	public List<QnaDTO> getList(Pager pager) throws Exception {
 		pager.makeRowNum();
 		pager.makePageNum(qnaDAO.getTotal(pager));
@@ -58,12 +77,15 @@ public class QnaService {
 		return result;
 	}
 	
-	public QnaDTO getDetail(QnaDTO qnaDTO,MemberDTO memberDTO) throws Exception{
-		
+	public QnaDTO getDetail(QnaDTO qnaDTO,MemberDTO memberDTO,AdminMemberDTO adminMemberDTO) throws Exception{
+		/*
+		 * boolean result = memberDTO != null &&
+		 * memberDTO.getId().equals(qnaDTO.getMemberId());
+		 */
 		qnaDTO=qnaDAO.getDetail(qnaDTO);
-		System.out.println(qnaDTO.getPrivateContents());
+		
 		if(qnaDTO.getPrivateContents() == 0 ) {
-			if(memberDTO != null && memberDTO.getId().equals(qnaDTO.getMemberId())) {
+			if((memberDTO != null && memberDTO.getId().equals(qnaDTO.getMemberId())) || adminMemberDTO != null) {
 				return qnaDAO.getDetail(qnaDTO);
 			}
 			else {

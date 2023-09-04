@@ -7,7 +7,33 @@
   
   <mapper namespace="com.gdj68.mapblog.qna.QnaDAO">
   
+  <!-- qnaComment -->
+  <select id="getCommentTotal" parameterType="QnaCommentDTO" resultType="Long">
+  	SELECT COUNT(COMMENTNUM) FROM QNACOMMENT
+  </select>
+  <select id="getCommentList" parameterType="java.util.Map" resultType="QnaCommentDTO">
+  	SELECT * FROM
+  	(SELECT ROWNUM R , C.* FROM
+  	(SELECT * FROM QNACOMMENT
+  	WHERE QNANUM = #{comment.qnaNum}
+  	ORDER BY COMMENTNUM)C)
+  	WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
+  </select>
   
+  <insert id="setCommentAdd" parameterType="QnaCommentDTO">
+  		INSERT INTO QNACOMMENT VALUES (QNACOMMENT_SEQ.NEXTVAL,#{qnaNum},<!-- #{adminId} -->#{id},#{contents},SYSDATE)
+  </insert>
+  
+  <delete id="setCommentDel" parameterType="QnaCommentDTO">
+  	DELETE FROM QNACOMMENT WHERE COMMENTNUM = #{commentNum}
+  </delete>
+  
+  <update id="setCommentUp">
+  	UPDATE QNACOMMENT SET CONTENTS=#{contents} WHERE COMMENTNUM = #{commentNum} 
+  </update>
+  
+  
+  <!-- qna -->
   	<select id="getTotal" resultType="Long">
   		SELECT COUNT(QNANUM) FROM QNA
   	</select>

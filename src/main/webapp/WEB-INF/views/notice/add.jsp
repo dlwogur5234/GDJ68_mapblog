@@ -49,6 +49,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
       <button type="submit">등록</button>
     </form>
-    <script src="/resources/js/fileAdd.js"></script>
+    <script src="/resources/js/temp/fileAdd.js"></script>
   </body>
 </html>

@@ -18,7 +18,7 @@
 		</thead>
 		<tbody>
 				<tr>
-					<td><input type="hidden" name="qnaNum" value="${dto.qnaNum }">${dto.qnaNum}</td>
+					<td><input type="hidden" name="qnaNum" value="${dto.qnaNum}">${dto.qnaNum}</td>
 					<td><input type="text" name="qnaTitle" value="${dto.qnaTitle}"></td>
 					<td>${dto.memberId}</td>
 					
