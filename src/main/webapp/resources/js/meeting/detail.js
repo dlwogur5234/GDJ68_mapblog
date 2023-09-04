@@ -1,9 +1,12 @@
-let ms = $('#meetingNum2').val();
-let commentId = $('#commentId').val();
-let commentContents = $('#commentContents').val();
+
+// let commentId = $('#commentId').val();
+// let commentContents = $('#commentContents').val();
 
 
 $('#addComment').on('click',function(){
+    ms = $('#meetingNum2').val();
+    commentId = $('#commentId').val();
+    
     $.ajax({
         type:"POST",
         url:"./addComment",
@@ -14,10 +17,12 @@ $('#addComment').on('click',function(){
         },
         success: function(){
             alert('작성 성공');
+            ms = $('#meetingNum2').val();
             $.ajax({
                 type:"GET",
                 url:"./getComment?meetingNum="+ms,
                     success: function(r){
+                        $('#commentContents').val("")
                         $('#commentList').html(r);
                     }
                 })	
@@ -28,9 +33,19 @@ $('#addComment').on('click',function(){
     })
 })
 
+function getList(){
+    ms = $('#meetingNum2').val();
+    $.ajax({
+        type:"GET",
+        url:"./getComment?meetingNum="+ms,
+            success: function(r){
+                $('#commentList').html(r);
+            }
+        })	
+};
 
 $(document).ready(function(){
-	
+	ms = $('#meetingNum2').val();
 	$.ajax({
             type:"GET",
             url:"./getComment?meetingNum="+ms,
@@ -45,9 +60,9 @@ $(document).ready(function(){
 //     console.log($('#commentList').attr('data-commentNum'));
 //   });
 
-  $('#btn3').on('click',function(){
-    console.log("sdsds2");
-  });
+//   $('#btn3').on('click',function(){
+//     console.log("sdsds2");
+//   });
 
 //   $('#commentList').on('click','#btn',function(){
 //     console.log("sdsds3");
@@ -58,23 +73,51 @@ $(document).ready(function(){
 //   });
 
 
-    $('#commentList').on('click','.butt',function(){
-        var commentNum2 = $(this).closest("div").data("commentNum")
-        console.log(commentNum2);
+$('#commentList').on('click','.butt',function(){
+    let result = confirm('정말 삭제하시겠습니까?')
+    let commentNum = this.dataset.commentnum;   
+    if(result){
         $.ajax({
             type:'get',
             url:'deleteComment',
             data:{
-                commentNum:commentNum2
+                commentNum:commentNum
             },
             success:function(result){
-               
+                getList();
             },
             error:function(){
-                console.log('error');
-            }
+                console.log('error');  
+            } 
         })
+    }
+});
+
+
+$('#commentList').on('click','.updateBtn',function(){
+    let contents =   $(this).siblings('#updateDiv').text();
+    console.log(contents);
+
+    $(this).siblings('#updateDiv').html('<input type="text" id="contents" value="'+contents+'">');
+    $(this).attr('class','updateBtn2');
+    // $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
+})
+
+$('#commentList').on('click','.updateBtn2',function(){
+    let contents = $(this).siblings('#updateDiv').children('#contents').val();
+    let commentNum = this.dataset.commentnum; 
+    $.ajax({
+        type:'post',
+        url:'updateComment',
+        data:{
+            commentNum:commentNum,
+            contents:contents
+        },
+        success:function(result){
+            getList();
+        },
+        error:function(){
+            console.log('error');  
+        } 
     })
-
-
-  
+})

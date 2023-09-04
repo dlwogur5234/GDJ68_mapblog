@@ -72,4 +72,8 @@ public class MeetingDAO {
 	public int setDeleteComment(MeetingCommentDTO commentDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE+"setDeleteComment", commentDTO);
 	}
+	
+	public int setUpdateComment(MeetingCommentDTO commentDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"setUpdateComment", commentDTO);
+	}
 }

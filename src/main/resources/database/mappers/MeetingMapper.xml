@@ -64,4 +64,8 @@
   	<delete id="setDeleteComment" parameterType="MeetingCommentDTO">
   		DELETE MEETINGCOMMENT WHERE COMMENTNUM = #{commentNum}
   	</delete>
+  	
+  	<update id="setUpdateComment">
+  		UPDATE MEETINGCOMMENT SET CONTENTS=#{contents} WHERE COMMENTNUM=#{commentNum}
+  	</update>
   </mapper>

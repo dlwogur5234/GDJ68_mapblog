@@ -116,10 +116,14 @@ public class MeetingController {
 	  public String setDeleteComment(MeetingCommentDTO commentDTO) throws Exception {
 		  int result = meetingService.setDeleteComment(commentDTO);
 		  long cn = commentDTO.getCommentNum();
-		  return "redirect:../getComment?meetingNum="+cn;	}
-	 
+		  return "meeting/commentList";
+	  }
 	
-	
+	  @PostMapping("updateComment")
+	  public String setUpdateComment(MeetingCommentDTO commentDTO) throws Exception {
+		  meetingService.setUpdateComment(commentDTO);
+		  return "meeting/commentList";
+	  }
 	
 	
 }

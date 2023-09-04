@@ -83,4 +83,7 @@ public class MeetingService {
 	public int setDeleteComment(MeetingCommentDTO commentDTO) throws Exception {
 		return meetingDAO.setDeleteComment(commentDTO);
 	}
+	public int setUpdateComment(MeetingCommentDTO commentDTO) throws Exception {
+		return meetingDAO.setUpdateComment(commentDTO);
+	}
 }
