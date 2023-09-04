@@ -23,7 +23,7 @@
 	<form action="./login" method="post">
 		<div>
 			<label>ID</label>
-			<input type="text" name="id" placeholder="ID를 입력하세요" value="user31">
+			<input type="text" name="id" placeholder="ID를 입력하세요" value="user02">
 		</div>
 		<div>
 			<label>PW</label>

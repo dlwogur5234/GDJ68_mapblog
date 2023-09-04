@@ -12,12 +12,19 @@ public class FeedDTO {
 	private String contents;
 	private Date createDate;
 	private Date tripDate;
-	private Long hit; // 조회수
-	private Long likes; // 좋아요
-	private Long publics; // 공개여부
+	private Long hit; 			// 조회수
+	private Long likes;			// 좋아요
+	private Long publics; 		// 공개여부
+	
+	
+	/* 지도 관련 */
+	private Double lat;			// 위도
+	private Double lng;			// 경도
 
-	private List<FeedFileDTO> fileDTOs;
+	
+	private List<FeedFileDTO> dtos;
 
+	
 	public int getrNum() {
 		return rNum;
 	}
@@ -98,12 +105,30 @@ public class FeedDTO {
 		this.publics = publics;
 	}
 
-	public List<FeedFileDTO> getFileDTOs() {
-		return fileDTOs;
+	public List<FeedFileDTO> getDtos() {
+		return dtos;
 	}
 
-	public void setFileDTOs(List<FeedFileDTO> fileDTOs) {
-		this.fileDTOs = fileDTOs;
+	public void setDtos(List<FeedFileDTO> dtos) {
+		this.dtos = dtos;
 	}
+
+	public Double getLat() {
+		return lat;
+	}
+
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+
+	public Double getLng() {
+		return lng;
+	}
+
+	public void setLng(Double lng) {
+		this.lng = lng;
+	}
+	
+	
 
 }
