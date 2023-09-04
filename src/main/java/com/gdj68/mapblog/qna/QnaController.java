@@ -54,17 +54,13 @@ public class QnaController {
 		/* return "redirect:./detail?qnaNum="+qnaDTO.getQnaNum(); */
 		return "redirect:./list";
 	}
-	public void setCommentUp(QnaCommentDTO qnaCommentDTO) throws Exception{
+	
+	@PostMapping("commentUp")
+	public String setCommentUp(QnaCommentDTO qnaCommentDTO,QnaDTO qnaDTO) throws Exception {
+	
+		qnaService.setCommentUp(qnaCommentDTO);
 		
-		/*
-		 * Map<String, Object> map = new HashMap<String, Object>(); QnaCommentDTO
-		 * qnaCommentDTO = new QnaCommentDTO(); qnaCommentDTO.setCommentNum(commentNum);
-		 * qnaCommentDTO.setContents(contents); qnaService.setCommentUp(qnaCommentDTO);
-		 * 
-		 * map.put(contents, qnaCommentDTO);
-		 * 
-		 * return map;
-		 */
+		return "redirect:./list";
 	}
 
 // qna	

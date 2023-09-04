@@ -31,6 +31,7 @@ public class QnaDAO {
 		return sqlSession.delete(NAMESPACE+"setCommentDel", qnaCommentDTO);
 	}
 	public int setCommentUp(QnaCommentDTO qnaCommentDTO) throws Exception{
+		
 		return sqlSession.update(NAMESPACE+"setCommentUp", qnaCommentDTO);
 	}
 	

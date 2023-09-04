@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <title>Insert title here</title>
 </head>
 <body>
+	
 	<c:import url="../temp/header.jsp"></c:import>
 	<h1>detail</h1>
 
@@ -48,7 +50,7 @@
 		
 	
 	<c:choose>
-    <c:when test="${dto.memberId eq member.id || not empty adminMember}">
+    <c:when test="${dto.memberId eq member.id or not empty adminMember}">
         <a href="./update?qnaNum=${dto.qnaNum}" >수정</a>
     
 
@@ -146,7 +148,7 @@
 	}
 
 	$(document).ready(function() {
-    $('#commentList').on('click', 'tr td:last-child', function() {
+    $('#commentList').on('click', '#del', function() {
         var tr = $(this).closest('tr');
 		var commentNum = $("#del").attr('data-num-del');
 
@@ -165,6 +167,38 @@
 		})
     });
 });
+
+$('#commentList').on('click','.updateBtn',function(){
+    alert('수정버튼 클릭');
+    let contents =   $(this).siblings('#updateDiv').text();
+    console.log(contents);
+
+    $(this).siblings('#updateDiv').html('<input type="text" id="contents" value="'+contents+'">');
+    $(this).attr('class','updateBtn2');
+    // $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
+})
+
+$('#commentList').on('click','.updateBtn2',function(){
+    let contents = $(this).siblings('#updateDiv').children('#contents').val();
+    let commentNum = this.dataset.commentnum; 
+    $.ajax({
+        type:'post',
+        url:'commentUp',
+        data:{
+            commentNum:commentNum,
+            contents:contents
+        },
+        success:function(result){
+            getCommentList();
+        },
+        error:function(){
+            console.log('error');  
+        } 
+    })
+})
+
+
+
 	</script>
 </body>
 </html>

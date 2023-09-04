@@ -12,14 +12,28 @@
 		
 		
 	</c:choose>
-
-		<td>${com.contents}</td>
+		
+		<td id="updateDiv">${com.contents}</td>
 		<td>${com.adminId}</td>
 		<td>${com.id}</td>
 		<td>${com.commentDate}</td>
-		<c:if test="${comment.id eq member.id}">
+		<c:if test="${com.id eq member.id}">
 		<td data-num-del="${com.commentNum}" id="del">x</td>
+		<td>
+       	<form action="commentUp" method="post">
+        <button class="updateBtn" data-commentnum="${com.commentNum}" type="submit">수정</button>
+        </form>
+   		</div></td>
 		</c:if>
+		
+		
+		
 	</tr>
+
+</div>
 </c:forEach>
+
+<script>
+ 
+</script>
 
