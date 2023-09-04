@@ -23,7 +23,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <nav class="navi">
     <ul>
       <li><a href="#">홈</a></li>
-      <li><a href="#">메뉴</a></li>
+      <li><a href="/meeting/list">미팅</a></li>
       <li><a href="/follow/list">follow</a></li>
       <li>
         <a href="#">소식</a>

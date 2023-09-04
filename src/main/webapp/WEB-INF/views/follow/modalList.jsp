@@ -9,12 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <c:import url="../temp/bootStrap.jsp"></c:import>
     <title>Document</title>
-    <style>
-    	.margin{
-    		margin: 10px 5px;
-    		text-align: center;
-    	}
-    </style>
   </head>
   <body>
     <!-- Button trigger modal -->
@@ -47,16 +41,37 @@
           </div>
           <div class="modal-body">
           	<c:forEach items="${followList}" var="f">
-      <div class="margin">${f.toUser} 
-    	 <form action="addFollow" method="POST">
-        <input type="hidden" name="fromUser" value="${followDel.fromUser}">
-        <input type="hidden" name="toUser" value="${followDel.toUser}"> 
-          <input type="hidden" name="followNum" value="${followDel.followNum}"> 
-        <button type="submit" id="followButton" class="Btn">삭제</button>
-        </form>
-      </div>
+      <div>${f.toUser} <button>삭제</button></div>
     </c:forEach>
-    
+    <%-- <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item ${pager.pre?'':'disabled'}">
+          <a
+            class="page-link"
+            href="./list?page=${pager.page-1}"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+
+        <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
+          <li class="page-item">
+            <a class="page-link" href="./list?page=${i}">${i}</a>
+          </li>
+        </c:forEach>
+
+        <li class="page-item ${pager.next?'':'disabled'}">
+          <a
+            class="page-link"
+            href="./list?page=${pager.page+1}"
+            aria-label="Next"
+          >
+          	<span aria-hidden="true">&raquo;</span>
+          </a>
+          </li>
+          </ul>
+          </nav>--%>
           </div>
           <div class="modal-footer">
             <button
@@ -91,16 +106,44 @@
       </div>
       <div class="modal-body">
         <c:forEach items="${followerList}" var="f">
-      <div class="margin">${f.fromUser} 
+      <div>${f.fromUser} 
         <form action="deleteFollow" method="POST">
         <input type="hidden" name="fromUser" value="${followDel.fromUser}">
         <input type="hidden" name="toUser" value="${followDel.toUser}"> 
           <input type="hidden" name="followNum" value="${followDel.followNum}"> 
-        <button type="submit" id="followButton" class="Btn">팔로우</button>
+        <button type="submit" id="followButton">팔로우</button>
         </form>
       </div>
     </c:forEach>
+    <%-- <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item ${pager.pre?'':'disabled'}">
+          <a
+            class="page-link"
+            href="./list?page=${pager.page-1}"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
 
+        <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
+          <li class="page-item">
+            <a class="page-link" href="./list?page=${i}">${i}</a>
+          </li>
+        </c:forEach>
+
+        <li class="page-item ${pager.next?'':'disabled'}">
+          <a
+            class="page-link"
+            href="./list?page=${pager.page+1}"
+            aria-label="Next"
+          >
+          	<span aria-hidden="true">&raquo;</span>
+          </a>
+          </li>
+          </ul>
+          </nav> --%>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
