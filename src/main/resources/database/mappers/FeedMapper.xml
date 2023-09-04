@@ -51,6 +51,8 @@
 	             , U.CREATEDATE
 	             , U.TRIPDATE
 	             , U.HIT
+	             , U.LAT
+	             , U.LNG
 	             , (SELECT COUNT(*)
 	                  FROM LIKES
 	                 WHERE FEEDNUM = U.FEEDNUM) AS LIKES
@@ -61,6 +63,8 @@
 	                     , CREATEDATE
 	                     , TRIPDATE
 	                     , HIT
+	                     , LAT
+	                     , LNG
 	                  FROM FEED
 	                 WHERE PUBLICS = 0
 	                UNION ALL
@@ -71,6 +75,8 @@
 	                     , CREATEDATE
 	                     , TRIPDATE
 	                     , HIT
+	                     , LAT
+	                     , LNG
 	                  FROM FEED F
 	                     , FOLLOW W
 	                 WHERE F.PUBLICS = 1
@@ -83,6 +89,8 @@
 	                     , F.CREATEDATE
 	                     , F.TRIPDATE
 	                     , F.HIT
+	                     , F.LAT
+	                     , F.LNG
 	                  FROM FEED F
 	                 WHERE F.PUBLICS = 2
 	                   AND F.ID = #{id}
@@ -99,7 +107,7 @@
 	<select id="getTotal" resultType="Long" parameterType="Pager">
 	 SELECT COUNT(FEEDNUM)
 	   FROM FEED U
-	 WHERE 1 = 1
+	   WHERE 1 = 1
 		<include refid="searchSql"></include>
 	</select>
 	
@@ -118,8 +126,8 @@
 		</selectKey>
 		
 		INSERT INTO FEED
-		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, #{tripDate}, 0, 0, #{publics})
-		 
+		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, #{tripDate}, 0, 0, #{publics}, #{lat}, #{lng})
+		
 	</insert>
 	
 	
@@ -135,7 +143,9 @@
 		TITLE = #{title},
 		CONTENTS = #{contents},
 		TRIPDATE = #{tripDate},
-		PUBLICS = #{publics}
+		PUBLICS = #{publics},
+		LAT = #{lat},
+		LNG = #{lng}
 		WHERE FEEDNUM = #{feedNum}	
 	</update>
 	
@@ -153,6 +163,9 @@
 	         FROM LIKES
 	        WHERE FEEDNUM = F.FEEDNUM) AS LIKES
 	    , F.PUBLICS
+	    , F.LAT
+	    , F.LNG
+	    , FF.FILENUM
 	    , FF.ORIGINALNAME
 	    , FF.FILENAME
 	  FROM FEED F
@@ -172,8 +185,10 @@
   		<result column="HIT" property="hit"/>
   		<result column="LIKES" property="likes"/>
   		<result column="PUBLICS" property="publics"/>
+  		<result column="LAT" property="lat"/>
+  		<result column="LNG" property="lng"/>
   		
-  		<collection property="fileDTOs" javaType="List" ofType="FeedFileDTO">
+  		<collection property="dtos" javaType="List" ofType="FeedFileDTO">
   			<id column="FILENUM" property="fileNum"/>
   			<result column="ORIGINALNAME" property="originalName"/>
   			<result column="FILENAME" property="fileName"/>
@@ -182,6 +197,13 @@
 	
 	
 	<!-- FILE ************************ -->
+	
+	<!-- FILE LIST -->
+	<select id="getFileList" resultType="FeedFileDTO" parameterType="FeedDTO">
+		SELECT * FROM FEED
+		WHERE FEEDNUM = #{feedNum}
+	</select>
+	
 	<!-- FILE ADD -->
   	<insert id="setFileAdd" parameterType="FeedFileDTO">
   		INSERT INTO FEEDFILE (FILENUM, FEEDNUM, ORIGINALNAME, FILENAME)
@@ -194,8 +216,8 @@
   	</delete>
   	
   	<!-- FILE DETAIL -->
-  	<select id="getFileDetail" parameterType="FeedFileDTO" resultType="FeedFileDTO">
-  		SELECT FILENUM, FILENAME FROM FEEDFILE WHERE FILENUM=#{fileNum}
+	<select id="getFileDetail" parameterType="FeedFileDTO" resultType="FeedFileDTO">
+  		SELECT FILENUM, FILENAME, ORIGINALNAME FROM FEEDFILE WHERE FILENUM=#{fileNum}
   	</select>
   	
   	
@@ -258,6 +280,8 @@
 	                  FROM LIKES
 	                 WHERE FEEDNUM = F.FEEDNUM) AS LIKES
 	             , F.PUBLICS
+	             , F.LAT
+	             , F.LNG
 	          FROM (SELECT FEEDNUM
 	                     , ID
 	                     , TITLE
@@ -266,6 +290,8 @@
 	                     , TRIPDATE
 	                     , HIT
 	                     , PUBLICS
+	                     , LAT
+	                     , LNG
 	                  FROM FEED
 	                 WHERE PUBLICS = 0
 	                UNION ALL
@@ -277,6 +303,8 @@
 	                     , F.TRIPDATE
 	                     , F.HIT
 	                     , PUBLICS
+	                     , LAT
+	                     , LNG
 	                  FROM FEED F
 	                 WHERE F.PUBLICS = 2
 	                   AND F.ID = #{id}
@@ -307,6 +335,8 @@
 	                  FROM LIKES
 	                 WHERE FEEDNUM = F.FEEDNUM) AS LIKES
 	             , F.PUBLICS
+	             , F.LAT
+	             , F.LNG
 	          FROM (SELECT FEEDNUM
 	                     , ID
 	                     , TITLE
@@ -315,6 +345,8 @@
 	                     , TRIPDATE
 	                     , HIT
 	                     , PUBLICS
+	                     , LAT
+	                     , LNG
 	                  FROM FEED
 	                 WHERE PUBLICS = 0
 	                UNION ALL
@@ -326,6 +358,8 @@
 	                     , F.TRIPDATE
 	                     , F.HIT
 	                     , PUBLICS
+	                     , F.LAT
+	                     , F.LNG
 	                  FROM FEED F
 	                 WHERE F.PUBLICS = 2
 	                   AND F.ID = #{id}
@@ -343,26 +377,73 @@
 	<!-- 댓글 ************************* -->
   	<!-- Comment -->
   	
-<!--   	<select id="getCommentTotal" resultType="Long" parameterType="FeedCommentDTO">
-  		SELECT COUNT(FEEDNUM) FROM FEEDCOMMENT
-  		WHERE FEEDNUM = #{feedNum}
-  	</select> -->
-  	
-  	
-<!--   	<select id="getCommentList" resultType="FeedCommentDTO" parameterType="Map">
-  		SELECT * FROM
-  		(SELECT ROWNUM R, C.* FROM
-  		(SELECT * FROM FEEDCOMMENT
-  		 WHERE FEEDNUM=#{comment.bookNum}
-  		 ORDER BY NUM DESC)C)
-  		 WHERE R BETWEEN #{pager.startRow} AND #{pager.lastRow}
-  	</select> -->
-  	
-<!--   	<insert id="setCommentAdd" parameterType="FeedCommentDTO">
-  		INSERT INTO FEEDCOMMENT
-  		(NUM, ID, BOOKNUM, COMMENTCONTENTS, COMMENTDATE)
-  		VALUES
-  		(COMMENT_SEQ.NEXTVAL, #{id}, #{bookNum}, #{commentContents}, SYSDATE)
-  	</insert> -->
+	<select id="getCommentList" parameterType="FeedCommentDTO" resultType="FeedCommentDTO">
+	SELECT C.COMMENTNUM
+	     , C.FEEDNUM
+	     , C.ID
+	     , M.NICKNAME
+	     , C.CONTENTS
+	     , TO_CHAR(C.COMMENTDATE, 'YYYY-MM-DD HH24:MI:SS') COMMENTDATE
+	  FROM FEEDCOMMENT C
+	     , MEMBER M
+	 WHERE C.ID = M.ID
+	   AND C.FEEDNUM = #{feedNum}
+	ORDER BY C.COMMENTNUM ASC
+	</select>
+
+	<insert id="setAddComment" parameterType="FeedCommentDTO">
+	INSERT INTO FEEDCOMMENT(COMMENTNUM, FEEDNUM, ID, CONTENTS, COMMENTDATE)
+	VALUES(FEEDCOMMENT_SEQ.NEXTVAL, #{feedNum}, #{id}, #{contents}, SYSDATE)
+	</insert>
 	
+	<delete id="setDeleteComment" parameterType="FeedCommentDTO">
+	DELETE FROM FEEDCOMMENT
+	 WHERE COMMENTNUM = #{commentNum}
+	   AND FEEDNUM = #{feedNum}
+	   AND ID = #{id}
+	</delete>
+	
+<!-- 	<update id="setUpdateComment" parameterType="FeedCommentDTO">
+		UPDATE FEEDCOMMENT SET
+		CONTENTS = #{contents}
+			 WHERE COMMENTNUM = #{commentNum}
+			   AND FEEDNUM = #{feedNum}
+			   AND ID = #{id}
+	</update> -->
+ 	
+
+	<!-- 댓글 좋아요 -->
+	<!-- 댓글 좋아요 클릭 여부 -->
+	
+	<!-- <select id="getFindCommentLikes" resultType="Long">
+		SELECT COUNT(*) FROM FEEDCOMMENTLIKES WHERE ID=#{id} AND FEEDNUM=#{feedNum} AND COMMENTNUM=#{commentNum}
+	</select>
+
+	댓글 좋아요 체크
+	<select id="checkCommentLikes" parameterType="FeedCommentLikesDTO" resultType="Integer">
+	SELECT COUNT(*)
+	  FROM FEEDCOMMENTLIKES
+	 WHERE FEEDNUM = #{feedNum}
+	   AND ID = #{id}
+	   AND COMMENTNUM=#{commentNum}
+	</select>
+
+	댓글 좋아요 등록
+	<insert id="addCommentLikes" parameterType="FeedCommentLikesDTO">
+	INSERT INTO FEEDCOMMENTLIKES (LIKESNUM, ID, FEEDNUM, COMMENTNUM)
+	VALUES (FEEDCOMMENTLIKES_SEQ.NEXTVAL, #{id}, #{feedNum}, #{commentNum})
+	</insert>
+
+	댓글 좋아요 카운트
+	<select id="countCommentLikes" parameterType="FeedCommentLikesDTO" resultType="Integer">
+	SELECT COUNT(*)
+	  FROM FEEDCOMMENTLIKES
+	 WHERE FEEDNUM=#{feedNum} AND COMMENTNUM=#{commentNum}
+	</select>
+	
+	댓글 좋아요 취소
+	<delete id="deleteCommentLikes" parameterType="FeedCommentLikesDTO">
+	DELETE FEEDCOMMENTLIKES WHERE ID=#{id} AND FEEDNUM=#{feedNum} AND COMMENTNUM=#{commentNum}
+	</delete> -->
+
   </mapper>

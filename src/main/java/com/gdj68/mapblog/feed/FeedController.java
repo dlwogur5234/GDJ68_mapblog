@@ -1,10 +1,12 @@
 package com.gdj68.mapblog.feed;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 //import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,12 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdj68.mapblog.comment.feedComment.FeedCommentDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
@@ -30,6 +34,11 @@ public class FeedController {
 	
 	@Autowired
 	private FeedService feedService;
+	
+	@ModelAttribute("board")
+	public String getBoardName() {
+		return "feed";
+	}
 
 	/* ---------------------------------------------- */
 
@@ -81,10 +90,16 @@ public class FeedController {
 		feedDTO = feedService.getDetail(feedDTO);
 
 		if (feedDTO != null) {
-//			String message = "등록성공";
+			String message = "등록성공";
 			model.addAttribute("dto", feedDTO);
+			
+			FeedCommentDTO feedCommentDTO = new FeedCommentDTO();
+			feedCommentDTO.setFeedNum(feedDTO.getFeedNum());
+			List<FeedCommentDTO> commentList = feedService.getCommentList(feedCommentDTO);
+			model.addAttribute("commentList", commentList);
 
 			return "feed/detail";
+			
 		} else {
 			model.addAttribute("message", "글을 불러올 수 없습니다.");
 			model.addAttribute("url", "list");
@@ -96,7 +111,7 @@ public class FeedController {
 	// Delete
 	@PostMapping("delete")
 	public String setDelete(FeedDTO feedDTO) throws Exception {
-//		int result = feedService.setDelete(feedDTO);
+		int result = feedService.setDelete(feedDTO);
 
 		return "redirect:./list";
 	}
@@ -118,7 +133,7 @@ public class FeedController {
 		return ("redirect:./detail?feedNum=" + feedDTO.getFeedNum());
 	}
 
-	// fileDelete
+	// 첨부파일 입력란 삭제
 	@GetMapping("fileDelete")
 	public String setFileDelete(FeedFileDTO feedFileDTO, HttpSession session, Model model) throws Exception {
 
@@ -126,6 +141,14 @@ public class FeedController {
 		model.addAttribute("result", result);
 
 		return "commons/ajaxResult";
+	}
+	
+	@GetMapping("fileDown")
+	public String getFileDown(FeedFileDTO feedFileDTO, Model model)throws Exception{
+		feedFileDTO = feedService.getFileDown(feedFileDTO);
+		model.addAttribute("file", feedFileDTO);
+		
+		return "fileManager";
 	}
 
 	// setContentsImgDelete
@@ -143,7 +166,7 @@ public class FeedController {
 	@PostMapping("setContentsImg")
 	public String setContentsImg(MultipartFile files, HttpSession session, Model model) throws Exception {
 
-		// System.out.println("setContentsImg");
+		System.out.println("setContentsImg");
 		System.out.println(files.getOriginalFilename());
 
 		String path = feedService.setContentsImg(files, session);
@@ -153,6 +176,8 @@ public class FeedController {
 		return "commons/ajaxResult";
 	}
 
+	
+	// 좋아요
 	@PostMapping("addLikes")
 	@ResponseBody
 	public Map<String, Integer> addLikes(LikesDTO likesDTO, HttpSession session, Model model) throws Exception {
@@ -204,5 +229,61 @@ public class FeedController {
 		return "feed/likesList";
 	}
 
+	
+
+	@GetMapping("commentList")
+	@ResponseBody
+	public List<FeedCommentDTO> getCommentList(FeedCommentDTO feedCommentDTO) {
+		List<FeedCommentDTO> commentList = feedService.getCommentList(feedCommentDTO);
+		return commentList;
+		
+	}
+	
+
+	@PostMapping("addComment")
+	@ResponseBody
+	public Map<String, Integer> setAddComment(FeedCommentDTO feedCommentDTO, HttpSession session, HttpServletResponse response) {
+
+		MemberDTO memberDto = (MemberDTO) session.getAttribute("member");
+
+		if (memberDto == null) {
+			try {
+				response.sendRedirect("/");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		feedCommentDTO.setId(memberDto.getId());
+
+
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("result", feedService.setAddComment(feedCommentDTO));
+
+		return resultMap;
+	}
+	
+	@PostMapping("deleteComment")
+	@ResponseBody
+	public Map<String, Integer> setDeleteComment(FeedCommentDTO feedCommentDTO, HttpSession session, HttpServletResponse response) {
+
+		MemberDTO memberDto = (MemberDTO) session.getAttribute("member");
+
+		if (memberDto == null) {
+			try {
+				response.sendRedirect("/");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		feedCommentDTO.setId(memberDto.getId());
+
+
+		Map<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("result", feedService.setDeleteComment(feedCommentDTO));
+
+		return resultMap;
+	}
 	
 }

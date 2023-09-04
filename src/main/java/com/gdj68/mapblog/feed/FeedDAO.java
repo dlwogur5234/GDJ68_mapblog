@@ -1,11 +1,16 @@
 package com.gdj68.mapblog.feed;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gdj68.mapblog.comment.feedComment.FeedCommentDTO;
+import com.gdj68.mapblog.comment.feedComment.FeedCommentLikesDTO;
+import com.gdj68.mapblog.file.FileDTO;
 import com.gdj68.mapblog.util.Pager;
 
 @Repository
@@ -49,6 +54,11 @@ public class FeedDAO {
 	}
 
 	/* -------- FILE -------- */
+	
+	// 파일 리스트
+	public List<FeedFileDTO> getFileList(FeedDTO feedDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getFileList", feedDTO);
+	}
 
 	// 파일 추가
 	public int setFileAdd(FeedFileDTO feedFileDTO) throws Exception {
@@ -60,7 +70,7 @@ public class FeedDAO {
 		return sqlSession.selectOne(NAMESPACE + "getFileDetail", feedFileDTO);
 	}
 
-	// 파일 삭제
+	// 글 수정 시 파일 삭제
 	public int setFileDelete(FeedFileDTO feedFileDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE + "setFileDelete", feedFileDTO);
 	}
@@ -108,6 +118,65 @@ public class FeedDAO {
 	public Long getLikesCount(Pager pager) {
 		return sqlSession.selectOne(NAMESPACE + "getLikesCount", pager);
 	}
+	
+		
+	/* -------- 댓글 -------- */
+	
+	// 코멘트 목록
+	public List<FeedCommentDTO> getCommentList(FeedCommentDTO feedCommentDTO) {
+		return sqlSession.selectList(NAMESPACE + "getCommentList", feedCommentDTO);
+	}
+
+	// 코멘트 추가
+	public int setAddComment(FeedCommentDTO feedCommentDTO) {
+		return sqlSession.insert(NAMESPACE + "setAddComment", feedCommentDTO);
+	}
+	
+	// 코멘트 삭제
+	public int setDeleteComment(FeedCommentDTO feedCommentDTO) {
+		return sqlSession.delete(NAMESPACE + "setDeleteComment", feedCommentDTO);
+	}
+	
+	// 코멘트 수정
+	/*
+	 * public int setUpdateComment(FeedCommentDTO feedCommentDTO) { return
+	 * sqlSession.update(NAMESPACE + "setUpdateComment", feedCommentDTO); }
+	 */
+		
+	
+	/* -------- 댓글 좋아요 -------- */
+	
+//	// 좋아요 눌렀는지 확인
+//	public Long getFindCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
+//		return sqlSession.selectOne(NAMESPACE + "getFindLikes", feedCommentLikesDTO);
+//	}
+//	
+//	// 좋아요 체크
+//	public int checkCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+//		return sqlSession.selectOne(NAMESPACE + "checkLikes", feedCommentLikesDTO);
+//	}
+//
+//	// 좋아요 등록
+//	public int addCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+//		return sqlSession.insert(NAMESPACE + "addLikes", feedCommentLikesDTO);
+//	}
+//
+//	// 좋아요 카운트
+//	public int countCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+//		return sqlSession.selectOne(NAMESPACE + "countLikes", feedCommentLikesDTO);
+//	}
+//
+//	// 좋아요 삭제
+//	public int deleteCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+//		return sqlSession.delete(NAMESPACE + "deleteLikes", feedCommentLikesDTO);
+//	}
+	
+	
+	
+	// ---------------------------------------------------------------------------------------
+	
+	
+
 
 }
 

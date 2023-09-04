@@ -5,8 +5,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d19d0bc22748e1c8a814e507a6e96ed2"></script>
+
+	<!-- Kakao Map -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e&libraries=services"></script>
+
 	<c:import url="../temp/bootStrap.jsp"></c:import>
+	
 </head>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
