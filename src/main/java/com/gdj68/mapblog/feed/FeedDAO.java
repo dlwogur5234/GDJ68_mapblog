@@ -8,9 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gdj68.mapblog.comment.feedComment.FeedCommentDTO;
-import com.gdj68.mapblog.comment.feedComment.FeedCommentLikesDTO;
+import com.gdj68.mapblog.feed.FeedCommentLikesDTO;
 import com.gdj68.mapblog.file.FileDTO;
+import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
 @Repository
@@ -27,6 +27,20 @@ public class FeedDAO {
 	public List<FeedDTO> getList(Pager pager) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getList", pager);
 	}
+	
+	public List<FeedDTO> getList(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getList2", memberDTO);
+	}
+	
+	public FeedDTO getUrl(FeedDTO feedDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getUrl", feedDTO);
+	}
+	
+	public MemberDTO getUser(FeedDTO feedDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE + "getUser", feedDTO);
+	}
+	
 
 	// 글 작성
 	public int setAdd(FeedDTO feedDTO) throws Exception {
@@ -90,32 +104,32 @@ public class FeedDAO {
 	}
 	
 	// 좋아요 체크
-	public int checkLikes(LikesDTO likesDto) {
+	public int checkLikes(LikesDTO likesDto) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "checkLikes", likesDto);
 	}
 
 	// 좋아요 등록
-	public int addLikes(LikesDTO likesDto) {
+	public int addLikes(LikesDTO likesDto) throws Exception {
 		return sqlSession.insert(NAMESPACE + "addLikes", likesDto);
 	}
 
 	// 좋아요 카운트
-	public int countLikes(LikesDTO likesDto) {
+	public int countLikes(LikesDTO likesDto) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "countLikes", likesDto);
 	}
 
 	// 좋아요 삭제
-	public int deleteLikes(LikesDTO likesDto) {
+	public int deleteLikes(LikesDTO likesDto) throws Exception {
 		return sqlSession.delete(NAMESPACE + "deleteLikes", likesDto);
 	}
 	
 	// 좋아요 게시글 리스트
-	public List<FeedDTO> getLikesList(Pager pager) {
+	public List<FeedDTO> getLikesList(Pager pager) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getLikesList", pager);
 	}
 	
 	// 좋아요 게시글 카운트
-	public Long getLikesCount(Pager pager) {
+	public Long getLikesCount(Pager pager) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getLikesCount", pager);
 	}
 	
@@ -123,25 +137,26 @@ public class FeedDAO {
 	/* -------- 댓글 -------- */
 	
 	// 코멘트 목록
-	public List<FeedCommentDTO> getCommentList(FeedCommentDTO feedCommentDTO) {
+	public List<FeedCommentDTO> getCommentList(FeedCommentDTO feedCommentDTO) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getCommentList", feedCommentDTO);
 	}
 
 	// 코멘트 추가
-	public int setAddComment(FeedCommentDTO feedCommentDTO) {
+	public int setAddComment(FeedCommentDTO feedCommentDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE + "setAddComment", feedCommentDTO);
 	}
 	
 	// 코멘트 삭제
-	public int setDeleteComment(FeedCommentDTO feedCommentDTO) {
+	public int setDeleteComment(FeedCommentDTO feedCommentDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE + "setDeleteComment", feedCommentDTO);
 	}
 	
 	// 코멘트 수정
-	/*
-	 * public int setUpdateComment(FeedCommentDTO feedCommentDTO) { return
-	 * sqlSession.update(NAMESPACE + "setUpdateComment", feedCommentDTO); }
-	 */
+	public int setUpdateComment(FeedCommentDTO feedCommentDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "setUpdateComment", feedCommentDTO);
+	}
+
+
 		
 	
 	/* -------- 댓글 좋아요 -------- */

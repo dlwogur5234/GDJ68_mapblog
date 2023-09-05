@@ -21,6 +21,19 @@
 		</choose>
   	</sql>
   	
+  	<!-- 개인 URL -->
+  	<select id="getUrl" parameterType="FeedDTO" resultType="FeedDTO">
+  		SELECT M.URL
+  		  FROM FEED F, MEMBER M
+  		 WHERE F.ID = M.ID
+  	</select>
+  	
+  	<select id="getUser" parameterType="FeedDTO" resultType="MemberDTO">
+  		SELECT ID
+  		  FROM MEMBER
+  		 WHERE URL = #{url}
+  	</select>
+  	
 
   	<!-- LIST -->
   	<!-- 
@@ -38,6 +51,13 @@
   		WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	 -->
+  	 
+  	 <select id="getList2" parameterType="MemberDTO" resultType="FeedDTO">
+  	 	SELECT *
+  	 	  FROM FEED
+  	 	 WHERE ID = #{id}
+  	 </select>
+  	  
 	<select id="getList" parameterType="Pager" resultType="FeedDTO">
 	SELECT TOTALCOUNT - RNUMS + 1 AS RNUM
 	     , FEED.*
@@ -101,6 +121,7 @@
 	       ) FEED
 	 WHERE RNUMS BETWEEN #{startRow} AND #{lastRow}
 	</select>
+
 
  	
   	<!-- PAGER (GET TOTAL) -->
@@ -252,7 +273,7 @@
 
 	<!-- 좋아요 카운트 -->
 	<select id="countLikes" parameterType="LikesDTO" resultType="Integer">
-	SELECT COUNT(*)
+	 SELECT COUNT(*)
 	  FROM LIKES
 	 WHERE FEEDNUM = #{feedNum}
 	</select>
@@ -377,39 +398,26 @@
 	<!-- 댓글 ************************* -->
   	<!-- Comment -->
   	
-	<select id="getCommentList" parameterType="FeedCommentDTO" resultType="FeedCommentDTO">
-	SELECT C.COMMENTNUM
-	     , C.FEEDNUM
-	     , C.ID
-	     , M.NICKNAME
-	     , C.CONTENTS
-	     , TO_CHAR(C.COMMENTDATE, 'YYYY-MM-DD HH24:MI:SS') COMMENTDATE
-	  FROM FEEDCOMMENT C
-	     , MEMBER M
-	 WHERE C.ID = M.ID
-	   AND C.FEEDNUM = #{feedNum}
-	ORDER BY C.COMMENTNUM ASC
-	</select>
-
+  	<select id="getCommentList" parameterType="FeedCommentDTO" resultType="FeedCommentDTO">
+  		SELECT * FROM FEEDCOMMENT
+  		WHERE FEEDNUM = #{feedNum}
+  	</select>
+  	
 	<insert id="setAddComment" parameterType="FeedCommentDTO">
 	INSERT INTO FEEDCOMMENT(COMMENTNUM, FEEDNUM, ID, CONTENTS, COMMENTDATE)
-	VALUES(FEEDCOMMENT_SEQ.NEXTVAL, #{feedNum}, #{id}, #{contents}, SYSDATE)
+	VALUES(FEEDCOMMENT_SEQ.NEXTVAL, #{feedNum}, #{id}, #{contents}, SYSDATE, 0, #{feedNum}, 0)
 	</insert>
 	
 	<delete id="setDeleteComment" parameterType="FeedCommentDTO">
-	DELETE FROM FEEDCOMMENT
+	DELETE FEEDCOMMENT
 	 WHERE COMMENTNUM = #{commentNum}
-	   AND FEEDNUM = #{feedNum}
-	   AND ID = #{id}
 	</delete>
-	
-<!-- 	<update id="setUpdateComment" parameterType="FeedCommentDTO">
+
+	<update id="setUpdateComment" parameterType="FeedCommentDTO">
 		UPDATE FEEDCOMMENT SET
 		CONTENTS = #{contents}
 			 WHERE COMMENTNUM = #{commentNum}
-			   AND FEEDNUM = #{feedNum}
-			   AND ID = #{id}
-	</update> -->
+	</update>
  	
 
 	<!-- 댓글 좋아요 -->

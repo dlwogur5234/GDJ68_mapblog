@@ -126,53 +126,15 @@
 	<hr class="hr" />
 
 
-		<!-- 댓글  -->
-		<div class="collapse" style="display:block; margin-top:10px;">
-			<div class="card card-body">
-				<!-- 댓글 목록 -->
-				<div class="reply-list">
-					<!-- 댓글이 목록이 들어가는 곳 -->
-					<c:forEach var="comment" items="${commentList }">
-						<div class="replies">
-							<a href="#">
-								<img class="reply_list_profileImage" src="/resources/img/images.jpeg" />
-							</a>
-							<span class="writer">
-								<b>${comment.nickName }</b>
-							</span>
-							<span class="date">
-								${comment.commentDate }
-							</span>
-							<span class="contents">
-								${comment.contents }
-							</span>
-							<span class="btns">
-							<c:if test="${comment.id eq sessionScope.member.id }">
-								<!-- <button type="button" class="update" data-url="update">수정</button> -->
-								<button type="button" class="commentDelete" data-cnum="${comment.commentNum }">삭제</button>
-							</c:if>
-							</span>
-						</div>
-						<div class="cl"></div>
-					</c:forEach>
-				</div>
-				<!-- 댓글 작성 => 로그인한 상태여야만 댓글작성 칸이 나온다. -->
-				<div class="row reply-write">
-					<div class="col-1">
-						<a href="#">
-							<img class="write_reply_profileImage" src="/resources/img/images.jpeg" />
-						</a>
-					</div>
-					<div class="col-8" class="input_reply_div">
-						<input type="text" id="contents" class="w-100 form-control" placeholder="댓글입력..." />
-					</div>
-					<div class="col-3 ">
-						<button type="button" id="write-reply" class="btn btn-success mb-1 write-reply">댓글&nbsp;달기</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	<form action="./addComment" method="post" id="frm2">
+		<input type="hidden" id="feedNum2" name="feedNum" value="${dto.feedNum}">
+		<input type="hidden" id="commentId" name="id" value="${member.id}">
+		<input type="text" id="commentContents">
+		<button type="button" id="addComment">댓글등록</button>
+	</form>
+
+
+	<div id="commentList"></div>
 
 
 
@@ -194,7 +156,7 @@
 			if ("${sessionScope.member}") {
 				$.ajax({
 					async:false,
-					url:"/feed/addLikes",
+					url:"./feed/addLikes",
 					type:"post",
 					data:{"feedNum":$("#feedNum").val()},
 					dataType:"json",
@@ -209,86 +171,36 @@
 				alert("로그인이 필요한 서비스입니다.");
 			}
 		});
-	
 
+		$('#commentList').on('click','.updateBtn',function(){
+			alert('수정버튼 클릭');
+			let contents =   $(this).siblings('#updateDiv').text();
+			console.log(contents);
 
-		// 댓글 관련 script
-		$(document).on("click", "#write-reply", function() {
-			let contents = $.trim($("#contents").val());
-			if ("${sessionScope.member}") {
-				console.log("콘텐츠 : ", contents);
-				if (contents) {
-					$.ajax({
-						async:false,
-						url:"/feed/addComment",
-						type:"post",
-						data:{"feedNum":$("#feedNum").val(), "contents":$("#contents").val()},
-						dataType:"json",
-						success:function(data) {
-						},
-						error:function(xhr, status, res) {
-							console.log("오류 발생", xhr.responseText, status, res);
-						}
-					});
-				} else {
-					alert("댓글 내용을 넣어주세요");
-				}
-	
-				$("#contents").val("");
-	
-				refreshComment();
-			} else {
-				alert("로그인이 필요한 서비스입니다.");
-			}
-	
-		});
-		
-		$(document).on("click", ".commentDelete", function() {
-			let commentNum = $(this).data("cnum");
+			$(this).siblings('#updateDiv').html('<input type="text" id="contents" value="'+contents+'">');
+			$(this).attr('class','updateBtn2');
+			// $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
+		})
+
+		$('#commentList').on('click','.updateBtn2',function(){
+			let contents = $(this).siblings('#updateDiv').children('#contents').val();
+			let commentNum = this.dataset.commentnum; 
 			$.ajax({
-				async:false,
-				url:"/feed/deleteComment",
-				type:"post",
-				data:{"commentNum":commentNum, "feedNum":$("#feedNum").val()},
-				dataType:"json",
-				success:function(data) {
+				type:'post',
+				url:'updateComment',
+				data:{
+					commentNum:commentNum,
+					contents:contents
 				},
-				error:function(xhr, status, res) {
-					console.log("오류 발생", xhr.responseText, status, res);
-				}
-			});
-	
-			refreshComment();
-		});
-	
-		function refreshComment() {
-			$.ajax({
-				async:false,
-				url:"/feed/commentList",
-				type:"get",
-				data:{"feedNum":$("#feedNum").val()},
-				dataType:"json",
-				success:function(data) {
-					$(".reply-list").children().remove();
-					$(data).each(function(i, elem) {
-						let replies = $("<div>").addClass("replies");
-						replies
-							.append($("<a>", {href:"#"}).append($("<img>", {src:"/resources/img/images.jpeg"}).addClass("reply_list_profileImage")))
-							.append($("<span>").addClass("writer").text(elem.nickName))
-							.append($("<span>").addClass("date").text(elem.commentDate))
-							.append($("<span>").addClass("contents").text(elem.contents));
-						if ("${sessionScope.member.id}" == elem.id) {
-							replies.append($("<span>").addClass("btns").append($("<button>", {type:"button", text:"삭제"}).addClass("commentDelete")));
-						}
-						
-						$(".reply-list").append(replies).append($("<div>").addClass("cl"));
-					});
+				success:function(result){
+					getList();
 				},
-				error:function(xhr, status, res) {
-					console.log("오류 발생", xhr.responseText, status, res);
-				}
-			});
-		}
+				error:function(){
+					console.log('error');  
+				} 
+			})
+		})
+	
 		</script>
 
 	<script src="/resources/js/feed/feedDelete.js"></script>

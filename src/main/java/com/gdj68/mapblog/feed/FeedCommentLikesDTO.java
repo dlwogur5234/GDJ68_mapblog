@@ -1,4 +1,4 @@
-package com.gdj68.mapblog.comment.feedComment;
+package com.gdj68.mapblog.feed;
 
 public class FeedCommentLikesDTO {
 		

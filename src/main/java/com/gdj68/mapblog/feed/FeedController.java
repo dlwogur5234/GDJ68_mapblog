@@ -6,6 +6,7 @@ import java.util.List;
 //import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -18,19 +19,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.gdj68.mapblog.comment.feedComment.FeedCommentDTO;
+import com.gdj68.mapblog.meeting.MeetingCommentDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
 @Controller
 @RequestMapping("/feed/*")
 public class FeedController {
-	
-	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass().getName());
 	
 	@Autowired
 	private FeedService feedService;
@@ -43,20 +43,52 @@ public class FeedController {
 	/* ---------------------------------------------- */
 
 	// List
-	@GetMapping("list")
-	public String getList(Pager pager, Model model, HttpSession session) throws Exception {
+//	@GetMapping("list")
+//	public String getList(Pager pager, Model model, HttpSession session) throws Exception {
+//
+//		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+//
+//	      if (memberDTO != null) {
+//	         pager.setId(memberDTO.getId());
+//	      }
+//
+//		List<FeedDTO> ar = feedService.getList(pager);
+//		model.addAttribute("list", ar);
+//		model.addAttribute("pager", pager);
+//
+//		return "feed/list";
+//	}
 
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+	// 개인 url 
+	@RequestMapping(value = "list/*", method = RequestMethod.GET)
+	public String getUrl (HttpServletRequest request, FeedDTO feedDTO, Model model, Pager pager) throws Exception{
 
-	      if (memberDTO != null) {
-	         pager.setId(memberDTO.getId());
-	      }
-
-		List<FeedDTO> ar = feedService.getList(pager);
-		model.addAttribute("list", ar);
+		StringBuffer userUrl1 = request.getRequestURL();
+		String userUrl2 = userUrl1.toString();
+		String[] userUrl3 = userUrl2.split("/");
+		String userUrl4 = userUrl3[userUrl3.length-1];
+		
+		System.out.println(userUrl4);
+		
+		feedDTO.setUrl(userUrl4);
+		
+		MemberDTO memberDTO = new MemberDTO();
+		
+		memberDTO = feedService.getUser(feedDTO);
+	
+//		System.out.println(memberDTO.getId());
+		
+		List<FeedDTO> li = feedService.getList(memberDTO);
+		
+		model.addAttribute("list", li);
+		
+		pager.setId(memberDTO.getId());
+		pager = feedService.getPage(pager);
 		model.addAttribute("pager", pager);
+		
 
 		return "feed/list";
+		
 	}
 
 	// Add Form
@@ -210,7 +242,7 @@ public class FeedController {
 	
 	// 좋아요 리스트	
 	@GetMapping("likesList")
-	public String getLikesList(Model model, HttpSession session, Pager pager) {
+	public String getLikesList(Model model, HttpSession session, Pager pager) throws Exception {
 
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
 		
@@ -231,59 +263,38 @@ public class FeedController {
 
 	
 
-	@GetMapping("commentList")
-	@ResponseBody
-	public List<FeedCommentDTO> getCommentList(FeedCommentDTO feedCommentDTO) {
-		List<FeedCommentDTO> commentList = feedService.getCommentList(feedCommentDTO);
-		return commentList;
+
+	@PostMapping("addComment")
+	public String setAddComment(FeedCommentDTO feedCommentDTO) throws Exception {
+
+		System.out.println("controller 진입");
+		System.out.println(feedCommentDTO.getContents());
+		System.out.println(feedCommentDTO.getId());
+		long ms = feedCommentDTO.getFeedNum();
+		int result = feedService.setAddComment(feedCommentDTO);
+		return "redirect:./getComment?feedNum="+ms;
+	}
+	
+	@GetMapping("getComment")
+	public String getCommentList(FeedCommentDTO feedCommentDTO, Model model) throws Exception {
+		List<FeedCommentDTO> ar = feedService.getCommentList(feedCommentDTO);
+		model.addAttribute("commentList", ar);
+		return "feed/commentList";
 		
 	}
 	
-
-	@PostMapping("addComment")
-	@ResponseBody
-	public Map<String, Integer> setAddComment(FeedCommentDTO feedCommentDTO, HttpSession session, HttpServletResponse response) {
-
-		MemberDTO memberDto = (MemberDTO) session.getAttribute("member");
-
-		if (memberDto == null) {
-			try {
-				response.sendRedirect("/");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		feedCommentDTO.setId(memberDto.getId());
-
-
-		Map<String, Integer> resultMap = new HashMap<String, Integer>();
-		resultMap.put("result", feedService.setAddComment(feedCommentDTO));
-
-		return resultMap;
+	@PostMapping("deleteComment")
+	public String setDeleteComment(FeedCommentDTO feedCommentDTO) throws Exception {
+		  int result = feedService.setDeleteComment(feedCommentDTO);
+		  long cn = feedCommentDTO.getCommentNum();
+		  return "feed/commentList";
 	}
 	
-	@PostMapping("deleteComment")
-	@ResponseBody
-	public Map<String, Integer> setDeleteComment(FeedCommentDTO feedCommentDTO, HttpSession session, HttpServletResponse response) {
-
-		MemberDTO memberDto = (MemberDTO) session.getAttribute("member");
-
-		if (memberDto == null) {
-			try {
-				response.sendRedirect("/");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		feedCommentDTO.setId(memberDto.getId());
-
-
-		Map<String, Integer> resultMap = new HashMap<String, Integer>();
-		resultMap.put("result", feedService.setDeleteComment(feedCommentDTO));
-
-		return resultMap;
-	}
+	
+	  @PostMapping("updateComment")
+	  public String setUpdateComment(FeedCommentDTO feedCommentDTO) throws Exception {
+		  feedService.setUpdateComment(feedCommentDTO);
+		  return "feed/commentList";
+	  }
 	
 }
