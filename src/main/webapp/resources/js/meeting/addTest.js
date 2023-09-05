@@ -20,6 +20,8 @@ function getLocation() {
         centerLng = position.coords.longitude;
         console.log(centerLng);
         getKakaoMap2(centertLat,centerLng);
+        $("#lat").val(centertLat);
+        $("#lng").val(centerLng);
       }, function(error) {
         console.error(error);
         alert('GPS 지원을 동의하지 않으셨습니다.')
