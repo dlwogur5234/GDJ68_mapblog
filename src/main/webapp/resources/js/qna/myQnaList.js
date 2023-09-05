@@ -1,3 +1,4 @@
+
 let page = 1;
 
 $('#myQnaList').on("click",".page-link",function(event){
