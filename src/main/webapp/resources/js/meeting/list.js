@@ -2,10 +2,11 @@ let centertLat =33.450701;
 let centerLng =126.570667;
 let myListResult = true;
 $('#myListBtn').on('click',function(){
-  $(this).html('전체 리스트 보기');
-  $(this).attr('id','listBtn');
+ 
   if(myListResult){
-    myListResult=false;
+    $(this).html('전체 리스트 보기');
+    myListResult=!myListResult;
+   
   $.ajax({
     type:"GET",
     url:"./myList",
@@ -18,11 +19,12 @@ $('#myListBtn').on('click',function(){
     }
 })
 }else{
-$('#listBtn').on('click',function(){
-  myListResult=!myListResult;
-  getKakaoMap(centertLat,centerLng);
-})
-}
+  
+    $(this).html('내 참석 모임 보기');
+    myListResult=!myListResult;
+    getKakaoMap(centertLat,centerLng);
+    
+  }
 });
 
 
