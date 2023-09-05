@@ -39,11 +39,7 @@ public class QnaController {
 	public String setCommentAdd(QnaCommentDTO qnaCommentDTO,HttpSession session, Model model) throws Exception{
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		qnaCommentDTO.setId(memberDTO.getId());
-		/*
-		 * AdminMemberDTO adminMemberDTO =
-		 * (AdminMemberDTO)session.getAttribute("adminMember");
-		 * qnaCommentDTO.setAdminId(adminMemberDTO.getAdminId());
-		 */
+		
 		int result = qnaService.setCommentAdd(qnaCommentDTO);
 		model.addAttribute("result",result);
 		return "commons/ajaxResult";
@@ -56,7 +52,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("commentUp")
-	public String setCommentUp(QnaCommentDTO qnaCommentDTO,QnaDTO qnaDTO) throws Exception {
+	public String setCommentUp(QnaCommentDTO qnaCommentDTO) throws Exception {
 	
 		qnaService.setCommentUp(qnaCommentDTO);
 		

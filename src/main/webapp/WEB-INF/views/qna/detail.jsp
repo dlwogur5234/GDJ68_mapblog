@@ -61,10 +61,7 @@
     </c:when>
 </c:choose>
 	
-	
-	
-	
-	
+
 	<%-- <button id="update" data-url="update" class="c1">수정</button>
 	<button id="del" data-url="delete" data-delete-name="num" data-delete-num="${dto.num}" class="c1">삭제</button> --%>
 
@@ -80,14 +77,29 @@
 			<table id="commentList" class="table table-success table-striped">
 				
 			</table>
-			<div id="more">
-
-			</div>
+			
+				<div id="more">
+	
+				</div>
 
 		</div>
 	</div>
 	
 	<script>
+	
+	//더보기 버튼 
+	/* var pagerDTO = {
+			setPerPage : 15
+	}; */
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		let qn = $('#up').attr('data-add-num');
 		let tp = 0;
 		let pageNum = 1;
@@ -149,9 +161,9 @@
 
 	$(document).ready(function() {
     $('#commentList').on('click', '#del', function() {
-        var tr = $(this).closest('tr');
+        var tr = $(this).closest('.delD');
 		var commentNum = $("#del").attr('data-num-del');
-
+		alert("댓글 삭제 완료")
 		$.ajax({
 			type:'post',
 			url:'deleteComment',
@@ -170,15 +182,15 @@
 
 $('#commentList').on('click','.updateBtn',function(){
     alert('수정버튼 클릭');
-    let contents =   $(this).siblings('#updateDiv').text();
+    let contents =    $(this).siblings('#updateDiv').text();
     console.log(contents);
 
     $(this).siblings('#updateDiv').html('<input type="text" id="contents" value="'+contents+'">');
     $(this).attr('class','updateBtn2');
-    // $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
+    
 })
 
-$('#commentList').on('click','.updateBtn2',function(){
+ $('#commentList').on('click','.updateBtn2',function(){
     let contents = $(this).siblings('#updateDiv').children('#contents').val();
     let commentNum = this.dataset.commentnum; 
     $.ajax({
@@ -189,13 +201,18 @@ $('#commentList').on('click','.updateBtn2',function(){
             contents:contents
         },
         success:function(result){
-            getCommentList();
+
+			let updatedContents = $('#commentList .updateBtn2').siblings('#updateDiv').children('#contents').val();
+            $('#commentList .updateBtn2').siblings('#updateDiv').text(updatedContents);
+            $('#commentList .updateBtn2').attr('class', 'updateBtn');
+
+            getCommentList(qnaNum,page);
         },
         error:function(){
             console.log('error');  
         } 
     })
-})
+}) 
 
 
 

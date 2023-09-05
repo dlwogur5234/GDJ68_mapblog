@@ -29,7 +29,7 @@ public class FeedService {
 	
 	// 리스트
 	public List<FeedDTO> getList(Pager pager) throws Exception {
-		pager.setPerPage(9L);
+		pager.setPerPage(4L);
 		pager.makeRowNum();
 		Long total = feedDAO.getTotal(pager);
 		pager.makePageNum(total);
