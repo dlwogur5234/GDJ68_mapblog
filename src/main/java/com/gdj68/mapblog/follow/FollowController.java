@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/follow/*")
+@RequestMapping("feed/follow/*")
 public class FollowController {
 	
 	@Autowired

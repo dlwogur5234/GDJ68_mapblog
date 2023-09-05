@@ -14,9 +14,11 @@
 </head>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
-
+	<div>
 	<h1 class="a mb-5 text-center">Feed List</h1>
-
+	
+	<div id="followList"></div>
+	</div>
 
 	<!-- div.container start -->
 	<div class="conatiner">
@@ -138,8 +140,9 @@
 			</script>
 	</c:if>
 	
+	
 	<script src="/resources/js/feed/feedMapList.js" defer></script>
-
+	<script src="/resources/js/follow/followList.js"></script>
 
 
 

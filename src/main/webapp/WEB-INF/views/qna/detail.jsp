@@ -29,7 +29,7 @@
 				<tr>
 					<td data-add-num="${dto.qnaNum}" id="up">${dto.qnaNum}</td>
 					<td>${dto.qnaTitle}</td>
-					<td>${dto.memberId}</td>
+					<td>${dto.nickName}</td>
 					<td>${dto.qnaDate}</td>
 				</tr>
 				</tbody>

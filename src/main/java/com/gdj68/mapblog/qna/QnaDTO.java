@@ -15,7 +15,14 @@ public class QnaDTO{
 	private List<QnaFileDTO> fileDTOs;
 	private Long qnaNum;
 	private int privateContents;
+	private String nickName;
 	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public int getPrivateContents() {
 		return privateContents;
 	}

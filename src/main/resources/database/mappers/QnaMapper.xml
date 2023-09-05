@@ -21,7 +21,7 @@
   </select>
   
   <insert id="setCommentAdd" parameterType="QnaCommentDTO">
-  		INSERT INTO QNACOMMENT VALUES (QNACOMMENT_SEQ.NEXTVAL,#{qnaNum},<!-- #{adminId} -->#{id},#{contents},SYSDATE)
+  		INSERT INTO QNACOMMENT VALUES (QNACOMMENT_SEQ.NEXTVAL,#{qnaNum},<!-- #{adminId} -->#{id},#{contents},SYSDATE,#{nickName})
   </insert>
   
   <delete id="setCommentDel" parameterType="QnaCommentDTO">
@@ -54,7 +54,7 @@
   		<selectKey keyProperty="qnaNum" resultType="Long" order="BEFORE">
   			SELECT QNA_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-  		INSERT INTO QNA(QNANUM,MEMBERID,QNATITLE,QNACONTENTS,QNADATE,PRIVATECONTENTS) VALUES(#{qnaNum},#{memberId},#{qnaTitle},#{qnaContents},SYSDATE,#{privateContents})
+  		INSERT INTO QNA(QNANUM,MEMBERID,QNATITLE,QNACONTENTS,QNADATE,PRIVATECONTENTS,NICKNAME) VALUES(#{qnaNum},#{memberId},#{qnaTitle},#{qnaContents},SYSDATE,#{privateContents},#{nickName})
   	</insert>
   	
   	<!-- <select id="getDetail" parameterType="QnaDTO" resultType="QnaDTO">
@@ -75,6 +75,7 @@
   		<result column="QNACONTENTS" property="qnaContents"/>
   		<result column="QNADATE" property="qnaDate"/>
   		<result column="PRIVATECONTENTS" property="privateContents"/>
+  		<result column="NICKNAME" property="nickName"/>
 
   		
   		

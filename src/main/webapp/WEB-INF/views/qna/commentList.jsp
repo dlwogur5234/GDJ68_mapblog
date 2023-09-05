@@ -27,7 +27,7 @@
 		<div  style="width: 50px; height: 50px"><img class="float" style="width: 100%; height: 100%" alt="" src="../resources/upload/member/${memberFile.fileName}"></div>
 		
 		<div class="float" id="updateDiv">${com.contents}</div>
-		<div class="float">${com.id}</div>
+		<div class="float">${com.nickName}</div>
 		<div class="float">${com.commentDate}</div>
 		<c:if test="${com.id eq member.id}">
 		<button data-num-del="${com.commentNum}" id="del">x</button>

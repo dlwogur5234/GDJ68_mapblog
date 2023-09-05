@@ -2,7 +2,7 @@ let page = 1;
 
 $.ajax({
   type: "GET",
-  url: "../follow/list",
+  url: "/follow/list",
   data: {
     page: page,
   },

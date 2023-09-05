@@ -39,6 +39,7 @@ public class QnaController {
 	public String setCommentAdd(QnaCommentDTO qnaCommentDTO,HttpSession session, Model model) throws Exception{
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		qnaCommentDTO.setId(memberDTO.getId());
+		qnaCommentDTO.setNickName(memberDTO.getNickName());
 		
 		int result = qnaService.setCommentAdd(qnaCommentDTO);
 		model.addAttribute("result",result);

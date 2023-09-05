@@ -14,12 +14,23 @@
     		margin: 10px 5px;
     		text-align: center;
     	}
+    	.modalfloat{
+    		float: left;
+    	}
+      #followList{
+        float: left;
+      }
+      a{
+      	display: block;
+      	text-decoration: none;
+      	color: black;
+      }
     </style>
   </head>
   <body>
     <!-- Button trigger modal -->
     <a
-      
+      class="modalfloat"
       data-bs-toggle="modal"
       data-bs-target="#exampleModalFollow"
     >
@@ -47,7 +58,7 @@
           </div>
           <div class="modal-body">
           	<c:forEach items="${followList}" var="f">
-      <div class="margin">${f.toUser} 
+      <div class="margin"><a href="/feed/list/${member.url}">${f.toUser}</a> 
     	 <form action="addFollow" method="POST">
         <input type="hidden" name="fromUser" value="${followDel.fromUser}">
         <input type="hidden" name="toUser" value="${followDel.toUser}"> 
@@ -74,7 +85,7 @@
     
     <!-- Button trigger modal -->
 <a
-      
+      class="modalfloat"
       data-bs-toggle="modal"
       data-bs-target="#exampleModalFollower"
     >

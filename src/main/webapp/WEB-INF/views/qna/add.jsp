@@ -28,8 +28,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
       </div>
       <br />
       <div class="input-group text-center">
+      	<input type="hidden" name="memberId" value="${member.id}">
         <span class="input-group-text" id="basic-addon2">작성자</span>
-        <input type="text" name="memberId" value="${member.id}"/>
+        <input type="text" name="nickName" value="${member.nickName}"/>
       </div>
       <br />
 

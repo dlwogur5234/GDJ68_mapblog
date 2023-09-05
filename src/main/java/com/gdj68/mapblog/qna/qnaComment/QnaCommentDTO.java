@@ -5,6 +5,15 @@ import com.gdj68.mapblog.comment.CommentDTO;
 public class QnaCommentDTO extends CommentDTO{
 	private Long qnaNum;
 	private String adminId;
+	private String nickName;
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 
 	public String getAdminId() {
 		return adminId;
