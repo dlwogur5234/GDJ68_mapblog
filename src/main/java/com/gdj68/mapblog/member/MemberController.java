@@ -73,7 +73,10 @@ public class MemberController {
 		if(memberFileDTO != null) {
 			session.setAttribute("memberFile", memberFileDTO);
 		}
-		return "redirect:../";	
+
+		String userUrl = memberDTO.getUrl();
+		
+		return "redirect:../feed/list/"+userUrl;
 	}
 	
 	// 로그아웃

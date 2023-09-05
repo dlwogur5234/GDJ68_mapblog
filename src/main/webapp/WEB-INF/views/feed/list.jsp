@@ -56,7 +56,7 @@
 											<rect width="100%" height="100%" fill="#55595c"></rect>
 
 											<!-- 이미지 -->
-											<a class="text-white link-offset-2 link-underline link-underline-opacity-0" href="./detail?feedNum=${f.feedNum}">
+											<a class="text-white link-offset-2 link-underline link-underline-opacity-0" href="../detail?feedNum=${f.feedNum}">
 											<image class="img" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
 											<text id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${f.title}</text>
 											</a>
@@ -77,10 +77,7 @@
 					</div>
 				</div>
 				
-				<!-- <div class="row">
-					<div class="col-sm-6 col-md-4 mb-3">
-					<img src="https://images.unsplash.com/photo-1423589989400-cc0270157ed0?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=a95937ce1dc3243f52c30f86d948b771" alt="" class="fluid img-thumbnail">      
-				</div> -->
+
 
 		</div>
 		<!-- div.row g-2 end -->
@@ -88,9 +85,17 @@
 	</div>
 	<!-- div.container end -->
 
+	<!-- 전체 페이지 수 -->
+	<input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
+
+	<!-- Loading Spinner -->
+	<!-- <div class="spinner-border text-primary" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div> -->
+
 
 	<!-- Pager -->
-	<nav class="container" aria-label="Page navigation example">
+	<!-- <nav class="container" aria-label="Page navigation example">
 		<ul class="pagination justify-content-center">
 			<c:if test="${pager.pre}">
 				<li class="page-item"><a class="page-link" href="./list?page=${pager.startNum-1}">Previous</a></li>
@@ -102,7 +107,8 @@
 			<li class="page-item move"><a class="page-link" href="./list?page=${pager.lastNum+1}">Next</a></li>
 			</c:if>
 		</ul>
-	</nav>
+	</nav> -->
+
 
 	<!-- 글쓰기 버튼 -->
 	<c:if test="${not empty member}">
@@ -132,39 +138,9 @@
 			</script>
 	</c:if>
 	
-	<script>
-		
-		// const findMarker = document.getElementById("findMarker");
-		
-		// findMarker.addEventListener("click", function(){
-		// 	function panTo() {
-		// 		// 이동할 위도 경도 위치를 생성합니다 
-		// 		let moveLatLon = new kakao.maps.LatLng($("#lat").val(), $("#lng").val());
-				
-		// 		// 지도 중심을 부드럽게 이동시킵니다
-		// 		// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-		// 		map.panTo(moveLatLon);            
-		// 	}  
-		// })
-
-        // // 결과값으로 받은 위치를 마커로 표시합니다
-        // var marker = new kakao.maps.Marker({
-        //     map: map,
-        //     position: coords
-        // });
-
-        // // 인포윈도우로 장소에 대한 설명을 표시합니다
-        // var infowindow = new kakao.maps.InfoWindow({
-        //     content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-        // });
-        // infowindow.open(map, marker);
-
-        // // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        // map.setCenter(coords);
-
-	</script>
-	
 	<script src="/resources/js/feed/feedMapList.js" defer></script>
+
+
 
 
 </body>

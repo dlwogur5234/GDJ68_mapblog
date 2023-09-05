@@ -15,6 +15,8 @@ public class Pager {
 	private Long page;
 	// count 역할 > 한페이지에 보여질 ROw의 개수
 	private Long perPage;
+	
+	private Long total;
 
 	// 총 페이지 갯수
 	private Long totalPage;
@@ -32,7 +34,7 @@ public class Pager {
 	// publics 조회
 	// 내 게시물을 조회할 수 있는 id
 	private String id;
-
+	
 
 	public void makePageNum(Long total) {
 		// 130 > 13
@@ -196,4 +198,12 @@ public class Pager {
 		this.id = id;
 	}
 
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+	
 }

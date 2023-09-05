@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.gdj68.mapblog.comment.feedComment.FeedCommentDTO;
 import com.gdj68.mapblog.file.FileDTO;
+import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
 
@@ -37,6 +37,46 @@ public class FeedService {
 		return feedDAO.getList(pager);
 	}
 	
+	
+	public List<FeedDTO> getList(MemberDTO memberDTO) throws Exception {
+	     return feedDAO.getList(memberDTO);
+	}
+	
+	
+	public FeedDTO getUrl(FeedDTO feedDTO) throws Exception {
+
+		return feedDAO.getUrl(feedDTO);
+	}
+	
+	
+	public MemberDTO getUser(FeedDTO feedDTO) {
+		return feedDAO.getUser(feedDTO);
+		
+	}
+
+
+	public Pager getPage(Pager pager) throws Exception {
+		// 한 페이지에 보여질 ROW 갯수 (Count 역할)
+		pager.setPerPage(4L);
+		
+		pager.makeRowNum();
+		Long total = feedDAO.getTotal(pager);
+		pager.makePageNum(total);
+//		pager.setTotal(total);
+		
+		
+		Long totalPage;
+		
+		if (total % 4L != 0) {
+			totalPage = total / 4L + 1;
+		} else {
+			totalPage = total / 4L;
+		}
+
+		return pager;
+	}
+
+
 	// 글 추가
 	public int setAdd(FeedDTO feedDTO, MultipartFile [] files, HttpSession session) throws Exception {
 		
@@ -156,27 +196,27 @@ public class FeedService {
 	/* 좋아요 관련 ------------------------------- */
 
 	// 좋아요 체크
-	public int checkLikes(LikesDTO likesDto) {
+	public int checkLikes(LikesDTO likesDto) throws Exception {
 		return feedDAO.checkLikes(likesDto);
 	}
 
 	// 좋아요 등록
-	public int addLikes(LikesDTO likesDto) {
+	public int addLikes(LikesDTO likesDto) throws Exception {
 		return feedDAO.addLikes(likesDto);
 	}
 
 	// 좋아요 카운트
-	public int countLikes(LikesDTO likesDto) {
+	public int countLikes(LikesDTO likesDto) throws Exception {
 		return feedDAO.countLikes(likesDto);
 	}
 
 	// 좋아요 삭제
-	public int deleteLikes(LikesDTO likesDto) {
+	public int deleteLikes(LikesDTO likesDto) throws Exception {
 		return feedDAO.deleteLikes(likesDto);
 	}
 	
 	// 좋아요 리스트
-	public List<FeedDTO> getLikesList(Pager pager) {
+	public List<FeedDTO> getLikesList(Pager pager) throws Exception {
 
 		pager.makeRowNum();
 		Long total = feedDAO.getLikesCount(pager);
@@ -189,22 +229,25 @@ public class FeedService {
 	/* 댓글 관련 ------------------------------- */
 	
 	// 코멘트 목록
-	public List<FeedCommentDTO> getCommentList(FeedCommentDTO feedCommentDTO) {
+	public List<FeedCommentDTO> getCommentList(FeedCommentDTO feedCommentDTO) throws Exception {
 		return feedDAO.getCommentList(feedCommentDTO);
 	}
 
-	public int setAddComment(FeedCommentDTO feedCommentDTO) {
+	public int setAddComment(FeedCommentDTO feedCommentDTO) throws Exception {
 		return feedDAO.setAddComment(feedCommentDTO);
 	}
 
-	public int setDeleteComment(FeedCommentDTO feedCommentDTO) {
+	public int setDeleteComment(FeedCommentDTO feedCommentDTO) throws Exception {
 		return feedDAO.setDeleteComment(feedCommentDTO);
 	}
 	
-	/*
-	 * public int setUpdateComment(FeedCommentDTO feedCommentDTO) { return
-	 * feedDAO.setUpdateComment(feedCommentDTO); }
-	 */
+	public int setUpdateComment(FeedCommentDTO feedCommentDTO) throws Exception {
+		return feedDAO.setUpdateComment(feedCommentDTO);
+	}
+
+	
+	
+
 	
 	
 	

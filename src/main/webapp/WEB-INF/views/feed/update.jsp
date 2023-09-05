@@ -124,9 +124,9 @@ $(document).ready(function(){
 	console.log(lat);
 	console.log(lng);
 	
-	// getKakaoMap2(lat,lng);
+	getKakaoMap2(lat,lng);
 
-    panTo();
+    // panTo();
   
 })
 </script>

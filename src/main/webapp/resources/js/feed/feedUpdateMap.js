@@ -24,7 +24,7 @@
 let centertLat =33.450701;
 let centerLng =126.570667;
 
-getLocation();
+// getLocation();
 function getLocation() {
     if (navigator.geolocation) { // GPS를 지원하면
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -179,16 +179,16 @@ function getKakaoMap2(centertLat,centerLng){
     });
    }
 
-$('#mapOn').click(function () {
-    console.log('relayout실행1')
-    relayout();
-})
+// $('#mapOn').click(function () {
+//     console.log('relayout실행1')
+//     relayout();
+// })
 
-function relayout() {
-    console.log('relayout버튼 실행');
-    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-    map.relayout();
-    map.setCenter(new kakao.maps.LatLng(changedCoor.getLat(), changedCoor.getLng()));
-}
+// function relayout() {
+//     console.log('relayout버튼 실행');
+//     // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+//     // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
+//     // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+//     map.relayout();
+//     map.setCenter(new kakao.maps.LatLng(changedCoor.getLat(), changedCoor.getLng()));
+// }
