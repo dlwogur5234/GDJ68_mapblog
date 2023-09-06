@@ -1,6 +1,7 @@
 let centertLat =33.450701;
 let centerLng =126.570667;
 let myListResult = true;
+let mapLevel= 3;
 $('#myListBtn').on('click',function(){
  
   if(myListResult){
@@ -14,7 +15,7 @@ $('#myListBtn').on('click',function(){
         $('#myList').html(r);
         console.log('마이리스트 출력할때 센터 좌표',centertLat);
         console.log('마이리스트 출력할때 센터 좌표',centerLng);
-        getKakaoMap(centertLat,centerLng);
+        getKakaoMap();
      
     },error: function(){
       console.log(error);
@@ -26,7 +27,7 @@ $('#myListBtn').on('click',function(){
     myListResult=!myListResult;
     console.log('전체리스트 출력할때 센터 좌표',centertLat);
     console.log('전체리스트 출력할때 센터 좌표',centerLng);
-    getKakaoMap(centertLat,centerLng);
+    getKakaoMap();
     
   }
 });
@@ -43,11 +44,11 @@ function getLocation() {
         centerLng = position.coords.longitude;
         console.log(centertLat);
         console.log(centerLng);
-        getKakaoMap(centertLat,centerLng)
+        getKakaoMap()
       }, function(error) {
         console.error(error);
         alert('GPS 지원을 동의하지 않으셨습니다.')
-        getKakaoMap(centertLat,centerLng);
+        getKakaoMap();
       }, {
         enableHighAccuracy: false,
         maximumAge: 0,
@@ -55,25 +56,23 @@ function getLocation() {
       });
     } else {
       alert('GPS를 지원하지 않습니다');
-      getKakaoMap(centertLat,centerLng);
+      getKakaoMap();
     }
   }
 
 
 $('#btn2').on("click",function(){
     console.log($('#adrs').val());
-    getKakaoMap(centertLat,centerLng);
+    getKakaoMap();
 });
 
-function getKakaoMap(centertLat,centerLng){
-  console.log('getKakaoMap')
-  console.log(centertLat);
-  console.log(centerLng);
+function getKakaoMap(){
+
 
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(centertLat, centerLng), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: mapLevel // 지도의 확대 레벨
     };
 
 let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -82,13 +81,13 @@ let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 kakao.maps.event.addListener(map, 'dragend', function() {
   // 지도의 현재 중심좌표를 얻어옵니다.
   let center = map.getCenter();
+  let level = map.getLevel();
   let currentCenterLat = center.getLat();
   let currentCenterLng = center.getLng();
+  mapLevel = level;
   centertLat = currentCenterLat;
   centerLng = currentCenterLng;
-  console.log('drag')
-  console.log(centertLat);
-  console.log(centerLng);
+
 
   
  
@@ -232,7 +231,7 @@ function makeClickListener(map, marker, infowindow) {
 
 
 
-function getMyKakaoMap(centertLat,centerLng){
+function getMyKakaoMap(){
   let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
   mapOption = { 
       center: new kakao.maps.LatLng(centertLat, centerLng), // 지도의 중심좌표
