@@ -1,4 +1,4 @@
-package com.gdj68.mapblog;
+package com.gdj68.mapblog.admin.calendar;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,18 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gdj68.mapblog.meeting.MeetingDTO;
 
 @Controller
-@RequestMapping("/")
-public class TestHomeController {
+@RequestMapping("/calendar/*")
+public class CalendarController {
 
-	@GetMapping("test")
-	public String testHome()throws Exception{
-		return "homeTest";
-	}
 	
-	@GetMapping("sample")
-	public String testSample()throws Exception{
-		return "homeSample";
+	@GetMapping("fullcalendar")
+	public String fullcalendar(HttpSession session, MeetingDTO meetingDTO, Model model)throws Exception{
+		
+		return "temp/fullcalendar";
 	}
-	
-
 }
