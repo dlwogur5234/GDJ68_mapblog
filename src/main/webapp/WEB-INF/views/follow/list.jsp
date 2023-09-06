@@ -4,6 +4,18 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
+<!-- <script>
+		function followList(){
+			$.ajax({
+				url: '/feed/follow/list',
+				type: 'get',
+				data: {
+					nowUrl: location.href
+				},
+				}
+			})
+		}
+</script> -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,7 +46,7 @@
       data-bs-toggle="modal"
       data-bs-target="#exampleModalFollow"
     >
-      팔로우 :${followCnt}
+      팔로워 :${followerCnt}
     </a>
 
     <!-- Modal -->
@@ -57,14 +69,9 @@
             ></button>
           </div>
           <div class="modal-body">
-          	<c:forEach items="${followList}" var="f">
-      <div class="margin"><a href="/feed/list/${member.url}">${f.toUser}</a> 
-    	 <form action="addFollow" method="POST">
-        <input type="hidden" name="fromUser" value="${followDel.fromUser}">
-        <input type="hidden" name="toUser" value="${followDel.toUser}"> 
-          <input type="hidden" name="followNum" value="${followDel.followNum}"> 
-        <button type="submit" id="followButton" class="Btn">삭제</button>
-        </form>
+          	<c:forEach items="${followerList}" var="f">
+      <div class="margin"><a href="/feed/list/${followAdd}">${f.fromUser}</a> 
+    	 
       </div>
     </c:forEach>
     
@@ -89,7 +96,7 @@
       data-bs-toggle="modal"
       data-bs-target="#exampleModalFollower"
     >
-      팔로워 :${followerCnt}
+      팔로잉 :${followCnt}
     </a>
 
 <!-- Modal -->
@@ -101,8 +108,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <c:forEach items="${followerList}" var="f">
-      <div class="margin">${f.fromUser} 
+        <c:forEach items="${followList}" var="f">
+      <div class="margin"> ${f.toUser}
         <form action="deleteFollow" method="POST">
         <input type="hidden" name="fromUser" value="${followDel.fromUser}">
         <input type="hidden" name="toUser" value="${followDel.toUser}"> 

@@ -12,12 +12,45 @@
 	<c:import url="../temp/bootStrap.jsp"></c:import>
 	
 </head>
+<script>
+	function addFollow(){
+		$.ajax({
+			url: '/feed/follow/add',
+			type: 'post',
+			data: {
+				nowUrl: location.href
+			}, 
+			success: function(){
+				alert("팔로우 추가 성공")
+			}
+		})
+	}
+	
+	function deleteFollow(){
+		$.ajax({
+			url: '/feed/follow/deleteFollow',
+			type: 'post',
+			data: {
+				nowUrl: location.href
+			},
+			success: function(){
+				alert("팔로우 취소 성송")
+			}
+		})
+	}
+	
+</script>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
 	<div>
 	<h1 class="a mb-5 text-center">Feed List</h1>
 	
-	<div id="followList"></div>
+	<div id="followList"></div> 
+	<button type="button" onclick="addFollow()">팔로우</button>
+	
+	
+	<button type="button" onclick="deleteFollow()">삭제</button>
+	
 	</div>
 
 	<!-- div.container start -->
