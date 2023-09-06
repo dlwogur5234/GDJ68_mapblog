@@ -12,6 +12,8 @@ $('#myListBtn').on('click',function(){
     url:"./myList",
     success: function(r){
         $('#myList').html(r);
+        console.log('마이리스트 출력할때 센터 좌표',centertLat);
+        console.log('마이리스트 출력할때 센터 좌표',centerLng);
         getKakaoMap(centertLat,centerLng);
      
     },error: function(){
@@ -22,6 +24,8 @@ $('#myListBtn').on('click',function(){
   
     $(this).html('내 참석 모임 보기');
     myListResult=!myListResult;
+    console.log('전체리스트 출력할때 센터 좌표',centertLat);
+    console.log('전체리스트 출력할때 센터 좌표',centerLng);
     getKakaoMap(centertLat,centerLng);
     
   }
@@ -34,9 +38,10 @@ function getLocation() {
     if (navigator.geolocation) { // GPS를 지원하면
       navigator.geolocation.getCurrentPosition(function(position) {
         // alert(position.coords.latitude + ' ' + position.coords.longitude);
-        centertLat = position.coords.latitude;
-        console.log(centertLat);
+        console.log('getLoaction')
+        centertLat = position.coords.latitude;  
         centerLng = position.coords.longitude;
+        console.log(centertLat);
         console.log(centerLng);
         getKakaoMap(centertLat,centerLng)
       }, function(error) {
@@ -61,6 +66,9 @@ $('#btn2').on("click",function(){
 });
 
 function getKakaoMap(centertLat,centerLng){
+  console.log('getKakaoMap')
+  console.log(centertLat);
+  console.log(centerLng);
 
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
@@ -70,6 +78,21 @@ let mapContainer = document.getElementById('map'), // 지도를 표시할 div
 
 let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+
+kakao.maps.event.addListener(map, 'dragend', function() {
+  // 지도의 현재 중심좌표를 얻어옵니다.
+  let center = map.getCenter();
+  let currentCenterLat = center.getLat();
+  let currentCenterLng = center.getLng();
+  centertLat = currentCenterLat;
+  centerLng = currentCenterLng;
+  console.log('drag')
+  console.log(centertLat);
+  console.log(centerLng);
+
+  
+ 
+})
 if($('#adrs').val()!=""){
     // 주소-좌표 변환 객체를 생성합니다
   let geocoder = new kakao.maps.services.Geocoder();
@@ -92,36 +115,36 @@ if($('#adrs').val()!=""){
 }
 
 let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-if(myListResult) {
-$('.a').each((i,e)=>{
-    
-    // 마커 이미지의 이미지 크기 입니다
-    let imageSize = new kakao.maps.Size(24, 35); 
-    
-    // 마커 이미지를 생성합니다    
-    let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-    lat = $(e).attr('data-lat');
-    lng = $(e).attr('data-lng');
-    // 마커를 생성합니다
-    marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: new kakao.maps.LatLng(lat, lng), // 마커를 표시할 위치
-        title : $(e).attr('data-meetingNum'), // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-        image : markerImage, // 마커 이미지 
-        clickable : true
+  if(myListResult) {
+    $('.a').each((i,e)=>{
+        
+        // 마커 이미지의 이미지 크기 입니다
+        let imageSize = new kakao.maps.Size(24, 35); 
+        
+        // 마커 이미지를 생성합니다    
+        let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+        lat = $(e).attr('data-lat');
+        lng = $(e).attr('data-lng');
+        // 마커를 생성합니다
+        marker = new kakao.maps.Marker({
+            map: map, // 마커를 표시할 지도
+            position: new kakao.maps.LatLng(lat, lng), // 마커를 표시할 위치
+            title : $(e).attr('data-meetingNum'), // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+            image : markerImage, // 마커 이미지 
+            clickable : true
+        });
+        
+        infowindow = new kakao.maps.InfoWindow({
+            content: $(e).attr('data-title') // 인포윈도우에 표시할 내용
+        });
+        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+        kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
     });
-    
-    infowindow = new kakao.maps.InfoWindow({
-        content: $(e).attr('data-title') // 인포윈도우에 표시할 내용
-    });
-    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-    kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
-});
 }else{
 
-let imageSrc = "../resources/img/marker2.png";
-$('.b').each((i,e)=>{
+  let imageSrc = "../resources/img/marker2.png";
+  $('.b').each((i,e)=>{
   
   // 마커 이미지의 이미지 크기 입니다
   let imageSize = new kakao.maps.Size(43, 54); 
@@ -142,11 +165,11 @@ $('.b').each((i,e)=>{
   infowindow = new kakao.maps.InfoWindow({
       content: $(e).attr('data-title') // 인포윈도우에 표시할 내용
   });
-  kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-  kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-  kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
-});
-}
+    kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+    kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
+  });
+  }
 }
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
