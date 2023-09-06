@@ -127,6 +127,12 @@ public class MeetingController {
 		  meetingService.setUpdateComment(commentDTO);
 		  return "meeting/commentList";
 	  }
+	  
+	  @PostMapping("replyCommentAdd")
+	  public String setReplyCommentAdd(MeetingCommentDTO commentDTO) throws Exception {
+		  meetingService.setReplyCommentAdd(commentDTO);
+		  return "meeting/commentList";
+	  }
 	
 	
 }

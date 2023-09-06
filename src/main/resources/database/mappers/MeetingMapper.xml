@@ -53,12 +53,13 @@
   	</select>
   	
   	<insert id="setAddComment" parameterType="MeetingCommentDTO">
-  		INSERT INTO MEETINGCOMMENT VALUES (MEETINGCOMMENT_SEQ.NEXTVAL,#{meetingNum},#{id},#{contents},SYSDATE,0,#{meetingNum},0,#{nickName})
+  		INSERT INTO MEETINGCOMMENT VALUES (MEETINGCOMMENT_SEQ.NEXTVAL,#{meetingNum},#{id},#{contents},SYSDATE,0,0,0,#{nickName})
   	</insert>
   	
   	<select id="getCommentList" parameterType="MeetingCommentDTO" resultType="MeetingCommentDTO">
   		SELECT * FROM MEETINGCOMMENT
   		WHERE MEETINGNUM = #{meetingNum}
+  		ORDER BY COMMENTNUM DESC, CGROUP DESC
   	</select>
   	
   	<delete id="setDeleteComment" parameterType="MeetingCommentDTO">
@@ -68,4 +69,8 @@
   	<update id="setUpdateComment">
   		UPDATE MEETINGCOMMENT SET CONTENTS=#{contents} WHERE COMMENTNUM=#{commentNum}
   	</update>
+  	
+  	<insert id="setReplyCommentAdd">
+  		INSERT INTO MEETINGCOMMENT VALUES (MEETINGCOMMENT_SEQ.NEXTVAL,#{meetingNum},#{id},#{contents},SYSDATE,0,#{cGroup},1,#{nickName})
+  	</insert>
   </mapper>

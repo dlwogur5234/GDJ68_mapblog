@@ -122,3 +122,39 @@ $('#commentList').on('click','.updateBtn2',function(){
         } 
     })
 })
+
+$('#commentList').on('click','.replyBtn',function(){
+    alert('답글 ');
+    let commentNum = this.dataset.commentnum;
+    $(this).html('답글 등록'); 
+    $(this).attr('class','replyBtn2');
+    $(this).before('<input type="text" id="replyContents" data-commentNum="'+commentNum+'">');
+})
+
+
+$('#commentList').on('click','.replyBtn2',function(){
+    let replyContents = $('#replyContents').val();
+    let commentNum = this.dataset.commentnum;
+    ms = $('#meetingNum2').val();
+    commentId = $('#commentId').val();
+    nickName2 = $('#nickName').val();
+    $.ajax({
+        type:'post',
+        url:'replyCommentAdd',
+        data:{
+            meetingNum:ms,
+            id:commentId,
+            nickName:nickName2,
+            cGroup:commentNum,
+            contents:replyContents
+        },
+        success:function(){
+            getList();
+        },
+        error:function(){
+            console.log('error');
+        }
+    })
+    
+
+})

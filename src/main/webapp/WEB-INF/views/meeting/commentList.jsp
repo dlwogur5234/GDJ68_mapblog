@@ -15,10 +15,15 @@
 	<c:forEach items="${commentList}" var="d" varStatus="i">
 	<div>
 		<!--<div class="idClass" id="id">${d.id} </div> -->
-		<div id="nickName">${d.nickName}</div>
-		<div class="a" data-meetingNum="${d.meetingNum}" id="updateDiv">${d.contents}</div>
-		<button class="updateBtn" data-commentNum="${d.commentNum}" id="updateBtn">수정</button>
-		<button class="butt" data-commentNum="${d.commentNum}" id="btn">삭제</button>
+		
+			<div id="nickName">${d.nickName}</div>
+			<div class="a" data-meetingNum="${d.meetingNum}" id="updateDiv">${d.contents}</div>
+			<button class="replyBtn" data-commentNum="${d.commentNum}" id="replyBtn">답글달기</button>
+			<c:if test="${member.id eq d.id}">
+				<button class="updateBtn" data-commentNum="${d.commentNum}" id="updateBtn">수정</button>
+				<button class="butt" data-commentNum="${d.commentNum}" id="btn">삭제</button>
+			</c:if>
+		
 	</div>
 	</c:forEach>
 
