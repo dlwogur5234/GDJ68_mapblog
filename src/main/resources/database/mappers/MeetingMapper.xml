@@ -9,7 +9,7 @@
   		<selectKey keyProperty="meetingNum" resultType="Long" order="BEFORE">
   			SELECT MEETING_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),#{lat},#{lng},0,0,#{personnel})	
+		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),#{lat},#{lng},0,0,#{personnel},#{nickName})	
   	</insert>
   	
   	<select id="getList" resultType="MeetingDTO">
@@ -21,7 +21,7 @@
   	</select>
   	
   	<insert id="setMeetingJoin" parameterType="MeetingMemberDTO">
-  		INSERT INTO MEETINGMEMBER VALUES(MEETINGMEMBER_SEQ.NEXTVAL,#{meetingNum},#{id})
+  		INSERT INTO MEETINGMEMBER VALUES(MEETINGMEMBER_SEQ.NEXTVAL,#{meetingNum},#{id},#{nickName})
   	</insert>  	
   	
   	<select id="getJoinCheck" parameterType="MeetingMemberDTO" resultType="Long">
@@ -53,7 +53,7 @@
   	</select>
   	
   	<insert id="setAddComment" parameterType="MeetingCommentDTO">
-  		INSERT INTO MEETINGCOMMENT VALUES (MEETINGCOMMENT_SEQ.NEXTVAL,#{meetingNum},#{id},#{contents},SYSDATE,0,#{meetingNum},0)
+  		INSERT INTO MEETINGCOMMENT VALUES (MEETINGCOMMENT_SEQ.NEXTVAL,#{meetingNum},#{id},#{contents},SYSDATE,0,#{meetingNum},0,#{nickName})
   	</insert>
   	
   	<select id="getCommentList" parameterType="MeetingCommentDTO" resultType="MeetingCommentDTO">

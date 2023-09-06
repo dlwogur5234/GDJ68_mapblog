@@ -5,9 +5,16 @@ public class MeetingMemberDTO {
 	private Long meetingMemberNum;
 	private Long meetingNum;
 	private String id;
+	private String nickName;
 	
 	
 	
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public Long getMeetingMemberNum() {
 		return meetingMemberNum;
 	}

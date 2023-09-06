@@ -15,9 +15,16 @@ public class MeetingDTO {
 	private Long hit;
 	private Long likes;
 	private Long personnel;
+	private String nickName;
 
 	
 
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 	public Long getPersonnel() {
 		return personnel;
 	}

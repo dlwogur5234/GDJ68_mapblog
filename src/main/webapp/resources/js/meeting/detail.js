@@ -6,13 +6,14 @@
 $('#addComment').on('click',function(){
     ms = $('#meetingNum2').val();
     commentId = $('#commentId').val();
-    
+    nickName2 = $('#nickName').val();
     $.ajax({
         type:"POST",
         url:"./addComment",
         data:{
             meetingNum:ms,
             id:commentId,
+            nickName:nickName2,
             contents:$('#commentContents').val()
         },
         success: function(){

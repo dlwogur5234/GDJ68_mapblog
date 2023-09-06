@@ -23,6 +23,7 @@ public class MeetingService {
 		MeetingMemberDTO meetingMemberDTO = new MeetingMemberDTO();
 		meetingMemberDTO.setMeetingNum(meetingDTO.getMeetingNum());
 		meetingMemberDTO.setId(meetingDTO.getId());
+		meetingMemberDTO.setNickName(meetingDTO.getNickName());
 		int result2 = meetingDAO.setMeetingJoin(meetingMemberDTO);
 		return result; 
 	}

@@ -49,6 +49,7 @@
 	<form action="./addComment" method="post" id="frm2">
 		<input type="hidden" id="meetingNum2" name="meetingNum" value="${dto.meetingNum}">
 		<input type="hidden" id="commentId" name="id" value="${member.id}">
+		<input type="hidden" id="nickName" name="nickName" value="${member.nickName}">
 		<input type="text" id="commentContents">
 		<button type="button" id="addComment">댓글등록</button>
 	</form>

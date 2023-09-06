@@ -19,6 +19,7 @@
 
     <form class="mb-5 text-center form-control" action="./add" method="post" id="frm">
 	    <input type="hidden" name="id" value="${sessionScope.member.id }">
+        <input type="hidden" name="nickName" value="${sessionScope.member.nickName }">
 	    제목<input type="text" name="title" id="title"><br>
 	    내용<textarea class="input-group" rows="" cols="" name="contents" id="contents"></textarea>
 	    모임날짜<input type="datetime-local"  id="meetingDate">
