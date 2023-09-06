@@ -35,5 +35,7 @@
   	<delete id="deleteFollow" parameterType="FollowDTO">
   		DELETE FROM FOLLOW WHERE FROMUSER=#{fromUser} AND TOUSER=(SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})	
   	</delete>
+  	
+  	
  	
   </mapper> 

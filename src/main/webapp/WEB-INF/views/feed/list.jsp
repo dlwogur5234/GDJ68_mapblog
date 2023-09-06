@@ -15,6 +15,16 @@
 <script>
 
 	let clickCount = 0; 
+	/* function addFollow(){
+		$.ajax({
+			url: '/feed/list',
+			type: 'get',
+			data: {
+				nowUrl: location.href
+			}
+			
+		})
+	} */
 	
 	function addFollow(){
 		$.ajax({
@@ -25,6 +35,7 @@
 			}, 
 			success: function(){
 				alert("팔로우 추가 성공")
+				location.reload();
 				
 			}
 		})
@@ -39,10 +50,11 @@
 			},
 			success: function(){
 				alert("팔로우 취소 성공")
+				location.reload();
 			}
 		})
 	}
-	document.addEventListener("DOMContentLoaded", function() {
+	/* document.addEventListener("DOMContentLoaded", function() {
 		const followBtn = document.getElementById("actionBtn");
 		let isFollowing = getFollowStatusFromCookie();
 
@@ -65,7 +77,7 @@
 
 		toggleFollowBtn();
 		
-	});
+	}); */
 
 	function getFollowStatusFromCookie() {
     // 쿠키에서 팔로우 상태를 가져오는 코드를 작성
@@ -92,15 +104,17 @@ function saveFollowStatusToCookie(isFollowing) {
 	
 	<div id="followList"></div> 
 	
-	
+	<c:if test="${followStatus < 1}">
 	<button type="button" onclick="addFollow()">팔로우</button>
-	
-	
+	</c:if>
+	<c:if test="${followStatus > 0}">
 	<button type="button" onclick="deleteFollow()">삭제</button>
+	</c:if>
 	
-	<button type="button" id="actionBtn">팔로우</button>
-	
-	
+	<div>
+		
+	</div>
+		${followStatus}
 	</div>
 
 	<!-- div.container start -->

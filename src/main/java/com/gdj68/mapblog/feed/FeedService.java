@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gdj68.mapblog.file.FileDTO;
+import com.gdj68.mapblog.follow.FollowDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
@@ -246,6 +247,12 @@ public class FeedService {
 	}
 
 	
+	
+	public int checkFollow(FollowDTO followDTO, HttpSession session)throws Exception{
+		MemberDTO memberDTO=(MemberDTO)session.getAttribute("member");
+		followDTO.setFromUser(memberDTO.getNickName());
+		return feedDAO.checkFollow(followDTO);
+	}
 	
 
 	
