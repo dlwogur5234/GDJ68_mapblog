@@ -70,7 +70,7 @@
           </div>
           <div class="modal-body">
           	<c:forEach items="${followerList}" var="f">
-      <div class="margin"><a href="/feed/list/${followAdd}">${f.fromUser}</a> 
+      <div class="margin"><a href="/feed/list/${f.fromUserUrl}">${f.fromUser}</a> 
     	 
       </div>
     </c:forEach>
@@ -109,7 +109,7 @@
       </div>
       <div class="modal-body">
         <c:forEach items="${followList}" var="f">
-      <div class="margin"> ${f.toUser}
+      <div class="margin"> <a href="/feed/list/${f.toUserUrl}">${f.toUser}</a>
         <form action="deleteFollow" method="POST">
         <input type="hidden" name="fromUser" value="${followDel.fromUser}">
         <input type="hidden" name="toUser" value="${followDel.toUser}"> 

@@ -11,29 +11,29 @@
   		WHERE FROMUSER = #{id} -->
   		SELECT COUNT(TOUSER) 
   		FROM FOLLOW
-  		WHERE fromUSER = (SELECT ID FROM MEMBER WHERE URL = #{toUser})
+  		WHERE fromUSER = (SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})
   	</select>
   	
   	 <select id="selectFollowList" parameterType="FollowDTO" resultType="FollowDTO"><!-- 한유저가 팔로우 요청을 한 유저 조회  --> 
- 		SELECT TOUSER FROM FOLLOW WHERE FROMUSER = (SELECT ID FROM MEMBER WHERE URL = #{toUser})
+ 		SELECT TOUSER, (select url from member where nickname = touser) toUserUrl FROM FOLLOW WHERE FROMUSER = (SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})
   	</select>
   	
   	<select id="selectFollowerTotal" resultType="Long" parameterType="FollowDTO"> <!-- 한 유저의 팔로워 총 인원수 -->
   		 SELECT COUNT(FROMUSER) 
 		 FROM FOLLOW 
-		 WHERE TOUSER=(SELECT ID FROM MEMBER WHERE URL = #{toUser})
+		 WHERE TOUSER=(SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})
   	</select>
   	
   	<select id="selectFollowerList" parameterType="FollowDTO" resultType="FollowDTO"> <!-- 한 유저가 팔로루 요청을 당한 유저 최근에 받은순으로 조회 -->
-  		SELECT FROMUSER FROM FOLLOW WHERE TOUSER = (SELECT ID FROM MEMBER WHERE URL = #{toUser}) ORDER BY FOLLOWNUM DESC
+  		SELECT FROMUSER, (select url from member where nickname = fromuser) fromUserUrl FROM FOLLOW WHERE TOUSER = (SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser}) ORDER BY FOLLOWNUM DESC
   	</select> 
   	
   	<insert id="insertFollowAdd" parameterType="FollowDTO">
-  		INSERT INTO FOLLOW VALUES (FOLLOW_SEQ.NEXTVAL, #{fromUser}, (SELECT ID FROM MEMBER WHERE URL = #{toUser}))
+  		INSERT INTO FOLLOW VALUES (FOLLOW_SEQ.NEXTVAL, #{fromUser}, (SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser}))
   	</insert>
   	
   	<delete id="deleteFollow" parameterType="FollowDTO">
-  		DELETE FROM FOLLOW WHERE FROMUSER=#{fromUser} AND TOUSER=(SELECT ID FROM MEMBER WHERE URL = #{toUser})	
+  		DELETE FROM FOLLOW WHERE FROMUSER=#{fromUser} AND TOUSER=(SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})	
   	</delete>
- 
+ 	
   </mapper> 

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gdj68.mapblog.member.MemberDTO;
+
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -28,19 +30,22 @@ public class FollowController {
 	
 	@GetMapping("list")
 	public String selectFollow(FollowDTO followDTO,Model model,HttpSession session,HttpServletRequest request,@RequestParam() String nowUrl) throws Exception{
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		String username = nowUrl.split("feed/list/")[1];
 		if(!username.equals("")) {
 			followDTO.setToUser(username);
-			System.out.println("url:"+followDTO.getToUser());
+			
 		}
+		model.addAttribute("member", memberDTO);
+        
 		long followerCnt=followService.selectFollowerTotal(followDTO, session);
 		model.addAttribute("followerCnt",followerCnt);
 		
 		  long followCnt = followService.selectFollowTotal(followDTO, session);
 		  model.addAttribute("followCnt", followCnt); List<FollowDTO>
 		  followList=followService.selectFollowList(followDTO, session);
-		  model.addAttribute("followList", followList); List<FollowDTO> followerList =
-		  followService.selectFollowerList(followDTO, session);
+		  model.addAttribute("followList", followList); List<FollowDTO> 
+		  followerList = followService.selectFollowerList(followDTO, session);
 		  model.addAttribute("followerList", followerList); 
 		 
 		return "/follow/list";
