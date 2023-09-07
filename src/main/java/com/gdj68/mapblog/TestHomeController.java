@@ -13,10 +13,10 @@ import com.gdj68.mapblog.meeting.MeetingDTO;
 @RequestMapping("/")
 public class TestHomeController {
 
-	@GetMapping("test")
-	public String testHome()throws Exception{
-		return "homeTest";
-	}
+//	@GetMapping("test")
+//	public String testHome()throws Exception{
+//		return "homeTest";
+//	}
 	
 	@GetMapping("sample")
 	public String testSample()throws Exception{

@@ -6,19 +6,13 @@
   <head>
     <meta charset='utf-8' />
     <link href='/resources/fullcalendar/main.css' rel='stylesheet' />
-    <script src='/resources/fullcalendar/main.js'></script>
-<!--     <script type="text/javascript">
-    	var arr = new Array();
-        <c:forEach items="${myList}" var="d">
-    		arr.push({
-    			title:"${d.title}"
-    			start:"${d.meetingDate}"
-    		});
-        </c:forEach>
-    </script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src='/resources/fullcalendar/main.js' ></script>
+
   </head>
   <body>
+  	<input type="hidden" id="arr" value="${myList}">
     <div id='calendar'></div>
-    <script src="/resources/fullcalendar/cal.js"></script>
+    <script src="/resources/fullcalendar/cal.js" ></script>
   </body>
 </html>

@@ -1,5 +1,31 @@
+const arr = new Array();
+
+// ajax 통신
+$.ajax({
+  type: "POST", // HTTP method type(GET, POST) 형식이다.
+  url: "/calendar/fullcalendar", // 컨트롤러에서 대기중인 URL 주소이다.
+  async: false,
+  success: function (res) {
+    // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+    // 응답코드 > 0000
+    console.log(typeof res);
+    console.log(Object.keys(res).length);
+    for (const key in res) {
+      let obj = new Object();
+      obj.title = res[key].title;
+      obj.start = res[key].meetingDate;
+      arr.push(obj);
+    }
+    console.log(arr);
+  },
+  error: function (XMLHttpRequest, textStatus, errorThrown) {
+    // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+    alert("통신 실패.");
+  },
+});
+console.log(arr);
+
 document.addEventListener("DOMContentLoaded", function () {
-  var arr = new Array();
   var calendarEl = document.getElementById("calendar");
   var calendar = new FullCalendar.Calendar(calendarEl, {
     // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
@@ -84,62 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     dayMaxEvents: true, // allow "more" link when too many events
     // 이벤트 객체 필드 document : https://fullcalendar.io/docs/event-object
-    events: [
-      {
-        title: "All Day Event data",
-        start: "2022-07-01",
-      },
-      {
-        title: "Long Event",
-        start: "2022-07-07",
-        end: "2022-07-10",
-      },
-      {
-        groupId: 999,
-        title: "Repeating Event",
-        start: "2022-07-09T16:00:00",
-      },
-      {
-        groupId: 999,
-        title: "Repeating Event",
-        start: "2022-07-16T16:00:00",
-      },
-      {
-        title: "Conference",
-        start: "2022-07-11",
-        end: "2022-07-13",
-      },
-      {
-        title: "Meeting",
-        start: "2022-07-12T10:30:00",
-        end: "2022-07-12T12:30:00",
-      },
-      {
-        title: "Lunch",
-        start: "2022-07-12T12:00:00",
-      },
-      {
-        title: "Meeting",
-        start: "2022-07-12T14:30:00",
-      },
-      {
-        title: "Happy Hour",
-        start: "2022-07-12T17:30:00",
-      },
-      {
-        title: "Dinner",
-        start: "2022-07-12T20:00:00",
-      },
-      {
-        title: "Birthday Party",
-        start: "2022-07-13T07:00:00",
-      },
-      {
-        title: "Click for Google",
-        url: "http://google.com/",
-        start: "2022-07-28",
-      },
-    ],
+    events: arr,
   });
 
   calendar.render();
