@@ -6,72 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+	<c:import url="../temp/bootStrap.jsp"></c:import>
+	
 	<!-- Kakao Map -->
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e&libraries=services"></script>
 
-	<c:import url="../temp/bootStrap.jsp"></c:import>
-
-	<style type="text/css">
-		.write-reply {
-			width:100px;
-			height:40px;
-		}
-		
-		.reply-list {
-			position:relative;
-			width:100%;
-		}
-		
-		.reply-list .replies {
-			position:relative;
-			width:100%;
-			height:35px;
-			margin-bottom:5px;
-		}
-		
-		.reply-list .replies:after {
-			clear:both;
-		}
-		
-		.reply-list .replies span {
-			position:relative;
-			float:left;
-		}
-		
-		.reply-list .replies a {
-			position:relative;
-			float:left;
-		}
-		
-		.reply-list .replies span.writer {
-			width:10%;
-		}
-		.reply-list .replies span.date {
-			width:15%;
-		}
-		
-		.reply-list .replies span.btns {
-			width:20%;
-		}
-		
-		.reply-list .replies span.contents {
-			width:40%;
-			text-align:left;
-		}
-		
-		.reply-write {
-			position:relative;
-			width:100%;
-			clear:both;
-		}
-		
-		.write_reply_profileImage, .reply_list_profileImage {
-			width:35px;
-		}
-		
-		.cl {clear:both}
-		</style>
-	
 </head>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
@@ -92,6 +31,9 @@
 		<!-- 위도/경도 (숨김) -->
 		<input type="hidden" name="lat" id="lat" value="${dto.lat}">
 		<input type="hidden" name="lng" id="lng" value="${dto.lng}">
+
+		<!-- url (숨김) -->
+		<input type="hidden" name="url" id="url" value="${dto.url}">
 
 
 		<p class="col-sm-8 text-start">여행날짜 ${dto.tripDate}</p>
@@ -120,7 +62,7 @@
 
 	<div class="row mt-1">
 		<p class="col-sm-11 text-end"></p>
-		<button class="btn btn-primary col-sm-1 text-start" id="likes"> 좋아요 ${dto.likes}</button>
+		<button class="btn btn-primary col-sm-1 text-start" id="likes"> 좋아요 ${dto.likes} </button>
 	</div>
 
 	<hr class="hr" />
@@ -156,12 +98,13 @@
 			if ("${sessionScope.member}") {
 				$.ajax({
 					async:false,
-					url:"./feed/addLikes",
+					url:"./addLikes",
 					type:"post",
 					data:{"feedNum":$("#feedNum").val()},
 					dataType:"json",
 					success:function(data) {
 						$("#likes").text("좋아요 " + data.count);
+
 					},
 					error:function(xhr, status, res) {
 						console.log("오류 발생", xhr.responseText, status, res);
@@ -169,42 +112,38 @@
 				});
 			} else {
 				alert("로그인이 필요한 서비스입니다.");
+				location.href="../../member/login"; 
 			}
 		});
 
-		$('#commentList').on('click','.updateBtn',function(){
-			alert('수정버튼 클릭');
-			let contents =   $(this).siblings('#updateDiv').text();
-			console.log(contents);
 
-			$(this).siblings('#updateDiv').html('<input type="text" id="contents" value="'+contents+'">');
-			$(this).attr('class','updateBtn2');
-			// $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
-		})
+		// 댓글 좋아요 관련 script
+		// $(document).on("click", "#commentLikes", function() {
+		// 	if ("${sessionScope.member}") {
+		// 		$.ajax({
+		// 			async:false,
+		// 			url:"./addCommentLikes",
+		// 			type:"post",
+		// 			data:{"commentNum":$("#commentNum").val()},
+		// 			dataType:"json",
+		// 			success:function(data) {
+		// 				$("#commentLikes").text("좋아요 " + data.count);
 
-		$('#commentList').on('click','.updateBtn2',function(){
-			let contents = $(this).siblings('#updateDiv').children('#contents').val();
-			let commentNum = this.dataset.commentnum; 
-			$.ajax({
-				type:'post',
-				url:'updateComment',
-				data:{
-					commentNum:commentNum,
-					contents:contents
-				},
-				success:function(result){
-					getList();
-				},
-				error:function(){
-					console.log('error');  
-				} 
-			})
-		})
-	
+		// 			},
+		// 			error:function(xhr, status, res) {
+		// 				console.log("오류 발생", xhr.responseText, status, res);
+		// 			}
+		// 		});
+		// 	} else {
+		// 		alert("로그인이 필요한 서비스입니다.");
+		// 		location.href="../../member/login"; 
+		// 	}
+		// });
+
 		</script>
 
 	<script src="/resources/js/feed/feedDelete.js"></script>
-	<!-- <script src="/resources/js/feed/feedComment.js"></script> -->
+	<script src="/resources/js/feed/feedComment.js"></script>
 
 </body>
 </html>

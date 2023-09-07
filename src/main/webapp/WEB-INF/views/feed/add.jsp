@@ -37,9 +37,9 @@
 
 		<!-- 지도 -->
 		<div id="map" class="mt-3" style="width:650px;height:650px;"></div>
-			<div id="clickLatlng"></div>
-			<p id="result"></p>
-		</div>
+		<div id="clickLatlng"></div>
+		<p id="result"></p>
+
 		
 		
 		<form action="./add" method="post" id="addFrm" enctype="multipart/form-data">
@@ -54,7 +54,6 @@
 				<input type="date" name="tripDate" class="form-control" id="tripDate" placeholder="연도 / 월 / 일">
 			</div>
 			
-
 			<!-- 위도/경도 (숨김) -->
 			<input type="hidden" name="lat" id="lat">
 			<input type="hidden" name="lng" id="lng">

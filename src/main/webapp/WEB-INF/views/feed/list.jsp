@@ -134,8 +134,9 @@ function saveFollowStatusToCookie(isFollowing) {
 				<input type="text" id="adrs"><button id="btn2" type="button">검색</button>
 				<div id="map" style="width:900px;height:700px;float:left;border: solid 1px;margin-right: 300px;"></div>
 				<c:forEach items="${list}" var="d" varStatus="i">
-					<div class="a" data-meetingNum="${d.feedNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat}" data-lng="${d.lng}" id="${i.index}"></div>
-					</c:forEach>
+					<div class="a" data-feedNum="${d.feedNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat}" data-lng="${d.lng}" id="${i.index}"></div>
+				</c:forEach>
+				
 				<div id="address"></div>
 			</div>
 
@@ -162,9 +163,9 @@ function saveFollowStatusToCookie(isFollowing) {
 											<rect width="100%" height="100%" fill="#55595c"></rect>
 
 											<!-- 이미지 -->
-											<a class="text-white link-offset-2 link-underline link-underline-opacity-0" href="../detail?feedNum=${f.feedNum}">
-											<image class="img" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
-											<text id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${f.title}</text>
+											<a id="detailLink" class="text-white link-offset-2 link-underline link-underline-opacity-0" href="../detail?feedNum=${f.feedNum}">
+												<image class="img" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
+												<text id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${f.title}</text>
 											</a>
 
 										</svg>
@@ -218,11 +219,11 @@ function saveFollowStatusToCookie(isFollowing) {
 
 	<!-- 글쓰기 버튼 -->
 	<c:if test="${not empty member}">
-		<a class="btn btn-primary" href="./add">글쓰기</a>
+		<a class="btn btn-primary" href="../add">글쓰기</a>
 	</c:if>
 
-	<!-- 검색 Search -->
-	<div class="d-inline-flex p-2 justify-content-center">
+	<!-- 검색 Search (이전) -->
+	<!-- <div class="d-inline-flex p-2 justify-content-center">
 		<form class="input-group" action="./list" method="get">
 			<select name="kind" class="form-select rounded" style="width:100px" aria-label="Default select example">
 				<option value="title">제목</option>
@@ -233,8 +234,36 @@ function saveFollowStatusToCookie(isFollowing) {
 				<button type="submit" class="btn btn-primary">검색</button>
 			</div>
 		</form>
+	</div> -->
+
+
+	<!-- 검색 Search (수정 후) -->
+	<div class="row">
+	<div class="col-xl-12">
+			<!-- form -->
+			<form action="./list/${dto.url}"  method="get" class="search-box">
+				<div class="input-form mb-30">
+					<input type="text" name="search">
+				</div>
+				<div class="select-form mb-30">
+					<div class="select-itms">
+						<select name="select" id="select1">
+							<option value="title">제목</option>
+							<option value="contents">내용</option>
+						</select>
+					</div>
+				</div>
+				<div class="search-form mb-30">
+					<!-- <a href="#">검색</a> -->
+					<button type="submit" class="btn btn-primary">검색</button>
+				</div>   
+			</form>   
+		</div>
 	</div>
 
+	
+	<script src="/resources/js/feed/feedListMap.js" defer></script>
+	<script src="/resources/js/feed/feedList.js"></script>
 
 	<!-- 로그인 안 했을 시에 로그인 페이지로 보내줌 -->
 	<c:if test="${sessionScope.member.id == null}">
@@ -247,6 +276,7 @@ function saveFollowStatusToCookie(isFollowing) {
 	
 	<script src="/resources/js/feed/feedMapList.js" defer></script>
 	<script src="/resources/js/follow/followList.js"></script>
+
 
 
 
