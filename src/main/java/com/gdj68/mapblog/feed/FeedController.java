@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 //import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdj68.mapblog.follow.FollowDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
@@ -435,7 +438,27 @@ public class FeedController {
 				List<FeedDTO> li = null;
 			}
 		}
-		
+		//url만 따기
+				FollowDTO followDTO = new FollowDTO();
+				String urlString = request.getRequestURL().toString();
+			    Pattern pattern = Pattern.compile("/feed/list/(\\w+)");
+			    Matcher matcher = pattern.matcher(urlString);
+
+			    if (matcher.find()) {
+			        String username = matcher.group(1);
+			        System.out.println("Username: " + username);
+
+			        // 추출한 username 값을 followDTO의 toUser 속성에 설정
+			        followDTO.setToUser(username);
+			    }
+				//팔로우 여부 체크
+			    followDTO.setFromUser(memberDTO.getNickName());
+				int followStatus = feedService.checkFollow(followDTO, session);
+				memberDTO=(MemberDTO)session.getAttribute("member");
+				followDTO.setFromUser(memberDTO.getNickName());
+				System.out.println("id :" + followDTO.getFromUser());
+				model.addAttribute("followStatus", followStatus);
+				session.setAttribute("follow", followDTO);
 		pager = feedService.getPage(pager);
 		model.addAttribute("pager", pager);	
 		
