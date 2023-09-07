@@ -1,67 +1,107 @@
-// // 댓글 관련 script
 
-//     let fn = document.getElementById("feedNum");
-//     let pageNum = 1;
-//     let tp=0;
-
-//     $("#commentAdd").click(function(){
-//         let contents = $("#comment").val();
-//         $.ajax({
-//             type : 'post',
-//             url : 'commentAdd',
-//             data : {
-//                 // 앞의 이름은 파라미터 이름이기 때문에 
-//                 // DTO의 변수명과 똑같이 해주기
-//                 feedNum : fn,
-//                 commentContents : contents
-//             },
-//             success : function(result){
-//                 if(result.trim()>0){
-//                     alert("댓글등록 완료");
-//                     $("#commentList").empty();
-//                     $("#comment").val("");
-//                     pageNum=1;
-//                     getCommentList(fn, 1);
-//                 }
-//             }
-//         })
-//     })
-
-//     $("#more").on("click","#moreButton", function(){
-
-//         if(pageNum>=tp){
-//             alert('마지막 페이지');
-//             return;
-//         }
-
-//         pageNum++;
-//         getCommentList(fn, pageNum);
-//     })
-
-//     getCommentList(fn, pageNum);
-
-//     function getCommentList(feedNum, page){
-//         $.ajax({
-//             type : "get",
-//             url : "./commentList",
-//             data : {
-//                 feedNum:feedNum,
-//                 page:page
-//             },
-//             success : function(result){
-//                 console.log(result)
-//                 $("#commentList").append(result);
-//                 tp = $("#totalPage").attr("data-totalPage");
-//                 let button = '<button id="moreButton">더보기('+ pageNum +'/' + tp +')</button>'
-//                 $("#more").html(button);
-//             },
-//             error : function(){
-//                 alert("관리자에게 문의해주세요.");
-//             }
-//         })
-//     }
+// let commentId = $('#commentId').val();
+// let commentContents = $('#commentContents').val();
 
 
+$('#addComment').on('click',function(){
+    feedNum = $('#feedNum2').val();
+    commentId = $('#commentId').val();
+    
+    $.ajax({
+        type:"POST",
+        url:"./addComment",
+        data:{
+            feedNum:feedNum,
+            id:commentId,
+            contents:$('#commentContents').val()
+        },
+        success: function(){
+            alert('작성 성공');
+            feedNum = $('#feedNum2').val();
+            $.ajax({
+                type:"GET",
+                url:"./getComment?feedNum="+feedNum,
+                    success: function(response){
+                        $('#commentContents').val("")
+                        $('#commentList').html(response);
+                    }
+                })	
+        },
+        error:function(){
+            alert('댓글 작성 실패');
+        }
+    })
+})
 
-/* ------------------------------------------------------------------------------------------ */
+function getList(){
+    ms = $('#feedNum2').val();
+    $.ajax({
+        type:"GET",
+        url:"./getComment?feedNum="+ms,
+            success: function(r){
+                $('#commentList').html(r);
+            }
+        })	
+};
 
+$(document).ready(function(){
+	feedNum = $('#feedNum2').val();
+	$.ajax({
+            type:"GET",
+            url:"./getComment?feedNum=" + feedNum,
+            success: function(r){
+                $('#commentList').html(r);
+            }
+        })	
+
+});
+
+
+$('#commentList').on('click','.butt',function(){
+    let result = confirm('정말 삭제하시겠습니까?')
+    let commentNum = this.dataset.commentnum;   
+    if(result){
+        $.ajax({
+            type:'post',
+            url:'deleteComment',
+            data:{
+                commentNum:commentNum
+            },
+            success:function(result){
+                getList();
+            },
+            error:function(){
+                console.log('error');  
+            } 
+        })
+    }
+});
+
+
+$('#commentList').on('click','.updateBtn',function(){
+    let contents =   $(this).siblings('#updateDiv').text();
+    console.log(contents);
+
+    $(this).siblings('#updateDiv').html('<input type="text" id="contents" value="'+contents+'">');
+    $(this).attr('class','updateBtn2');
+    // $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
+})
+
+$('#commentList').on('click','.updateBtn2',function(){
+    let contents = $(this).siblings('#updateDiv').children('#contents').val();
+    let commentNum = this.dataset.commentnum; 
+    $.ajax({
+        type:'post',
+        url:'updateComment',
+        data:{
+            commentNum:commentNum,
+            contents:contents
+        },
+        success:function(result){
+            getList();
+        },
+        error:function(){
+            console.log('error');  
+        } 
+    })
+})

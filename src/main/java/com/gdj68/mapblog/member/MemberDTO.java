@@ -1,6 +1,9 @@
 package com.gdj68.mapblog.member;
 
 import java.util.Date;
+import java.util.List;
+
+
 
 public class MemberDTO {
 	
@@ -13,6 +16,9 @@ public class MemberDTO {
 	private String birth;
 	private String url;
 	private int publics;
+	private String createDate;
+	private List<MemberFileDTO> fileDTOs;
+
 	
 	
 	public String getId() {
@@ -85,11 +91,35 @@ public class MemberDTO {
 	public void setPublics(int publics) {
 		this.publics = publics;
 	}
+	
+	public Date getCreatDate() {
+		return creatDate;
+	}
+
+	public void setCreatDate(Date creatDate) {
+		this.creatDate = creatDate;
+	}
 
 	@Override
 	public String toString() {
 		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", nickName=" + nickName + ", email=" + email
 				+ ", phone=" + phone + ", birth=" + birth + ", url=" + url + "]";
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public List<MemberFileDTO> getFileDTOs() {
+		return fileDTOs;
+	}
+
+	public void setFileDTOs(List<MemberFileDTO> fileDTOs) {
+		this.fileDTOs = fileDTOs;
 	}
 	
 	

@@ -9,22 +9,22 @@
 
 
 // 지도
-// $(document).ready(function(){
-//   console.log("map start")
-//   let lat = $('#lat').val();
-//   let lng = $('#lng').val();
+$(document).ready(function(){
+  console.log("map start")
+  let lat = $('#lat').val();
+  let lng = $('#lng').val();
 
-//   console.log(lat);
-//   console.log(lng);
+  console.log(lat);
+  console.log(lng);
 
-//   getKakaoMap2(lat,lng);
-// })
+  getKakaoMap3(lat,lng);
+})
 
 
 let centertLat =33.450701;
 let centerLng =126.570667;
 
-// getLocation();
+getLocation();
 function getLocation() {
     if (navigator.geolocation) { // GPS를 지원하면
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -140,19 +140,22 @@ function getKakaoMap(centertLat,centerLng){
 
 }
 
-function getKakaoMap2(centertLat,centerLng){
+
+// 업데이트 시에 가져올 지도
+function getKakaoMap3(lat,lng){
 
   let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
       mapOption = { 
-          center: new kakao.maps.LatLng(centertLat,centerLng), // 지도의 중심좌표
+          center: new kakao.maps.LatLng(lat,lng), // 지도의 중심좌표
           level: 3 // 지도의 확대 레벨
       };
 
   let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
     let marker = new kakao.maps.Marker({ 
-        // 지도 중심좌표에 마커를 생성합니다 
-        position: map.getCenter() 
+        // 지도 중심좌표에 마커를 생성합니다
+        // position: map.getCenter() 
+        position: new kakao.maps.LatLng(lat,lng)
     }); 
     // 지도에 마커를 표시합니다
     marker.setMap(map);
@@ -167,11 +170,11 @@ function getKakaoMap2(centertLat,centerLng){
       // 마커 위치를 클릭한 위치로 옮깁니다
       marker.setPosition(latlng);
       
-      let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-      message += '경도는 ' + latlng.getLng() + ' 입니다';
+      // let message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+      // message += '경도는 ' + latlng.getLng() + ' 입니다';
       
-      let resultDiv = document.getElementById('clickLatlng'); 
-      resultDiv.innerHTML = message;
+      // let resultDiv = document.getElementById('clickLatlng'); 
+      // resultDiv.innerHTML = message;
       
       $("#lat").val(latlng.getLat());
       $("#lng").val(latlng.getLng());
@@ -179,16 +182,3 @@ function getKakaoMap2(centertLat,centerLng){
     });
    }
 
-// $('#mapOn').click(function () {
-//     console.log('relayout실행1')
-//     relayout();
-// })
-
-// function relayout() {
-//     console.log('relayout버튼 실행');
-//     // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-//     // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-//     // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-//     map.relayout();
-//     map.setCenter(new kakao.maps.LatLng(changedCoor.getLat(), changedCoor.getLng()));
-// }

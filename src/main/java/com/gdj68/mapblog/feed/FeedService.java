@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gdj68.mapblog.file.FileDTO;
+import com.gdj68.mapblog.follow.FollowDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
@@ -29,7 +30,7 @@ public class FeedService {
 	
 	// 리스트
 	public List<FeedDTO> getList(Pager pager) throws Exception {
-		pager.setPerPage(9L);
+		pager.setPerPage(4L);
 		pager.makeRowNum();
 		Long total = feedDAO.getTotal(pager);
 		pager.makePageNum(total);
@@ -44,7 +45,6 @@ public class FeedService {
 	
 	
 	public FeedDTO getUrl(FeedDTO feedDTO) throws Exception {
-
 		return feedDAO.getUrl(feedDTO);
 	}
 	
@@ -52,6 +52,10 @@ public class FeedService {
 	public MemberDTO getUser(FeedDTO feedDTO) {
 		return feedDAO.getUser(feedDTO);
 		
+	}
+	
+	public FeedDTO getFeedUrl(FeedDTO feedDTO) throws Exception {
+		return feedDAO.getFeedUrl(feedDTO);
 	}
 
 
@@ -244,8 +248,73 @@ public class FeedService {
 	public int setUpdateComment(FeedCommentDTO feedCommentDTO) throws Exception {
 		return feedDAO.setUpdateComment(feedCommentDTO);
 	}
+	
+	
+	/* 댓글 좋아요 */
+	// 좋아요 체크
+	public int checkCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
+		return feedDAO.checkCommentLikes(feedCommentLikesDTO);
+	}
+
+	// 좋아요 등록
+	public int addCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
+		return feedDAO.addCommentLikes(feedCommentLikesDTO);
+	}
+
+	// 좋아요 카운트
+	public int countCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
+		return feedDAO.countCommentLikes(feedCommentLikesDTO);
+	}
+
+	// 좋아요 삭제
+	public int deleteCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
+		return feedDAO.deleteCommentLikes(feedCommentLikesDTO);
+	}
+
+
+	public List<FeedDTO> getFeedList(String id) {
+		return feedDAO.getFeedList(id);
+	}
+
+
+	public List<FeedDTO> getList2(MemberDTO m) throws Exception {
+		return feedDAO.getList(m);
+	}
+
+
+	public IgnoreDTO confirmIgnore(IgnoreDTO ignoreDTO) {
+		return feedDAO.confirmIgnore(ignoreDTO);
+	}
+
+
+	public ConfirmFollowDTO confirmFollow(ConfirmFollowDTO confirmFollowDTO) {
+		return feedDAO.confirmFollow(confirmFollowDTO);
+	}
+
+
+	public List<FeedDTO> getFeedListF(String id) {
+		return feedDAO.getFeedListF(id);
+	}
+
+
+	public List<FeedDTO> getFeedListUnF(String id) {
+		return feedDAO.getFeedList(id);
+	}
+
+
 
 	
+	
+	
+
+
+	
+	
+	public int checkFollow(FollowDTO followDTO, HttpSession session)throws Exception{
+		MemberDTO memberDTO=(MemberDTO)session.getAttribute("member");
+		followDTO.setFromUser(memberDTO.getNickName());
+		return feedDAO.checkFollow(followDTO);
+	}
 	
 
 	

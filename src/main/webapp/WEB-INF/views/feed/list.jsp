@@ -12,11 +12,117 @@
 	<c:import url="../temp/bootStrap.jsp"></c:import>
 	
 </head>
+<script>
+
+	let clickCount = 0; 
+	/* function addFollow(){
+		$.ajax({
+			url: '/feed/list',
+			type: 'get',
+			data: {
+				nowUrl: location.href
+			}
+			
+		})
+	} */
+	
+	function addFollow(){
+		$.ajax({
+			url: '/feed/follow/add',
+			type: 'post',
+			data: {
+				nowUrl: location.href
+			}, 
+			success: function(){
+				alert("팔로우 추가 성공")
+				location.reload();
+				
+			}
+		})
+	}
+	
+	function deleteFollow(){
+		$.ajax({
+			url: '/feed/follow/deleteFollow',
+			type: 'post',
+			data: {
+				nowUrl: location.href
+			},
+			success: function(){
+				alert("팔로우 취소 성공")
+				location.reload();
+			}
+		})
+	}
+	/* document.addEventListener("DOMContentLoaded", function() {
+		const followBtn = document.getElementById("actionBtn");
+		let isFollowing = getFollowStatusFromCookie();
+
+		followBtn.addEventListener('click',function(){
+			if(isFollowing){
+				deleteFollow();
+				
+			}
+			else{
+				addFollow();
+				
+			}
+			toggleFollowBtn();
+			saveFollowStatusToCookie(isFollowing);
+		})
+		function toggleFollowBtn() {
+			isFollowing = !isFollowing;
+			followBtn.textContent = isFollowing ? "팔로우" : "언팔로우";
+		}
+
+		toggleFollowBtn();
+		
+	}); */
+
+	function getFollowStatusFromCookie() {
+    // 쿠키에서 팔로우 상태를 가져오는 코드를 작성
+	const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+        const [name, value] = cookie.split('=');
+        if (name === 'followStatus') {
+            return value === 'true'; // 팔로우 상태가 'true'면 true, 그렇지 않으면 false 반환
+        }
+    }
+    return false; // 쿠키에 팔로우 상태가 없을 경우 기본값으로 false 반환
+}
+
+function saveFollowStatusToCookie(isFollowing) {
+    // 팔로우 상태를 쿠키에 저장하는 코드를 작성
+	const expirationDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000); // 쿠키 만료일을 1년 후로 설정
+    document.cookie = `followStatus=${isFollowing}; expires=${expirationDate.toUTCString()}; path=/`;
+}
+</script>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
-
+	<div>
 	<h1 class="a mb-5 text-center">Feed List</h1>
-
+	
+	<div id="followList"></div> 
+	</div>
+		<%-- <c:forEach items="${member}" var="m">
+			<div>${m.nickName}</div>
+		</c:forEach> --%>
+		url : ${member.url}
+		toUser :${follow.toUser}
+	</div>
+	<c:choose>
+		<c:when test="${member.url eq follow.toUser}"></c:when>
+		<c:otherwise>
+			<c:if test="${followStatus < 1}">
+			<button type="button" onclick="addFollow()">팔로우</button>
+			</c:if>
+			<c:if test="${followStatus > 0}">
+			<button type="button" onclick="deleteFollow()">삭제</button>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+	<div>
+		
 
 	<!-- div.container start -->
 	<div class="conatiner">
@@ -28,8 +134,9 @@
 				<input type="text" id="adrs"><button id="btn2" type="button">검색</button>
 				<div id="map" style="width:900px;height:700px;float:left;border: solid 1px;margin-right: 300px;"></div>
 				<c:forEach items="${list}" var="d" varStatus="i">
-					<div class="a" data-meetingNum="${d.feedNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat}" data-lng="${d.lng}" id="${i.index}"></div>
-					</c:forEach>
+					<div class="a" data-feedNum="${d.feedNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat}" data-lng="${d.lng}" id="${i.index}"></div>
+				</c:forEach>
+				
 				<div id="address"></div>
 			</div>
 
@@ -56,9 +163,9 @@
 											<rect width="100%" height="100%" fill="#55595c"></rect>
 
 											<!-- 이미지 -->
-											<a class="text-white link-offset-2 link-underline link-underline-opacity-0" href="../detail?feedNum=${f.feedNum}">
-											<image class="img" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
-											<text id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${f.title}</text>
+											<a id="detailLink" class="text-white link-offset-2 link-underline link-underline-opacity-0" href="../detail?feedNum=${f.feedNum}">
+												<image class="img" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
+												<text id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${f.title}</text>
 											</a>
 
 										</svg>
@@ -112,11 +219,11 @@
 
 	<!-- 글쓰기 버튼 -->
 	<c:if test="${not empty member}">
-		<a class="btn btn-primary" href="./add">글쓰기</a>
+		<a class="btn btn-primary" href="../add">글쓰기</a>
 	</c:if>
 
-	<!-- 검색 Search -->
-	<div class="d-inline-flex p-2 justify-content-center">
+	<!-- 검색 Search (이전) -->
+	<!-- <div class="d-inline-flex p-2 justify-content-center">
 		<form class="input-group" action="./list" method="get">
 			<select name="kind" class="form-select rounded" style="width:100px" aria-label="Default select example">
 				<option value="title">제목</option>
@@ -127,8 +234,36 @@
 				<button type="submit" class="btn btn-primary">검색</button>
 			</div>
 		</form>
+	</div> -->
+
+
+	<!-- 검색 Search (수정 후) -->
+	<div class="row">
+	<div class="col-xl-12">
+			<!-- form -->
+			<form action="./list/${dto.url}"  method="get" class="search-box">
+				<div class="input-form mb-30">
+					<input type="text" name="search">
+				</div>
+				<div class="select-form mb-30">
+					<div class="select-itms">
+						<select name="select" id="select1">
+							<option value="title">제목</option>
+							<option value="contents">내용</option>
+						</select>
+					</div>
+				</div>
+				<div class="search-form mb-30">
+					<!-- <a href="#">검색</a> -->
+					<button type="submit" class="btn btn-primary">검색</button>
+				</div>   
+			</form>   
+		</div>
 	</div>
 
+	
+	<script src="/resources/js/feed/feedListMap.js" defer></script>
+	<script src="/resources/js/feed/feedList.js"></script>
 
 	<!-- 로그인 안 했을 시에 로그인 페이지로 보내줌 -->
 	<c:if test="${sessionScope.member.id == null}">
@@ -138,7 +273,9 @@
 			</script>
 	</c:if>
 	
+	
 	<script src="/resources/js/feed/feedMapList.js" defer></script>
+	<script src="/resources/js/follow/followList.js"></script>
 
 
 

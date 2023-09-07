@@ -6,3 +6,11 @@ $(".goDetail").click(function(){
     location.href = "./detail?feedNum=" + feedNum;
 })
 
+
+
+// kakao.maps.event.addListener(marker, 'click', function() {
+//     location.href = "./detail?feedNum=" + feedNum;
+// });
+
+
+
