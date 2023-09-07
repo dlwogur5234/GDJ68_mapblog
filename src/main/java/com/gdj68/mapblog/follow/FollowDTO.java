@@ -8,7 +8,21 @@ public class FollowDTO {
 	private String toUser;
 //	private MemberDTO memberDTO;
 	private String id;
+	private String fromUserUrl;
+	private String toUserUrl;
 	
+	public String getToUserUrl() {
+		return toUserUrl;
+	}
+	public void setToUserUrl(String toUserUrl) {
+		this.toUserUrl = toUserUrl;
+	}
+	public String getFromUserUrl() {
+		return fromUserUrl;
+	}
+	public void setFromUserUrl(String fromUserUrl) {
+		this.fromUserUrl = fromUserUrl;
+	}
 	public Long getFollowNum() {
 		return followNum;
 	}
