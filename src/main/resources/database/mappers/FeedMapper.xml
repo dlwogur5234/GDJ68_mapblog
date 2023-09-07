@@ -59,7 +59,7 @@
   	 -->
   	 
   	 <select id="getList2" parameterType="MemberDTO" resultType="FeedDTO">
-  	 	SELECT *
+  	 	SELECT TO_CHAR(TRIPDATE, 'yyyy-mm-dd') AS TRIPDATE, ID, TITLE
   	 	  FROM FEED
   	 	 WHERE ID = #{id}
   	 </select>

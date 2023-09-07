@@ -39,8 +39,10 @@ public class FeedService {
 	}
 	
 	
-	public List<FeedDTO> getList(MemberDTO memberDTO) throws Exception {
-	     return feedDAO.getList(memberDTO);
+	public List<FeedDTO> getList(HttpSession session) throws Exception {
+		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
+		
+	    return feedDAO.getList(memberDTO);
 	}
 	
 	
