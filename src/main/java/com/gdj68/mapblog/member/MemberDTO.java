@@ -92,6 +92,7 @@ public class MemberDTO {
 		this.publics = publics;
 	}
 	
+	
 
 	@Override
 	public String toString() {
