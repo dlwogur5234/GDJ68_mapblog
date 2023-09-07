@@ -354,7 +354,7 @@ public class FeedController {
 	/* 공개 비공개 ----------------------------------------------- */
 	
 	// 개인 url
-	@RequestMapping(value = "feed/list/*", method = RequestMethod.GET)
+	@RequestMapping(value = "list/*", method = RequestMethod.GET)
 	public String ListTest(FeedDTO feedDTO, HttpSession session, HttpServletRequest request, Model model, Pager pager) throws Exception {
 		
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
