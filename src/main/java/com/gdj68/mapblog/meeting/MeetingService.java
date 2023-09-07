@@ -88,7 +88,14 @@ public class MeetingService {
 		return meetingDAO.setUpdateComment(commentDTO);
 	}
 	
-	public int setReplyCommentAdd(MeetingCommentDTO commentDTO) throws Exception {
-		return meetingDAO.setReplyCommentAdd(commentDTO);
+	public int setReplyCommentAdd(MeetingReplyDTO replyDTO) throws Exception {
+		int result = meetingDAO.setUpdateCommentCgroup(replyDTO);
+		
+		return meetingDAO.setReplyCommentAdd(replyDTO);
 	}
+	
+	public List<MeetingReplyDTO> getReplyCommentList(MeetingReplyDTO replyDTO) throws Exception {
+		return meetingDAO.getReplyCommentList(replyDTO);
+	}
+	
 }

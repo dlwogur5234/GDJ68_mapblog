@@ -77,7 +77,15 @@ public class MeetingDAO {
 		return sqlSession.update(NAMESPACE+"setUpdateComment", commentDTO);
 	}
 	
-	public int setReplyCommentAdd(MeetingCommentDTO commentDTO) throws Exception {
-		return sqlSession.insert(NAMESPACE+"setReplyCommentAdd", commentDTO);
+	public int setReplyCommentAdd(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.insert(NAMESPACE+"setReplyCommentAdd", replyDTO);
+	}
+	
+	public int setUpdateCommentCgroup(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"setUpdateCommentCgroup",replyDTO);
+	}
+	
+	public List<MeetingReplyDTO> getReplyCommentList(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"getReplyCommentList", replyDTO);
 	}
 }

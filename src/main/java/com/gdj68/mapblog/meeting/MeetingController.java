@@ -124,15 +124,21 @@ public class MeetingController {
 	
 	  @PostMapping("updateComment")
 	  public String setUpdateComment(MeetingCommentDTO commentDTO) throws Exception {
-		  meetingService.setUpdateComment(commentDTO);
+		  int result = meetingService.setUpdateComment(commentDTO);
 		  return "meeting/commentList";
 	  }
 	  
 	  @PostMapping("replyCommentAdd")
-	  public String setReplyCommentAdd(MeetingCommentDTO commentDTO) throws Exception {
-		  meetingService.setReplyCommentAdd(commentDTO);
+	  public String setReplyCommentAdd(MeetingReplyDTO replyDTO) throws Exception {
+		  int result = meetingService.setReplyCommentAdd(replyDTO);
 		  return "meeting/commentList";
 	  }
 	
+	  @GetMapping("replyCommentList")
+	  public String getReplyCommentList(MeetingReplyDTO replyDTO, Model model) throws Exception {
+		  List<MeetingReplyDTO> ar = meetingService.getReplyCommentList(replyDTO);
+		  model.addAttribute("replyList", ar);
+		 return "meeting/replyList";
+		}
 	
 }

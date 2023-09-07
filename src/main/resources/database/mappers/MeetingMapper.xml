@@ -70,7 +70,15 @@
   		UPDATE MEETINGCOMMENT SET CONTENTS=#{contents} WHERE COMMENTNUM=#{commentNum}
   	</update>
   	
-  	<insert id="setReplyCommentAdd">
-  		INSERT INTO MEETINGCOMMENT VALUES (MEETINGCOMMENT_SEQ.NEXTVAL,#{meetingNum},#{id},#{contents},SYSDATE,0,#{cGroup},1,#{nickName})
+  	<insert id="setReplyCommentAdd" parameterType="MeetingReplyDTO">
+  		INSERT INTO MEETINGREPLY VALUES (MEETINGREPLY_SEQ.NEXTVAL,#{meetingNum},#{id},#{commentNum},#{contents},SYSDATE,0,#{commentNum},1,#{nickName})
   	</insert>
+  	
+  	 <update id="setUpdateCommentCgroup" parameterType="MeetingReplyDTO">
+  		UPDATE MEETINGCOMMENT SET CGROUP= CGROUP+1 WHERE COMMENTNUM=#{commentNum}
+  	</update>
+  	
+  	<select id="getReplyCommentList" resultType="MeetingReplyDTO">
+  		SELECT * FROM MEETINGREPLY WHERE CGROUP = #{cGroup} ORDER BY REPLYNUM
+  	</select>
   </mapper>
