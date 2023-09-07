@@ -12,11 +12,117 @@
 	<c:import url="../temp/bootStrap.jsp"></c:import>
 	
 </head>
+<script>
+
+	let clickCount = 0; 
+	/* function addFollow(){
+		$.ajax({
+			url: '/feed/list',
+			type: 'get',
+			data: {
+				nowUrl: location.href
+			}
+			
+		})
+	} */
+	
+	function addFollow(){
+		$.ajax({
+			url: '/feed/follow/add',
+			type: 'post',
+			data: {
+				nowUrl: location.href
+			}, 
+			success: function(){
+				alert("팔로우 추가 성공")
+				location.reload();
+				
+			}
+		})
+	}
+	
+	function deleteFollow(){
+		$.ajax({
+			url: '/feed/follow/deleteFollow',
+			type: 'post',
+			data: {
+				nowUrl: location.href
+			},
+			success: function(){
+				alert("팔로우 취소 성공")
+				location.reload();
+			}
+		})
+	}
+	/* document.addEventListener("DOMContentLoaded", function() {
+		const followBtn = document.getElementById("actionBtn");
+		let isFollowing = getFollowStatusFromCookie();
+
+		followBtn.addEventListener('click',function(){
+			if(isFollowing){
+				deleteFollow();
+				
+			}
+			else{
+				addFollow();
+				
+			}
+			toggleFollowBtn();
+			saveFollowStatusToCookie(isFollowing);
+		})
+		function toggleFollowBtn() {
+			isFollowing = !isFollowing;
+			followBtn.textContent = isFollowing ? "팔로우" : "언팔로우";
+		}
+
+		toggleFollowBtn();
+		
+	}); */
+
+	function getFollowStatusFromCookie() {
+    // 쿠키에서 팔로우 상태를 가져오는 코드를 작성
+	const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+        const [name, value] = cookie.split('=');
+        if (name === 'followStatus') {
+            return value === 'true'; // 팔로우 상태가 'true'면 true, 그렇지 않으면 false 반환
+        }
+    }
+    return false; // 쿠키에 팔로우 상태가 없을 경우 기본값으로 false 반환
+}
+
+function saveFollowStatusToCookie(isFollowing) {
+    // 팔로우 상태를 쿠키에 저장하는 코드를 작성
+	const expirationDate = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000); // 쿠키 만료일을 1년 후로 설정
+    document.cookie = `followStatus=${isFollowing}; expires=${expirationDate.toUTCString()}; path=/`;
+}
+</script>
 <body>
 	<c:import url="../temp/header.jsp"></c:import>
-
+	<div>
 	<h1 class="a mb-5 text-center">Feed List</h1>
-
+	
+	<div id="followList"></div> 
+	</div>
+		<%-- <c:forEach items="${member}" var="m">
+			<div>${m.nickName}</div>
+		</c:forEach> --%>
+		url : ${member.url}
+		toUser :${follow.toUser}
+	</div>
+	<c:choose>
+		<c:when test="${member.url eq follow.toUser}"></c:when>
+		<c:otherwise>
+			<c:if test="${followStatus < 1}">
+			<button type="button" onclick="addFollow()">팔로우</button>
+			</c:if>
+			<c:if test="${followStatus > 0}">
+			<button type="button" onclick="deleteFollow()">삭제</button>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+	<div>
+		
 
 	<!-- div.container start -->
 	<div class="conatiner">
@@ -138,8 +244,9 @@
 			</script>
 	</c:if>
 	
+	
 	<script src="/resources/js/feed/feedMapList.js" defer></script>
-
+	<script src="/resources/js/follow/followList.js"></script>
 
 
 

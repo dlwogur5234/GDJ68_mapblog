@@ -39,11 +39,8 @@ public class QnaController {
 	public String setCommentAdd(QnaCommentDTO qnaCommentDTO,HttpSession session, Model model) throws Exception{
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		qnaCommentDTO.setId(memberDTO.getId());
-		/*
-		 * AdminMemberDTO adminMemberDTO =
-		 * (AdminMemberDTO)session.getAttribute("adminMember");
-		 * qnaCommentDTO.setAdminId(adminMemberDTO.getAdminId());
-		 */
+		qnaCommentDTO.setNickName(memberDTO.getNickName());
+		
 		int result = qnaService.setCommentAdd(qnaCommentDTO);
 		model.addAttribute("result",result);
 		return "commons/ajaxResult";
@@ -56,7 +53,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("commentUp")
-	public String setCommentUp(QnaCommentDTO qnaCommentDTO,QnaDTO qnaDTO) throws Exception {
+	public String setCommentUp(QnaCommentDTO qnaCommentDTO) throws Exception {
 	
 		qnaService.setCommentUp(qnaCommentDTO);
 		
@@ -118,5 +115,19 @@ public class QnaController {
 	public String setDel(QnaDTO qnaDTO) throws Exception{
 		int result= qnaService.setDel(qnaDTO);
 		return "redirect:./list";
+	}
+	@PostMapping("setContentsImg")
+	public String setContentsImage(MultipartFile files, HttpSession session, Model model) throws Exception {
+		System.out.println("setContentImg");
+		System.out.println(files.getOriginalFilename());
+		String path = qnaService.setContentsImg(files, session);
+		model.addAttribute("result", path);
+		return "commons/ajaxResult";
+	}
+	@PostMapping("setContentsImgDelete")
+	public String setContentsImgDelete(String path,HttpSession session,Model model) throws Exception{
+		boolean check =qnaService.setContentsImgDelete(path, session);
+		model.addAttribute("result", check);
+		return "commons/ajaxResult";
 	}
 }

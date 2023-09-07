@@ -453,5 +453,9 @@
 	<delete id="deleteCommentLikes" parameterType="FeedCommentLikesDTO">
 	DELETE FEEDCOMMENTLIKES WHERE ID=#{id} AND FEEDNUM=#{feedNum} AND COMMENTNUM=#{commentNum}
 	</delete> -->
+	
+	<select id="checkFollow" parameterType="FollowDTO" resultType="Integer">
+		SELECT COUNT(*) FROM FOLLOW WHERE FROMUSER = #{fromUser} and TOUSER = (SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})
+	</select>
 
   </mapper>
