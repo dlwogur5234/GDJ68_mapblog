@@ -116,4 +116,18 @@ public class QnaController {
 		int result= qnaService.setDel(qnaDTO);
 		return "redirect:./list";
 	}
+	@PostMapping("setContentsImg")
+	public String setContentsImage(MultipartFile files, HttpSession session, Model model) throws Exception {
+		System.out.println("setContentImg");
+		System.out.println(files.getOriginalFilename());
+		String path = qnaService.setContentsImg(files, session);
+		model.addAttribute("result", path);
+		return "commons/ajaxResult";
+	}
+	@PostMapping("setContentsImgDelete")
+	public String setContentsImgDelete(String path,HttpSession session,Model model) throws Exception{
+		boolean check =qnaService.setContentsImgDelete(path, session);
+		model.addAttribute("result", check);
+		return "commons/ajaxResult";
+	}
 }

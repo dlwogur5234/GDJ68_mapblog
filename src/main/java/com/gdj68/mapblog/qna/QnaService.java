@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gdj68.mapblog.admin.member.AdminMemberDTO;
+import com.gdj68.mapblog.file.FileDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.qna.qnaComment.QnaCommentDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
+
 
 @Service
 public class QnaService {
@@ -44,6 +46,20 @@ public class QnaService {
 	
 	
 	//qna
+	public String setContentsImg(MultipartFile file,HttpSession session)throws Exception{
+		String path = "/resources/upload/qna/";
+		String fileName=fileManager.fileSave(path, session, file);
+		return path+fileName;
+	}
+	public boolean setContentsImgDelete(String path,HttpSession session ) throws Exception{
+		//path: /resources/upload/notice/파일명
+		FileDTO fileDTO = new FileDTO();
+//		path= path.substring(0, path.lastIndexOf("\\")+1);
+		System.out.println(path.substring(path.lastIndexOf("/")+1));
+		fileDTO.setFileName(path.substring(path.lastIndexOf("/")+1));
+		path="/resources/upload/notice/";
+		return fileManager.fileDelete(fileDTO, path, session);
+	}
 	public List<QnaDTO> getList(Pager pager) throws Exception {
 		pager.makeRowNum();
 		pager.makePageNum(qnaDAO.getTotal(pager));

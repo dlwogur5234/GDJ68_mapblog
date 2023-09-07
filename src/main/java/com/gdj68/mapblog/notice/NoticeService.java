@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdj68.mapblog.file.FileDTO;
 import com.gdj68.mapblog.qna.QnaDAO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
+
 
 @Service
 public class NoticeService {
@@ -54,5 +56,20 @@ public class NoticeService {
 	}
 	public int setUpdate(NoticeDTO noticeDTO,MultipartFile[] photos,HttpSession session) throws Exception{
 		return noticeDAO.setUpdate(noticeDTO);
+	}
+	public String setContentsImg(MultipartFile file,HttpSession session)throws Exception{
+		String path = "/resources/upload/notice/";
+		String fileName=fileManager.fileSave(path, session, file);
+		return path+fileName;
+	}
+	public boolean setContentsImgDelete(String path,HttpSession session ) throws Exception{
+		//path: /resources/upload/notice/파일명
+		FileDTO fileDTO = new FileDTO();
+		
+//		path= path.substring(0, path.lastIndexOf("\\")+1);
+		System.out.println(path.substring(path.lastIndexOf("/")+1));
+		fileDTO.setFileName(path.substring(path.lastIndexOf("/")+1));
+		path="/resources/upload/notice/";
+		return fileManager.fileDelete(fileDTO, path, session);
 	}
 }
