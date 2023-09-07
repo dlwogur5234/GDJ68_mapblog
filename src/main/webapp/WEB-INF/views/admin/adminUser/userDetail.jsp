@@ -55,9 +55,16 @@
 			<!-- 페이지별 내용 -->
 
 
-	<h1>User Detail Page</h1>
-	<h2>${requestScope.dto.id} 님의 상세정보</h2>
+			<h1>User Detail Page</h1>
+			<h2>${requestScope.dto.id} 님의 상세정보</h2>
 
+
+			
+			<a href="/admin/adminUser/userUpdate?id=${requestScope.dto.id}" >비밀번호초기화</a>
+			<p>초기비밀번호 : a123456</p>
+		
+			<a href="/admin/adminUser/userDelete?id=${requestScope.dto.id}">회원탈퇴</a>
+			
 
 			<!-- 페이지별 내용 끝 -->
 
@@ -88,8 +95,7 @@
 
 
     <!-- Logout Modal-->
-  
-  
+
   
   
   

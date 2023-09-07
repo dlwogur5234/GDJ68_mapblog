@@ -10,7 +10,7 @@
 		<typeAlias type="java.util.Map" alias="Map"/>
 	<!-- 병웅 11~20 -->
 		<typeAlias type="com.gdj68.mapblog.admin.member.AdminMemberDTO" alias="AdminMemberDTO"/>
-		<typeAlias type="com.gdj68.mapblog.admin.user.AdminUserDTO" alias="AdminUserDTO"/>
+		
 		<typeAlias type="com.gdj68.mapblog.admin.user.AdminUserFileDTO" alias="AdminUserFileDTO"/>
 		<typeAlias type="com.gdj68.mapblog.admin.member.RoleDTO" alias="RoleDTO"/>
 	

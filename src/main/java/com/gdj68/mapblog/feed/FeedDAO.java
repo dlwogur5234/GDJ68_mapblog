@@ -1,6 +1,7 @@
 package com.gdj68.mapblog.feed;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gdj68.mapblog.feed.FeedCommentLikesDTO;
 import com.gdj68.mapblog.file.FileDTO;
+import com.gdj68.mapblog.follow.FollowDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
@@ -221,7 +223,13 @@ public class FeedDAO {
 	
 	
 
-
+// 팔로우 확인
+	public int checkFollow(FollowDTO followDTO) throws Exception{
+		
+		return sqlSession.selectOne(NAMESPACE+"checkFollow", followDTO);
+		
+		
+	}
 }
 
 

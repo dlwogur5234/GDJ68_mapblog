@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -39,8 +40,16 @@
         		전체 비공개
        		</c:if>
 		</p>
-		<p>
+		
+		<c:if test="${not empty sessionScope.memberFile}">
 			<img alt="" src="../resources/upload/member/${memberFile.fileName}">
+		</c:if>
+		<c:if test="${empty sessionScope.memberFile}">
+			<img alt="" src="../resources/img/기본프사.png">
+		</c:if>
+		
+		<p>
+			
 		</p>
 	
 		
@@ -56,6 +65,8 @@
 		<!-- </form> -->
 		<input type="button" id="searchIgnore" value="내가 차단한 회원 조회" onclick="window.open('http://localhost:82/member/searchIgnore', '차단한 회원 검색', 'width=500, height=700')">
 	</div>
+	
+	<div id="myQnaList"></div>
 
 	<script>
 		const dm = document.getElementById("dm")
@@ -79,5 +90,6 @@
 		// 	fr4.submit();
 		// })
 	</script>
+	<script src="/resources/js/qna/myQnaList.js"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@
 <body>
 	<!-- <input type="text" id="adrs"><button id="btn2" type="button">검색</button> -->
 	<c:forEach items="${myList}" var="d" varStatus="i">
-	<div class="b" data-meetingNum="${d.meetingNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat }" data-lng="${d.lng }" id="${i.index}"></div>
+		<div class="b" data-meetingNum="${d.meetingNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat }" data-lng="${d.lng }" id="${i.index}"></div>
 	</c:forEach>
 	<!-- <div id="map" style="width:1000px;height:800px;"></div> -->
 	

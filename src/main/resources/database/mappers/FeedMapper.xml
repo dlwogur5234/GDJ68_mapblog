@@ -461,6 +461,7 @@
 	
 	<!-- 댓글 좋아요 취소 -->
 	<delete id="deleteCommentLikes" parameterType="FeedCommentLikesDTO">
+
 	DELETE FEEDCOMMENTLIKES WHERE ID=#{id} AND COMMENTNUM=#{commentNum}
 	</delete>
 
@@ -488,30 +489,9 @@
 		SELECT * FROM FEED WHERE ID=#{id} AND PUBLICS != 2
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<select id="checkFollow" parameterType="FollowDTO" resultType="Integer">
+		SELECT COUNT(*) FROM FOLLOW WHERE FROMUSER = #{fromUser} and TOUSER = (SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})
+	</select>
+
 
   </mapper>
