@@ -32,7 +32,9 @@ for(c of c1) {
 
 // list (목록으로 돌아가기)
 $("#list").click(function(){
-    location.href = "./list";
+    let url = $("#url").val();
+    console.log(url);
+    location.href = "./list/" + $("#url").val();
 })
 
 // 취소 버튼

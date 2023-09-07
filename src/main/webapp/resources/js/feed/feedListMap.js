@@ -1,7 +1,8 @@
-let centertLat =33.450701;
-let centerLng =126.570667;
+let centertLat = 33.450701;
+let centerLng = 126.570667;
 
 getLocation();
+
 function getLocation() {
     if (navigator.geolocation) { // GPS를 지원하면
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -110,18 +111,6 @@ function makeOutListener(infowindow) {
 
 
 function makeClickListener(map, marker, infowindow) {
-    // let clickFunction ={
-    //     ch: true,
-    //     f1 : function(){
-    //         infowindow.open(map,marker);
-    //     }
-    // }
-    // if(checked){   
-    //     return clickFunction;
-
-    // }else{
-    //     return clickFunction.f2;
-    // }
     return function() {
         infowindow.open(map, marker);
         console.log(marker.Gb);
@@ -137,13 +126,6 @@ function makeClickListener(map, marker, infowindow) {
 }
 
 
-// 버튼 클릭 시 지도 위치 이동하도록 하는 함수 (아직 안해봄)
-
-// $("#findMarker").addEventListener("click", frunction(){
-  
-// })
-
-
 function panTo() {
     // 이동할 위도 경도 위치를 생성합니다 
     let moveLatLon = new kakao.maps.LatLng(lat, lng);
@@ -152,49 +134,3 @@ function panTo() {
     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
     map.panTo(moveLatLon);            
 }   
-
-
-
-
-// ------------------------------------------------------
-
-// var wonderlinks = $('[data-wonder]');
-
-// wonderlinks.on('mouseover', function () {
-//   var dataWonder = $(this).data('wonder');
-//   var marker = findMarkerByDataWonder(dataWonder);
-
-//   if (marker) {
-//     map.panTo(marker.getPosition());
-//   }
-// });
-
-// wonderlinks.on('mouseout', function () {
-//   infowindow.close();
-// });
-
-// function findMarkerByDataWonder(dataWonder) {
-//   var foundMarker = null;
-//   markers.forEach(function (markerData) {
-//     if (markerData[3] === dataWonder) {
-//       foundMarker = markerData[0]; // Assuming markerData[0] is the marker object
-//     }
-//   });
-//   return foundMarker;
-// }
-
-
-// var wonderlinks = $('[data-wonder]');
-
-// wonderlinks.each(function() {
-//   var $this = $(this);
-//   var wonderId = $this.data('wonder');
-  
-//   $this.on('mouseover', function() {
-//     map.panTo(markers.find(function(marker) {
-//       return marker[3] === wonderId;
-//     })[0].getPosition());
-//   }).on('mouseout', function() {
-//     infowindow.close();
-//   });
-// });

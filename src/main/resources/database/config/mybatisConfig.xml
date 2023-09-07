@@ -23,11 +23,11 @@
 	<typeAlias type="com.gdj68.mapblog.feed.FeedFileDTO" alias="FeedFileDTO"/>
 	<typeAlias type="com.gdj68.mapblog.feed.FeedCommentDTO" alias="FeedCommentDTO"/>
 	<typeAlias type="com.gdj68.mapblog.feed.FeedCommentLikesDTO" alias="FeedCommentLikesDTO"/>
-	<typeAlias type="com.gdj68.mapblog.util.Pager" alias="Pager"/>
+	<typeAlias type="com.gdj68.mapblog.feed.ConfirmFollowDTO" alias="ConfirmFollowDTO"/>
 	<typeAlias type="com.gdj68.mapblog.feed.LikesDTO" alias="LikesDTO"/>
 	<typeAlias type="java.lang.Integer" alias="Integer"/>	
-	
-	
+	<typeAlias type="java.lang.String" alias="String"/>
+	<typeAlias type="com.gdj68.mapblog.feed.IgnoreDTO" alias="IgnoreDTO2"/>
 	<!-- 홍일 31~40 -->
 	<typeAlias type="com.gdj68.mapblog.member.MemberDTO" alias="MemberDTO"/>
 	<typeAlias type="com.gdj68.mapblog.member.MemberFileDTO" alias="MemberFileDTO"/>

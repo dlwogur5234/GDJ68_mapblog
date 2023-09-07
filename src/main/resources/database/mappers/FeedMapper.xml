@@ -23,15 +23,21 @@
   	
   	<!-- 개인 URL -->
   	<select id="getUrl" parameterType="FeedDTO" resultType="FeedDTO">
-  		SELECT M.URL
-  		  FROM FEED F, MEMBER M
-  		 WHERE F.ID = M.ID
+ 		SELECT DISTINCT M.URL
+          FROM FEED F, MEMBER M
+         WHERE F.ID = M.ID AND M.ID = #{id}
   	</select>
   	
   	<select id="getUser" parameterType="FeedDTO" resultType="MemberDTO">
-  		SELECT ID
+  		SELECT ID, PUBLICS, NICKNAME
   		  FROM MEMBER
   		 WHERE URL = #{url}
+  	</select>
+  	
+  	<select id="getFeedUrl" parameterType="FeedDTO" resultType="FeedDTO">
+  		SELECT DISTINCT URL
+  		  FROM FEED F, MEMBER M
+  		 WHERE F.ID = M.ID AND F.ID = #{id} 
   	</select>
   	
 
@@ -132,7 +138,8 @@
 		<include refid="searchSql"></include>
 	</select>
 	
-	
+
+
 	<!-- GET SEQUENCE -->
 	<select id="getSequence" resultType="Long">
   		SELECT FEED_SEQ.NEXTVAL FROM DUAL
@@ -147,8 +154,7 @@
 		</selectKey>
 		
 		INSERT INTO FEED
-		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, #{tripDate}, 0, 0, #{publics}, #{lat}, #{lng})
-		
+		VALUES (#{feedNum}, #{id}, #{title}, #{contents}, SYSDATE, #{tripDate}, 0, 0, #{publics}, #{lat}, #{lng})	
 	</insert>
 	
 	
@@ -259,10 +265,10 @@
 
 	<!-- 좋아요 체크 -->
 	<select id="checkLikes" parameterType="LikesDTO" resultType="Integer">
-	SELECT COUNT(*)
-	  FROM LIKES
-	 WHERE FEEDNUM = #{feedNum}
-	   AND ID = #{id}
+		SELECT COUNT(*)
+		  FROM LIKES
+		 WHERE FEEDNUM = #{feedNum}
+		   AND ID = #{id}
 	</select>
 
 	<!-- 좋아요 등록 -->
@@ -273,16 +279,19 @@
 
 	<!-- 좋아요 카운트 -->
 	<select id="countLikes" parameterType="LikesDTO" resultType="Integer">
-	 SELECT COUNT(*)
-	  FROM LIKES
-	 WHERE FEEDNUM = #{feedNum}
+		SELECT COUNT(*)
+		  FROM LIKES
+		 WHERE FEEDNUM = #{feedNum}
 	</select>
 	
 	<!-- 좋아요 취소 -->
 	<delete id="deleteLikes" parameterType="LikesDTO">
-	DELETE LIKES WHERE ID = #{id} AND FEEDNUM = #{feedNum}
+		DELETE LIKES WHERE ID = #{id} AND FEEDNUM = #{feedNum}
 	</delete>
 	
+	
+	
+
 	<!-- 좋아요 리스트 카운트 -->
 	<!-- (paging 처리를 위해) -->
 	<select id="getLikesCount" parameterType="Pager" resultType="Long">
@@ -404,30 +413,31 @@
   	</select>
   	
 	<insert id="setAddComment" parameterType="FeedCommentDTO">
-	INSERT INTO FEEDCOMMENT(COMMENTNUM, FEEDNUM, ID, CONTENTS, COMMENTDATE)
+	INSERT INTO FEEDCOMMENT
 	VALUES(FEEDCOMMENT_SEQ.NEXTVAL, #{feedNum}, #{id}, #{contents}, SYSDATE, 0, #{feedNum}, 0)
 	</insert>
 	
 	<delete id="setDeleteComment" parameterType="FeedCommentDTO">
-	DELETE FEEDCOMMENT
-	 WHERE COMMENTNUM = #{commentNum}
+		DELETE FEEDCOMMENT
+		 WHERE COMMENTNUM = #{commentNum}
 	</delete>
 
-	<update id="setUpdateComment" parameterType="FeedCommentDTO">
-		UPDATE FEEDCOMMENT SET
-		CONTENTS = #{contents}
-			 WHERE COMMENTNUM = #{commentNum}
+	<update id="setUpdateComment">
+		UPDATE FEEDCOMMENT
+		   SET CONTENTS = #{contents}
+		 WHERE COMMENTNUM = #{commentNum}
 	</update>
+	
  	
 
 	<!-- 댓글 좋아요 -->
-	<!-- 댓글 좋아요 클릭 여부 -->
 	
-	<!-- <select id="getFindCommentLikes" resultType="Long">
-		SELECT COUNT(*) FROM FEEDCOMMENTLIKES WHERE ID=#{id} AND FEEDNUM=#{feedNum} AND COMMENTNUM=#{commentNum}
+	<!-- 댓글 좋아요 클릭 여부 -->
+	<select id="getFindCommentLikes" resultType="Long">
+		SELECT COUNT(*) FROM FEEDCOMMENTLIKES WHERE ID=#{id} AND COMMENTNUM=#{commentNum}
 	</select>
 
-	댓글 좋아요 체크
+	<!-- 댓글 좋아요 체크 -->
 	<select id="checkCommentLikes" parameterType="FeedCommentLikesDTO" resultType="Integer">
 	SELECT COUNT(*)
 	  FROM FEEDCOMMENTLIKES
@@ -436,22 +446,72 @@
 	   AND COMMENTNUM=#{commentNum}
 	</select>
 
-	댓글 좋아요 등록
+	<!-- 댓글 좋아요 등록 -->
 	<insert id="addCommentLikes" parameterType="FeedCommentLikesDTO">
 	INSERT INTO FEEDCOMMENTLIKES (LIKESNUM, ID, FEEDNUM, COMMENTNUM)
 	VALUES (FEEDCOMMENTLIKES_SEQ.NEXTVAL, #{id}, #{feedNum}, #{commentNum})
 	</insert>
 
-	댓글 좋아요 카운트
+	<!-- 댓글 좋아요 카운트 -->
 	<select id="countCommentLikes" parameterType="FeedCommentLikesDTO" resultType="Integer">
 	SELECT COUNT(*)
 	  FROM FEEDCOMMENTLIKES
-	 WHERE FEEDNUM=#{feedNum} AND COMMENTNUM=#{commentNum}
+	 WHERE COMMENTNUM=#{commentNum}
 	</select>
 	
-	댓글 좋아요 취소
+	<!-- 댓글 좋아요 취소 -->
 	<delete id="deleteCommentLikes" parameterType="FeedCommentLikesDTO">
-	DELETE FEEDCOMMENTLIKES WHERE ID=#{id} AND FEEDNUM=#{feedNum} AND COMMENTNUM=#{commentNum}
-	</delete> -->
+	DELETE FEEDCOMMENTLIKES WHERE ID=#{id} AND COMMENTNUM=#{commentNum}
+	</delete>
+
+
+	
+	<!-- 공개 비공개 ************************* -->
+	<select id="getFeedList" resultType="FeedDTO" parameterType="String">
+		SELECT * FROM FEED WHERE ID=#{id} AND PUBLICS=0
+	</select>
+	
+	<!-- 차단자 확인  -->
+	 <select id="confirmIgnore" parameterType="IgnoreDTO" resultType="IgnoreDTO2">
+ 		SELECT * FROM IGNORE
+ 		WHERE IGNORING=#{ignoring} AND IGNORED=#{ignored}
+  	</select>
+  	
+  	<!-- 팔로우 확인  -->
+  	<select id="confirmFollow" parameterType="ConfirmFollowDTO" resultType="ConfirmFollowDTO">
+ 		SELECT * FROM FOLLOW
+ 		WHERE FROMUSER=#{fromUser} AND TOUSER=#{toUser}
+  	</select>
+  	
+  	<!-- 팔로우한 사람이 리스트접근 -->
+  	<select id="getFeedListF" resultType="FeedDTO" parameterType="String">
+		SELECT * FROM FEED WHERE ID=#{id} AND PUBLICS != 2
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
   </mapper>

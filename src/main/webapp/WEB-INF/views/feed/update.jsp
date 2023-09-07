@@ -114,25 +114,10 @@
 <script src="/resources/js/feed/feedUpdate.js"></script>
 <script src="/resources/js/feed/feedUpdateMap.js" defer></script>
 
-<script>
-$(document).ready(function(){
-	console.log("map start")
-	let lat = $('#lat').val();
-	let lng = $('#lng').val();
 
-	
-	console.log(lat);
-	console.log(lng);
-	
-	getKakaoMap2(lat,lng);
-
-    // panTo();
-  
-})
-</script>
 
 <script type="text/javascript">
-	$("#contents").summernote('code');
+	// $("#contents").summernote('code');
 </script>
 
 </body>
