@@ -92,13 +92,7 @@ public class MemberDTO {
 		this.publics = publics;
 	}
 	
-	public Date getCreatDate() {
-		return creatDate;
-	}
-
-	public void setCreatDate(Date creatDate) {
-		this.creatDate = creatDate;
-	}
+	
 
 	@Override
 	public String toString() {
