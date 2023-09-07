@@ -81,4 +81,8 @@
   	<select id="getReplyCommentList" resultType="MeetingReplyDTO">
   		SELECT * FROM MEETINGREPLY WHERE CGROUP = #{cGroup} ORDER BY REPLYNUM
   	</select>
+  	
+  	<select id="getPersonnelList" resultType="MeetingMemberDTO">
+  		SELECT * FROM MEETINGMEMBER WHERE MEETINGNUM = #{meetingNum}
+  	</select>
   </mapper>

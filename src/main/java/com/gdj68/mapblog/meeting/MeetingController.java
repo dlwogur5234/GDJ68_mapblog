@@ -53,12 +53,12 @@ public class MeetingController {
 		map = meetingService.getDetail(meetingDTO,session);
 		long result = (Long)map.get("result");
 		long personnel = (Long)map.get("personnel");
-		System.out.println("result 값 : "+result);
-		System.out.println("personnel 값 : "+personnel);
 		meetingDTO = (MeetingDTO)map.get("meetingDTO");
+		List<MeetingMemberDTO> ar = (List<MeetingMemberDTO>)map.get("meetingMemberList");
 		model.addAttribute("dto",meetingDTO);
 		model.addAttribute("result", result);
 		model.addAttribute("personnel", personnel);
+		model.addAttribute("meetingMemberList", ar);
 	}
 	
 	@PostMapping("meetingJoin")

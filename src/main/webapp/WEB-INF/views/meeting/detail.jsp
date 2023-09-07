@@ -16,6 +16,10 @@
 		<div class="desc">${dto.contents }</div>
 		<div class="desc">${dto.meetingDate }</div>
 		<div class="desc">${personnel}/${dto.personnel }</div>
+		<div>참석자 명단</div>
+		<c:forEach items="${meetingMemberList}" var="m" varStatus="i">
+			<div>${m.nickName}</div>
+		</c:forEach>
 	
 	<form action="./meetingJoin" method="post">
 		<c:if test="${not empty sessionScope.member && sessionScope.member.id ne dto.id && result<1 && personnel<dto.personnel}">

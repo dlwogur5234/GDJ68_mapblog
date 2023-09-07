@@ -47,10 +47,12 @@ public class MeetingService {
 		long result = meetingDAO.getJoinCheck(meetingMemberDTO);
 		meetingDTO = meetingDAO.getDetail(meetingDTO);
 		long personnel = meetingDAO.getPersonnelCheck(meetingMemberDTO);
+		List<MeetingMemberDTO> ar = meetingDAO.getPersonnelList(meetingMemberDTO);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", result);
 		map.put("meetingDTO", meetingDTO);
 		map.put("personnel", personnel);
+		map.put("meetingMemberList", ar);
 		return map;
 	}
 	
