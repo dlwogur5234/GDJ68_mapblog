@@ -27,7 +27,7 @@
 
 	
 	<!-- list -->
-	<select id="getUserList" parameterType="com.gdj68.mapblog.util.Pager" resultType="AdminUserDTO" >
+	<select id="getUserList" parameterType="com.gdj68.mapblog.util.Pager" resultType="MemberDTO" >
 		SELECT
 			* 
 		FROM	
@@ -44,7 +44,7 @@
   	
   	
   	<!-- detail -->
-  	<select id="getUserDetail" resultMap="getUserDetailResult" parameterType="adminUserDTO">
+  	<select id="getUserDetail" resultMap="getUserDetailResult" parameterType="MemberDTO">
   		SELECT 
   			M.*, PI.*
   		FROM
@@ -55,7 +55,7 @@
   		WHERE
   			M.ID=#{id}
   	</select>
-  	<resultMap type="adminUserDTO" id="getUserDetailResult">
+  	<resultMap type="MemberDTO" id="getUserDetailResult">
   		<id column="ID" property="id"/>
   		<result column="PW" property="pw"/>
   		<result column="NAME" property="name"/>
@@ -65,7 +65,7 @@
   		<result column="BIRTH" property="birth"/>
   		<result column="URL" property="url"/>
   		<result column="CREATEDATE" property="createDate"/>
-  		<collection property="fileDTOs" javaType="List" ofType="AdminUserFileDTO">
+  		<collection property="fileDTOs" javaType="List" ofType="MemberFileDTO">
 			<id column="FILENUM" property="fileNum"/>
 			<result column="ORIGINALNAME" property="originalName"/>
 			<result column="FILENAME" property="fileName"/>
@@ -74,8 +74,12 @@
   	</resultMap>
   	
   	
-  	
-  	
+  	<!-- update 비밀번호 초기화 -->
+  	<update id="setUserUpdate" parameterType="MemberDTO">
+		UPDATE MEMBER SET
+		PW='a123456'
+		WHERE ID=#{id}
+	</update>
   	
   	
   	
