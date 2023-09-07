@@ -18,6 +18,7 @@ public class MemberDTO {
 	private int publics;
 	private String createDate;
 	private List<MemberFileDTO> fileDTOs;
+
 	
 	
 	public String getId() {
@@ -89,6 +90,14 @@ public class MemberDTO {
 
 	public void setPublics(int publics) {
 		this.publics = publics;
+	}
+	
+	public Date getCreatDate() {
+		return creatDate;
+	}
+
+	public void setCreatDate(Date creatDate) {
+		this.creatDate = creatDate;
 	}
 
 	@Override

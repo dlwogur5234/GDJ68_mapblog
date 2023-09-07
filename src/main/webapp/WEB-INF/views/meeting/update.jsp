@@ -21,7 +21,7 @@
 	    <input type="hidden" name=meetingNum value="${dto.meetingNum }">
 	    <input type="hidden" name="id" value="${sessionScope.member.id }">
 	    제목<input type="text" name="title" id="title" value="${dto.title }"><br>
-	    내용<textarea class="input-group" rows="" cols="" name="contents" id="contents" value="${dto.contents }"></textarea>
+	    내용<textarea class="input-group" rows="" cols="" name="contents" id="contents" value="${dto.contents }">${dto.contents }</textarea>
 	    모임날짜<input type="datetime-local"  id="meetingDate" value="${dto.meetingDate }">
 	    <input type="hidden" name="meetingDate" id="meetingDate2">
 	    모집인원<input type="number" id="personnel" min="2" max="10" name="personnel" value="${dto.personnel}">
@@ -85,7 +85,7 @@
             }
         }); 
 
-
+        $("#contents").summernote('code');
 		btn.addEventListener("click", function(){
 			console.log(title.value=="");
 			console.log(title.value.length == 0);
