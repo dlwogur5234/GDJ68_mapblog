@@ -47,7 +47,7 @@ public class FollowController {
 		  model.addAttribute("followList", followList); List<FollowDTO> 
 		  followerList = followService.selectFollowerList(followDTO, session);
 		  model.addAttribute("followerList", followerList); 
-		 
+		  
 		return "/follow/list";
 	}
 	@PostMapping("add")

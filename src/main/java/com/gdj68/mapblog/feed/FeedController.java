@@ -108,7 +108,7 @@ public class FeedController {
 		followDTO.setFromUser(memberDTO.getNickName());
 		System.out.println("id :" + followDTO.getFromUser());
 		model.addAttribute("followStatus", followStatus);
-
+		session.setAttribute("follow", followDTO);
 		return "feed/list";
 		
 	}

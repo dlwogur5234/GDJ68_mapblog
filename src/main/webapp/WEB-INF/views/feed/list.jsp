@@ -103,19 +103,26 @@ function saveFollowStatusToCookie(isFollowing) {
 	<h1 class="a mb-5 text-center">Feed List</h1>
 	
 	<div id="followList"></div> 
-	
-	<c:if test="${followStatus < 1}">
-	<button type="button" onclick="addFollow()">팔로우</button>
-	</c:if>
-	<c:if test="${followStatus > 0}">
-	<button type="button" onclick="deleteFollow()">삭제</button>
-	</c:if>
-	
+	</div>
+		<%-- <c:forEach items="${member}" var="m">
+			<div>${m.nickName}</div>
+		</c:forEach> --%>
+		url : ${member.url}
+		toUser :${follow.toUser}
+	</div>
+	<c:choose>
+		<c:when test="${member.url eq follow.toUser}"></c:when>
+		<c:otherwise>
+			<c:if test="${followStatus < 1}">
+			<button type="button" onclick="addFollow()">팔로우</button>
+			</c:if>
+			<c:if test="${followStatus > 0}">
+			<button type="button" onclick="deleteFollow()">삭제</button>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
 	<div>
 		
-	</div>
-		${followStatus}
-	</div>
 
 	<!-- div.container start -->
 	<div class="conatiner">

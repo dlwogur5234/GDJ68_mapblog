@@ -114,7 +114,7 @@
         <input type="hidden" name="fromUser" value="${followDel.fromUser}">
         <input type="hidden" name="toUser" value="${followDel.toUser}"> 
           <input type="hidden" name="followNum" value="${followDel.followNum}"> 
-        <button type="submit" id="followButton" class="Btn">팔로우</button>
+        
         </form>
       </div>
     </c:forEach>
