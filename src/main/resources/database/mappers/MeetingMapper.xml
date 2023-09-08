@@ -78,11 +78,24 @@
   		UPDATE MEETINGCOMMENT SET CGROUP= CGROUP+1 WHERE COMMENTNUM=#{commentNum}
   	</update>
   	
+  	 <update id="setUpdateCommentCgroupDelete" parameterType="MeetingReplyDTO">
+  		UPDATE MEETINGCOMMENT SET CGROUP= CGROUP-1 WHERE COMMENTNUM=#{commentNum}
+  	</update>
+  	
   	<select id="getReplyCommentList" resultType="MeetingReplyDTO">
-  		SELECT * FROM MEETINGREPLY WHERE CGROUP = #{cGroup} ORDER BY REPLYNUM
+  		SELECT * FROM MEETINGREPLY WHERE COMMENTNUM = #{commentNum} ORDER BY COMMENTDATE
   	</select>
   	
   	<select id="getPersonnelList" resultType="MeetingMemberDTO">
-  		SELECT * FROM MEETINGMEMBER WHERE MEETINGNUM = #{meetingNum}
+  		SELECT * FROM MEETINGMEMBER WHERE MEETINGNUM = #{meetingNum} ORDER BY MEETINGMEMBERNUM
   	</select>
+  	
+  	 <update id="setUpdateReplyComment" parameterType="MeetingReplyDTO">
+  		UPDATE MEETINGREPLY SET CONTENTS = #{contents} WHERE REPLYNUM=#{replyNum}
+  	</update>
+  	
+  	<delete id="setDeleteReplyComment" parameterType="MeetingReplyDTO">
+  		DELETE MEETINGREPLY WHERE REPLYNUM = #{replyNum}
+  	</delete>
+  	
   </mapper>

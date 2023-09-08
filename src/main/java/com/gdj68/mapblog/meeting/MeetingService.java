@@ -100,4 +100,12 @@ public class MeetingService {
 		return meetingDAO.getReplyCommentList(replyDTO);
 	}
 	
+	public int setUpdateReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		return meetingDAO.setUpdateReplyComment(replyDTO);
+	}
+	
+	public int setDeleteReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		int result = meetingDAO.setUpdateCommentCgroupDelete(replyDTO);
+		return meetingDAO.setDeleteReplyComment(replyDTO);
+	}
 }

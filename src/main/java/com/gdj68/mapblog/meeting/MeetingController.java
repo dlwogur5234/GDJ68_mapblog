@@ -140,5 +140,17 @@ public class MeetingController {
 		  model.addAttribute("replyList", ar);
 		 return "meeting/replyList";
 		}
+	  
+	  @PostMapping("replyCommentUpdate")
+	  public String setUpdateReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		  int result = meetingService.setUpdateReplyComment(replyDTO);
+		  return "meeting/replyList";
+	  }
+	  
+	  @GetMapping("replyCommentDelete")
+	  public String setDeleteReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		  int result = meetingService.setDeleteReplyComment(replyDTO);
+		  return "meeting/replyList";
+	  }
 	
 }

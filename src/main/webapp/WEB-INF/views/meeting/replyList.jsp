@@ -1,17 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<title>Insert title here</title>
-</head>
-<body>
-	<c:forEach items="${replyList}" var="d" varStatus="i">
-	<div>└${d.nickName } ${d.contents}</div>
-	</c:forEach>
-
-</body>
+  <head>
+  <meta charset="UTF-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <title>Insert title here</title>
+  </head>
+  <body>
+  <c:forEach items="${replyList}" var="r" varStatus="i">
+  <div>
+    <div id="nickName">└${r.nickName }</div>
+    <div class="rere" data-replyNum="${r.replyNum}" id="replyUpdateContentsDiv" > ${r.contents} </div>
+    <c:if test="${member.id eq r.id}"> 
+		<button class="replyUpdateBtn" data-replyNum="${r.replyNum}" data-replyContents="${r.contents}" id="replyUpdateBtn" >수정 </button> 
+		<button class="replyDeleteBtn" data-replyNum="${r.replyNum}" data-commentNum="${r.commentNum}" id="replyDeleteBtn">삭제</button>
+    </c:if>
+  </div>
+  </c:forEach>
+  </body>
 </html>

@@ -88,4 +88,16 @@ public class MeetingDAO {
 	public List<MeetingReplyDTO> getReplyCommentList(MeetingReplyDTO replyDTO) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"getReplyCommentList", replyDTO);
 	}
+	
+	public int setUpdateReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"setUpdateReplyComment", replyDTO);
+	}
+
+	public int setDeleteReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"setDeleteReplyComment", replyDTO);
+	}
+	
+	public int setUpdateCommentCgroupDelete(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"setUpdateCommentCgroupDelete", replyDTO);
+	}
 }
