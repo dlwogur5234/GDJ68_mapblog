@@ -17,17 +17,14 @@ public class MeetingDAO {
 	private final String NAMESPACE="com.gdj68.mapblog.meeting.MeetingDAO."; 
 	
 	public int setAdd(MeetingDTO meetingDTO) throws Exception {
-		
 		return sqlSession.insert(NAMESPACE+"setAdd", meetingDTO);
 	}
 	
 	public List<MeetingDTO> getList() throws Exception {
-		
 		return sqlSession.selectList(NAMESPACE+"getList");
 	}
 	
 	public List<MeetingDTO> getMyList(MeetingMemberDTO meetingMemberDTO) throws Exception {
-		
 		return sqlSession.selectList(NAMESPACE+"getMyList",meetingMemberDTO);
 	}
 	
@@ -37,7 +34,6 @@ public class MeetingDAO {
 	}
 	
 	public int setMeetingJoin(MeetingMemberDTO meetingMemberDTO) throws Exception{
-		
 		return sqlSession.insert(NAMESPACE+"setMeetingJoin", meetingMemberDTO);
 	}
 	
@@ -59,6 +55,10 @@ public class MeetingDAO {
 	
 	public long getPersonnelCheck(MeetingMemberDTO meetingMemberDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+"getPersonnelCheck", meetingMemberDTO);
+	}
+	
+	public List<MeetingMemberDTO> getPersonnelList(MeetingMemberDTO meetingMemberDTO) throws Exception {
+		return sqlSession.selectList(NAMESPACE+"getPersonnelList", meetingMemberDTO);
 	}
 	
 	public int setAddComment(MeetingCommentDTO commentDTO) throws Exception {
@@ -87,5 +87,17 @@ public class MeetingDAO {
 	
 	public List<MeetingReplyDTO> getReplyCommentList(MeetingReplyDTO replyDTO) throws Exception {
 		return sqlSession.selectList(NAMESPACE+"getReplyCommentList", replyDTO);
+	}
+	
+	public int setUpdateReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"setUpdateReplyComment", replyDTO);
+	}
+
+	public int setDeleteReplyComment(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.delete(NAMESPACE+"setDeleteReplyComment", replyDTO);
+	}
+	
+	public int setUpdateCommentCgroupDelete(MeetingReplyDTO replyDTO) throws Exception {
+		return sqlSession.update(NAMESPACE+"setUpdateCommentCgroupDelete", replyDTO);
 	}
 }

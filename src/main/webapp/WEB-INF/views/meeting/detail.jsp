@@ -13,9 +13,19 @@
 <body>
 	
 		<div class="desc">${dto.id}</div>
+		<div class="desc">${dto.nickName}</div>
 		<div class="desc">${dto.contents }</div>
 		<div class="desc">${dto.meetingDate }</div>
 		<div class="desc">${personnel}/${dto.personnel }</div>
+		<div>참석자 명단</div>
+		<c:forEach items="${meetingMemberList}" var="m" varStatus="i">
+			<c:if test="${dto.nickName eq m.nickName}">
+				<div>주최자 : ${m.nickName}</div>
+			</c:if>
+			<c:if test="${dto.nickName ne m.nickName}">
+				<div>참석자 : ${m.nickName}</div>
+			</c:if>
+		</c:forEach>
 	
 	<form action="./meetingJoin" method="post">
 		<c:if test="${not empty sessionScope.member && sessionScope.member.id ne dto.id && result<1 && personnel<dto.personnel}">
@@ -45,7 +55,7 @@
 			<button type="submit" >모임삭제</button>
 		</c:if>
 	</form>
-	
+
 	<form action="./addComment" method="post" id="frm2">
 		<input type="hidden" id="meetingNum2" name="meetingNum" value="${dto.meetingNum}">
 		<input type="hidden" id="commentId" name="id" value="${member.id}">
