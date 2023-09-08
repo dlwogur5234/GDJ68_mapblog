@@ -76,7 +76,6 @@ public class MemberController {
 		}
 		
 		String userUrl = memberDTO.getUrl();
-		
 		return "redirect:../feed/list/"+userUrl;	
 	}
 	

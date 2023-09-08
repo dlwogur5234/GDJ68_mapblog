@@ -73,10 +73,11 @@ public class MemberService {
 		
 		if(deleteResult) {
 			System.out.println("기존 사진 삭제");
-			
+			System.out.println(fileDTO.getFileNum());
+			System.out.println(fileDTO.getOriginalName());
+			System.out.println(fileDTO.getFileName());
 			// DBMS에서 파일 관련 데이터 삭제
 			memberDAO.deleteMemberFile(fileDTO);
-			
 			// 새로운 사진 추가
 			String fileName = fileManager.fileSave(path, session, photo);
 			

@@ -1,0 +1,69 @@
+.x {color: rgb(248, 166, 166);}
+.o {color: rgb(150, 182, 253);}
+
+.outer-div {
+      width : 100%;
+      height : 100%;
+}
+
+.inner-div {
+    width : 1000px;
+    height : 100%;
+    margin: auto;
+}
+
+* {
+font-family: 'Gothic A1', sans-serif;
+}
+
+.td {
+    width: 500px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgba(238, 238, 238, 0.973); 
+    position: relative; left: 25%; 
+    }
+
+#emailBtn{
+    position: relative; left: 25%; 
+    border-radius: 20px;
+    border:none;
+}
+#emailCheckNum{
+    position: relative; left: 25%; 
+}
+[id *= "Result"]{
+    position: relative; left: 25%;
+}
+#birth{
+    position: relative; left: 25%; 
+    border-radius: 20px;
+    border-color: rgb(217, 217, 218);
+}
+#pub{
+    position: relative; left: 25%; 
+}
+#p1{
+    position: relative; left: 25%; 
+}
+#p2{
+    position: relative; left: 25%; 
+}
+#p11{
+    position: relative; left: 25%; 
+}
+#p21{
+    position: relative; left: 25%; 
+}
+#profile{
+    position: relative; left: 25%; 
+}
+#pic{
+    position: relative; left: 25%; 
+    border-radius: 20px;
+    border:none;
+}
