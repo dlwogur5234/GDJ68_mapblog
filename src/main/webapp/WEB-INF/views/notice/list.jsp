@@ -25,6 +25,7 @@
             <link rel="stylesheet" href="/resources/css/index/slick.css">
             <link rel="stylesheet" href="/resources/css/index/nice-select.css">
             <link rel="stylesheet" href="/resources/css/index/style.css">
+            <link rel="stylesheet" href="/resources/css/list/list.css">
    </head>
 
    <body>
@@ -57,7 +58,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap text-center">
-                                <h2>공지사항</h2>
+                                <h3 class="titleStyle">공지사항</h3>
                             </div>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
             </div>
         </div>
 
-    <table>
+    <table class="table table-striped" id="tableSize">
        
             <thead>
                 <th>번호</th>
@@ -88,7 +89,7 @@
 
     </table>
     <nav aria-label="Page navigation example">
-		  <ul class="pagination">
+		  <ul class="pagination justify-content-center" id="page">
 		    <li class="page-item ${pager.pre?'':'disabled'}">
 		      <a class="page-link" href="./list?page=${pager.page-1}" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
