@@ -12,15 +12,17 @@
 </head>
 <body>
 	
-		<div class="desc">${dto.id}</div>
-		<div class="desc">${dto.nickName}</div>
+		<div style="display: none;" class="desc">${dto.id}</div>
+		<div>제목 : ${dto.title}</div>
+		<div class="desc">작성자 : ${dto.nickName}</div>
 		<div class="desc">${dto.contents }</div>
-		<div class="desc">${dto.meetingDate }</div>
-		<div class="desc">${personnel}/${dto.personnel }</div>
+		<div>모임 장소 : ${dto.address}</div>
+		<div class="desc">모임날짜 : ${dto.meetingDate }</div>
+		<div class="desc">현/총인원 :${personnel}/${dto.personnel }</div>
 		<div>참석자 명단</div>
 		<c:forEach items="${meetingMemberList}" var="m" varStatus="i">
 			<c:if test="${dto.nickName eq m.nickName}">
-				<div>주최자 : ${m.nickName}</div>
+				<div>모임장 : ${m.nickName}</div>
 			</c:if>
 			<c:if test="${dto.nickName ne m.nickName}">
 				<div>참석자 : ${m.nickName}</div>

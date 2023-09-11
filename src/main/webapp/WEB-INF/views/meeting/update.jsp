@@ -27,6 +27,7 @@
 	    모집인원<input type="number" id="personnel" min="2" max="10" name="personnel" value="${dto.personnel}">
 	    <input type="hidden" name="lat" id="lat" value="${dto.lat}">
 	    <input type="hidden" name="lng" id="lng" value="${dto.lng}">
+        <input type="text" name="address" id="address" value="${dto.address}">
 	
 		<button id="btn" type="button">등록</button>
 
