@@ -21,16 +21,23 @@
 				position: relative; left: 28.5%;
 			}
 			.buttons{
-				position: relative; left: 34.7%; 
-			}
-			#dm{
-				position: relative; left: 47.5%; 
+				display: block;
+				text-align: center;
 			}
 			.f6{
-				position: relative; left: 23.2%; 
+				display: block;
+				text-align: center;
 			}
 			.f3{
-				position: relative; left: 23%; 
+				display: block;
+				text-align: center; 
+			}
+			#tableForPic{
+				position: relative; left: 5.5%;
+			}
+			#fr2{
+				display: block;
+				text-align: center;
 			}
 		</style>
 
@@ -111,16 +118,20 @@
 				<input style="text-align: center;" type="text" class="td" id="publics" name="publics" value="비공개 계정" readonly><br><br>
 		   </c:if><br><br>
 
-			<div style="border: 1px;" class="picture">
-				<c:if test="${not empty sessionScope.memberFile}">
-					<img style="border-color: black; border: 10px; position: relative; left: 33%;" alt="" src="../resources/upload/member/${memberFile.fileName}">
-				</c:if>
-				<c:if test="${empty sessionScope.memberFile}">
-					<img style="border-color: black; border: 10px; position: relative; left: 33%;" alt="" src="../resources/img/기본프사.png">
-				</c:if>
-			</div>
-			
-
+		   	<table border="0" id="tableForPic">
+				<tr>
+					<td width="900" height="600">
+						<div style="display: block; margin-left: auto; margin-right:auto;" class="picture">
+							<c:if test="${not empty sessionScope.memberFile}">
+								<img style="display: block; margin-left: auto; margin-right:auto;" alt="" src="../resources/upload/member/${memberFile.fileName}">
+							</c:if>
+							<c:if test="${empty sessionScope.memberFile}">
+								<img style="display: block; margin-left: auto; margin-right:auto;" alt="" src="../resources/img/기본프사.png">
+							</c:if>
+						</div>
+					</td>
+				</tr>
+			</table>
 
 			</div><br><br><br>
 			</div>
@@ -135,9 +146,9 @@
 		</form><br><br><br><br>
 		
 		<div class="buttons">
-			<input type="button" class="btn btn-primary" id="searchMember" value="좋아요 누른 게시물" onclick="window.open('http://localhost:82/feed/likesList', '좋아요 누른 게시물', 'width=800, height=600')">
-			<input type="button" class="btn btn-primary" id="myQnaList" value="내가 쓴 QnA 보기" onclick="window.open('http://localhost:82/qna/myQnaList', '내가 쓴 QnA 보기', 'width=800, height=600')">	
-			<input type="button" class="btn btn-primary" id="searchIgnore" value="차단한 회원 조회" onclick="window.open('http://localhost:82/member/searchIgnore', '차단한 회원 검색', 'width=500, height=700')">
+			<input type="button" class="btn btn-primary" id="searchMember" value="좋아요 누른 게시물" onclick="window.open('http://localhost:82/feed/likesList', '좋아요 누른 게시물', 'width=800, height=600')"><br><br>
+			<input type="button" class="btn btn-primary" id="myQnaList" value="내가 쓴 QnA 보기" onclick="window.open('http://localhost:82/qna/myQnaList', '내가 쓴 QnA 보기', 'width=800, height=600')"><br><br>
+			<input type="button" class="btn btn-primary" id="searchIgnore" value="차단한 회원 조회" onclick="window.open('http://localhost:82/member/searchIgnore', '차단한 회원 검색', 'width=500, height=700')"><br>
 		</div><br><br>
 		
 		<form action="./delete" id="fr2">
