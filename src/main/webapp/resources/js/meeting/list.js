@@ -1,7 +1,7 @@
 let centertLat =33.450701;
 let centerLng =126.570667;
 let myListResult = true;
-let mapLevel= 3;
+let mapLevel= 6;
 $('#myListBtn').on('click',function(){
  
   if(myListResult){
