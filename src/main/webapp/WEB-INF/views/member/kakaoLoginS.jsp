@@ -7,9 +7,11 @@
 <title>NAVER LOGIN TEST</title>
 </head>
 <body>
-			<h2> 카카오 아이디 로그인 성공하셨습니다!! </h2>
-			<h3>'${member.name}' 님 환영합니다! </h3>
-				<h3><a href="logout">로그아웃</a></h3>
-                <h3><a href="../">홈</a></h3>
+    <a href="../" id="go"></a>
 </body>
+<script>
+	const go = document.getElementById("go");
+
+	go.click();
+</script>
 </html>

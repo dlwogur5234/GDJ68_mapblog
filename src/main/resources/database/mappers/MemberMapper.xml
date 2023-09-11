@@ -52,7 +52,7 @@
   	</select>
   	
    	<delete id="deleteMemberFile" parameterType="FileDTO">
-		DELETE FROM PROFILEIMG WHERE FILENUM=#{fileNum}  	
+		DELETE FROM PROFILEIMG WHERE FILENAME=#{fileName}  	
   	</delete>
   	
   	<select id="searchMember" resultType="MemberDTO" parameterType="MemberSearchDTO">
