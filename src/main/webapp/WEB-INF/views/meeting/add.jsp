@@ -27,6 +27,7 @@
         <input type="hidden" name="meetingDate" id="meetingDate2">
 	    <input type="hidden" name="lat" id="lat">
 	    <input type="hidden" name="lng" id="lng">
+        <input type="text" name="address" id="address">
 	
 		<button id="btn" type="button">등록</button>
 
