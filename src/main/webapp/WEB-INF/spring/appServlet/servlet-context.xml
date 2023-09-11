@@ -38,7 +38,46 @@
 
 				<beans:bean class="com.gdj68.mapblog.interceptors.LoginInterceptor"></beans:bean>
 		</interceptor>
-
+		
+	<!-- Login Interceptor -->
+		<interceptor>
+					<mapping path="/meeting/add"/>
+					<mapping path="/meeting/detail"/>
+					<mapping path="/meeting/delete"/>
+					<mapping path="/meeting/myList"/>
+					<mapping path="/meeting/meetingJoin"/>
+					<mapping path="/meeting/meetingQuit"/>
+					<mapping path="/meeting/addComment"/>
+					<mapping path="/meeting/getComment"/>
+					<mapping path="/meeting/deleteComment"/>
+					<mapping path="/meeting/updateComment"/>
+					<mapping path="/meeting/replyCommentAdd"/>
+					<mapping path="/meeting/replyCommentList"/>
+					<mapping path="/meeting/replyCommentUpdate"/>
+					<mapping path="/meeting/replyCommentDelete"/>
+					<mapping path="/follow/list"/>
+					<mapping path="/member/searchIgnore"/>
+					<mapping path="/member/ignoreCancle"/>
+					<mapping path="/member/ignore"/>
+					<mapping path="/member/searchMember"/>
+					<mapping path="/member/delete"/>
+					<mapping path="/member/updateImg"/>
+					<mapping path="/member/update"/>
+					<mapping path="/member/mypage"/>
+					<mapping path="qna/add"/>
+					<mapping path="qna/update"/>
+					<mapping path="qna/delete"/>
+					<mapping path="notice/add"/>
+					<mapping path="notice/update"/>
+					<mapping path="notice/delete"/>
+					<mapping path="/feed/add"/>
+					<mapping path="/feed/update"/>
+					<mapping path="/feed/delete"/>
+					<mapping path="/feed/likesList"/>
+					<exclude-mapping path="/*"/>
+	
+					<beans:bean class="com.gdj68.mapblog.interceptors.LoginInterceptor2"></beans:bean>
+		</interceptor>
 	</interceptors>
 
 
