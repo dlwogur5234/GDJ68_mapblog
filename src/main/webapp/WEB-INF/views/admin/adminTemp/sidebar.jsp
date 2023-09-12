@@ -40,8 +40,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Automation:</h6>
-                        <a class="collapse-item" href="buttons.html">Banner</a>
-                        <a class="collapse-item" href="cards.html">Manu Tab</a>
+                        <a class="collapse-item" href="#">Banner</a>
+                        <a class="collapse-item" href="#">Menu Tab</a>
                     </div>
                 </div>
             </li>
@@ -83,13 +83,13 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
+                        <h6 class="collapse-header">게시판관리</h6>
                         <a class="collapse-item" href="/admin/adminNotice/list">공지사항게시판</a>
                         <a class="collapse-item" href="/admin/adminQna/list">QNA게시판</a>
                         <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="adminTemplate/404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">게시물관리</h6>
+                        <a class="collapse-item" href="#">FEED관리</a>
+                        <a class="collapse-item" href="#">MEETING관리</a>
                     </div>
                 </div>
             </li>
