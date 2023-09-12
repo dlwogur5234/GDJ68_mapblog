@@ -53,91 +53,86 @@
 
 
 			<!-- 페이지별 내용 -->
-  <main id="mainHeight">
-	  <div class="slider-area" >
+		<main>
 	
-            <!-- Mobile Menu -->
-            <div class="single-slider slider-height2 d-flex align-items-center" id="margin2" data-background="/resources/img/index/hero/about.jpg" style="background-image: url(&quot;assets/img/hero/contact_hero.jpg&quot;);">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="hero-cap text-center">
-                                <h3 class="titleStyle">Q&amp;A</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      
-      <table class="table table-striped" id="tableSize">
-      
-        <thead>
-        
-      <th></th>
-          <th>번호</th>
-          <th>제목</th>
-          
-          <th>작성자ID</th>
-          <th>작성자NickName</th>
-          <th>작성일자</th>
-        </thead>
-        <tbody>
-          <c:forEach items="${list}" var="q">
-            <tr>
-        <td style="width: 24px;">
-          <c:if test="${q.privateContents eq 0}">
-                  <img src="/resources/img/lock_FILL0_wght400_GRAD0_opsz24.png">
-                  </c:if>
-        </td>
-              <td>
-                ${q.qnaNum}
-              </td>
-  
-              <td><a href="./detail?qnaNum=${q.qnaNum}">${q.qnaTitle}</a></td>
-              
-              <td>${q.memberId}</td>
-              
-              <td>${q.nickName}</td>
-              
-              <td>${q.qnaDate}</td>
-            </tr>
-          </c:forEach>
-        </tbody>
-      </table>
-      <nav>
-          <a class="btn btn-outline-secondary BtnPosition" href="./add">Q&amp;A추가</a>
-      </nav>
-      <nav aria-label="Page navigation example" id="bot">
-        <ul class="pagination justify-content-center">
-          <li class="page-item ${pager.pre?'':'disabled'}">
-            <a
-              class="page-link"
-              href="./list?page=${pager.page-1}"
-              aria-label="Previous"
-            >
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-  
-          <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
-            <li class="page-item">
-              <a class="page-link" href="./list?page=${i}">${i}</a>
-            </li>
-          </c:forEach>
-  
-          <li class="page-item ${pager.next?'':'disabled'}">
-            <a
-              class="page-link"
-              href="./list?page=${pager.page+1}"
-              aria-label="Next"
-            >
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </main>
+	
+		<h1>detail</h1>
+	
+		
+		<table class="table table-dark table-hover">
+			<thead>
+				<th>글번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				
+				
+			</thead>
+			<tbody>
+					<tr>
+						<td data-add-num="${dto.qnaNum}" id="up">${dto.qnaNum}</td>
+						<td>${dto.qnaTitle}</td>
+						<td>${dto.nickName}</td>
+						<td>${dto.qnaDate}</td>
+					</tr>
+					</tbody>
+				</table>
+					<table class="table table-dark table-hover">
+					  <tr>
+					   		<th>내용</th>
+					  </tr>
+					  <tr>
+					    <td>${dto.qnaContents}</td>
+					    <td>${memberId}</td>
+					  </tr>
+					</table>
+					
+					 	<c:forEach items="${dto.fileDTOs}" var="f">	
+							<img src="../resources/upload/qna/${f.fileName}">
+						</c:forEach> 
+			
+		
+		<c:choose>
+	    <c:when test="${dto.memberId eq member.id or not empty adminMember}">
+	        <a href="./update?qnaNum=${dto.qnaNum}" >수정</a>
+	    
+	
+	        <form action="./delete?qnaNum=${dto.qnaNum}" method="post">
+	            <button type="submit">삭제</button>
+	        </form>
+	 
+	    </c:when>
+	</c:choose>
+		
+	
+		<%-- <button id="update" data-url="update" class="c1">수정</button>
+		<button id="del" data-url="delete" data-delete-name="num" data-delete-num="${dto.num}" class="c1">삭제</button> --%>
+	
+	
+		<div>
+			<c:if test="${not empty member}">
+				<div class="mb-3">		
+					<textarea  name="contents" class="form-control" id="comment"></textarea>
+					<button id="commentAdd">댓글등록</button>
+				</div>
+			</c:if>
+			<div>
+				<table id="commentList" class="table table-success table-striped">
+					
+				</table>
+				
+					<div id="more">
+		
+					</div>
+	
+			</div>
+		</div>
+	
+	
+	    </main>
+
+
+
 			<!-- 페이지별 내용 끝 -->
 
 
