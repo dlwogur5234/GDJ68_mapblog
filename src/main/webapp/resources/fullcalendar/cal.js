@@ -3,7 +3,7 @@ const arr = new Array();
 // ajax 통신
 $.ajax({
   type: "POST", // HTTP method type(GET, POST) 형식이다.
-  url: "/calendar/fullcalendar", // 컨트롤러에서 대기중인 URL 주소이다.
+  url: "/calendar/myCalendar", // 컨트롤러에서 대기중인 URL 주소이다.
   async: false,
   success: function (res) {
     // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
@@ -24,7 +24,30 @@ $.ajax({
   },
 });
 console.log(arr);
+//////////////////////////////////////
+$.ajax({
+  type: "POST", // HTTP method type(GET, POST) 형식이다.
+  url: "/calendar/myCalendar2", // 컨트롤러에서 대기중인 URL 주소이다.
+  async: false,
+  success: function (res) {
+    // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+    // 응답코드 > 0000
 
+    for (const key in res) {
+      let obj = new Object();
+      obj.title = res[key].title;
+      obj.start = res[key].tripDate;
+
+      arr.push(obj);
+    }
+  },
+  error: function (XMLHttpRequest, textStatus, errorThrown) {
+    // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+    alert("통신 실패.");
+  },
+});
+
+//////////////////////////////////////
 document.addEventListener("DOMContentLoaded", function () {
   var calendarEl = document.getElementById("calendar");
   var calendar = new FullCalendar.Calendar(calendarEl, {
