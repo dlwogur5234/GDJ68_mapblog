@@ -34,7 +34,7 @@
             <link rel="stylesheet" href="/resources/css/list/list.css">
    </head>
 
-   <body>
+   
     <!-- Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -56,9 +56,23 @@
         <!-- Header End -->
 
 	<!-- Main start -->
-    <main>
+  <main id="mainHeight">
+	  <div class="slider-area" >
 	
-      <h3 class="titleStyle">Q&amp;A</h3>
+            <!-- Mobile Menu -->
+            <div class="single-slider slider-height2 d-flex align-items-center" id="margin2" data-background="/resources/img/index/hero/about.jpg" style="background-image: url(&quot;assets/img/hero/contact_hero.jpg&quot;);">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap text-center">
+                                <h3 class="titleStyle">Q&amp;A</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
       <table class="table table-striped" id="tableSize">
       
         <thead>
@@ -89,11 +103,11 @@
       </table>
       <nav >
         <c:if test="${not empty member}">
-          <a class="btn btn-outline-secondary BtnPosition" href="./add">공지추가</a>
+          <a class="btn btn-outline-secondary BtnPosition" href="./add">Q&amp;A추가</a>
         </c:if>
       </nav>
       <nav aria-label="Page navigation example" id="bot">
-        <ul class="pagination justify-content-center" id="page">
+        <ul class="pagination justify-content-center">
           <li class="page-item ${pager.pre?'':'disabled'}">
             <a
               class="page-link"
@@ -121,11 +135,10 @@
           </li>
         </ul>
       </nav>
-      
-
-
-
     </main>
+  </main>
+    </body>
+
 
         <!-- Footer Start-->
 

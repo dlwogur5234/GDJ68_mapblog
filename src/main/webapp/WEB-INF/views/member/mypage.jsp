@@ -66,7 +66,7 @@
 		<input type="button" id="searchIgnore" value="내가 차단한 회원 조회" onclick="window.open('http://localhost:82/member/searchIgnore', '차단한 회원 검색', 'width=500, height=700')">
 	</div>
 	
-	<div id="myQnaList"></div>
+
 
 	<script>
 		const dm = document.getElementById("dm")
