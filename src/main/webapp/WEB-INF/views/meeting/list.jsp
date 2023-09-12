@@ -29,9 +29,6 @@
             <link rel="stylesheet" href="/resources/css/index/nice-select.css">
             <link rel="stylesheet" href="/resources/css/index/style.css">
             <style>
-            	main{
-            		height: 1200px;
-            	}
             	footer{
             		float: left;
             		width: 100%;
@@ -70,7 +67,7 @@
 	<div class="a" data-meetingNum="${d.meetingNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat }" data-lng="${d.lng }" id="${i.index}"></div>
 	</c:forEach>
 	<div id="myList"></div>
-	<div id="map" style="width:900px;height:700px;float:left;border: solid 1px;margin-right: 300px;"></div>
+	<div id="map" style="width:100%;height:850px;float:left;border: solid 1px;margin-right: 300px;"></div>
 	<div id="detail" style="float:left;text-align:center;"></div>
 
 
