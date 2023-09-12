@@ -11,7 +11,7 @@
                             <div class="header-info-left">
                                 <ul>                          
                                     <li>help@mapper.com</li>
-                                    <li>010 2000 1283</li>
+                                    <li>구디아카데미</li>
                                     <li>GDJ68 RED CLASS</li>
                                 </ul>
                             </div>
@@ -46,9 +46,14 @@
                                 <!-- Main-menu -->
                                 <div class="main-menu f-right d-none d-lg-block">
                                     <nav>               
-                                        <ul id="navigation">                                                                                                                                     
-                                            <li><a href="/">Home</a></li>
-                                            <li><a href="about.html">About US</a></li>
+                                        <ul id="navigation">
+                                        	<li><a href="#">MY CONTENTS</a>
+                                                <ul class="submenu">
+                                                    <li><a href="/feed/list/${member.url}">FEED</a></li>
+                                                    <li><a href="/calendar/fullcalendar/">CALENDAR</a></li>
+                                                </ul>
+                                            </li>                                                                                                                                     
+                                            <!-- <li><a href="/">Home</a></li> -->
                                             <li><a href="/meeting/list">Meeting</a></li>
                                             <li><a href="#">Board</a>
                                                 <ul class="submenu">
@@ -56,11 +61,8 @@
                                                     <li><a href="/qna/list">Q&A</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">Pages</a>
-                                                <ul class="submenu">
-                                                    <li><a href="elements.html">Element</a></li>
-                                                </ul>
-                                            </li>
+                                            
+                                            <li><a href="about.html">About US</a></li>
                                             <li><a href="contact.html">Contact Us</a></li>
                                         </ul>
                                     </nav>
