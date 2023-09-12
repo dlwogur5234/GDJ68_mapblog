@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gdj68.mapblog.feed.FeedCommentDTO;
@@ -54,7 +55,7 @@ public class AdminFeedController {
 				List<FeedCommentDTO> commentList = feedService.getCommentList(feedCommentDTO);
 				model.addAttribute("commentList", commentList);
 
-				return "feed/detail";
+				return "admin/adminFeed/adminFeedDetail";
 				
 			} else {
 				
@@ -66,7 +67,15 @@ public class AdminFeedController {
 			}
 		}
 	
-	
+		// Delete
+		@PostMapping("delete")
+		public String setDelete(FeedDTO feedDTO, HttpSession session) throws Exception {
+		      int result = feedService.setDelete(feedDTO);
+		      MemberDTO m = (MemberDTO)session.getAttribute("member");
+		      
+		      
+		      return "redirect:./list/";
+		}
 	
 	
 	

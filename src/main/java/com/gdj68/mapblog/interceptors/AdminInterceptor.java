@@ -29,7 +29,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		
-		request.setAttribute("message", "권한이 불충분");
+		request.setAttribute("message", "권한이 없습니다.");
 		request.setAttribute("url", "/admin/main");
 		
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/views/commons/result.jsp");
