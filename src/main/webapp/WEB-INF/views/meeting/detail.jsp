@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
+	button{
+		color: #000;
+	}
 </style>
 </head>
 <body>

@@ -1,80 +1,187 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <c:import url="../temp/bootStrap.jsp"></c:import>
-    <link
+<html class="no-js" lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Travel HTML-5 Template </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
-    <title>QnaList</title>
-  </head>
+    <c:import url="../temp/bootStrap.jsp"></c:import>
+        <link rel="manifest" href="site.webmanifest">
+		<link rel="shortcut icon" type="image/x-icon" href="/resources/img/index/favicon.ico">
 
-  <body>
-    <c:import url="../temp/header.jsp"></c:import>
+		<!-- CSS here -->
+            <link rel="stylesheet" href="/resources/css/index/bootstrap.min.css">
+            <link rel="stylesheet" href="/resources/css/index/owl.carousel.min.css">
+            <link rel="stylesheet" href="/resources/css/index/flaticon.css">
+            <link rel="stylesheet" href="/resources/css/index/slicknav.css">
+            <link rel="stylesheet" href="/resources/css/index/animate.min.css">
+            <link rel="stylesheet" href="/resources/css/index/magnific-popup.css">
+            <link rel="stylesheet" href="/resources/css/index/fontawesome-all.min.css">
+            <link rel="stylesheet" href="/resources/css/index/themify-icons.css">
+            <link rel="stylesheet" href="/resources/css/index/slick.css">
+            <link rel="stylesheet" href="/resources/css/index/nice-select.css">
+            <link rel="stylesheet" href="/resources/css/index/style.css">
+            <link rel="stylesheet" href="/resources/css/list/list.css">
+   </head>
 
-    <table>
-      <thead>
-		<th></th>
-        <th>번호</th>
-        <th>제목</th>
-        <th>일자</th>
-      </thead>
-      <tbody>
-        <c:forEach items="${list}" var="q">
-          <tr>
-			<td style="width: 24px;">
-				<c:if test="${q.privateContents eq 0}">
-                <img src="/resources/img/lock_FILL0_wght400_GRAD0_opsz24.png">
-              	</c:if>
-			</td>
-            <td>
-              ${q.qnaNum}
-            </td>
+   
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="/resources/img/찐막.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
 
-            <td><a href="./detail?qnaNum=${q.qnaNum}">${q.qnaTitle}</a></td>
+        <!-- Header Start -->
 
-            <td>${q.qnaDate}</td>
-          </tr>
-        </c:forEach>
-      </tbody>
-    </table>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item ${pager.pre?'':'disabled'}">
-          <a
-            class="page-link"
-            href="./list?page=${pager.page-1}"
-            aria-label="Previous"
-          >
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
+		<c:import url="/WEB-INF/views/temp/header.jsp"></c:import>
 
-        <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
-          <li class="page-item">
-            <a class="page-link" href="./list?page=${i}">${i}</a>
+
+        <!-- Header End -->
+
+	<!-- Main start -->
+  <main id="mainHeight">
+	  <div class="slider-area" >
+	
+            <!-- Mobile Menu -->
+            <div class="single-slider slider-height2 d-flex align-items-center" id="margin2" data-background="/resources/img/index/hero/about.jpg" style="background-image: url(&quot;assets/img/hero/contact_hero.jpg&quot;);">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-cap text-center">
+                                <h3 class="titleStyle">Q&amp;A</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+      <table class="table table-striped" id="tableSize">
+      
+        <thead>
+        
+      <th></th>
+          <th>번호</th>
+          <th>제목</th>
+          <th>일자</th>
+        </thead>
+        <tbody>
+          <c:forEach items="${list}" var="q">
+            <tr>
+        <td style="width: 24px;">
+          <c:if test="${q.privateContents eq 0}">
+                  <img src="/resources/img/lock_FILL0_wght400_GRAD0_opsz24.png">
+                  </c:if>
+        </td>
+              <td>
+                ${q.qnaNum}
+              </td>
+  
+              <td><a href="./detail?qnaNum=${q.qnaNum}">${q.qnaTitle}</a></td>
+  
+              <td>${q.qnaDate}</td>
+            </tr>
+          </c:forEach>
+        </tbody>
+      </table>
+      <nav >
+        <c:if test="${not empty member}">
+          <a class="btn btn-outline-secondary BtnPosition" href="./add">Q&amp;A추가</a>
+        </c:if>
+      </nav>
+      <nav aria-label="Page navigation example" id="bot">
+        <ul class="pagination justify-content-center">
+          <li class="page-item ${pager.pre?'':'disabled'}">
+            <a
+              class="page-link"
+              href="./list?page=${pager.page-1}"
+              aria-label="Previous"
+            >
+              <span aria-hidden="true">&laquo;</span>
+            </a>
           </li>
-        </c:forEach>
+  
+          <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
+            <li class="page-item">
+              <a class="page-link" href="./list?page=${i}">${i}</a>
+            </li>
+          </c:forEach>
+  
+          <li class="page-item ${pager.next?'':'disabled'}">
+            <a
+              class="page-link"
+              href="./list?page=${pager.page+1}"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </main>
+  </main>
+    </body>
 
-        <li class="page-item ${pager.next?'':'disabled'}">
-          <a
-            class="page-link"
-            href="./list?page=${pager.page+1}"
-            aria-label="Next"
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <nav>
-      <c:if test="${not empty member}">
-        <a class="btn btn-outline-secondary" href="./add">공지추가</a>
-      </c:if>
-    </nav>
-  </body>
+
+        <!-- Footer Start-->
+
+		<c:import url="/WEB-INF/views/temp/footer.jsp"></c:import>
+
+        <!-- Footer End-->
+
+
+	<!-- JS here -->
+	
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="/resources/js/index/vendor/modernizr-3.5.0.min.js"></script>
+		
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="/resources/js/index/vendor/jquery-1.12.4.min.js"></script>
+        <script src="/resources/js/index/popper.min.js"></script>
+        <script src="/resources/js/index/bootstrap.min.js"></script>
+	    <!-- Jquery Mobile Menu -->
+        <script src="/resources/js/index/jquery.slicknav.min.js"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="/resources/js/index/owl.carousel.min.js"></script>
+        <script src="/resources/js/index/slick.min.js"></script>
+		<!-- One Page, Animated-HeadLin -->
+        <script src="/resources/js/index/wow.min.js"></script>
+		<script src="/resources/js/index/animated.headline.js"></script>
+        <script src="/resources/js/index/jquery.magnific-popup.js"></script>
+
+		<!-- Scrollup, nice-select, sticky -->
+        <script src="/resources/js/index/jquery.scrollUp.min.js"></script>
+        <script src="/resources/js/index/jquery.nice-select.min.js"></script>
+		<script src="/resources/js/index/jquery.sticky.js"></script>
+        
+        <!-- contact js -->
+        <script src="/resources/js/index/contact.js"></script>
+        <script src="/resources/js/index/jquery.form.js"></script>
+        <script src="/resources/js/index/jquery.validate.min.js"></script>
+        <script src="/resources/js/index/mail-script.js"></script>
+        <script src="/resources/js/index/jquery.ajaxchimp.min.js"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+        <script src="/resources/js/index/plugins.js"></script>
+        <script src="/resources/js/index/main.js"></script>
+        
+    </body>
 </html>

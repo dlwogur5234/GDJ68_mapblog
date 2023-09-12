@@ -1,0 +1,33 @@
+#tableSize {
+  width: 65%;
+  text-align: left;
+  margin: 100px auto 50px;
+  color: black;
+}
+#tableSize td a {
+  color: #666;
+}
+#page {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.titleStyle {
+  color: #ccc;
+  text-align: center;
+  margin-bottom: 30px;
+  text-decoration: underline;
+}
+thead {
+  border-top-color: #11273c;
+  border-top-width: 4px;
+}
+.BtnPosition {
+  margin-left: 17.5%;
+  margin-top: 35px;
+}
+#bot {
+  margin-bottom: 200px;
+}
+#mainHeight {
+  height: 1400px;
+}
