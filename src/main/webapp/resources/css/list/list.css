@@ -1,7 +1,7 @@
 #tableSize {
   width: 65%;
   text-align: left;
-  margin: 0 auto;
+  margin: 100px auto 50px;
   color: black;
 }
 #tableSize td a {
@@ -9,9 +9,10 @@
 }
 #page {
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 .titleStyle {
-  color: #fff;
+  color: #ccc;
   text-align: center;
   margin-bottom: 30px;
   text-decoration: underline;
@@ -26,4 +27,7 @@ thead {
 }
 #bot {
   margin-bottom: 200px;
+}
+#mainHeight {
+  height: 1400px;
 }
