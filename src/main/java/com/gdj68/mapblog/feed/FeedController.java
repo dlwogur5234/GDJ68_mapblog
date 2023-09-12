@@ -375,6 +375,27 @@ public class FeedController {
 			String urlId = m.getId().trim(); 
 			String uId = memberDTO.getId().trim();
 			
+			FollowDTO followDTO = new FollowDTO();
+			String urlString = request.getRequestURL().toString();
+		    Pattern pattern = Pattern.compile("/feed/list/(\\w+)");
+		    Matcher matcher = pattern.matcher(urlString);
+
+		    if (matcher.find()) {
+		        String username = matcher.group(1);
+		        System.out.println("Username: " + username);
+
+		        // 추출한 username 값을 followDTO의 toUser 속성에 설정
+		        followDTO.setToUser(username);
+		    }
+			//팔로우 여부 체크
+		    followDTO.setFromUser(memberDTO.getNickName());
+			int followStatus = feedService.checkFollow(followDTO, session);
+			memberDTO=(MemberDTO)session.getAttribute("member");
+			followDTO.setFromUser(memberDTO.getNickName());
+			System.out.println("id :" + followDTO.getFromUser());
+			model.addAttribute("followStatus", followStatus);
+			session.setAttribute("follow", followDTO);
+			
 			if(urlId.equals(uId)) {
 				List<FeedDTO> li = feedService.getList2(m);
 				model.addAttribute("list", li);
@@ -439,26 +460,7 @@ public class FeedController {
 			}
 		}
 		//url만 따기
-				FollowDTO followDTO = new FollowDTO();
-				String urlString = request.getRequestURL().toString();
-			    Pattern pattern = Pattern.compile("/feed/list/(\\w+)");
-			    Matcher matcher = pattern.matcher(urlString);
-
-			    if (matcher.find()) {
-			        String username = matcher.group(1);
-			        System.out.println("Username: " + username);
-
-			        // 추출한 username 값을 followDTO의 toUser 속성에 설정
-			        followDTO.setToUser(username);
-			    }
-				//팔로우 여부 체크
-			    followDTO.setFromUser(memberDTO.getNickName());
-				int followStatus = feedService.checkFollow(followDTO, session);
-				memberDTO=(MemberDTO)session.getAttribute("member");
-				followDTO.setFromUser(memberDTO.getNickName());
-				System.out.println("id :" + followDTO.getFromUser());
-				model.addAttribute("followStatus", followStatus);
-				session.setAttribute("follow", followDTO);
+				
 		pager = feedService.getPage(pager);
 		model.addAttribute("pager", pager);	
 		

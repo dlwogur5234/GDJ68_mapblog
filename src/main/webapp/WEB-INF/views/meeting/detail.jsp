@@ -1,27 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
+
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	button{
-		color: #000;
-	}
-</style>
+
 </head>
-<body>
-	
+<div>
+	<c:import url="../temp/bootStrap.jsp"></c:import>
+<div class="modal-header">
+		<h5 class="modal-title">${dto.title}</h5>
+		<button
+		type="button"
+		class="btn-close"
+		id="closeBtn"
+		data-bs-dismiss="modal"
+		aria-label="Close"
+		></button>
+</div>
+	<div class="modal-body">
+	<div class="detailBox">
 		<div style="display: none;" class="desc">${dto.id}</div>
-		<div>제목 : ${dto.title}</div>
-		<div class="desc">작성자 : ${dto.nickName}</div>
-		<div class="desc">${dto.contents }</div>
+		<div class="detail" style="text-align: right;">작성자 : ${dto.nickName}</div>
+		<div class="detail" style="text-align: left;">${dto.contents }</div>
 		<div>모임 장소 : ${dto.address}</div>
-		<div class="desc">모임날짜 : ${dto.meetingDate }</div>
-		<div class="desc">현/총인원 :${personnel}/${dto.personnel }</div>
-		<div>참석자 명단</div>
+		<div class="detail">모임날짜 : ${dto.meetingDate }</div>
+		<div class="detail">현/총인원 :${personnel}/${dto.personnel }</div>
+		<!-- <div>참석자 명단</div> -->
 		<c:forEach items="${meetingMemberList}" var="m" varStatus="i">
 			<c:if test="${dto.nickName eq m.nickName}">
 				<div>모임장 : ${m.nickName}</div>
@@ -73,24 +78,8 @@
 	
 	<script src="../resources/js/meeting/detail.js"></script>
 
-	<!-- <script type="text/javascript">
-			
-			
-			btn.addEventListener("click", function(){
-			console.log(title.value=="");
-			console.log(title.value.length == 0);
-			if(title.value==""){
-				alert('제목은 필수 입니다.');
-				title.focus();
-			}else {
-                alert(meetingDate.value.replace('T',' '));
-                let s = meetingDate.value.replace('T',' ');
-                meetingDate2.value=s;
-               
-                
-				frm.submit();
-			}
-		});
-	</script> -->
-</body>
-</html>
+</div>
+
+	 
+
+
