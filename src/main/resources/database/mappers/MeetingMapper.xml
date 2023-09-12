@@ -9,7 +9,7 @@
   		<selectKey keyProperty="meetingNum" resultType="Long" order="BEFORE">
   			SELECT MEETING_SEQ.NEXTVAL FROM DUAL
   		</selectKey>
-		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),#{lat},#{lng},0,0,#{personnel},#{nickName})	
+		INSERT INTO MEETING VALUES(#{meetingNum},#{id},#{title},#{contents},SYSDATE,to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),#{lat},#{lng},0,0,#{personnel},#{nickName},#{address})	
   	</insert>
   	
   	<select id="getList" resultType="MeetingDTO">
@@ -37,7 +37,7 @@
   	</delete>
   	
   	<update id="setUpdate">
-  		UPDATE MEETING SET TITLE=#{title}, CONTENTS=#{contents},MEETINGDATE=to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),LAT=#{lat},LNG=#{lng},PERSONNEL=#{personnel} WHERE MEETINGNUM=#{meetingNum}
+  		UPDATE MEETING SET TITLE=#{title}, CONTENTS=#{contents},MEETINGDATE=to_date(#{meetingDate},'YYYY-MM-DD HH24:MI'),LAT=#{lat},LNG=#{lng},PERSONNEL=#{personnel},ADDRESS=#{address} WHERE MEETINGNUM=#{meetingNum}
   	</update>
   	
   	<select id="getPersonnelCheck" parameterType="MeetingMemberDTO" resultType="Long">

@@ -16,9 +16,16 @@ public class MeetingDTO {
 	private Long likes;
 	private Long personnel;
 	private String nickName;
+	private String address;
 
 	
 
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public String getNickName() {
 		return nickName;
 	}
