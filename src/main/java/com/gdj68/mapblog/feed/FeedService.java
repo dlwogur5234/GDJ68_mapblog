@@ -45,6 +45,12 @@ public class FeedService {
 	    return feedDAO.getList(memberDTO);
 	}
 	
+	public List<FeedDTO> getList3(Pager pager) throws Exception {
+		pager.makeRowNum();
+		Long total = feedDAO.getTotal(pager);
+		pager.makePageNum(total);
+	    return feedDAO.getList3(pager);
+	}
 	
 	public FeedDTO getUrl(FeedDTO feedDTO) throws Exception {
 		return feedDAO.getUrl(feedDTO);

@@ -22,10 +22,6 @@
     <link href="/resources/css/admin/sb-admin-2.min.css" rel="stylesheet">
 <c:import url="../../temp/bootStrap.jsp"></c:import>
 
-<style>
-
-</style>
-
 </head>
 <body id="page-top">
 	
@@ -53,54 +49,72 @@
 
 
 			<!-- 페이지별 내용 -->
-		    <table>
-		       
-		            <thead>
-		                <th>번호</th>
-		                <th>제목</th>
-		                <th>일자</th>
-		            </thead>
-		            <tbody>
-		                <c:forEach items="${list}" var="n">
-		                	<tr>
-		                        <td>${n.noticeNum}</td>
-			                        
-			                        	<td><a href="/adminNotice/detail?noticeNum=${n.noticeNum}">${n.subject}</a></td>
-			                        
-		                        <td>${n.noticeDate}</td>
-		                    </tr>
-		                </c:forEach>
-		            </tbody>
-		            
-		            
-		
-		    </table>
-		    <nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				    <li class="page-item ${pager.pre?'':'disabled'}">
-				      <a class="page-link" href="./list?page=${pager.page-1}" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				  
-				    <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
-				    <li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
-				    </c:forEach>
-				
-				    <li class="page-item ${pager.next?'':'disabled'}">
-				      <a class="page-link" href="./list?page=${pager.page+1}" aria-label="Next">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				
-				  </ul>
-				</nav>
-				<c:if test="${not empty adminMember}">
-		       		<a class="btn btn-outline-secondary" href="./add" >공지추가</a>
-		       	</c:if>
-		
+	<main id="mainHeight">
+	    <div class="slider-area ">
+	            <!-- Mobile Menu -->
+	            <div class="single-slider slider-height2 d-flex align-items-center" id="margin2" data-background="/resources/img/index/hero/about.jpg" style="background-image: url(&quot;assets/img/hero/contact_hero.jpg&quot;);">
+	                <div class="container">
+	                    <div class="row">
+	                        <div class="col-xl-12">
+	                            <div class="hero-cap text-center">
+	                                <h3 class="titleStyle">공지사항</h3>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	
+	    <table class="table table-striped" id="tableSize">
+	       
+	            <thead>
+	                <th>번호</th>
+	                <th>제목</th>
+	                <th>일자</th>
+	            </thead>
+	            <tbody>
+	                <c:forEach items="${list}" var="n">
+	                	<tr>
+	                        <td>${n.noticeNum}</td>
+		                        
+		                        	<td><a href="./detail?noticeNum=${n.noticeNum}">${n.subject}</a></td>
+		                        
+	                        <td>${n.noticeDate}</td>
+	                    </tr>
+	                </c:forEach>
+	            </tbody>
+	            
+	            
+	        
+	            
+	
+	    </table>
+
+	          <a class="btn btn-outline-secondary BtnPosition" href="./add">공지추가</a>
+
+	    <nav aria-label="Page navigation example">
+			  <ul class="pagination justify-content-center" id="page">
+			    <li class="page-item ${pager.pre?'':'disabled'}">
+			      <a class="page-link" href="./list?page=${pager.page-1}" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			  
+			    <c:forEach begin="${pager.startNum }" end="${pager.lastNum}" var="i">
+			    <li class="page-item"><a class="page-link" href="./list?page=${i}">${i}</a></li>
+			    </c:forEach>
+			
+			    <li class="page-item ${pager.next?'':'disabled'}">
+			      <a class="page-link" href="./list?page=${pager.page+1}" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			
+			  </ul>
+			</nav>
 
 
+    </main>
 			<!-- 페이지별 내용 끝 -->
 
 

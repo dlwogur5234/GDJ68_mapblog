@@ -15,7 +15,7 @@ public class AdminMainController {
 		AdminMemberDTO adminMemberDTO=(AdminMemberDTO)session.getAttribute("adminMember");
 		adminMemberDTO.getAdminId();
 		adminMemberDTO.getAdminPw();
-		return "admin/adminMain";
+		return "redirect: /admin/adminUser/userList";
 	}
 
 	

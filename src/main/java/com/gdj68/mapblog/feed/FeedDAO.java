@@ -38,6 +38,10 @@ public class FeedDAO {
 		return sqlSession.selectList(NAMESPACE + "getList2", memberDTO);
 	}
 	
+	public List<FeedDTO> getList3(Pager pager) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getList3", pager);
+	}
+	
 	public FeedDTO getUrl(FeedDTO feedDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getUrl", feedDTO);
 	}

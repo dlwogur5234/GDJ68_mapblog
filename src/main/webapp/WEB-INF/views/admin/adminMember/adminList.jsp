@@ -57,14 +57,14 @@
 				<h1 class="mb-4 text-center">Admin Member List</h1>
 				<a class="btn btn-danger" href="./adminJoin">관리자생성</a>
 				
-				<table class="table table-dark table-hover">
+				<table class="table table-striped" id="tableSize" >
 					<thead>
 						<th>ID</th><th>이름</th><th>등급</th><th>가입날짜</th>
 					</thead>
 					<tbody>
 						<c:forEach items="${adminList}" var="d" varStatus="i">
 						<tr>
-							<td><a class="link-underline link-underline-opacity-0 text-white" href="./adminDetail?adminId=${d.adminId}">${d.adminId}</a></td>
+							<td><a class="link-underline link-underline-opacity-0 text-white" style="text-decoration: none; color: black !important;" href="./adminDetail?adminId=${d.adminId}">${d.adminId}</a></td>
 							<td>${d.adminName}</td>
 							<td>${d.adminGrade}</td>
 							<td>${d.adminCreateDate}</td>
