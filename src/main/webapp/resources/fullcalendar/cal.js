@@ -3,7 +3,7 @@ const arr = new Array();
 // ajax 통신
 $.ajax({
   type: "POST", // HTTP method type(GET, POST) 형식이다.
-  url: "/calendar/fullcalendar", // 컨트롤러에서 대기중인 URL 주소이다.
+  url: "/calendar/myCalendar", // 컨트롤러에서 대기중인 URL 주소이다.
   async: false,
   success: function (res) {
     // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
@@ -27,7 +27,7 @@ console.log(arr);
 //////////////////////////////////////
 $.ajax({
   type: "POST", // HTTP method type(GET, POST) 형식이다.
-  url: "/calendar/fullcalendar2", // 컨트롤러에서 대기중인 URL 주소이다.
+  url: "/calendar/myCalendar2", // 컨트롤러에서 대기중인 URL 주소이다.
   async: false,
   success: function (res) {
     // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.

@@ -50,7 +50,7 @@
                                         	<li><a href="#">MY CONTENTS</a>
                                                 <ul class="submenu">
                                                     <li><a href="/feed/list/${member.url}">FEED</a></li>
-                                                    <li><a href="/calendar/fullcalendar/">CALENDAR</a></li>
+                                                    <li><a href="/calendar/myCalendar/">CALENDAR</a></li>
                                                 </ul>
                                             </li>                                                                                                                                     
                                             <!-- <li><a href="/">Home</a></li> -->

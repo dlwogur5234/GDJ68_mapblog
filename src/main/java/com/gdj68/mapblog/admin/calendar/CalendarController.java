@@ -28,12 +28,12 @@ public class CalendarController {
 	@Autowired
 	private FeedService feedService;
 	
-	@GetMapping("fullcalendar")
+	@GetMapping("myCalendar")
 	public String fullcalendar()throws Exception{
 		return "temp/fullcalendar";
 	}
 	
-	@PostMapping("fullcalendar")
+	@PostMapping("myCalendar")
 	@ResponseBody
 	public List<MeetingDTO> fullcalendar(HttpSession session, MeetingDTO meetingDTO, Model model)throws Exception{
 		List<MeetingDTO> ar = meetingService.getMyList(session);
@@ -41,7 +41,7 @@ public class CalendarController {
 		return ar;
 	}
 	
-	@PostMapping("fullcalendar2")
+	@PostMapping("myCalendar2")
 	@ResponseBody
 	public List<FeedDTO> fullcalendar2(HttpSession session, MeetingDTO meetingDTO, Model model)throws Exception{
 		List<FeedDTO> ar = feedService.getList(session);
