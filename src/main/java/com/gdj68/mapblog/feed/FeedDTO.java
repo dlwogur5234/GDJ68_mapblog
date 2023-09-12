@@ -11,7 +11,7 @@ public class FeedDTO {
 	private String title;
 	private String contents;
 	private Date createDate;
-	private Date tripDate;
+	private String tripDate;
 	private Long hit; 			// 조회수
 	private Long likes;			// 좋아요
 	private Long publics; 		// 공개여부
@@ -86,11 +86,11 @@ public class FeedDTO {
 		this.createDate = createDate;
 	}
 
-	public Date getTripDate() {
+	public String getTripDate() {
 		return tripDate;
 	}
 
-	public void setTripDate(Date tripDate) {
+	public void setTripDate(String tripDate) {
 		this.tripDate = tripDate;
 	}
 
