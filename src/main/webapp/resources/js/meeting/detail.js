@@ -102,8 +102,12 @@ $("#commentList").on("click", ".updateBtn", function () {
 
   $(this)
     .siblings("#updateDiv")
-    .html('<input type="text" id="contents" value="' + contents + '">');
-  $(this).attr("class", "updateBtn2");
+    .html(
+      '<input type="text" id="contents"  style="border-radius: 11px; margin-right: 6px value="' +
+        contents +
+        '">'
+    );
+  $(this).attr("class", "updateBtn2 btn btn-outline-secondary");
   // $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
 });
 
@@ -135,9 +139,9 @@ $("#commentList").on("click", ".updateBtn2", function () {
 $("#commentList").on("click", ".replyBtn", function () {
   let commentNum = this.dataset.commentnum;
   $(this).html("답글 등록");
-  $(this).attr("class", "replyBtn2");
+  $(this).attr("class", "replyBtn2 btn btn-outline-secondary");
   $(this).before(
-    '<input type="text" id="replyContents" data-commentNum="' +
+    '<input type="text" id="replyContents" style="border-radius: 11px; margin-right: 6px" data-commentNum="' +
       commentNum +
       '">'
   );
@@ -178,36 +182,33 @@ var viewResult = true;
 //대댓 리스트 보기
 $("#commentList").on("click", "#replyListBtnId", function () {
   $(this).attr("id", "replyListBtnId2");
-    // button 에 담긴 data-commentNum 가져오기
-    let commentNum = this.dataset.commentnum;
-    // ajax 에서 this 요소가 달라 ajax 영역 밖에서 this를 thisElement 라는 변수에 담음
-    let thisElement = $(this);
-    //ajax 실행
-    $.ajax({
-      type: "get",
-      url: "replyCommentList",
-      data: {
-        commentNum: commentNum,
-      },
-      success: function (r) {
-        //ajax 성공시 this 요소의 형제 노드 중 id 가 replyListDivId 를 찾아 그 하위 노드로 success r 값 추가
-        thisElement.siblings("#replyListDivId").empty();
-        thisElement.siblings("#replyListDivId").append(r);
-      },
-      error: function () {
-        console.log("error");
-      },
-    });
-  
-  
+  // button 에 담긴 data-commentNum 가져오기
+  let commentNum = this.dataset.commentnum;
+  // ajax 에서 this 요소가 달라 ajax 영역 밖에서 this를 thisElement 라는 변수에 담음
+  let thisElement = $(this);
+  //ajax 실행
+  $.ajax({
+    type: "get",
+    url: "replyCommentList",
+    data: {
+      commentNum: commentNum,
+    },
+    success: function (r) {
+      //ajax 성공시 this 요소의 형제 노드 중 id 가 replyListDivId 를 찾아 그 하위 노드로 success r 값 추가
+      thisElement.siblings("#replyListDivId").empty();
+      thisElement.siblings("#replyListDivId").append(r);
+    },
+    error: function () {
+      console.log("error");
+    },
+  });
 });
 
 //대댓 리스트 숨기기
 $("#commentList").on("click", "#replyListBtnId2", function () {
-    
-    $(this).siblings("#replyListDivId").empty();
-    $(this).attr("id", "replyListBtnId");
-})
+  $(this).siblings("#replyListDivId").empty();
+  $(this).attr("id", "replyListBtnId");
+});
 
 //대댓 Update 이벤트
 $("#commentList").on("click", ".replyUpdateBtn", function () {
@@ -217,10 +218,10 @@ $("#commentList").on("click", ".replyUpdateBtn", function () {
   $(this)
     .siblings("#replyUpdateContentsDiv")
     .html('<input type="text" id="contents" value="' + contents + '">');
-  $(this).attr("class", "replyUpdateBtn2");
+  $(this).attr("class", "replyUpdateBtn2 btn btn-outline-secondary");
   $(this)
     .siblings("#replyUpdateContentsDiv")
-    .html("<input type='text' id='contents' value='" + contents + "'>");
+    .html("<input type='text' id='contents' value='" + trim(contents) + "'>");
 });
 
 //대댓 Update Ajax 호출
@@ -252,11 +253,11 @@ $("#commentList").on("click", ".replyUpdateBtn2", function () {
   }
 });
 
-$("#commentList").on("click", ".replyDeleteBtn", function () { 
-let result = confirm("정말 삭제하시겠습니까?");
-let replyNum = this.dataset.replynum;
-let commentNum = this.dataset.commentnum;
-if (result) {
+$("#commentList").on("click", ".replyDeleteBtn", function () {
+  let result = confirm("정말 삭제하시겠습니까?");
+  let replyNum = this.dataset.replynum;
+  let commentNum = this.dataset.commentnum;
+  if (result) {
     $.ajax({
       type: "get",
       url: "replyCommentDelete",
@@ -272,5 +273,4 @@ if (result) {
       },
     });
   }
-
 });

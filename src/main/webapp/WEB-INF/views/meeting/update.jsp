@@ -21,11 +21,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e&libraries=services"
     ></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
     <!-- CSS here -->
     <link rel="stylesheet" href="/resources/css/index/bootstrap.min.css" />
     <link rel="stylesheet" href="/resources/css/index/owl.carousel.min.css" />
@@ -41,6 +37,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <link rel="stylesheet" href="/resources/css/index/slick.css" />
     <link rel="stylesheet" href="/resources/css/index/nice-select.css" />
     <link rel="stylesheet" href="/resources/css/index/style.css" />
+    <link
+    href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <style>
       footer {
         float: left;
@@ -48,6 +49,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       }
       main {
         height: 1500px;
+      }
+      #position {
+        margin-right: 30px;
+        float: right;
+        width: 250px;
+      }
+      form > div {
+        margin: 10px 0;
       }
     </style>
   </head>
@@ -69,14 +78,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Header Start -->
 
     <c:import url="/WEB-INF/views/temp/header.jsp"></c:import>
-
+    <c:import url="../temp/bootStrap.jsp"></c:import>
     <!-- Header End -->
 
     <!-- Main start -->
     <main>
-      <input type="text" id="adrs" /><button id="btn2" type="button">
-        검색
-      </button>
+      <div class="input-group mb-3" id="position">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="주소를 입력하세요"
+          aria-label="Recipient's username"
+          aria-describedby="button-addon2"
+          id="adrs"
+        /><button id="btn2" type="button" class="btn btn-outline-secondary">
+          검색
+        </button>
+      </div>
       <div id="map" style="width: 100%; height: 800px"></div>
       <div id="clickLatlng"></div>
       <p id="result"></p>
@@ -89,41 +107,76 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       >
         <input type="hidden" name="meetingNum" value="${dto.meetingNum }" />
         <input type="hidden" name="id" value="${sessionScope.member.id }" />
-        제목<input
-          type="text"
-          name="title"
-          id="title"
-          value="${dto.title }"
-        /><br />
-        내용<textarea
-          class="input-group"
-          rows=""
-          cols=""
-          name="contents"
-          id="contents"
-          value="${dto.contents }"
-        >
-${dto.contents }</textarea
-        >
-        모임날짜<input
-          type="datetime-local"
-          id="meetingDate"
-          value="${dto.meetingDate }"
-        />
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">제목</span>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="form-control"
+            placeholder="제목을 입력하세요"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            value="${dto.title }"
+          />
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">내용</span>
+          <textarea
+            class="form-control"
+            aria-label="With textarea"
+            name="contents"
+            id="contents"
+            cols="30"
+            rows="10"
+            value="${dto.contents }"
+          >
+          ${dto.contents }</textarea
+          >
+        </div>
+        <div class="input-group mb-3" style="width: 400px">
+          <span class="input-group-text">모임날짜</span>
+          <input
+            type="datetime-local"
+            id="meetingDate"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            value="${dto.meetingDate }"
+          />
+        </div>
         <input type="hidden" name="meetingDate" id="meetingDate2" />
-        모집인원<input
-          type="number"
-          id="personnel"
-          min="2"
-          max="10"
-          name="personnel"
-          value="${dto.personnel}"
-        />
+        <div class="input-group mb-3" style="width: 400px">
+          <span class="input-group-text">정원</span>
+          <input
+            type="number"
+            id="personnel"
+            min="2"
+            max="10"
+            name="personnel"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            value="${dto.personnel}"
+          />
         <input type="hidden" name="lat" id="lat" value="${dto.lat}" />
         <input type="hidden" name="lng" id="lng" value="${dto.lng}" />
-        <input type="text" name="address" id="address" value="${dto.address}" />
+        <div class="input-group mb-3" style="width: 400px">
+          <span class="input-group-text">모임장소</span>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            value="${dto.address}"
+          />
+        </div>
 
-        <button id="btn" type="button">등록</button>
+        <button id="updateBtn" class="btn btn-outline-secondary" type="button">
+          등록
+        </button>
       </form>
     </main>
 
@@ -138,11 +191,7 @@ ${dto.contents }</textarea
     <!-- All JS Custom Plugins Link Here here -->
     <script src="/resources/js/index/vendor/modernizr-3.5.0.min.js"></script>
     <script>
-      const btn = document.getElementById("btn");
-      const title = document.getElementById("title");
-      const frm = document.getElementById("frm");
-      const meetingDate = document.getElementById("meetingDate");
-      const meetingDate2 = document.getElementById("meetingDate2");
+      /* 
       $("#contents").summernote({
         height: 400,
         callbacks: {
@@ -186,9 +235,20 @@ ${dto.contents }</textarea
             });
           },
         },
-      });
+      }); */
 
-      $("#contents").summernote("code");
+      /* $("#contents").summernote("code"); */
+      const frm = document.getElementById("frm");
+      const btn = document.getElementById("updateBtn");
+      const title = document.getElementById("title");
+      
+      const meetingDate = document.getElementById("meetingDate");
+      const meetingDate2 = document.getElementById("meetingDate2");
+      let personnelCheckResult = false;
+      let meetingDateCheckResult = false;
+
+      var checkResult = [false, false];
+
       btn.addEventListener("click", function () {
         console.log(title.value == "");
         console.log(title.value.length == 0);
@@ -198,8 +258,25 @@ ${dto.contents }</textarea
         } else {
           let s = meetingDate.value.replace("T", " ");
           meetingDate2.value = s;
-          frm.submit();
-        }
+          if (document.getElementById("meetingDate").value != "") {
+      checkResult[1] = true;
+    } else {
+      alert("날짜를 입력해 주세요.");
+      document.getElementById("meetingDate").focus();
+    }
+    if (document.getElementById("personnel").value != "") {
+      checkResult[0] = true;
+      document.getElementById("personnel").focus();
+    } else {
+      alert("모집인원을 입력해주세요.");
+    }
+    let c = checkResult.includes(false);
+    if (!c) {
+      //form전송
+      console.log("form전송");
+      frm.submit();
+    } else {
+    }}
       });
     </script>
 

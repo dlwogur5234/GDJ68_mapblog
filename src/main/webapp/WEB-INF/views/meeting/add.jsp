@@ -49,6 +49,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       main {
         height: 1500px;
       }
+      #position {
+        margin-right: 30px;
+        float: right;
+        width: 250px;
+      }
+      form > div {
+        margin: 10px 0;
+      }
     </style>
   </head>
 
@@ -69,14 +77,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Header Start -->
 
     <c:import url="/WEB-INF/views/temp/header.jsp"></c:import>
-
+    <c:import url="../temp/bootStrap.jsp"></c:import>
     <!-- Header End -->
 
     <!-- Main start -->
     <main>
-      <input type="text" id="adrs" /><button id="btn2" type="button">
-        검색
-      </button>
+      <div class="input-group mb-3" id="position">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="주소를 입력하세요"
+          aria-label="Recipient's username"
+          aria-describedby="button-addon2"
+          id="adrs"
+        /><button id="btn2" type="button" class="btn btn-outline-secondary">
+          검색
+        </button>
+      </div>
       <div id="map" style="width: 100%; height: 800px"></div>
       <div id="clickLatlng"></div>
       <p id="result"></p>
@@ -86,6 +103,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         action="./add"
         method="post"
         id="frm"
+        style="border: 0px"
       >
         <input type="hidden" name="id" value="${sessionScope.member.id }" />
         <input
@@ -93,27 +111,69 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           name="nickName"
           value="${sessionScope.member.nickName }"
         />
-        제목<input type="text" name="title" id="title" /><br />
-        내용<textarea
-          class="input-group"
-          rows=""
-          cols=""
-          name="contents"
-          id="contents"
-        ></textarea>
-        모임날짜<input type="datetime-local" id="meetingDate" /> 정원<input
-          type="number"
-          id="personnel"
-          min="2"
-          max="10"
-          name="personnel"
-        />
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">제목</span>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            class="form-control"
+            placeholder="제목을 입력하세요"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">내용</span>
+          <textarea
+            class="form-control"
+            aria-label="With textarea"
+            name="contents"
+            id="contents"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </div>
+        <div class="input-group mb-3" style="width: 400px">
+          <span class="input-group-text">모임날짜</span>
+          <input
+            type="datetime-local"
+            id="meetingDate"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+        <div class="input-group mb-3" style="width: 400px">
+          <span class="input-group-text">정원</span>
+          <input
+            type="number"
+            id="personnel"
+            min="2"
+            max="10"
+            name="personnel"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+        </div>
         <input type="hidden" name="meetingDate" id="meetingDate2" />
         <input type="hidden" name="lat" id="lat" />
         <input type="hidden" name="lng" id="lng" />
-        <input type="text" name="address" id="address" />
-
-        <button id="btn" type="button">등록</button>
+        <div class="input-group mb-3" style="width: 400px">
+          <span class="input-group-text">모임장소</span>
+          <input
+            type="hidden"
+            name="address"
+            id="address"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+        <button id="btn" class="btn btn-outline-secondary" type="button">
+          등록
+        </button>
       </form>
     </main>
 
@@ -127,77 +187,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- All JS Custom Plugins Link Here here -->
     <script src="/resources/js/index/vendor/modernizr-3.5.0.min.js"></script>
-    <script>
-      const btn = document.getElementById("btn");
-      const title = document.getElementById("title");
-      const meetingDate = document.getElementById("meetingDate");
-      const meetingDate2 = document.getElementById("meetingDate2");
-      const frm = document.getElementById("frm");
-      $("#contents").summernote({
-        height: 400,
-        callbacks: {
-          onImageUpload: function (files) {
-            alert("이미지 업로드");
-            //이미지를 server로 전송하고
-            //응답으로 이미지경로와 파일명을 받아서
-            //img 태그를 만들어서 src속성에 이미지경로는 넣는것
-            let formData = new FormData(); //<form></form>
-            formData.append("files", files[0]); //<input type='file' name='files'>
-            $.ajax({
-              type: "post",
-              url: "setContentsImg",
-              data: formData,
-              cashe: false,
-              enctype: "multipart/form-data",
-              contentType: false,
-              processData: false,
-              success: function (result) {
-                $("#contents").summernote("insertImage", result.trim());
-              },
-              error: function () {
-                console.log("error");
-              },
-            });
-          },
-          onMediaDelete: function (files) {
-            let path = $(files[0]).attr("src"); // /resources/upload/notice/파일명
-            $.ajax({
-              type: "post",
-              url: "./setContentsImgDelete",
-              data: {
-                path: path,
-              },
-              success: function (result) {
-                console.log(result);
-              },
-              error: function () {
-                console.log("error");
-              },
-            });
-          },
-        },
-      });
 
-      btn.addEventListener("click", function () {
-        console.log(title.value == "");
-        console.log(title.value.length == 0);
-        if (title.value == "") {
-          alert("제목은 필수 입니다.");
-          title.focus();
-        } else {
-          alert(meetingDate.value.replace("T", " "));
-          let s = meetingDate.value.replace("T", " ");
-          meetingDate2.value = s;
-
-          frm.submit();
-        }
-      });
-
-      // kakao.maps.load(function() {
-      // // v3가 모두 로드된 후, 이 콜백 함수가 실행됩니다.
-      // let map = new kakao.maps.Map(node, options);
-      // });
-    </script>
     <script src="../resources/js/meeting/addTest.js" defer></script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="/resources/js/index/vendor/jquery-1.12.4.min.js"></script>

@@ -20,11 +20,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           id="replyUpdateContentsDiv"
           style="text-align: left"
         >
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${r.contents}
+          <span style="padding: 0 15px"></span>${r.contents}
         </li>
         <c:if test="${member.id eq r.id}">
           <button
-            class="replyUpdateBtn"
+            class="replyUpdateBtn btn btn-outline-secondary"
             data-replyNum="${r.replyNum}"
             data-replyContents="${r.contents}"
             id="replyUpdateBtn"
@@ -32,7 +32,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             수정
           </button>
           <button
-            class="replyDeleteBtn"
+            class="replyDeleteBtn btn btn-outline-danger"
             data-replyNum="${r.replyNum}"
             data-commentNum="${r.commentNum}"
             id="replyDeleteBtn"

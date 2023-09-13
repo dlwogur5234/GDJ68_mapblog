@@ -68,6 +68,19 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         text-decoration: underline;
         color: blue;
       }
+      #position{
+        margin-right: 30px;
+        float: right;
+        width: 250px;
+      }
+      #myListBtn{
+        height: 40px;
+      }
+      .btn{
+        margin-bottom: 14px;
+        height: 40px;
+      }
+      
     </style>
   </head>
 
@@ -93,12 +106,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Main start -->
     <main>
-      <div style="text-align: right; margin-right: 30px;">
-      <input type="text" id="adrs"/><button id="btn2" type="button">
+      <div class="input-group mb-3"  id="position">
+      <input type="text" class="form-control" placeholder="주소를 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" id="adrs"/><button id="btn2" type="button" class="btn btn-outline-secondary">
         검색
       </button></div>
-      <button id="myListBtn" type="button">내 참석 모임 보기</button>
-      <a href="./add">모임 추가</a>
+      <button id="myListBtn" type="button" class="btn btn-outline-secondary">내 참석 모임 보기</button>
+      <a href="./add" class="btn btn-outline-secondary">모임 추가</a>
       <c:forEach items="${list}" var="d" varStatus="i">
         <div
           class="a"

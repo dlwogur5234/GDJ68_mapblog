@@ -53,7 +53,7 @@ function getLocation() {
       }
     );
   } else {
-    //GPS를 지원하지 않았을 때 
+    //GPS를 지원하지 않았을 때
     alert("GPS를 지원하지 않습니다");
     getKakaoMap2(centertLat, centerLng);
     $("#lat").val(centertLat);
@@ -79,7 +79,7 @@ function getKakaoMap(centertLat, centerLng) {
   // 주소-좌표 변환 객체를 생성합니다
   let geocoder = new kakao.maps.services.Geocoder();
 
-  var infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+  var infowindow = new kakao.maps.InfoWindow({ zindex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
   // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
   searchAddrFromCoords(map.getCenter(), displayCenterInfo);
@@ -108,17 +108,17 @@ function getKakaoMap(centertLat, centerLng) {
             : "";
           detailAddr +=
             "<div>지번 주소 : " + result[0].address.address_name + "</div>";
-  
+
           var content =
             '<div class="bAddr">' +
             '<span class="title">법정동 주소정보</span>' +
             detailAddr +
             "</div>";
-  
+
           // 마커를 클릭한 위치에 표시합니다
           marker.setPosition(coords);
           marker.setMap(map);
-  
+
           // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
           infowindow.setContent(content);
           infowindow.open(map, marker);
@@ -142,32 +142,35 @@ function getKakaoMap(centertLat, centerLng) {
         $("#lat").val(latlng.getLat());
         $("#lng").val(latlng.getLng());
 
-        searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-          if (status === kakao.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address
-              ? "<div>도로명주소 : " +
-                result[0].road_address.address_name +
-                "</div>"
-              : "";
-            detailAddr +=
-              "<div>지번 주소 : " + result[0].address.address_name + "</div>";
-    
-            var content =
-              '<div class="bAddr">' +
-              '<span class="title">법정동 주소정보</span>' +
-              detailAddr +
-              "</div>";
-    
-            // 마커를 클릭한 위치에 표시합니다
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
-    
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-            setAddress(result[0]);
+        searchDetailAddrFromCoords(
+          mouseEvent.latLng,
+          function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+              var detailAddr = !!result[0].road_address
+                ? "<div>도로명주소 : " +
+                  result[0].road_address.address_name +
+                  "</div>"
+                : "";
+              detailAddr +=
+                "<div>지번 주소 : " + result[0].address.address_name + "</div>";
+
+              var content =
+                '<div class="bAddr">' +
+                '<span class="title">법정동 주소정보</span>' +
+                detailAddr +
+                "</div>";
+
+              // 마커를 클릭한 위치에 표시합니다
+              marker.setPosition(mouseEvent.latLng);
+              marker.setMap(map);
+
+              // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+              infowindow.setContent(content);
+              infowindow.open(map, marker);
+              setAddress(result[0]);
+            }
           }
-        });
+        );
       });
     } else {
       alert("검색 실패");
@@ -197,32 +200,35 @@ function getKakaoMap(centertLat, centerLng) {
         $("#lat").val(latlng.getLat());
         $("#lng").val(latlng.getLng());
 
-        searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-          if (status === kakao.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address
-              ? "<div>도로명주소 : " +
-                result[0].road_address.address_name +
-                "</div>"
-              : "";
-            detailAddr +=
-              "<div>지번 주소 : " + result[0].address.address_name + "</div>";
-    
-            var content =
-              '<div class="bAddr">' +
-              '<span class="title">법정동 주소정보</span>' +
-              detailAddr +
-              "</div>";
-    
-            // 마커를 클릭한 위치에 표시합니다
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
-    
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-            infowindow.setContent(content);
-            infowindow.open(map, marker);
-            setAddress(result[0]);
+        searchDetailAddrFromCoords(
+          mouseEvent.latLng,
+          function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+              var detailAddr = !!result[0].road_address
+                ? "<div>도로명주소 : " +
+                  result[0].road_address.address_name +
+                  "</div>"
+                : "";
+              detailAddr +=
+                "<div>지번 주소 : " + result[0].address.address_name + "</div>";
+
+              var content =
+                '<div class="bAddr">' +
+                '<span class="title">법정동 주소정보</span>' +
+                detailAddr +
+                "</div>";
+
+              // 마커를 클릭한 위치에 표시합니다
+              marker.setPosition(mouseEvent.latLng);
+              marker.setMap(map);
+
+              // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+              infowindow.setContent(content);
+              infowindow.open(map, marker);
+              setAddress(result[0]);
+            }
           }
-        });
+        );
       });
     }
   });
@@ -251,7 +257,7 @@ function getKakaoMap(centertLat, centerLng) {
       }
     }
   }
-} 
+}
 
 function getKakaoMap2(centertLat, centerLng) {
   let mapContainer = document.getElementById("map"), // 지도를 표시할 div
@@ -261,7 +267,6 @@ function getKakaoMap2(centertLat, centerLng) {
     };
 
   let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-  
 
   let marker = new kakao.maps.Marker({
     // 지도 중심좌표에 마커를 생성합니다
@@ -278,13 +283,10 @@ function getKakaoMap2(centertLat, centerLng) {
   // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
   searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
-
   searchDetailAddrFromCoords(mapCenter, function (result, status) {
     if (status === kakao.maps.services.Status.OK) {
       var detailAddr = !!result[0].road_address
-        ? "<div>도로명주소 : " +
-          result[0].road_address.address_name +
-          "</div>"
+        ? "<div>도로명주소 : " + result[0].road_address.address_name + "</div>"
         : "";
       detailAddr +=
         "<div>지번 주소 : " + result[0].address.address_name + "</div>";
@@ -385,13 +387,97 @@ function getKakaoMap2(centertLat, centerLng) {
   }
 }
 
-
-function setAddress(addr){
- 
-  console.log(addr)
-  if(addr.road_address != null){
-    $('#address').val(addr.road_address.address_name);
-  }else{
-    $('#address').val(addr.address.address_name);
+function setAddress(addr) {
+  console.log(addr);
+  if (addr.road_address != null) {
+    $("#address").val(addr.road_address.address_name);
+  } else {
+    $("#address").val(addr.address.address_name);
   }
 }
+
+// 원래 script에 있던 소스
+const btn = document.getElementById("btn");
+const title = document.getElementById("title");
+const meetingDate = document.getElementById("meetingDate");
+const meetingDate2 = document.getElementById("meetingDate2");
+const frm = document.getElementById("frm");
+
+let personnelCheckResult = false;
+let meetingDateCheckResult = false;
+
+var checkResult = [false, false];
+// $("#contents").summernote({
+//   height: 400,
+//   callbacks: {
+//     onImageUpload: function (files) {
+//       alert("이미지 업로드");
+//       //이미지를 server로 전송하고
+//       //응답으로 이미지경로와 파일명을 받아서
+//       //img 태그를 만들어서 src속성에 이미지경로는 넣는것
+//       let formData = new FormData(); //<form></form>
+//       formData.append("files", files[0]); //<input type='file' name='files'>
+//       $.ajax({
+//         type: "post",
+//         url: "setContentsImg",
+//         data: formData,
+//         cashe: false,
+//         enctype: "multipart/form-data",
+//         contentType: false,
+//         processData: false,
+//         success: function (result) {
+//           $("#contents").summernote("insertImage", result.trim());
+//         },
+//         error: function () {
+//           console.log("error");
+//         },
+//       });
+//     },
+//     onMediaDelete: function (files) {
+//       let path = $(files[0]).attr("src"); // /resources/upload/notice/파일명
+//       $.ajax({
+//         type: "post",
+//         url: "./setContentsImgDelete",
+//         data: {
+//           path: path,
+//         },
+//         success: function (result) {
+//           console.log(result);
+//         },
+//         error: function () {
+//           console.log("error");
+//         },
+//       });
+//     },
+//   },
+// });
+
+btn.addEventListener("click", function () {
+  if (title.value == "") {
+    alert("제목은 필수 입니다.");
+    title.focus();
+  } else {
+    alert(meetingDate.value.replace("T", " "));
+    let s = meetingDate.value.replace("T", " ");
+    meetingDate2.value = s;
+    if (document.getElementById("meetingDate").value != "") {
+      checkResult[1] = true;
+    } else {
+      alert("날짜를 입력해 주세요.");
+      document.getElementById("meetingDate").focus();
+    }
+    if (document.getElementById("personnel").value != "") {
+      checkResult[0] = true;
+      document.getElementById("personnel").focus();
+    } else {
+      alert("모집인원을 입력해주세요.");
+    }
+    let c = checkResult.includes(false);
+    if (!c) {
+      //form전송
+      console.log("form전송");
+      frm.submit();
+    } else {
+    }
+  }
+});

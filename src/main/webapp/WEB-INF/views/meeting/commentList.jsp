@@ -21,14 +21,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <li style="text-align: left;" class="a" data-meetingNum="${d.meetingNum}" id="updateDiv"
   > &nbsp;&nbsp;${d.contents}
   </li>
-  <c:if test="${member.id eq d.id}"> <button class="updateBtn btn btn-light" data-commentNum="${d.commentNum}" id="updateBtn" > 수정 </button> <button class="butt btn btn-outline-danger" data-commentNum="${d.commentNum}" id="btn"> 삭제 </button>
+  <c:if test="${member.id eq d.id}"> <button class="updateBtn btn btn-outline-secondary" data-commentNum="${d.commentNum}" id="updateBtn" > 수정 </button> <button class="butt btn btn-outline-danger" data-commentNum="${d.commentNum}" id="btn"> 삭제 </button>
   </c:if>
 
   <c:if test="${d.cGroup > 0}"> 
 	<li class="replyListDiv" id="replyListDivId"></li> 
-	<button class="replyListBtn" id="replyListBtnId" data-commentNum="${d.commentNum}" >답글 ${d.cGroup}개 </button>
+	<button class="replyListBtn btn btn-outline-secondary" id="replyListBtnId" data-commentNum="${d.commentNum}" >답글 ${d.cGroup}개 </button>
   </c:if>
-  <button class="replyBtn btn btn-light"  data-commentNum="${d.commentNum}" id="replyBtn"
+  <button class="replyBtn btn btn-outline-secondary"  data-commentNum="${d.commentNum}" id="replyBtn"
   > 답글달기
   </button>
   
