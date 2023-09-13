@@ -405,7 +405,7 @@ public class FeedController {
 			session.setAttribute("follow", followDTO);
 			
 			if(urlId.equals(uId)) {
-				List<FeedDTO> li = feedService.getList2(m);
+				List<FeedDTO> li = feedService.getList2(pager);
 				model.addAttribute("list", li);
 			}else{
 				
@@ -464,7 +464,7 @@ public class FeedController {
 			if(m.getPublics() == 1) {
 				// publics가 1인 사람은 전체 공개 계정
 				// 전체 게시글 중 publics가 0(전체공개)인 게시글만 불러오자
-				List<FeedDTO> li = feedService.getFeedList(m.getId());
+				List<FeedDTO> li = feedService.getFeedList(pager);
 				model.addAttribute("list", li);
 			}else {
 				// publics가 0인 사람은 전체 비공개 계정
