@@ -20,11 +20,9 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/admin/sb-admin-2.min.css" rel="stylesheet">
-<c:import url="../../temp/bootStrap.jsp"></c:import>
+	<c:import url="../../temp/bootStrap.jsp"></c:import>
 
-<style>
 
-</style>
 
 </head>
 <body id="page-top">
