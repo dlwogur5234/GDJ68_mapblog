@@ -1,6 +1,5 @@
 
 //$(document).ready(function(){
-    console.log("map start")
     let lat = $('#lat').val();
     let lng = $('#lng').val();
     getKakaoMap2(lat,lng);
@@ -12,7 +11,6 @@ let now_utc = Date.now();
 let timeOff = new Date().getTimezoneOffset()*60000;
 
 let today = new Date(now_utc-timeOff).toISOString().substring(0,16);
-console.log(today);
 
 // date로 만들면 현재 시간이 위에서 한것처럼 계산할 필요없이 utc timezone 알아서 설정되서 나옴
 let now = new Date();
@@ -28,7 +26,6 @@ let centerLng =126.570667;
 
 
   $('#btn2').on("click",function(){
-    console.log($('#adrs').val());
     getKakaoMap(centertLat,centerLng);
   })
 
@@ -295,7 +292,6 @@ function getKakaoMap2(lat,lng){
       $("#lng").val(latlng.getLng());
 
        searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-      console.log(mouseEvent.latLng);
       if (status === kakao.maps.services.Status.OK) {
         var detailAddr = !!result[0].road_address
           ? "<div>도로명주소 : " +
@@ -357,7 +353,6 @@ function getKakaoMap2(lat,lng){
 
 function setAddress(addr){
  
-  console.log(addr)
   if(addr.road_address != null){
     $('#address').val(addr.road_address.address_name);
   }else{

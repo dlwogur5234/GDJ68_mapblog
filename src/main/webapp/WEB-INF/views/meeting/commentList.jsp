@@ -32,7 +32,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   > 답글달기
   </button>
   
-  </c:forEach>
+  
 </ul>
+</c:forEach>
   </body>
 </html>

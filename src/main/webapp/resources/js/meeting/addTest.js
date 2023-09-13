@@ -4,8 +4,6 @@ let now_utc = Date.now();
 let timeOff = new Date().getTimezoneOffset() * 60000;
 // today = now_utc - timeoff 를 빼면 한국과 영국 표준시간의 차이를 구할 수 있고 substring으로 필요한 정보만큼 잘라냄 16은 분까지
 let today = new Date(now_utc - timeOff).toISOString().substring(0, 16);
-// 2주뒤의 시간을 제어하기위해 14일을 더함 실패
-let maxToday = new Date(now_utc - timeOff + 14).toISOString().substring(0, 16);
 
 // date로 만들면 현재 시간이 위에서 한것처럼 계산할 필요없이 utc timezone 알아서 설정되서 나옴
 let now = new Date();
@@ -31,9 +29,7 @@ function getLocation() {
       function (position) {
         // alert(position.coords.latitude + ' ' + position.coords.longitude);
         centertLat = position.coords.latitude;
-        console.log(centertLat);
         centerLng = position.coords.longitude;
-        console.log(centerLng);
         getKakaoMap2(centertLat, centerLng);
         $("#lat").val(centertLat);
         $("#lng").val(centerLng);
@@ -63,7 +59,6 @@ function getLocation() {
 
 //주소 검색 버튼 클릭시 getKaKaoMap 펑션 실행 이벤트
 $("#btn2").on("click", function () {
-  console.log($("#adrs").val());
   getKakaoMap(centertLat, centerLng);
 });
 
@@ -274,7 +269,6 @@ function getKakaoMap2(centertLat, centerLng) {
   });
   // 지도에 마커를 표시합니다
   marker.setMap(map);
-  console.log(marker);
   let mapCenter = map.getCenter();
   var geocoder = new kakao.maps.services.Geocoder();
 
@@ -327,7 +321,6 @@ function getKakaoMap2(centertLat, centerLng) {
     $("#lng").val(latlng.getLng());
 
     searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
-      console.log(mouseEvent.latLng);
       if (status === kakao.maps.services.Status.OK) {
         var detailAddr = !!result[0].road_address
           ? "<div>도로명주소 : " +
@@ -388,7 +381,6 @@ function getKakaoMap2(centertLat, centerLng) {
 }
 
 function setAddress(addr) {
-  console.log(addr);
   if (addr.road_address != null) {
     $("#address").val(addr.road_address.address_name);
   } else {
@@ -475,7 +467,6 @@ btn.addEventListener("click", function () {
     let c = checkResult.includes(false);
     if (!c) {
       //form전송
-      console.log("form전송");
       frm.submit();
     } else {
     }
