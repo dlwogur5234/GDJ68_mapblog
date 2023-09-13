@@ -19,6 +19,7 @@ for(del of deletes){
         let check = confirm("정말로 삭제하시겠습니까?");
 
         if(check){
+        console.log("1");
             fetch("./fileDelete?fileNum=" + fileNum, {method:"get"})
                 .then((result)=>{return result.text()}) // result.text를 반환받겠다
                 .then((r)=>{
@@ -34,33 +35,6 @@ for(del of deletes){
 }
 
 
-//삭제 확인
-// $('.deleteCheck').click(function(){
-//     let result = confirm('파일이 영구히 삭제됩니다.')
-//     let ch = $(this);
-//     if(result){
-//         let imgNum = $(this).val();
-//         $.ajax({
-//             type:'POST',
-//             url:'./imgDelete',
-//             data:{
-//                 imgNum: imgNum
-//             },
-//             success:function(response){
-//                 if(response.trim() > 0) {
-//                     alert('삭제되었습니다.')
-//                     ch.parent().parent().remove();
-//                     count--;
-//                 } else {
-//                     alert('삭제 실패<br>관리자에게 문의하세요.')
-//                 }
-//             },
-//             error:function(){}
-//         })
-//     } else {
-//         $(this).prop('checked', false)
-//     }
-// })
 
 // add에 파일첨부 추가하기
 $("#add").click(function(){
@@ -88,3 +62,5 @@ $("#fileList").on("click", ".df", function(){
     $(this).parent().remove();
     count--;
 })
+
+

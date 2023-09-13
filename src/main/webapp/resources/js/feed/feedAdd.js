@@ -99,9 +99,7 @@ $("#contents").summernote({
     });
 
 
-// 취소
+// 취소 버튼
 $("#cancle").click(function(){
-    location.href = "./list";
+    location.href = "./list/" + $("#url").val();
 })
-
-

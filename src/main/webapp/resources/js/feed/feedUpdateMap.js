@@ -24,39 +24,7 @@ $(document).ready(function(){
 let centertLat =33.450701;
 let centerLng =126.570667;
 
-getLocation();
-function getLocation() {
-    if (navigator.geolocation) { // GPS를 지원하면
-      navigator.geolocation.getCurrentPosition(function(position) {
-        // alert(position.coords.latitude + ' ' + position.coords.longitude);
-        centertLat = position.coords.latitude;
-        console.log(centertLat);
-        centerLng = position.coords.longitude;
-        console.log(centerLng);
-        getKakaoMap2(centertLat,centerLng);
-      }, function(error) {
-        console.error(error);
-        alert('GPS 지원을 동의하지 않으셨습니다.')
-        getKakaoMap2(centertLat,centerLng);
-        $("#lat").val(centertLat);
-        $("#lng").val(centerLng);
-      }, {
-        enableHighAccuracy: false,
-        maximumAge: 0,
-        timeout: Infinity
-      });
-    } else {
-      alert('GPS를 지원하지 않습니다');
-      getKakaoMap2(centertLat,centerLng);
-      $("#lat").val(centertLat);
-      $("#lng").val(centerLng);
-    }
-  }
 
-  $('#btn2').on("click",function(){
-    console.log($('#adrs').val());
-    getKakaoMap(centertLat,centerLng);
-  })
 
 function getKakaoMap(centertLat,centerLng){
 

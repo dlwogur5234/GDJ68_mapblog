@@ -34,53 +34,6 @@
             <link rel="stylesheet" href="/resources/css/index/style.css">
         
         <style>
-
-::-webkit-scrollbar,::-webkit-scrollbar-track {
-    border-radius: 0;
-    background: #eee;
-    width: 5px;
-    height: 5px
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    background-color: #999;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    cursor: pointer;
-    background-color: #000;
-}
-            html,body{background-color: #fff;}
-            .main-header{
-                background-color: #fff;
-            }
-            .hidden {
-    position: absolute!important;
-    text-indent: -99999px!important;
-    opacity: 0!important;
-    width: 0!important;
-    height: 0!important;
-    line-height: 0!important;
-    padding: 0!important;
-    margin: 0!important;
-    border: none!important;
-    overflow: hidden!important;
-    outline: 0!important;
-    box-shadow: none!important;
-    background: none!important;
-    clip: rect(0,0,0,0)!important;
-    justify-self: center!important;
-    align-self: center!important;
-            }
-            button {
-                border: none;
-                outline: 0;
-                font-size: inherit;
-                font-family: inherit;
-                color: inherit;
-                text-align: inherit;
-            }
             .overlaybox {position:relative;width:360px;height:350px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/box_movie.png') no-repeat;padding:15px 10px;}
             .overlaybox div, ul {overflow:hidden;margin:0;padding:0;}
             .overlaybox li {list-style: none;}
@@ -101,26 +54,6 @@
             .overlaybox li:hover {color:#fff;background:#d24545;}
             .overlaybox li:hover .up {background-position:0 0px;}
             .overlaybox li:hover .down {background-position:0 -20px;}
-            .row-cols-md-3>*{width: 50%;margin:0;}
-            .dotolContainer {
-                padding: 20px;
-            }
-            @media screen and (orientation:portrait) {
-            .dotolContainer article {
-                flex-direction: column;
-            }
-            .dotolContainer article > * {
-                max-width: 100%;
-            }
-            }
-            .mapArea{
-                padding: 10px;
-                box-shadow: .2em .2em .4em rgba(0,0,0,0.15);
-                border: solid 1px e5e6e9;
-                background-color: #fff;
-                height: fit-content;
-            }
-
         </style>
    </head>
 
@@ -234,19 +167,20 @@
 
 	<!-- Main start -->
     <main>
-                <div>
-                    <h1 class="a  text-center">Feed List</h1>
-            
-                    <div id="followList"></div> 
-                </div>
-            
-                <%--
-                <c:forEach items="${member}" var="m">
-                <div>${m.nickName}</div>
-                </c:forEach>
-                --%>
+
+        <div>
+            <h1 class="a mb-5 text-center">Feed List</h1>
+    
+            <div id="followList"></div> 
+        </div>
+    
+        <%--
+        <c:forEach items="${member}" var="m">
+        <div>${m.nickName}</div>
+        </c:forEach>
+        --%>
         
-        <div class="container" style="padding: 0; text-align: right;">
+        <div>
             url : ${member.url}
             toUser :${follow.toUser}
             <c:choose>
@@ -263,56 +197,24 @@
         </div>
     
         <!-- div.container start -->
-        <div class="dotolContainer">
+        <section>
         <div class="conatiner">
             <input type="hidden" id="page" value="${pager.page}" />
             <!-- div.row g-2 start -->
-            <article class="container row g-2" style="gap: 20px;
-            flex-wrap: nowrap;margin: 0 auto;">
+            <div class="row g-2">
                 <!-- kakao map -->
-                <div class="container col-md-6 mapArea">
-                    <h4 class="hidden">리스트 영역</h4>
-                    <div style="display: flex; margin-bottom: 20px;align-items: center; gap:10px;">
-                        <input type="text" id="adrs" style="width: 100%; border: none;border: 1px solid #000; height: 40px;" />
-                        <button id="btn2" type="button" style="flex: none; height: 40px; width: 70px; background-color: #fde02f;text-align: center;">검색</button>
-                    </div>
-                    <div id="map" style="width:100%;height:0;padding-bottom: 100%;"></div>
+                <div class="container col-md-6">
+                    <input type="text" id="adrs"><button id="btn2" type="button">검색</button>
+                    <div id="map" style="width:900px;height:700px;float:left;border: solid 1px;margin-right: 300px;"></div>
                         <c:forEach items="${list}" var="d" varStatus="i">
                             <div class="a" data-feedNum="${d.feedNum}" data-contents="${d.contents}" data-title="${d.title}" data-lat="${d.lat}" data-lng="${d.lng}" id="${i.index}"></div>
                         </c:forEach>
     
                         <div id="address"></div>
-                        <c:if test="${not empty member}">
-                            <div style="display: flex;justify-content: flex-end;padding-top: 20px;">
-                                <a class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" href="../add">글쓰기</a>
-                            </div>
-                        </c:if>
                     </div>
     
-                    <div class="col-md-6" style="padding: 0;margin: 0;;">
-                        
-                        <ul id="blogContents" class="row row-cols-md-3 g-3" style="width:100%;margin: 0;">
-                            <style>
-                                
-                                .card {padding: 10px; border: 1px solid #e5e6e9; box-shadow: .2em .2em .4em rgba(0,0,0,0.15);}
-                                .card-body{padding: 1.25rem 0 0;}
-                                .card-body h5{text-overflow: ellipsis; width: 100%;overflow: hidden;white-space: nowrap;}
-                                .cardImg{ 
-                                    display: block;position: relative;left:0;top:0;
-                                    width: 100%;padding-bottom: 56.26%;
-                                    overflow: hidden;
-                                }
-                                .cardImg img {
-                                    position: absolute;
-                                    left:0;top:0;
-                                    object-fit: cover;
-                                    transition: all 0.15s;
-                                }     
-                                .cardImg:hover img 
-                                {
-                                    transform: scale(1.05);
-                                }                       
-                            </style>
+                    <div class="col-md-6">
+                        <div id="blogContents" class="row row-cols-md-3 g-3" style="width:100%; height:725px; overflow-y:auto">
                             <c:forEach items="${list}" var="f" varStatus="i">
                             
                             <!-- feedNum hidden처리 -->
@@ -325,47 +227,59 @@
                             <!-- tripDate (숨김) -->
                             <input type="hidden" id="tripDate" value="${f.tripDate}">
 
-                                <li>
-                                    <figure class="card">
-                                        
-                                        <a id="detailLink" class="cardImg" href="../detail?feedNum=${f.feedNum}">
-                                            <c:if test="${f.thumbnail == null }">
-                                                <img  src="/resources/img/99A85F3C5C0DC6AD29.jpeg" width="100%" height="100%" />
-                                            </c:if>
-                                            <c:if test="${f.thumbnail != null }">
-                                                <img  src="/resources/upload/feed/${f.thumbnail}" width="100%" height="100%" />
-                                            </c:if>
-                                        </a>
-                                        <figcaption  class="card-body">
-                                            <h5>${f.title}</h5>
-                                            <div style="display: flex;justify-content: space-between;">
-                                                <small class="text-muted text-start">${f.createDate}</small>
-                                                <div style="display: flex;">
-                                                    <button type="button" id="likes" class="likesBtn btn-sm btn-outline-secondary justify-content-end">♡ ${f.likes}</button>
-                                                    <button type="button" id="findMarker" class="showMapbBtn btn-sm btn-outline-secondary justify-content-end">지도보기</button>
-                                                </div> 
-                                            </div>
-                                        </figcaption>
+                                <div>
+                                    <div class="card shadow-sm">
+                                        <svg class="bd-placeholder-img card-img-top" width="80%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+
+                                            <!-- 제목 밑에 있는 회색부분 -->
+                                            <rect width="100%" height="100%" fill="#55595c"></rect>
+
+                                            <!-- 이미지 -->
+                                            <a id="detailLink" class="text-white link-offset-2 link-underline link-underline-opacity-0" href="../detail?feedNum=${f.feedNum}">
+                                                <c:if test="${f.thumbnail == null }">
+                                                    <image class="img" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
+                                                </c:if>
+                                                <c:if test="${f.thumbnail != null }">
+                                                    <image class="img" href="/resources/upload/feed/${f.thumbnail}" style="width:100%; height:200px;" />
+                                                </c:if>
+                                                <text id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${f.title}</text>
+                                            </a>
+
+                                        </svg>
+
+                                        <div class="card-body" style="position:relative; width:100%;">
+                                        <small class="text-muted text-start" style="position:relative; float:left;">${f.createDate}</small>
+                                        <button type="button" id="likes" style="position:relative; float:right;" class="likesBtn btn-sm btn-outline-secondary justify-content-end">♡ ${f.likes}</button>
+                                        <button type="button" id="findMarker" style="position:relative; float:right;" class="showMapbBtn btn-sm btn-outline-secondary justify-content-end">지도보기</button>
+                                        </div>
 
                                         <div style="clear:both"></div>
-                                    </figure>
-                                </li>
+                                    </div>
+                                </div>
                             </c:forEach>
-                        </ul>
-
-
+                        </div>
+                    </div>
+                    
+    
+    
+            </div>
+            <!-- div.row g-2 end -->
+    
+        </div>
+        <!-- div.container end -->
+        </section>
+    
+    
     
         <!-- 전체 페이지 수 -->
         <input type="hidden" name="totalPage" id="totalPage" value="${pager.totalPage}">
     
         <!-- Pager -->
         <nav class="container" aria-label="Page navigation example">
-            <h4 class="hidden">navigation area</h4>
             <ul class="pagination justify-content-center">
                 <c:if test="${pager.pre}">
                     <li class="page-item"><a class="page-link" href="/feed/list/${url}?page=${pager.startNum-1}">Previous</a></li>
                 </c:if>
-                <!-- pager.startNum : ${pager.startNum}, pager.lastNum : ${pager.lastNum} -->
                 <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
                 <li class="page-item move"><a class="page-link" href="/feed/list/${url}?page=${i}&kind=${param.kind}&search=${param.search}">${i}</a></li>
                 </c:forEach>
@@ -374,28 +288,19 @@
                 </c:if>
             </ul>
         </nav>
+    
+    
+        <!-- 글쓰기 버튼 -->
+        <c:if test="${not empty member}">
+            <a class="btn btn-primary" href="../add">글쓰기</a>
+        </c:if>
+    
         <!-- 검색 Search (수정 후) -->
         <!-- Search Box -->
-        <div class="row" style="margin-top: 20px;">
+        <div class="row">
             <div class="col-xl-12">
                 <!-- form -->
-                <form id="searchform" action="/feed/list/${url}" class="search-box" method="get" style="padding: 0;">
-                    <style>
-                        form.search-box .search-form a,
-                        form.search-box .select-form .nice-select {
-                            height: 40px;
-                            line-height: 0;
-                            display: flex;
-                            align-items: center;
-                            border: solid 1px 014b85;
-                        }
-                        form.search-box .search-form a {
-                            justify-content: center;
-                        }
-                        form.search-box .input-form input {
-                            height: 40px;
-                        }
-                    </style>
+                <form id="searchform" action="/feed/list/${url}" class="search-box" method="get">
                     <div class="select-form mb-30">
                         <div class="select-itms">
                             <select name="kind" id="kind">
@@ -414,22 +319,6 @@
                 </form>   
             </div>
         </div>
-                    </div>
-                    
-    
-    
-            </article>
-            <!-- div.row g-2 end -->
-    
-        </div>
-        <!-- div.container end -->
-    </div>
-    
-    
-    
-    
-        <!-- 글쓰기 버튼 -->
-    
     
 
         <script src="/resources/js/feed/feedListMap.js" defer></script>
