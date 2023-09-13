@@ -20,7 +20,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           id="replyUpdateContentsDiv"
           style="text-align: left"
         >
-          ${r.contents}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${r.contents}
         </li>
         <c:if test="${member.id eq r.id}">
           <button

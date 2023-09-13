@@ -53,6 +53,21 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         display: block;
         clear: both;
       }
+      button{
+        color: #333;
+        border-radius: 10px;
+      }
+      #myListBtn{
+        margin-left: 30px;
+        margin-bottom: 15px;
+      }
+      a{
+        text-decoration: none;
+      }
+      a:hover{
+        text-decoration: underline;
+        color: blue;
+      }
     </style>
   </head>
 
@@ -78,9 +93,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Main start -->
     <main>
-      <input type="text" id="adrs" /><button id="btn2" type="button">
+      <div style="text-align: right; margin-right: 30px;">
+      <input type="text" id="adrs"/><button id="btn2" type="button">
         검색
-      </button>
+      </button></div>
       <button id="myListBtn" type="button">내 참석 모임 보기</button>
       <a href="./add">모임 추가</a>
       <c:forEach items="${list}" var="d" varStatus="i">
@@ -108,8 +124,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <!-- <div id="detail" style="float: left; text-align: center">
     
     </div> -->
-      <div class="modal" tabindex="-1" id="myModal">
-        <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal" id="myModal">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
           <div class="modal-content">
             
                 
