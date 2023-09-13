@@ -367,7 +367,8 @@ public class FeedController {
 		String[] userUrl3 = userUrl2.split("/");
 		String userUrl4 = userUrl3[userUrl3.length-1];
 		pager.setUrl(userUrl4);
-
+		model.addAttribute("url", userUrl4);
+		List<FeedDTO> li;
 				
 		if(memberDTO != null) {
 			// 로그인 o
@@ -405,7 +406,7 @@ public class FeedController {
 			session.setAttribute("follow", followDTO);
 			
 			if(urlId.equals(uId)) {
-				List<FeedDTO> li = feedService.getList2(m);
+				li = feedService.getList2(pager);
 				model.addAttribute("list", li);
 			}else{
 				
@@ -430,23 +431,23 @@ public class FeedController {
 						
 						if(confirmFollowDTO != null) {
 							System.out.println("팔로우 중");
-							List<FeedDTO> li = feedService.getFeedListF(m.getId());
+							li = feedService.getFeedListF(m.getId());
 							model.addAttribute("list", li);
 						}else {
 							System.out.println("팔로우 안하는 중");
-							List<FeedDTO> li = feedService.getFeedListUnF(m.getId());
+							li = feedService.getFeedListUnF(m.getId());
 							model.addAttribute("list", li);
 						}
 						
 					}else {
 						// 차단o
-						List<FeedDTO> li = null;
+						li = null;
 					}
 					
 				}else {
 					// publics가 0인 사람은 전체 비공개 계정
 					// 아무것도 보여주지 않아야 됨
-					List<FeedDTO> li = null;
+					li = null;
 				}
 			}
 			
@@ -464,12 +465,12 @@ public class FeedController {
 			if(m.getPublics() == 1) {
 				// publics가 1인 사람은 전체 공개 계정
 				// 전체 게시글 중 publics가 0(전체공개)인 게시글만 불러오자
-				List<FeedDTO> li = feedService.getFeedList(m.getId());
+				li = feedService.getFeedList(pager);
 				model.addAttribute("list", li);
 			}else {
 				// publics가 0인 사람은 전체 비공개 계정
 				// 아무것도 보여주지 않아야 됨
-				List<FeedDTO> li = null;
+				li = null;
 			}
 		}
 		//url만 따기

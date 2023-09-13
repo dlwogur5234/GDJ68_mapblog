@@ -97,9 +97,6 @@
 	         WHERE F.ID = M.ID
 	           AND F.FEEDNUM = FF.FEEDNUM(+)
 	           AND M.URL = #{url}
-	         <if test="id == null">
-	            AND F.PUBLICS = 0
-	         </if>
 	         <!-- MEMBER에 존재하는 ID와 JOIN -->
 	         <include refid="searchSql"></include>
 	       ) F
@@ -456,8 +453,48 @@
 
 	
 	<!-- 공개 비공개 ************************* -->
-	<select id="getFeedList" resultType="FeedDTO" parameterType="String">
-		SELECT * FROM FEED WHERE ID=#{id} AND PUBLICS=0
+	<select id="getFeedList" resultType="FeedDTO" parameterType="Pager">
+			SELECT F.*
+	  FROM (
+	        SELECT ROW_NUMBER() OVER(ORDER BY F.FEEDNUM DESC) AS RNUM
+	             , F.FEEDNUM
+	             , F.ID
+	             , F.TITLE
+	             , F.CONTENTS
+	             , F.CREATEDATE
+	             , TO_CHAR(F.TRIPDATE, 'YYYY-MM-DD')          AS TRIPDATE
+	             , F.HIT
+	             , (SELECT COUNT(*)
+	                  FROM LIKES
+	                 WHERE FEEDNUM = F.FEEDNUM)               AS LIKES
+	             , F.PUBLICS
+	             , F.LAT
+	             , F.LNG
+	             , FF.FILENAME                                AS THUMBNAIL
+	          		FROM FEED F 
+	             , MEMBER M
+	             , (
+	                SELECT *
+	                  FROM (SELECT ROW_NUMBER() OVER(PARTITION BY FEEDNUM
+	                                 ORDER BY FILENUM) AS RNUM
+	                             , FILENUM
+	                             , FEEDNUM
+	                             , ORIGINALNAME
+	                             , FILENAME
+	                          FROM FEEDFILE
+	                       )
+	                 WHERE RNUM = 1
+	               ) FF
+	         WHERE F.ID = M.ID
+	           AND F.FEEDNUM = FF.FEEDNUM(+)
+	           AND M.URL = #{url}
+	         <if test="id == null">
+	            AND F.PUBLICS = 0
+	         </if>
+	         <!-- MEMBER에 존재하는 ID와 JOIN -->
+	         <include refid="searchSql"></include>
+	       ) F
+	 WHERE F.RNUM BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
 	<!-- 차단자 확인  -->
@@ -723,5 +760,9 @@
   	<delete id="setDeleteReplyComment" parameterType="FeedReplyDTO">
   		DELETE MEETINGREPLY WHERE REPLYNUM = #{replyNum}
   	</delete>
+
+	 <select id="getMember" resultType="String" parameterType="String">
+  		SELECT ID FROM MEMBER WHERE URL = #{url}
+  	</select>
 
   </mapper>
