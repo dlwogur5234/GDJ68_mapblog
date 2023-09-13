@@ -110,12 +110,12 @@
 	
 	
 		<div>
-			<c:if test="${not empty member}">
+
 				<div class="mb-3">		
 					<textarea  name="contents" class="form-control" id="comment"></textarea>
 					<button id="commentAdd">댓글등록</button>
 				</div>
-			</c:if>
+
 			<div>
 				<table id="commentList" class="table table-success table-striped">
 					
@@ -171,7 +171,7 @@
   
   
   
-
+	<script src="/resources/js/qna/qnaDetail.js"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="/resources/vendor/jquery/jquery.min.js"></script>
     <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

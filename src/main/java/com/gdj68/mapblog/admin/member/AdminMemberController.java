@@ -93,11 +93,11 @@ public class AdminMemberController {
 	@PostMapping("adminUpdate")
 	public String setAdminUpdate(AdminMemberDTO adminMemberDTO, HttpSession session)throws Exception{
 		int result = adminMemberService.setAdminUpdate(adminMemberDTO);
-		if(result>0) {
-			session.setAttribute("adminMember", adminMemberDTO);
-		}
+//		if(result>0) {
+//			session.setAttribute("adminMember", adminMemberDTO);
+//		}
 		
-		return "redirect:/admin/adminList";
+		return "redirect:/admin/member/adminList";
 	}
 	
 	//myPage

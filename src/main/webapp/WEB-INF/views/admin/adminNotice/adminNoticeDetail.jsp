@@ -86,8 +86,8 @@
 					
 				
 				<c:if test="${not empty adminMember}">
-				 <a href="/adminNotice/update?noticeNum=${dto.noticeNum}">수정</a>
-				<form action="/adminNotice/delete?noticeNum=${dto.noticeNum}" method="post"> 
+				 <a href="/admin/adminNotice/update?noticeNum=${dto.noticeNum}">수정</a>
+				<form action="/admin/adminNotice/delete?noticeNum=${dto.noticeNum}" method="post"> 
 				<button type="submit">삭제</button> 
 				</form>
 				</c:if>

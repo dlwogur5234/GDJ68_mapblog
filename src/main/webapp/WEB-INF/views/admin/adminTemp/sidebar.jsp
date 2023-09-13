@@ -5,7 +5,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="main">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/main">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -17,7 +17,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="main">
+                <a class="nav-link" href="/admin/main">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -88,7 +88,7 @@
                         <a class="collapse-item" href="/admin/adminQna/list">QNA게시판</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">게시물관리</h6>
-                        <a class="collapse-item" href="#">FEED관리</a>
+                        <a class="collapse-item" href="/admin/adminFeed/list">FEED관리</a>
                         <a class="collapse-item" href="#">MEETING관리</a>
                     </div>
                 </div>
@@ -101,19 +101,21 @@
                     <span>사내공지사항</span></a>
             </li>
 			
-            <!-- Nav Item - Charts -->
+<!--
+             Nav Item - Charts
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
+            Nav Item - Tables
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
-            </li>
+            </li> 
+-->
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

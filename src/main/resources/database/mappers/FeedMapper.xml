@@ -57,9 +57,29 @@
   		WHERE R BETWEEN #{startRow} AND #{lastRow}
   	</select>
   	 -->
+
+  	 
+  	<!-- list -->
+	<select id="getList3" parameterType="Pager" resultType="FeedDTO" >
+		SELECT
+			* 
+		FROM	
+			(SELECT ROWNUM R, B.* FROM
+				(
+					SELECT * FROM FEED
+
+					ORDER BY CREATEDATE DESC
+				) B
+			)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+  	 
+  	 
+  	 
+  	 
   	 
   	 <select id="getList2" parameterType="MemberDTO" resultType="FeedDTO">
-  	 	SELECT TO_CHAR(TRIPDATE, 'yyyy-mm-dd') AS TRIPDATE, ID, TITLE
+  	 	SELECT TO_CHAR(TRIPDATE, 'yyyy-mm-dd') AS TRIPDATE, ID, TITLE, CREATEDATE
   	 	  FROM FEED
   	 	 WHERE ID = #{id}
   	 </select>

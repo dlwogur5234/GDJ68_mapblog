@@ -43,7 +43,7 @@ public class CalendarController {
 	
 	@PostMapping("myCalendar2")
 	@ResponseBody
-	public List<FeedDTO> fullcalendar2(HttpSession session, MeetingDTO meetingDTO, Model model)throws Exception{
+	public List<FeedDTO> fullcalendar2(HttpSession session, FeedDTO feedDTO, Model model)throws Exception{
 		List<FeedDTO> ar = feedService.getList(session);
 		
 		return ar;

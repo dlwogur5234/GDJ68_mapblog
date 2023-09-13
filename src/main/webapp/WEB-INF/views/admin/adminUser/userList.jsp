@@ -57,14 +57,14 @@
 				<h1 class="mb-4 text-center">User List</h1>
 			
 				
-				<table class="table table-dark table-hover">
+				<table class="table table-striped" id="tableSize">
 					<thead>
 						<th>ID</th><th>이름</th><th>닉네임</th><th>E-mail</th><th>연락처</th><th>생년월일</th><th>개인URL</th><th>가입날짜</th>
 					</thead>
 					<tbody>
 						<c:forEach items="${userList}" var="d" varStatus="i">
 						<tr>
-							<td><a class="link-underline link-underline-opacity-0 text-white" href="./userDetail?id=${d.id}">${d.id}</a></td>
+							<td><a class="link-underline link-underline-opacity-0 text-white" style="text-decoration: none; color: black !important;" href="./userDetail?id=${d.id}">${d.id}</a></td>
 							<td>${d.name}</td>
 							<td>${d.nickName}</td>
 							<td>${d.email}</td>
