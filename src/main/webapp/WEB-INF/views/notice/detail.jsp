@@ -26,6 +26,11 @@
             <link rel="stylesheet" href="/resources/css/index/slick.css">
             <link rel="stylesheet" href="/resources/css/index/nice-select.css">
             <link rel="stylesheet" href="/resources/css/index/style.css">
+            <style>
+                main{
+                    height: 1200px;
+                }
+            </style>
    </head>
 
    <body>
