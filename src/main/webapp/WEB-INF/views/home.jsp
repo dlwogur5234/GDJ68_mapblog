@@ -60,8 +60,15 @@
                         <div class="row">
                             <div class="col-xl-9 col-lg-9 col-md-9">
                                 <div class="hero__caption">
-                                    <h1>Grand Open <span>Mapper!</span> </h1>
-                                    <p>Mapper를 통해 일상을 기록하세요</p>
+                                	<c:if test="${adminBannerDTO2 ne null}">
+	                                    <h1>${adminBannerDTO2.mainTitle}</h1>
+	                                    <p>${adminBannerDTO2.subTitle}</p>
+                                	</c:if>
+                                	<c:if test="${adminBannerDTO2 eq null}">
+	                                    <h1>Grand Open Mapper!</h1>
+	                                    <p>Mapper를 통해 일상을 기록하세요</p>
+                                	</c:if>
+                                	
                                 </div>
                             </div>
                         </div>

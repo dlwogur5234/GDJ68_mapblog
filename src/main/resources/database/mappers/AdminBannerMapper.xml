@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.gdj68.mapblog.admin.banner.AdminBannerDAO">
+  
+
+	<!-- list -->
+	<select id="getList" parameterType="AdminBannerDTO" resultType="AdminBannerDTO" >
+		SELECT
+			* 
+		FROM	
+			MAINBANNER
+	</select>
+  	
+  	
+	<!-- add -->
+	<insert id="setAdd" parameterType="AdminBannerDTO">
+		<selectKey keyProperty="bannerNum" resultType="Long" order="BEFORE">
+			SELECT MAINBANNER_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO MAINBANNER
+		VALUES (#{bannerNum}, #{mainTitle},#{subTitle})
+	</insert>
+	
+	
+	<!-- delete -->
+	<delete id="setDelete" parameterType="AdminBannerDTO">
+		DELETE
+		FROM
+			MAINBANNER
+		WHERE
+			BANNERNUM=#{bannerNum}
+	</delete>
+	
+	<!-- select -->
+	<select id="getSelect" parameterType="AdminBannerDTO" resultType="AdminBannerDTO">
+		SELECT
+			*
+		FROM
+			MAINBANNER
+		WHERE
+			BANNERNUM=#{bannerNum}
+	</select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	<!-- 
+  	detail
+  	<select id="getUserDetail" resultMap="getUserDetailResult" parameterType="MemberDTO">
+  		SELECT 
+  			M.*, PI.*
+  		FROM
+  			MEMBER M
+  			LEFT JOIN
+  			PROFILEIMG PI
+  			ON(M.ID=PI.ID)
+  		WHERE
+  			M.ID=#{id}
+  	</select>
+  	<resultMap type="MemberDTO" id="getUserDetailResult">
+  		<id column="ID" property="id"/>
+  		<result column="PW" property="pw"/>
+  		<result column="NAME" property="name"/>
+  		<result column="NICKNAME" property="nickName"/>
+  		<result column="EMAIL" property="email"/>
+  		<result column="PHONE" property="phone"/>
+  		<result column="BIRTH" property="birth"/>
+  		<result column="URL" property="url"/>
+  		<result column="CREATEDATE" property="createDate"/>
+  		<collection property="fileDTOs" javaType="List" ofType="MemberFileDTO">
+			<id column="FILENUM" property="fileNum"/>
+			<result column="ORIGINALNAME" property="originalName"/>
+			<result column="FILENAME" property="fileName"/>
+		</collection>
+  		
+  	</resultMap> 
+  	 -->
+
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  </mapper>

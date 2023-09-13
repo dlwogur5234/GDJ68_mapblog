@@ -11,9 +11,6 @@
     <meta name="author" content="">
 
     <title>Mapper Admin Main Page</title>
-    
-    <!-- Kakao Map -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e&libraries=services"></script>
 
     <!-- Custom fonts for this template-->
     <link href="/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,7 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/css/admin/sb-admin-2.min.css" rel="stylesheet">
-<c:import url="../../temp/bootStrap.jsp"></c:import>
+<c:import url="../temp/bootStrap.jsp"></c:import>
 
 <style>
 
@@ -49,77 +46,14 @@
                 <!-- Topbar -->
                 <nav>
 
-                    <c:import url="../../temp/adminHeader.jsp"></c:import>
+                    <c:import url="../temp/adminHeader.jsp"></c:import>
 
                 </nav>
                 <!-- End of Topbar -->
 
 
 			<!-- 페이지별 내용 -->
-			<p class="mb-5"></p>
-			<section class="container-sm">
-		
-				<form action="" id="frm">
-					<!-- feedNum hidden처리 -->
-					<input type="hidden" id="feedNum" name="feedNum" value="${dto.feedNum}">
-				</form>
-				
-				<!-- publics hidden처리 -->
-				<input type="hidden" name="publics" value="${dto.publics}">
-		
-				<input type="hidden" name="id" id="id" value="${dto.id}">
-		
-				<!-- 위도/경도 (숨김) -->
-				<input type="hidden" name="lat" id="lat" value="${dto.lat}">
-				<input type="hidden" name="lng" id="lng" value="${dto.lng}">
-		
-				<!-- url (숨김) -->
-				<input type="hidden" name="url" id="url" value="${dto.url}">
-		
-		
-				<p class="col-sm-8 text-start">여행날짜 ${dto.tripDate}</p>
-				<p class="display-4">${requestScope.dto.title}</p>
-				
-				<dl class="row mt-1">
-					<dd class="col-sm-2 text-start align-text-bottom mt-1">${dto.id}</dd>
-					<dd class="col-sm-8 text-end text-body-tertiary">작성일 ${dto.createDate}</dd>
-					<dd class="col-sm-2 text-end">조회수 ${dto.hit}</dd>
-				</dl>
-		
-				<hr class="hr" />
-		
-				
-			<div>
-				<div class="card border-white mb-3">
-					<pre class="card-body contents text-start" style="font-size:15px; height:300px;">${dto.contents}</pre>
-				</div>
-		
-				<div>
-					<c:forEach items="${dto.dtos}" var="f">
-						<img alt="${f.originalName}" src="/resources/upload/feed/${f.fileName}">
-					</c:forEach>
-				</div>
-			</div>
-		
-			<div class="row mt-1">
-				<p class="col-sm-11 text-end"></p>
-				<button class="btn btn-primary col-sm-1 text-start" id="likes"> 좋아요 ${dto.likes} </button>
-			</div>
-		
-			<hr class="hr" />
-		
-		
-			<div id="commentList"></div>
-		
-		
-		
-			
 
-				<button class="btn btn-danger c1" type="button" id="delete" data-url="delete">삭제</button>
-				<a class="btn btn-primary" href="./list">목록</a>
-		
-			
-			</section>
 
 
 
@@ -159,33 +93,7 @@
   
   
   
-  	<script type="text/javascript">
-
-		// 좋아요 관련 script
-		$(document).on("click", "#likes", function() {
-			if ("${sessionScope.member}") {
-				$.ajax({
-					async:false,
-					url:"./addLikes",
-					type:"post",
-					data:{"feedNum":$("#feedNum").val()},
-					dataType:"json",
-					success:function(data) {
-						$("#likes").text("좋아요 " + data.count);
-
-					},
-					error:function(xhr, status, res) {
-						console.log("오류 발생", xhr.responseText, status, res);
-					}
-				});
-			} 
-		});
-
-
-	</script>
-
-	<script src="/resources/js/feed/feedDelete.js"></script>
-	<script src="/resources/js/feed/feedComment.js"></script>
+  
   
 
     <!-- Bootstrap core JavaScript-->
