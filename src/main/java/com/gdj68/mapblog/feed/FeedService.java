@@ -288,6 +288,7 @@ public class FeedService {
 	      // Long total = feedDAO.getTotal(pager);
 	      Long total = feedDAO.getTotalCount(pager);
 	      pager.makePageNum(total);
+	      pager.setId(feedDAO.getMember(pager.getUrl()));
 		return feedDAO.getFeedList(pager);
 	}
 
@@ -297,7 +298,7 @@ public class FeedService {
 	      pager.makeRowNum();
 	      // Long total = feedDAO.getTotal(pager);
 	      Long total = feedDAO.getTotalCount(pager);
-	      pager.makePageNum(total);
+	      pager.makePageNum(total);     
 		return feedDAO.getList(pager);
 	}
 

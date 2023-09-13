@@ -268,6 +268,10 @@ public class FeedDAO {
 	public List<FeedDTO> getList3(Pager pager) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getList3", pager);
 	}
+
+	public String getMember(String url) {
+		return sqlSession.selectOne(NAMESPACE + "getMember", url);
+	}
 	
 }
 
