@@ -366,12 +366,20 @@ public class FeedController {
 		String userUrl2 = userUrl1.toString();
 		String[] userUrl3 = userUrl2.split("/");
 		String userUrl4 = userUrl3[userUrl3.length-1];
+		pager.setUrl(userUrl4);
+
 				
 		if(memberDTO != null) {
 			// 로그인 o
 			FeedDTO feedDTO2 = new FeedDTO();
 			feedDTO2.setUrl(userUrl4);
 			MemberDTO m = feedService.getUser(feedDTO2);
+			
+			///////////////////
+			if(m==null) {
+				return "feed/noMemberFound";
+			}
+			
 			String urlId = m.getId().trim(); 
 			String uId = memberDTO.getId().trim();
 			
@@ -447,6 +455,11 @@ public class FeedController {
 			FeedDTO feedDTO2 = new FeedDTO();
 			feedDTO2.setUrl(userUrl4);
 			MemberDTO m = feedService.getUser(feedDTO2);
+			
+			/////////////////
+			if(m==null) {
+				return "feed/noMemberFound";
+			}
 			
 			if(m.getPublics() == 1) {
 				// publics가 1인 사람은 전체 공개 계정
