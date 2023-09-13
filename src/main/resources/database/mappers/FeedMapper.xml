@@ -488,9 +488,7 @@
 	         WHERE F.ID = M.ID
 	           AND F.FEEDNUM = FF.FEEDNUM(+)
 	           AND M.URL = #{url}
-	         <if test="id == null">
 	            AND F.PUBLICS = 0
-	         </if>
 	         <!-- MEMBER에 존재하는 ID와 JOIN -->
 	         <include refid="searchSql"></include>
 	       ) F
