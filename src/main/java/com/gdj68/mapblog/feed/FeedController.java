@@ -366,20 +366,12 @@ public class FeedController {
 		String userUrl2 = userUrl1.toString();
 		String[] userUrl3 = userUrl2.split("/");
 		String userUrl4 = userUrl3[userUrl3.length-1];
-		pager.setUrl(userUrl4);
-
 				
 		if(memberDTO != null) {
 			// 로그인 o
 			FeedDTO feedDTO2 = new FeedDTO();
 			feedDTO2.setUrl(userUrl4);
 			MemberDTO m = feedService.getUser(feedDTO2);
-			
-			///////////////////
-			if(m==null) {
-				return "feed/noMemberFound";
-			}
-			
 			String urlId = m.getId().trim(); 
 			String uId = memberDTO.getId().trim();
 			
@@ -405,7 +397,7 @@ public class FeedController {
 			session.setAttribute("follow", followDTO);
 			
 			if(urlId.equals(uId)) {
-				List<FeedDTO> li = feedService.getList2(pager);
+				List<FeedDTO> li = feedService.getList2(m);
 				model.addAttribute("list", li);
 			}else{
 				
@@ -456,15 +448,10 @@ public class FeedController {
 			feedDTO2.setUrl(userUrl4);
 			MemberDTO m = feedService.getUser(feedDTO2);
 			
-			/////////////////
-			if(m==null) {
-				return "feed/noMemberFound";
-			}
-			
 			if(m.getPublics() == 1) {
 				// publics가 1인 사람은 전체 공개 계정
 				// 전체 게시글 중 publics가 0(전체공개)인 게시글만 불러오자
-				List<FeedDTO> li = feedService.getFeedList(pager);
+				List<FeedDTO> li = feedService.getFeedList(m.getId());
 				model.addAttribute("list", li);
 			}else {
 				// publics가 0인 사람은 전체 비공개 계정
