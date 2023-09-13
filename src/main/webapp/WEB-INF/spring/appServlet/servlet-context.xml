@@ -77,7 +77,6 @@
 					<mapping path="/feed/update"/>
 					<mapping path="/feed/delete"/>
 					<mapping path="/feed/likesList"/>
-					<mapping path="/feed/list/*"/>
 					
 					<exclude-mapping path="/*"/>
 	

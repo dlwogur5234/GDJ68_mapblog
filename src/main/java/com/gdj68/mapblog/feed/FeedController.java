@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gdj68.mapblog.follow.FollowDTO;
+import com.gdj68.mapblog.meeting.MeetingReplyDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
@@ -40,53 +42,6 @@ public class FeedController {
 
 	/* ---------------------------------------------- */
 
-	// List
-//	@GetMapping("list")
-//	public String getList(Pager pager, Model model, HttpSession session) throws Exception {
-//
-//		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-//
-//	      if (memberDTO != null) {
-//	         pager.setId(memberDTO.getId());
-//	      }
-//
-//		List<FeedDTO> ar = feedService.getList(pager);
-//		model.addAttribute("list", ar);
-//		model.addAttribute("pager", pager);
-//
-//		return "feed/list";
-//	}
-
-	// 개인 url 
-//	@RequestMapping(value = "list/*", method = RequestMethod.GET)
-//	public String getUrl (HttpServletRequest request, FeedDTO feedDTO, Model model, Pager pager) throws Exception{
-//
-//		StringBuffer userUrl1 = request.getRequestURL();
-//		String userUrl2 = userUrl1.toString();
-//		String[] userUrl3 = userUrl2.split("/");
-//		String userUrl4 = userUrl3[userUrl3.length-1];
-//		
-//		System.out.println(userUrl4);
-//		
-//		feedDTO.setUrl(userUrl4);
-//		
-//		MemberDTO memberDTO = new MemberDTO();
-//		
-//		memberDTO = feedService.getUser(feedDTO);
-//	
-////		System.out.println(memberDTO.getId());
-//		
-//		List<FeedDTO> li = feedService.getList(memberDTO);
-//		
-//		model.addAttribute("list", li);
-//		
-//		pager.setId(memberDTO.getId());
-//		pager = feedService.getPage(pager);
-//		model.addAttribute("pager", pager);		
-//
-//		return "feed/list";
-//		
-//	}
 
 	// Add Form
 	@GetMapping("add")
@@ -121,7 +76,7 @@ public class FeedController {
 	
 	// Detail
 	@GetMapping("detail")
-	public String getDetail(FeedDTO feedDTO, Model model, LikesDTO likesDTO) throws Exception {
+	public String getDetail(FeedDTO feedDTO, Model model, LikesDTO likesDTO, HttpSession session) throws Exception {
 		feedDTO = feedService.getDetail(feedDTO);
 		
 		FeedDTO getFeedUrl = feedService.getFeedUrl(feedDTO);
@@ -129,7 +84,7 @@ public class FeedController {
 		feedDTO.setUrl(feedUrl);
 
 		
-		if (feedDTO != null) {
+		/// if (feedDTO != null) {
 			String message = "등록성공";
 			model.addAttribute("dto", feedDTO);
 			
@@ -137,17 +92,17 @@ public class FeedController {
 			feedCommentDTO.setFeedNum(feedDTO.getFeedNum());
 			List<FeedCommentDTO> commentList = feedService.getCommentList(feedCommentDTO);
 			model.addAttribute("commentList", commentList);
+			model.addAttribute("realPath", session.getServletContext().getRealPath("/resources/upload/feed/"));
 
 			return "feed/detail";
 			
-		} else {
+		//}
 			
-			model.addAttribute("message", "글을 불러올 수 없습니다.");
-			
-			model.addAttribute("url", "list");
-			
-			return "commons/result";
-		}
+		//model.addAttribute("message", "글을 불러올 수 없습니다.");
+		
+		//model.addAttribute("url", "list");
+		
+		//return "commons/result";
 	}
 
 	// Delete
@@ -238,14 +193,18 @@ public class FeedController {
 		// 좋아요 테이블에 해당 ID를 가진 사람이 그 글에 좋아요를 누른적 있는지 체크한다.
 		int check = feedService.checkLikes(likesDTO);
 		model.addAttribute("check", check);
-
 		
 		if (check == 0) {
 			// check 결과값이 0 => 누른적 없음.
 			resultMap.put("result", feedService.addLikes(likesDTO));
+			// feed 테이블에 좋아요 수 누적
+			feedService.likesPlus(likesDTO);
+			System.out.println("123123");
 		} else {
 			// check 결과값이 0이 아님 => 그 id로 해당 글을 좋아요 누른 적이 있음.
 			resultMap.put("result", feedService.deleteLikes(likesDTO));
+			// feed 테이블에 좋아요 수 차감
+			feedService.likesMinus(likesDTO);
 		}
 
 		// 해당 글에 눌린 좋아요 갯수가 몇 개인지 카운트
@@ -353,117 +312,167 @@ public class FeedController {
 		return resultCommentMap;
 	}
 	
+
+	
 	
 	/* 공개 비공개 ----------------------------------------------- */
-	
+
 	// 개인 url
 	@RequestMapping(value = "list/*", method = RequestMethod.GET)
-	public String ListTest(FeedDTO feedDTO, HttpSession session, HttpServletRequest request, Model model, Pager pager) throws Exception {
-		
-		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
-		
+	public String getList(FeedDTO feedDTO, HttpSession session, HttpServletRequest request, Model model, Pager pager) throws Exception {
+
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+
 		StringBuffer userUrl1 = request.getRequestURL();
 		String userUrl2 = userUrl1.toString();
 		String[] userUrl3 = userUrl2.split("/");
-		String userUrl4 = userUrl3[userUrl3.length-1];
-				
-		if(memberDTO != null) {
+		String userUrl4 = userUrl3[userUrl3.length - 1];
+		pager.setUrl(userUrl4);
+		
+		if (memberDTO != null) {
 			// 로그인 o
 			FeedDTO feedDTO2 = new FeedDTO();
 			feedDTO2.setUrl(userUrl4);
 			MemberDTO m = feedService.getUser(feedDTO2);
-			String urlId = m.getId().trim(); 
-			String uId = memberDTO.getId().trim();
 			
-			if(urlId.equals(uId)) {
-				List<FeedDTO> li = feedService.getList2(m);
+			if(m==null) {
+				return "feed/noMemberFound";
+			}
+			
+			String urlId = m.getId().trim();
+			String uId = memberDTO.getId().trim();
+			pager.setId(uId);
+
+			// 20230909 수정 ----------------------------------------
+			// 로그인 시 팔로우 여부표시하는 부분 옮겼습니다.
+			FollowDTO followDTO = new FollowDTO();
+			String urlString = request.getRequestURL().toString();
+			Pattern pattern = Pattern.compile("/feed/list/(\\w+)");
+			Matcher matcher = pattern.matcher(urlString);
+
+			if (matcher.find()) {
+				String username = matcher.group(1);
+				System.out.println("Username: " + username);
+
+				// 추출한 username 값을 followDTO의 toUser 속성에 설정
+				followDTO.setToUser(username);
+			}
+
+			// 팔로우 여부 체크
+			followDTO.setFromUser(memberDTO.getNickName());
+			int followStatus = feedService.checkFollow(followDTO, session);
+			memberDTO = (MemberDTO) session.getAttribute("member");
+			followDTO.setFromUser(memberDTO.getNickName());
+			System.out.println("id :" + followDTO.getFromUser());
+			model.addAttribute("followStatus", followStatus);
+			session.setAttribute("follow", followDTO);
+			// -------------------------------------------------------
+
+			if (urlId.equals(uId)) {
+				List<FeedDTO> li = feedService.getList(pager);
 				model.addAttribute("list", li);
-			}else{
-				
+
+			} else {
+
 				int publics = m.getPublics();
-				if(publics == 1) {
+				if (publics == 1) {
 					// 공개 계정
 					String urlNickname = m.getNickName();
 					String uNickname = memberDTO.getNickName();
-					
+
 					IgnoreDTO ignoreDTO = new IgnoreDTO();
 					ignoreDTO.setIgnoring(urlNickname);
 					ignoreDTO.setIgnored(uNickname);
-					
+
 					ignoreDTO = feedService.confirmIgnore(ignoreDTO);
-					
-					if(ignoreDTO == null) {
+
+					if (ignoreDTO == null) {
 						// 차단x
 						ConfirmFollowDTO confirmFollowDTO = new ConfirmFollowDTO();
 						confirmFollowDTO.setFromUser(memberDTO.getNickName());
 						confirmFollowDTO.setToUser(m.getNickName());
 						confirmFollowDTO = feedService.confirmFollow(confirmFollowDTO);
-						
-						if(confirmFollowDTO != null) {
+
+						if (confirmFollowDTO != null) {
 							System.out.println("팔로우 중");
 							List<FeedDTO> li = feedService.getFeedListF(m.getId());
 							model.addAttribute("list", li);
-						}else {
+						} else {
 							System.out.println("팔로우 안하는 중");
 							List<FeedDTO> li = feedService.getFeedListUnF(m.getId());
 							model.addAttribute("list", li);
 						}
-						
-					}else {
+
+					} else {
 						// 차단o
 						List<FeedDTO> li = null;
 					}
-					
-				}else {
+
+				} else {
 					// publics가 0인 사람은 전체 비공개 계정
 					// 아무것도 보여주지 않아야 됨
 					List<FeedDTO> li = null;
 				}
 			}
-			
-		}else {
+
+		} else {
 			// 로그인 x
-			FeedDTO feedDTO2 = new FeedDTO();
-			feedDTO2.setUrl(userUrl4);
-			MemberDTO m = feedService.getUser(feedDTO2);
+			// FeedDTO feedDTO2 = new FeedDTO();
+			feedDTO.setUrl(userUrl4);
+			System.out.println("URL : " + userUrl4);
+
+			MemberDTO m = feedService.getUser(feedDTO);
 			
-			if(m.getPublics() == 1) {
+			if(m==null) {
+				return "feed/noMemberFound";
+			}
+
+			if (m.getPublics() == 1) {
 				// publics가 1인 사람은 전체 공개 계정
 				// 전체 게시글 중 publics가 0(전체공개)인 게시글만 불러오자
-				List<FeedDTO> li = feedService.getFeedList(m.getId());
+				List<FeedDTO> li = feedService.getList(pager);
+//				pager.setTotal(feedService.getTotalCount(pager));
+//				pager.setTotalPage((pager.getTotal() + 9) / pager.getPerPage());
 				model.addAttribute("list", li);
-			}else {
+			} else {
 				// publics가 0인 사람은 전체 비공개 계정
 				// 아무것도 보여주지 않아야 됨
 				List<FeedDTO> li = null;
 			}
 		}
-		//url만 따기
-				FollowDTO followDTO = new FollowDTO();
-				String urlString = request.getRequestURL().toString();
-			    Pattern pattern = Pattern.compile("/feed/list/(\\w+)");
-			    Matcher matcher = pattern.matcher(urlString);
 
-			    if (matcher.find()) {
-			        String username = matcher.group(1);
-			        System.out.println("Username: " + username);
-
-			        // 추출한 username 값을 followDTO의 toUser 속성에 설정
-			        followDTO.setToUser(username);
-			    }
-				//팔로우 여부 체크
-			    followDTO.setFromUser(memberDTO.getNickName());
-				int followStatus = feedService.checkFollow(followDTO, session);
-				memberDTO=(MemberDTO)session.getAttribute("member");
-				followDTO.setFromUser(memberDTO.getNickName());
-				System.out.println("id :" + followDTO.getFromUser());
-				model.addAttribute("followStatus", followStatus);
-				session.setAttribute("follow", followDTO);
-		pager = feedService.getPage(pager);
-		model.addAttribute("pager", pager);	
 		
+//		List<FeedDTO> ar = feedService.getList(pager);
+//		model.addAttribute("list", ar);
+		model.addAttribute("url", userUrl4);
+		model.addAttribute("pager", pager);
+
 		return "feed/list";
-		
+
+	}
+
+	// FEED 테이블의 데이터를 JSONArray로 가져오기 위함
+	@PostMapping("list/{url}")
+	@ResponseBody
+	public List<FeedDTO> getAjaxFeedList(@PathVariable("url") String url, HttpSession session, Pager pager) throws Exception {
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+		List<FeedDTO> feedList = null;
+
+		FeedDTO feedDto = new FeedDTO();
+		feedDto.setUrl(url);
+		MemberDTO memberUrlDTO = feedService.getUser(feedDto);
+		pager.setUrl(url);
+
+		if (memberDTO != null) {
+			// 로그인 O
+			pager.setId(memberDTO.getId());
+			feedList = feedService.getList(pager);
+		} else {
+			// 로그인 X
+			feedList = feedService.getList(pager);
+		}
+
+		return feedList;
 	}
 
 }

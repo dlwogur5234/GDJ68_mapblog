@@ -34,10 +34,10 @@ $('#addComment').on('click',function(){
 })
 
 function getList(){
-    ms = $('#feedNum2').val();
+    feedNum = $('#feedNum2').val();
     $.ajax({
         type:"GET",
-        url:"./getComment?feedNum="+ms,
+        url:"./getComment?feedNum="+feedNum,
             success: function(r){
                 $('#commentList').html(r);
             }

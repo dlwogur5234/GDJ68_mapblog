@@ -85,10 +85,15 @@ $('.a').each((i,e)=>{
         image : markerImage, // 마커 이미지 
         clickable : true
     });
+
+
+    let iwContent = '<div style="padding:5px;"><a href="../detail?feedNum=${f.feedNum}" style="color:blue" target="_blank">본문보기</a>',
+    // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     
     infowindow = new kakao.maps.InfoWindow({
         content: $(e).attr('data-title') // 인포윈도우에 표시할 내용
     });
+    
     kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
     kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
     kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, infowindow));
@@ -109,18 +114,10 @@ function makeOutListener(infowindow) {
 };
 
 
-
 function makeClickListener(map, marker, infowindow) {
     return function() {
         infowindow.open(map, marker);
         console.log(marker.Gb);
-        $.ajax({
-            type:"GET",
-            url:"./detail?feedNum="+marker.Gb,
-            success: function(r){
-                $('#detail').html(r);
-            }
-        })
     };
 }
 }
@@ -134,3 +131,44 @@ function panTo() {
     // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
     map.panTo(moveLatLon);            
 }   
+
+/* ---------------------------------------------------------------------------- */
+
+// 커스텀 오버레이
+
+let tripDate = document.getElementById("tripDate").value;
+let title = document.getElementById("title").value;
+
+let content = '<div class="overlaybox">' +
+    '    <div class="tripDate">' + tripDate + '</div>' +
+    '    <div class="title">' + title + '</div>' +
+    '    </div>';
+
+function makeClickListener(map, marker) {
+
+ 
+    return function() {
+ 
+        console.log(marker.Gb);
+        $.ajax({
+            type:"GET",
+            url:"./detail?feedNum="+marker.Gb,
+            success: function(r){
+                console.log(r);
+                content = r;
+                 overlay = new kakao.maps.CustomOverlay({
+                    content: content,
+                    map: map,
+                    position: marker.getPosition(),
+                    yAnchor: 1       
+                });
+                overlay.setMap(map); 
+                console.log(overlay);
+                console.log(marker.getPosition());
+            }
+        })
+      
+    
+    };
+}
+

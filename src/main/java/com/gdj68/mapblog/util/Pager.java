@@ -35,6 +35,8 @@ public class Pager {
 	// 내 게시물을 조회할 수 있는 id
 	private String id;
 	
+	private String url;
+	
 
 	public void makePageNum(Long total) {
 		// 130 > 13
@@ -205,5 +207,20 @@ public class Pager {
 	public void setTotal(Long total) {
 		this.total = total;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
+	@Override
+	public String toString() {
+		return "Pager [kind=" + kind + ", search=" + search + ", startRow=" + startRow + ", lastRow=" + lastRow
+				+ ", page=" + page + ", perPage=" + perPage + ", total=" + total + ", totalPage=" + totalPage
+				+ ", startNum=" + startNum + ", lastNum=" + lastNum + ", pre=" + pre + ", next=" + next + ", id=" + id
+				+ ", url=" + url + "]";
+	}
 }

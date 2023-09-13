@@ -119,6 +119,8 @@
             </div>
         </div>
          <!-- Our Services End -->
+
+         
         <!-- 조회수 많은 Places Start -->
         <div class="favourite-place place-padding">
             <div class="container">
@@ -132,126 +134,120 @@
                     </div>
                 </div>
                 <div class="row">
+                    <!-- 2주 내 작성 조회수 많은 게시글 시작 -->
+                    <c:forEach items="${hitRank}" var="hitRank" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
                             <div class="place-img">
-                                <img src="/resources/img/index/service/services1.jpg" alt="">
+                                    <img src="/resources/upload/feed/${hitRank.fileName}" alt="${hitRank.fileName}" />
                             </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span>8.0 Superb</span> </span>
-                                    <h3><a href="#">The Dark Forest Adventure</a></h3>
-                                    <p class="dolor">$1870 <span>/ Per Person</span></p>
+                                    <span><i class="fas fa-star"></i><span>조회수 TOP${i}</span> </span>
+                                    <h3><a href="/feed/detail?feedNum=${hitRank.feedNum}">${hitRank.title}</a></h3>
+                                    <p class="dolor">HIT ${hitRank.hit} / LIKE ${hitRank.likes}</p>
                                 </div>
                                 <div class="place-cap-bottom">
                                     <ul>
-                                        <li><i class="far fa-clock"></i>3 Days</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Los Angeles</li>
+                                        <li><i class="far fa-clock"></i>${hitRank.createDate}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </c:forEach>
+                    <!-- 2주 내 작성 조회수 많은 게시글 끝 -->
+
+                    <!-- 2주 내 작성 좋아요 많은 게시글 -->
+                    <c:forEach items="${likesRank}" var="likesRank" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
                             <div class="place-img">
-                                <img src="/resources/img/index/service/services2.jpg" alt="">
+                                    <img src="/resources/upload/feed/${likesRank.fileName}" alt="${likesRank.fileName}" />
                             </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span>8.0 Superb</span> </span>
-                                    <h3><a href="#">The Dark Forest Adventure</a></h3>
-                                    <p class="dolor">$1870 <span>/ Per Person</span></p>
+                                    <span><i class="fas fa-star"></i><span>좋아요 TOP${i.count}</span> </span>
+                                    <h3><a href="/feed/detail?feedNum=${likesRank.feedNum}">${likesRank.title}</a></h3>
+                                    <p class="dolor">HIT ${likesRank.hit} / LIKE ${likesRank.likes}</p>
                                 </div>
                                 <div class="place-cap-bottom">
                                     <ul>
-                                        <li><i class="far fa-clock"></i>3 Days</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Los Angeles</li>
+                                        <li><i class="far fa-clock"></i>${likesRank.createDate}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </c:forEach>
+                    <!-- 2주 내 작성 좋아요 많은 게시글 끝 -->
+
+                    <!-- 최근 글 top6 -->
+                    <c:forEach items="${newRank}" var="newRank" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
                             <div class="place-img">
-                                <img src="/resources/img/index/service/services3.jpg" alt="">
+                                    <img src="/resources/upload/feed/${newRank.fileName}" alt="${newRank.fileName}" />
                             </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span>8.0 Superb</span> </span>
-                                    <h3><a href="#">The Dark Forest Adventure</a></h3>
-                                    <p class="dolor">$1870 <span>/ Per Person</span></p>
+                                    <span><i class="fas fa-star"></i><span>NEW FEED TOP${i.count}</span> </span>
+                                    <h3><a href="/feed/detail?feedNum=${newRank.feedNum}">${newRank.title}</a></h3>
+                                    <p class="dolor">HIT ${newRank.hit} / LIKE ${newRank.likes}</p>
                                 </div>
                                 <div class="place-cap-bottom">
                                     <ul>
-                                        <li><i class="far fa-clock"></i>3 Days</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Los Angeles</li>
+                                        <li><i class="far fa-clock"></i>${newRank.createDate}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </c:forEach>
+                    <!-- 최근 글 top6 끝 -->
+
+
+                    <!-- 인플루언서 TOP 3 (조회수 기준) -->
+                    <c:forEach items="${hitMember}" var="hitMember" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
-                            <div class="place-img">
-                                <img src="/resources/img/index/service/services4.jpg" alt="">
-                            </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span>8.0 Superb</span> </span>
-                                    <h3><a href="#">The Dark Forest Adventure</a></h3>
-                                    <p class="dolor">$1870 <span>/ Per Person</span></p>
+                                    <span><i class="fas fa-star"></i><span>가장 많이 본 인플루언서 TOP${i.count}</span> </span>
+                                    <h3><a href="/feed/list/${hitMember.url}">${hitMember.nickName}</a></h3>
+                                    <p class="dolor">HIT ${hitMember.hit} / LIKE ${hitMember.likes}</p>
                                 </div>
                                 <div class="place-cap-bottom">
                                     <ul>
-                                        <li><i class="far fa-clock"></i>3 Days</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Los Angeles</li>
+                                        <li><i class="far fa-clock"></i>${hitMember.createDate}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </c:forEach>
+                    <!-- 인플루언서 TOP 3 (조회수 기준) 끝 -->
+
+                    <!-- 인플루언서 TOP 3 (좋아요 수 기준) -->
+                    <c:forEach items="${likesMember}" var="likesMember" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
-                            <div class="place-img">
-                                <img src="/resources/img/index/service/services5.jpg" alt="">
-                            </div>
                             <div class="place-cap">
                                 <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span>8.0 Superb</span> </span>
-                                    <h3><a href="#">The Dark Forest Adventure</a></h3>
-                                    <p class="dolor">$1870 <span>/ Per Person</span></p>
+                                    <span><i class="fas fa-star"></i><span>가장 좋아하는 인플루언서 TOP${i.count}</span> </span>
+                                    <h3><a href="/feed/list/${likesMember.url}">${likesMember.nickName}</a></h3>
+                                    <p class="dolor">HIT ${likesMember.hit} / LIKE ${likesMember.likes}</p>
                                 </div>
                                 <div class="place-cap-bottom">
                                     <ul>
-                                        <li><i class="far fa-clock"></i>3 Days</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Los Angeles</li>
+                                        <li><i class="far fa-clock"></i>${likesMember.createDate}</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <div class="place-img">
-                                <img src="/resources/img/index/service/services6.jpg" alt="">
-                            </div>
-                            <div class="place-cap">
-                                <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span>8.0 Superb</span> </span>
-                                    <h3><a href="#">The Dark Forest Adventure</a></h3>
-                                    <p class="dolor">$1870 <span>/ Per Person</span></p>
-                                </div>
-                                <div class="place-cap-bottom">
-                                    <ul>
-                                        <li><i class="far fa-clock"></i>3 Days</li>
-                                        <li><i class="fas fa-map-marker-alt"></i>Los Angeles</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
+                    <!-- 인플루언서 TOP 3 (좋아요 수 기준) 끝 -->
                 </div>
             </div>
         </div>
