@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gdj68.mapblog.file.FileDTO;
 import com.gdj68.mapblog.follow.FollowDTO;
+import com.gdj68.mapblog.meeting.MeetingReplyDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.FileManager;
 import com.gdj68.mapblog.util.Pager;
@@ -30,26 +31,27 @@ public class FeedService {
 	
 	// 리스트
 	public List<FeedDTO> getList(Pager pager) throws Exception {
-		pager.setPerPage(4L);
-		pager.makeRowNum();
-		Long total = feedDAO.getTotal(pager);
-		pager.makePageNum(total);
-		
+		pager.setPerPage(6L); // 임시로 9, 원래 4
+	      pager.makeRowNum();
+	      // Long total = feedDAO.getTotal(pager);
+	      Long total = feedDAO.getTotalCount(pager);
+	      pager.makePageNum(total);
+		System.out.printf("startRow : %d, lastRow : %d\n", pager.getStartRow(), pager.getLastRow());
 		return feedDAO.getList(pager);
 	}
-	
 	
 	public List<FeedDTO> getList(HttpSession session) throws Exception {
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member");
 		
 	    return feedDAO.getList(memberDTO);
+	}	
+	
+	public Long getTotalCount(Pager pager) throws Exception {
+		return feedDAO.getTotalCount(pager);
 	}
 	
-	public List<FeedDTO> getList3(Pager pager) throws Exception {
-		pager.makeRowNum();
-		Long total = feedDAO.getTotal(pager);
-		pager.makePageNum(total);
-	    return feedDAO.getList3(pager);
+	public List<FeedDTO> getList(MemberDTO memberDTO) throws Exception {
+	     return feedDAO.getList(memberDTO);
 	}
 	
 	public FeedDTO getUrl(FeedDTO feedDTO) throws Exception {
@@ -57,7 +59,7 @@ public class FeedService {
 	}
 	
 	
-	public MemberDTO getUser(FeedDTO feedDTO) {
+	public MemberDTO getUser(FeedDTO feedDTO) throws Exception {
 		return feedDAO.getUser(feedDTO);
 		
 	}
@@ -69,53 +71,49 @@ public class FeedService {
 
 	public Pager getPage(Pager pager) throws Exception {
 		// 한 페이지에 보여질 ROW 갯수 (Count 역할)
-		pager.setPerPage(4L);
+		pager.setPerPage(6L); // 임시로 9, 원래 4
+	      pager.makeRowNum();
+	      // Long total = feedDAO.getTotal(pager);
+	      Long total = feedDAO.getTotalCount(pager);
+	      pager.makePageNum(total);
 		
-		pager.makeRowNum();
-		Long total = feedDAO.getTotal(pager);
-		pager.makePageNum(total);
-//		pager.setTotal(total);
-		
-		
-		Long totalPage;
 		
 		if (total % 4L != 0) {
-			totalPage = total / 4L + 1;
+			Long totalPage = total / 4L + 1;
 		} else {
-			totalPage = total / 4L;
+			Long totalPage = total / 4L;
 		}
 
 		return pager;
 	}
 
-
 	// 글 추가
-	public int setAdd(FeedDTO feedDTO, MultipartFile [] files, HttpSession session) throws Exception {
-		
+	public int setAdd(FeedDTO feedDTO, MultipartFile[] files, HttpSession session) throws Exception {
+
 		String path = "/resources/upload/feed/";
-		
+
 		int result = feedDAO.setAdd(feedDTO);
-		
+		boolean first = true;
+
 		for (MultipartFile file : files) {
-			
-			if(!file.isEmpty()) {
-	
-			String fileName = fileManager.fileSave(path, session, file);
-			
-			FeedFileDTO feedFileDTO = new FeedFileDTO();
-			feedFileDTO.setFeedNum(feedDTO.getFeedNum());
-			feedFileDTO.setOriginalName(file.getOriginalFilename());
-			feedFileDTO.setFileName(fileName);
-			
-			result = feedDAO.setFileAdd(feedFileDTO);
-				
+
+			if (!file.isEmpty()) {
+
+				String fileName = fileManager.fileSave(path, session, file);
+
+				FeedFileDTO feedFileDTO = new FeedFileDTO();
+				feedFileDTO.setFeedNum(feedDTO.getFeedNum());
+				feedFileDTO.setOriginalName(file.getOriginalFilename());
+				feedFileDTO.setFileName(fileName);
+
+				result = feedDAO.setFileAdd(feedFileDTO);
+
 			}
 		}
-		
+
 		return result;
 	}
-	
-	
+
 	// 글 디테일
 	public FeedDTO getDetail(FeedDTO feedDTO) throws Exception {
 		feedDAO.setHitUpdate(feedDTO);
@@ -135,8 +133,8 @@ public class FeedService {
 		int result = feedDAO.setUpdate(feedDTO);
 
 		String path = "/resources/upload/feed/";
-		
-		
+
+				
 		for (MultipartFile file : files) {
 			
 			if(!file.isEmpty()) {
@@ -170,7 +168,7 @@ public class FeedService {
 		boolean flag = fileManager.fileDelete(feedFileDTO, "/resources/upload/feed/", session);
 		
 		if(flag) {
-			
+
 			//db삭제
 			return feedDAO.setFileDelete(feedFileDTO);
 		}
@@ -278,55 +276,91 @@ public class FeedService {
 	public int deleteCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
 		return feedDAO.deleteCommentLikes(feedCommentLikesDTO);
 	}
+	
+	
+	/* --------------------------------------------------------------------------------------- */
 
-
-	public List<FeedDTO> getFeedList(String id) {
-		return feedDAO.getFeedList(id);
+	// List 관련
+	
+	public List<FeedDTO> getFeedList(Pager pager) throws Exception {
+		pager.setPerPage(6L); // 임시로 9, 원래 4
+	      pager.makeRowNum();
+	      // Long total = feedDAO.getTotal(pager);
+	      Long total = feedDAO.getTotalCount(pager);
+	      pager.makePageNum(total);
+		return feedDAO.getFeedList(pager);
 	}
 
 
-	public List<FeedDTO> getList2(MemberDTO m) throws Exception {
-		return feedDAO.getList(m);
+	public List<FeedDTO> getList2(Pager pager) throws Exception {
+		pager.setPerPage(6L); // 임시로 9, 원래 4
+	      pager.makeRowNum();
+	      // Long total = feedDAO.getTotal(pager);
+	      Long total = feedDAO.getTotalCount(pager);
+	      pager.makePageNum(total);
+		return feedDAO.getList(pager);
 	}
 
 
-	public IgnoreDTO confirmIgnore(IgnoreDTO ignoreDTO) {
+	public IgnoreDTO confirmIgnore(IgnoreDTO ignoreDTO) throws Exception {
 		return feedDAO.confirmIgnore(ignoreDTO);
 	}
 
 
-	public ConfirmFollowDTO confirmFollow(ConfirmFollowDTO confirmFollowDTO) {
+	public ConfirmFollowDTO confirmFollow(ConfirmFollowDTO confirmFollowDTO) throws Exception {
 		return feedDAO.confirmFollow(confirmFollowDTO);
 	}
 
-
-	public List<FeedDTO> getFeedListF(String id) {
+	
+	public List<FeedDTO> getFeedListF(String id) throws Exception {
 		return feedDAO.getFeedListF(id);
 	}
 
 
-	public List<FeedDTO> getFeedListUnF(String id) {
+	public List<FeedDTO> getFeedListUnF(String id) throws Exception {
 		return feedDAO.getFeedList(id);
 	}
 
-
-
-	
-	
-	
-
-
-	
 	
 	public int checkFollow(FollowDTO followDTO, HttpSession session)throws Exception{
 		MemberDTO memberDTO=(MemberDTO)session.getAttribute("member");
 		followDTO.setFromUser(memberDTO.getNickName());
 		return feedDAO.checkFollow(followDTO);
 	}
-	
 
+	public int likesPlus(LikesDTO likesDTO) throws Exception {
+		return feedDAO.likesPlus(likesDTO);
+	}
+
+	public int likesMinus(LikesDTO likesDTO) throws Exception {
+		return feedDAO.likesMinus(likesDTO);
+	}
+
+	public List<FeedDTO> getHitRank() throws Exception {
+		return feedDAO.getHitRank();
+	}
+
+	public List<FeedDTO> getLikesRank() throws Exception {
+		return feedDAO.getLikesRank();
+	}
+
+	public List<FeedDTO> getNewRank() throws Exception {
+		return feedDAO.getNewRank();
+	}
+
+	public List<MemberDTO> getHitMember() throws Exception {
+		return feedDAO.getHitMember();
+	}
+
+	public List<MemberDTO> getLikesMember() throws Exception {
+		return feedDAO.getLikesMember();
+	}
 	
-	
-	
+	public List<FeedDTO> getList3(Pager pager) throws Exception {
+		pager.makeRowNum();
+		Long total = feedDAO.getTotal(pager);
+		pager.makePageNum(total);
+	    return feedDAO.getList3(pager);
+	}
 	
 }

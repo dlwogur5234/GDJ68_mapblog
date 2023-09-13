@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.gdj68.mapblog.feed.FeedCommentLikesDTO;
 import com.gdj68.mapblog.file.FileDTO;
 import com.gdj68.mapblog.follow.FollowDTO;
+import com.gdj68.mapblog.meeting.MeetingReplyDTO;
 import com.gdj68.mapblog.member.MemberDTO;
 import com.gdj68.mapblog.util.Pager;
 
@@ -26,35 +27,34 @@ public class FeedDAO {
 	/* -------------------------------------------------------------- */
 
 	// 리스트
-	public List<FeedDTO> getFeedList(MemberDTO memberDto) throws Exception {
-		return sqlSession.selectList(NAMESPACE + "getFeedList", memberDto);
+	public List<FeedDTO> getFeedList(Pager pager) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getFeedList", pager);
 	}
-	
+
 	public List<FeedDTO> getList(Pager pager) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getList", pager);
 	}
-	
+
+	public Long getTotalCount(Pager pager) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "feedTotalCount", pager);
+	}
+
 	public List<FeedDTO> getList(MemberDTO memberDTO) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getList2", memberDTO);
 	}
-	
-	public List<FeedDTO> getList3(Pager pager) throws Exception {
-		return sqlSession.selectList(NAMESPACE + "getList3", pager);
-	}
-	
+
 	public FeedDTO getUrl(FeedDTO feedDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getUrl", feedDTO);
 	}
-	
-	public MemberDTO getUser(FeedDTO feedDTO) {
+
+	public MemberDTO getUser(FeedDTO feedDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NAMESPACE + "getUser", feedDTO);
 	}
-	
-	public FeedDTO getFeedUrl(FeedDTO feedDTO) {
+
+	public FeedDTO getFeedUrl(FeedDTO feedDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getFeedUrl", feedDTO);
 	}
-	
 
 	// 글 작성
 	public int setAdd(FeedDTO feedDTO) throws Exception {
@@ -181,43 +181,43 @@ public class FeedDAO {
 	}
 	
 	// 좋아요 체크
-	public int checkCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+	public int checkCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "checkCommentLikes", feedCommentLikesDTO);
 	}
 
 	// 좋아요 등록
-	public int addCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+	public int addCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
 		return sqlSession.insert(NAMESPACE + "addCommentLikes", feedCommentLikesDTO);
 	}
 
 	// 좋아요 카운트
-	public int countCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+	public int countCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "countCommentLikes", feedCommentLikesDTO);
 	}
 
 	// 좋아요 삭제
-	public int deleteCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) {
+	public int deleteCommentLikes(FeedCommentLikesDTO feedCommentLikesDTO) throws Exception {
 		return sqlSession.delete(NAMESPACE + "deleteCommentLikes", feedCommentLikesDTO);
 	}
 	
 	// 전체 공개만 가져오기
-	public List<FeedDTO> getFeedList(String id) {
+	public List<FeedDTO> getFeedList(String id) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getFeedList", id);
 	}
 
-	public IgnoreDTO confirmIgnore(IgnoreDTO ignoreDTO) {
+	public IgnoreDTO confirmIgnore(IgnoreDTO ignoreDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "confirmIgnore", ignoreDTO);
 	}
 
-	public ConfirmFollowDTO confirmFollow(ConfirmFollowDTO confirmFollowDTO) {
+	public ConfirmFollowDTO confirmFollow(ConfirmFollowDTO confirmFollowDTO) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "confirmFollow", confirmFollowDTO);
 	}
 
-	public List<FeedDTO> getFeedListF(String id) {
+	public List<FeedDTO> getFeedListF(String id) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getFeedListF", id);
 	}
 
-	public List<FeedDTO> getFeedListUnF(String id) {
+	public List<FeedDTO> getFeedListUnF(String id) throws Exception {
 		return sqlSession.selectList(NAMESPACE + "getFeedListUnF", id);
 	}
 	
@@ -228,12 +228,47 @@ public class FeedDAO {
 	
 
 // 팔로우 확인
-	public int checkFollow(FollowDTO followDTO) throws Exception{
+	public int checkFollow(FollowDTO followDTO) throws Exception {
 		
 		return sqlSession.selectOne(NAMESPACE+"checkFollow", followDTO);
 		
 		
 	}
+
+	public int likesPlus(LikesDTO likesDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "likesPlus", likesDTO);
+	}
+
+	public int likesMinus(LikesDTO likesDTO) throws Exception {
+		return sqlSession.update(NAMESPACE + "likesMinus", likesDTO);
+	}
+	
+	
+	// 게시글 랭크
+	public List<FeedDTO> getHitRank() throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getHitRank");
+	}
+
+	public List<FeedDTO> getLikesRank() throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getLikesRank");
+	}
+
+	public List<FeedDTO> getNewRank() throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getNewRank");
+	}
+
+	public List<MemberDTO> getHitMember() throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getHitMember");
+	}
+
+	public List<MemberDTO> getLikesMember() {
+		return sqlSession.selectList(NAMESPACE + "getLikesMember");
+	}
+	
+	public List<FeedDTO> getList3(Pager pager) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getList3", pager);
+	}
+	
 }
 
 
