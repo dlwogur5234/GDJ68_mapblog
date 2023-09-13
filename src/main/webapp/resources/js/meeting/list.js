@@ -12,8 +12,6 @@ $("#myListBtn").on("click", function () {
       url: "./myList",
       success: function (r) {
         $("#myList").html(r);
-        console.log("마이리스트 출력할때 센터 좌표", centertLat);
-        console.log("마이리스트 출력할때 센터 좌표", centerLng);
         getKakaoMap();
       },
       error: function () {
@@ -23,8 +21,6 @@ $("#myListBtn").on("click", function () {
   } else {
     $(this).html("내 참석 모임 보기");
     myListResult = !myListResult;
-    console.log("전체리스트 출력할때 센터 좌표", centertLat);
-    console.log("전체리스트 출력할때 센터 좌표", centerLng);
     getKakaoMap();
   }
 });
@@ -36,11 +32,8 @@ function getLocation() {
     navigator.geolocation.getCurrentPosition(
       function (position) {
         // alert(position.coords.latitude + ' ' + position.coords.longitude);
-        console.log("getLoaction");
         centertLat = position.coords.latitude;
         centerLng = position.coords.longitude;
-        console.log(centertLat);
-        console.log(centerLng);
         getKakaoMap();
       },
       function (error) {
@@ -61,7 +54,6 @@ function getLocation() {
 }
 
 $("#btn2").on("click", function () {
-  console.log($("#adrs").val());
   getKakaoMap();
 });
 
@@ -210,7 +202,6 @@ function makeClickListener(map, marker, infowindow) {
   // }
   return function () {
     infowindow.open(map, marker);
-    console.log(marker.Gb);
     let myModal = $("#myModal");
     $.ajax({
       type: "GET",
@@ -243,7 +234,6 @@ function makeClickListener(map, marker, infowindow) {
 //   $("#myModal").modal("hide");
 // });
 $(".modal").on("click", "#closeBtn", function () {
-  console.log($(this));
   myModal.style.display = "none";
 });
 

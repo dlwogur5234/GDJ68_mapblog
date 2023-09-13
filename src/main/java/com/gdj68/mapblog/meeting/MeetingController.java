@@ -29,7 +29,6 @@ public class MeetingController {
 	
 	@PostMapping("add")
 	public String setAdd(MeetingDTO meetingDTO) throws Exception {
-		System.out.println(meetingDTO.getNickName());
 		int result = meetingService.setAdd(meetingDTO);
 		return "redirect:../";
 	}
@@ -48,7 +47,6 @@ public class MeetingController {
 	
 	@GetMapping("detail")
 	public void getDetail(MeetingDTO meetingDTO, Model model,HttpSession session)throws Exception {
-		System.out.println(meetingDTO.getMeetingNum());
 		Map<String, Object> map = new HashMap<String, Object>();
 		map = meetingService.getDetail(meetingDTO,session);
 		long result = (Long)map.get("result");
@@ -98,10 +96,6 @@ public class MeetingController {
 	
 	@PostMapping("addComment")
 	public String setAddComment(MeetingCommentDTO commentDTO) throws Exception {
-		System.out.println("controller 진입");
-		System.out.println(commentDTO.getContents());
-		System.out.println(commentDTO.getId());
-		System.out.println("닉네임은"+commentDTO.getNickName());
 		long ms = commentDTO.getMeetingNum();
 		int result = meetingService.setAddComment(commentDTO);
 		return "redirect:./getComment?meetingNum="+ms;

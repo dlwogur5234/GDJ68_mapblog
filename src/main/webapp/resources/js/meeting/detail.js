@@ -58,22 +58,6 @@ $(document).ready(function () {
   });
 });
 
-// $('#commentList').on('click','#btn',function(){
-//     console.log($('#commentList').attr('data-commentNum'));
-//   });
-
-//   $('#btn3').on('click',function(){
-//     console.log("sdsds2");
-//   });
-
-//   $('#commentList').on('click','#btn',function(){
-//     console.log("sdsds3");
-//   });
-
-//   $('.butt').on('click',function(){
-//     console.log("sdsds3");
-//   });
-
 //댓글 삭제
 $("#commentList").on("click", ".butt", function () {
   let result = confirm("정말 삭제하시겠습니까?");
@@ -98,14 +82,11 @@ $("#commentList").on("click", ".butt", function () {
 //댓글 Update 이벤트
 $("#commentList").on("click", ".updateBtn", function () {
   let contents = $(this).siblings("#updateDiv").text();
-  console.log(contents);
 
   $(this)
     .siblings("#updateDiv")
     .html(
-      '<input type="text" id="contents"  style="border-radius: 11px; margin-right: 6px value="' +
-        contents +
-        '">'
+      '<input type="text" id="contents"  style="border-radius: 11px; margin-right: 6px" value="'+contents+'">'
     );
   $(this).attr("class", "updateBtn2 btn btn-outline-secondary");
   // $(this).siblings('#updateDiv').html("<input type='text' id='contents' value='" + contents + "'>");
@@ -113,7 +94,7 @@ $("#commentList").on("click", ".updateBtn", function () {
 
 //댓글 Update 완료 이벤트
 $("#commentList").on("click", ".updateBtn2", function () {
-  let contents = $(this).siblings("#updateDiv").children("#contents").val();
+  let contents = $(this).siblings("#updateDiv").children("#contents").val().trim();
   let commentNum = this.dataset.commentnum;
   if (contents.trim() == "") {
     alert("내용을 입력해 주세요.");
@@ -212,16 +193,14 @@ $("#commentList").on("click", "#replyListBtnId2", function () {
 
 //대댓 Update 이벤트
 $("#commentList").on("click", ".replyUpdateBtn", function () {
-  alert("대댓 이벤트 확인");
   let contents = $(this).siblings("#replyUpdateContentsDiv").text();
-  console.log(contents);
   $(this)
     .siblings("#replyUpdateContentsDiv")
-    .html('<input type="text" id="contents" value="' + contents + '">');
+    .html('<input type="text" id="contents" value="'+contents+'">');
   $(this).attr("class", "replyUpdateBtn2 btn btn-outline-secondary");
   $(this)
     .siblings("#replyUpdateContentsDiv")
-    .html("<input type='text' id='contents' value='" + trim(contents) + "'>");
+    .html("<input type='text' id='contents' value='"+contents.trim()+"'>");
 });
 
 //대댓 Update Ajax 호출
@@ -230,9 +209,7 @@ $("#commentList").on("click", ".replyUpdateBtn2", function () {
     .siblings("#replyUpdateContentsDiv")
     .children("#contents")
     .val();
-  console.log("컨텐츠 대댓", contents);
   let replyNum = this.dataset.replynum;
-  console.log(replyNum);
   if (contents.trim() == "") {
     alert("내용을 입력해 주세요.");
   } else {
