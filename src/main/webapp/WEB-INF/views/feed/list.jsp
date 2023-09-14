@@ -102,8 +102,14 @@
             .overlaybox li:hover .up {background-position:0 0px;}
             .overlaybox li:hover .down {background-position:0 -20px;}
             .row-cols-md-3>*{width: 50%;margin:0;}
+            #container{
+            	text-align: right;
+            	display: flex;
+            	justify-content: flex-end;
+            }
             .dotolContainer {
                 padding: 20px;
+
             }
             @media screen and (orientation:portrait) {
             .dotolContainer article {
@@ -237,7 +243,7 @@
                 <div>
                     <h1 class="a  text-center">Feed List</h1>
             
-                    <div id="followList"></div> 
+                   
                 </div>
             
                 <%--
@@ -246,9 +252,8 @@
                 </c:forEach>
                 --%>
         
-        <div class="container" style="padding: 0; text-align: right;">
-            url : ${member.url}
-            toUser :${follow.toUser}
+        <div class="container" id="container">
+             <div id="followList"></div> 
             <c:choose>
                 <c:when test="${member.url eq follow.toUser}"></c:when>
                 <c:otherwise>
@@ -447,10 +452,10 @@
 
 
 	<!-- JS here -->
-	
+		
 		<!-- All JS Custom Plugins Link Here here -->
         <script src="/resources/js/index/vendor/modernizr-3.5.0.min.js"></script>
-		
+		<script src="/resources/js/follow/followList.js"></script>
 		<!-- Jquery, Popper, Bootstrap -->
 		<script src="/resources/js/index/vendor/jquery-1.12.4.min.js"></script>
         <script src="/resources/js/index/popper.min.js"></script>

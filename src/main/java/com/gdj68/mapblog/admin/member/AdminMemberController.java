@@ -109,15 +109,16 @@ public class AdminMemberController {
 	}
 	
 	@PostMapping("adminMyPage")
-	public String getAdminMyPage(AdminMemberDTO adminMemberDTO, HttpSession session)throws Exception{
+	public String getAdminMyPage(HttpSession session,String adminPw)throws Exception{
 		AdminMemberDTO sessionAdminMember = (AdminMemberDTO)session.getAttribute("adminMember");
-		adminMemberDTO.setAdminId(sessionAdminMember.getAdminId());
-		int result = adminMemberService.setAdminUpdate(adminMemberDTO);
-		if(result>0) {
-			session.setAttribute("adminMember", adminMemberDTO);
-		}
-		
-		return "redirect:/admin/adminMyPage";
+		sessionAdminMember.setAdminPw(adminPw);
+		adminMemberService.getMyPage(sessionAdminMember);
+		/* int result = adminMemberService.setAdminUpdate(adminMemberDTO); */
+		/*
+		 * if(result>0) { session.setAttribute("adminMember", adminMemberDTO); }
+		 */
+		session.invalidate();
+		return "redirect:/admin";
 	}
 	
 	
