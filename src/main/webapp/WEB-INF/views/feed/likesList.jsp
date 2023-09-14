@@ -50,7 +50,7 @@
 
 	<!-- Main start -->
     <main>
-        <h1 class="a mb-5 text-center">Likes List</h1>
+        <h1 class="a mb-5 text-center">My Likes</h1>
         <form action="" id="frm">
             <!-- feedNum hidden처리 -->
             <input type="hidden" id="feedNum" name="feedNum" value="${dto.feedNum}">
@@ -58,48 +58,50 @@
     
         <!-- div.container start -->
         <div class="conatiner">
+            <style>
+
+                body {
+                    background-color: #fff;
+                }
+                /* header,.card {background-color: #fff;} */
+
+                .shadow-sm {
+                    box-shadow: .2em .2em .4em rgba(0,0,0,0.15);
+                }
+
+            </style>
         
-            <!-- div.row g-2 start -->
-            <div class="row g-2">
-                <div class="col-md-6 sideBar">
-                    <div class="sideBar--wrap">
-                        <div class="row row-cols-md-3 g-3">
-                        <c:forEach var="feed" items="${getLikesList}" varStatus="i">
-                            <div class="col">
-                                <div class="card shadow-sm">
-                                    <svg class="bd-placeholder-img card-img-top" width="80%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                        <!-- 제목 밑에 있는 회색부분 -->
-                                        <rect width="100%" height="100%" fill="#55595c"></rect>
-    
-                                        <!-- 이미지 -->
-                                        <a class="text-white link-offset-2 link-underline link-underline-opacity-0" href="./detail?feedNum=${feed.feedNum}">
-                                            <image class="goDetail" href="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:200px;" />
-                                            <text class="goDetail" id="title" x="5%" y="95%" fill="#eceeef" dy=".3em">${feed.title}</text>
-                                        </a>
-                                    </svg>
-    
-                                    <div class="card-body" style="position:relative; width:100%;">
-                                        <small class="text-muted text-start" style="position:relative; float:left;">${feed.createDate}</small>
-                                        <button type="button" id="likes" style="position:relative; float:right;" class="btn btn-sm btn-outline-secondary justify-content-end">♡ ${feed.likes}</button>
-                                    </div>
-    
-                                    <div style="clear:both"></div>
+        <!-- div.container start -->
+        <div class="cardContainer" >
+            <div class="container" id="card">
+                <div class="row row-cols-md-3 g-3 cardcon" style="display: grid;
+                grid-template-columns: repeat(3,1fr);    grid-row-gap: 30px;">
+                    <c:forEach var="feed" items="${getLikesList}" varStatus="i">
+                        <div class="col">
+                            <div class="card shadow-sm" style="padding:10px;border:none;">
+                                
+                                <a class="cardImg" href="./detail?feedNum=${feed.feedNum}" style="display: block; position: relative;width:100%;padding-bottom: 70%;">
+                                    <img src="/resources/img/99A85F3C5C0DC6AD29.jpeg" style="width:100%; height:100%; object-fit: cover; position: absolute;left:0;top:0;" />
+                                </a>
+
+                                <div class="card-body" style="position:relative; width:100%;">
+                                    <h5>${feed.title}</h5>
+                                    <small class="text-muted text-start" style="position:relative; float:left;">${feed.createDate}</small>
+                                    <button type="button" id="likes" style="position:relative; float:right;" class="btn btn-sm btn-outline-secondary justify-content-end">♡ ${feed.likes}</button>
                                 </div>
+
+                                <div style="clear:both"></div>
                             </div>
-                        </c:forEach>
                         </div>
+                    </c:forEach>
                     </div>
                 </div>
-    
             </div>
-            <!-- div.row g-2 end -->
-    
-        </div>
-        <!-- div.container end -->
+            <!-- div.container end -->
     
     
         <!-- Pager -->
-        <nav class="container" aria-label="Page navigation example">
+        <nav class="container" aria-label="Page navigation example" style="margin-top: 50px; margin-bottom: 100px;">
             <ul class="pagination justify-content-center">
             <c:if test="${pager.pre}">
                 <li class="page-item"><a class="page-link" href="./list?page=${pager.startNum-1}">Previous</a></li>
@@ -114,7 +116,7 @@
         </nav>
     
         <!-- 검색 Search -->
-        <div class="d-inline-flex p-2 justify-content-center">
+        <!-- <div class="d-inline-flex p-2 justify-content-center">
             <form class="input-group" action="./list" method="get">
                 <select name="kind" class="form-select rounded" style="width:100px" aria-label="Default select example">
                     <option value="title">제목</option>
@@ -125,16 +127,9 @@
                     <button type="submit" class="btn btn-primary">검색</button>
                 </div>
             </form>
-        </div>
+        </div> -->
     
-    
-    <!-- 로그인 안 했을 시에 로그인 페이지로 보내줌 -->
-    <c:if test="${sessionScope.member.id == null}">
-        <script>
-            alert("로그인 하신 후에 사용해주세요");
-            location.href="../member/login"; 
-        </script>
-    </c:if>
+
 
 
 

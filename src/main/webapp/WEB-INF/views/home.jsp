@@ -25,6 +25,16 @@
             <link rel="stylesheet" href="/resources/css/index/slick.css">
             <link rel="stylesheet" href="/resources/css/index/nice-select.css">
             <link rel="stylesheet" href="/resources/css/index/style.css">
+
+        <style>
+            .place-img {
+                width: 100%; padding-bottom: 56.26%; position: relative;
+            }
+            .place-img img {
+                position: absolute; left:0; top:0; object-fit: cover;
+            }
+
+        </style>
    </head>
 
    <body>
@@ -60,15 +70,8 @@
                         <div class="row">
                             <div class="col-xl-9 col-lg-9 col-md-9">
                                 <div class="hero__caption">
-                                	<c:if test="${adminBannerDTO2 ne null}">
-	                                    <h1>${adminBannerDTO2.mainTitle}</h1>
-	                                    <p>${adminBannerDTO2.subTitle}</p>
-                                	</c:if>
-                                	<c:if test="${adminBannerDTO2 eq null}">
-	                                    <h1>Grand Open Mapper!</h1>
-	                                    <p>Mapper를 통해 일상을 기록하세요</p>
-                                	</c:if>
-                                	
+                                    <h1>Grand Open <span>Mapper!</span> </h1>
+                                    <p>Mapper를 통해 일상을 기록하세요</p>
                                 </div>
                             </div>
                         </div>
@@ -128,43 +131,61 @@
          <!-- Our Services End -->
 
          
-        <!-- 조회수 많은 Places Start -->
-        <div class="favourite-place place-padding">
-            <div class="container">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle text-center">
-                            <span>Many people see it</span>
-                            <h2>조회수 많은 게시글</h2>
+         
+                        <!-- 조회수 많은 Places Start -->
+                        <div class="favourite-place place-padding">
+                            <div class="container">
+                                <!-- Section Tittle -->
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="section-tittle text-center">
+                                            <span>Many people see it</span>
+                                            <h2>조회수 많은 게시글</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <!-- 2주 내 작성 조회수 많은 게시글 시작 -->
+                                <c:forEach items="${hitRank}" var="hitRank" varStatus="i">
+                                <div class="col-xl-4 col-lg-4 col-md-6">
+                                    <div class="single-place mb-30">
+                                        <div class="place-img">
+                                                <img src="/resources/upload/feed/${hitRank.fileName}" alt="${hitRank.fileName}" />
+                                        </div>
+                                        <div class="place-cap">
+                                            <div class="place-cap-top">
+                                                <span><i class="fas fa-star"></i><span>조회수 TOP${i.count}</span> </span>
+                                                <h3><a href="/feed/detail?feedNum=${hitRank.feedNum}">${hitRank.title}</a></h3>
+                                                <p class="dolor">HIT ${hitRank.hit} / LIKE ${hitRank.likes}</p>
+                                            </div>
+                                            <div class="place-cap-bottom">
+                                                <ul>
+                                                    <li><i class="far fa-clock"></i>${hitRank.createDate}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </c:forEach>
+                                <!-- 2주 내 작성 조회수 많은 게시글 끝 -->
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <!-- 2주 내 작성 조회수 많은 게시글 시작 -->
-                    <c:forEach items="${hitRank}" var="hitRank" varStatus="i">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <div class="place-img">
-                                    <img src="/resources/upload/feed/${hitRank.fileName}" alt="${hitRank.fileName}" />
-                            </div>
-                            <div class="place-cap">
-                                <div class="place-cap-top">
-                                    <span><i class="fas fa-star"></i><span>조회수 TOP${i}</span> </span>
-                                    <h3><a href="/feed/detail?feedNum=${hitRank.feedNum}">${hitRank.title}</a></h3>
-                                    <p class="dolor">HIT ${hitRank.hit} / LIKE ${hitRank.likes}</p>
-                                </div>
-                                <div class="place-cap-bottom">
-                                    <ul>
-                                        <li><i class="far fa-clock"></i>${hitRank.createDate}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </c:forEach>
-                    <!-- 2주 내 작성 조회수 많은 게시글 끝 -->
 
+
+                    <!-- 2주 내 작성 좋아요 많은 Places Start -->
+                    <div class="favourite-place place-padding">
+                        <div class="container">
+                            <!-- Section Tittle -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section-tittle text-center">
+                                        <span>Many people like it</span>
+                                        <h2>좋아요 많은 게시글</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row">
                     <!-- 2주 내 작성 좋아요 많은 게시글 -->
                     <c:forEach items="${likesRank}" var="likesRank" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
@@ -188,7 +209,24 @@
                     </div>
                     </c:forEach>
                     <!-- 2주 내 작성 좋아요 많은 게시글 끝 -->
+                        </div>
+                    </div>
+                </div>
 
+
+                <!-- 최근 글 top6 Places Start -->
+                <div class="favourite-place place-padding">
+                    <div class="container">
+                        <!-- Section Tittle -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-tittle text-center">
+                                    <span>Latest best feed</span>
+                                    <h2>가장 인기있는 최근 피드</h2>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
                     <!-- 최근 글 top6 -->
                     <c:forEach items="${newRank}" var="newRank" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
@@ -212,8 +250,23 @@
                     </div>
                     </c:forEach>
                     <!-- 최근 글 top6 끝 -->
+                    </div>
+                </div>
+            </div>
 
-
+                <!-- 인플루언서 TOP 3 (조회수 기준) Places Start -->
+                <div class="favourite-place place-padding">
+                    <div class="container">
+                        <!-- Section Tittle -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-tittle text-center">
+                                    <span>Most hit influencer</span>
+                                    <h2>가장 많이 본 인플루언서</h2>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
                     <!-- 인플루언서 TOP 3 (조회수 기준) -->
                     <c:forEach items="${hitMember}" var="hitMember" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
@@ -234,7 +287,23 @@
                     </div>
                     </c:forEach>
                     <!-- 인플루언서 TOP 3 (조회수 기준) 끝 -->
+                        </div>
+                    </div>
+                </div>
 
+                <!-- 인플루언서 TOP 3 (좋아요 수 기준) Places Start -->
+                <div class="favourite-place place-padding">
+                    <div class="container">
+                        <!-- Section Tittle -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-tittle text-center">
+                                    <span>Most like influencer</span>
+                                    <h2>가장 좋아하는 인플루언서</h2>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
                     <!-- 인플루언서 TOP 3 (좋아요 수 기준) -->
                     <c:forEach items="${likesMember}" var="likesMember" varStatus="i">
                     <div class="col-xl-4 col-lg-4 col-md-6">
@@ -255,9 +324,10 @@
                     </div>
                     </c:forEach>
                     <!-- 인플루언서 TOP 3 (좋아요 수 기준) 끝 -->
+                    </div>
                 </div>
             </div>
-        </div>
+
         <!-- Favourite Places End -->
         <!-- Video Start Arera -->
         <div class="video-area video-bg pt-200 pb-200"  data-background="/resources/img/index/service/video-bg.jpg">
