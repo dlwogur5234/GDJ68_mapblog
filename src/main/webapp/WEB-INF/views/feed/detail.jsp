@@ -81,8 +81,7 @@
                                 text-align: inherit;
                             }
         
-            .container{
-            }
+
 
             .carousel-inner img {
                 width: 100%;
@@ -91,7 +90,7 @@
 
             #custCarousel .carousel-indicators {
                 position: static;
-                margin-top:20px;
+                margin-top:70px;
             }
 
             #custCarousel .carousel-indicators > li {
@@ -142,7 +141,7 @@
 	<main>
 		<p class="mb-5"></p>
 		<section class="container">
-		<div class="sliderArea">
+		<div class="sliderArea mt-5">
 			<div class="row">
 				<div class="col-md-12">
 					<div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
@@ -202,8 +201,8 @@
                             section.container,
                             section.container > * {overflow: hidden;}
                             @media screen and (min-width:1201px) {
-                            .sliderArea {width:60%}
-                            .writerArea {width:40%}
+                            .sliderArea {width:53%}
+                            .writerArea {width:57%}
                                 
                             }
                             @media screen and (max-width:1200px) {
@@ -243,6 +242,9 @@
                                 cursor: pointer;
                                 background-color: #000;
                             }
+
+                
+                        
                         </style>
 						<ol class="carousel-indicators list-inline listThumb">
 						<c:forEach var="file" items="${dto.dtos}" varStatus="status">
@@ -317,7 +319,9 @@
     
     
             
-        <div>
+        <div style="border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 30px;">
             <div class="card border-white mb-3">
                 <pre class="card-body contents text-start" style="font-size:15px; height:300px;white-space: pre-wrap;">${dto.contents}</pre>
             </div>
@@ -329,17 +333,17 @@
             </div> -->
         </div>
         <div style="display: flex;justify-content: flex-end;padding-bottom: 10px;">
-            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" id="likes" style="display: flex;justify-content: center;width: fit-content !important;"> 좋아요 ${dto.likes} </button>
+            <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" id="likes" style="    padding: 10px 30px;display: flex;justify-content: center;width: fit-content !important;"> 좋아요 ${dto.likes} </button>
         </div>
         <div style="display: flex;justify-content: flex-end; gap: 10px;">
 
             
             <div style="display: flex; gap: 10px;">
                 <c:if test="${sessionScope.member.id == dto.id}">
-                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn c1" type="button" id="update" data-url="update">수정</button>
-                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn c1" type="button" id="delete" data-url="delete">삭제</button>
+                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn c1" type="button" id="update" style="padding: 10px 30px;height: 40px;" data-url="update">수정</button>
+                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn c1" type="button" id="delete" style="padding: 10px 30px;height: 40px;" data-url="delete">삭제</button>
                 </c:if>
-                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" id="list">목록</button>
+                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" style="padding: 10px 30px;height: 40px;" id="list">목록</button>
             </div>
     
         </div>
@@ -351,7 +355,7 @@
             <input type="hidden" id="feedNum2" name="feedNum" value="${dto.feedNum}">
             <input type="hidden" id="commentId" name="id" value="${member.id}">
             <input type="hidden" id="nickName" name="nickName" value="${member.nickName}">
-            <textarea  id="commentContents" style="width:100%; border:none; resize: none;background: none;height: 200px;padding: 20px;" placeholder="댓글내용을 입력해주세요." maxlength="300" onkeydown="
+            <textarea  id="commentContents" style="width:100%; border:none; resize: none;background: none;height: 170px;padding: 20px;" placeholder="댓글내용을 입력해주세요." maxlength="300" onkeydown="
              $('.length').text($(this).val().length)
             "></textarea>
             <div style="display: flex; justify-content: space-between;align-items: center;border-top:1px solid #aaa;">
@@ -372,7 +376,8 @@
             }
             #commentList > * {
                 border-bottom: 1px solid #aaa;
-                padding: 20px 0;
+                padding: 20px;
+                background: #f9f9f9;
             }
         </style>
 
