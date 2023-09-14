@@ -22,9 +22,6 @@
     <link href="/resources/css/admin/sb-admin-2.min.css" rel="stylesheet">
 <c:import url="../../temp/bootStrap.jsp"></c:import>
 
-<style>
-
-</style>
 
 </head>
 <body id="page-top">
@@ -76,8 +73,11 @@
 					</div>
 					
 					<div class="mb-3">
-					  <label for="adminGrade" class="form-label">Grade</label>
-					  <input type="text" name="adminGrade" class="form-control" id="adminGrade">
+					  <label for="adminGrade" class="form-label">Grade</label><br>
+					  <input type="radio" id="adminGrade" name="adminGrade" value="MANAGER" checked>MANAGER<br>
+					  <input type="radio" id="adminGrade" name="adminGrade" value="ADMIN">ADMIN<br>
+					  <input type="radio" id="adminGrade" name="adminGrade" value="MASTER">MASTER<br>
+	
 		
 					</div>
 					

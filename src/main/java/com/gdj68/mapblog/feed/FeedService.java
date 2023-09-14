@@ -357,9 +357,10 @@ public class FeedService {
 		return feedDAO.getLikesMember();
 	}
 	
+	//admin feed List를 위함
 	public List<FeedDTO> getList3(Pager pager) throws Exception {
 		pager.makeRowNum();
-		Long total = feedDAO.getTotal(pager);
+		Long total = feedDAO.getTotal2(pager);
 		pager.makePageNum(total);
 	    return feedDAO.getList3(pager);
 	}
