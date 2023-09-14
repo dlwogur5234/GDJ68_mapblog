@@ -35,6 +35,7 @@ public class AdminMemberController {
 		
 		if(adminMemberDTO != null) {
 			session.setAttribute("adminMember", adminMemberDTO);
+			
 		}
 		
 		return "redirect:/admin/main";
@@ -77,7 +78,7 @@ public class AdminMemberController {
 	}
 	
 	//delete
-	@PostMapping("adminDelete")
+	@GetMapping("adminDelete")
 	public String setAdminDelete(AdminMemberDTO adminMemberDTO)throws Exception{
 		adminMemberService.setAdminDelete(adminMemberDTO);
 		return "redirect:/admin/main";
