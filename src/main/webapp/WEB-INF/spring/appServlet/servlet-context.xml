@@ -77,7 +77,7 @@
 					<mapping path="/feed/update"/>
 					<mapping path="/feed/delete"/>
 					<mapping path="/feed/likesList"/>
-					
+					<mapping path="/calendar/myCalendar/"/>
 					<exclude-mapping path="/*"/>
 	
 					<beans:bean class="com.gdj68.mapblog.interceptors.LoginInterceptor2"></beans:bean>
