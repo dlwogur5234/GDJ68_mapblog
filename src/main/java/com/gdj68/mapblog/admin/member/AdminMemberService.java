@@ -25,6 +25,10 @@ public class AdminMemberService {
 		return adminMemberDAO.setAdminJoin(adminMemberDTO);
 	}
 	
+	public int setAdminGradeJoin(AdminMemberDTO adminMemberDTO)throws Exception{
+		return adminMemberDAO.setAdminGradeJoin(adminMemberDTO);
+	}
+	
 	//list
 	public List<AdminMemberDTO> getAdminMemberList(Pager pager)throws Exception{
 		pager.makeRowNum();

@@ -27,7 +27,10 @@
             <link rel="stylesheet" href="/resources/css/index/style.css">
    </head>
 
-   <body>
+   <body style="display: flex;
+   flex-direction: column;
+   min-height: 100vh;">
+   
     <!-- Preloader Start -->
     <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
@@ -49,9 +52,12 @@
         <!-- Header End -->
 
 	<!-- Main start -->
-    <main>
+    <main style="    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;">
 
-        <h1>입력하신 URL에 해당하는 MEMBER가 없습니다</h1>
+        <h1 style="    color: #10293d;">입력하신 URL에 해당하는 MEMBER가 없습니다</h1>
 
 
     </main>

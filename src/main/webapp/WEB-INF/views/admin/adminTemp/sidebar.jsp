@@ -40,7 +40,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Automation:</h6>
-                        <a class="collapse-item" href="#">Banner</a>
+                        <a class="collapse-item" href="/admin/adminBanner/list">Banner</a>
                         <a class="collapse-item" href="#">Menu Tab</a>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">게시물관리</h6>
                         <a class="collapse-item" href="/admin/adminFeed/list">FEED관리</a>
-                        <a class="collapse-item" href="#">MEETING관리</a>
+                        <a class="collapse-item" href="/admin/adminMeeting/list">MEETING관리</a>
                     </div>
                 </div>
             </li>

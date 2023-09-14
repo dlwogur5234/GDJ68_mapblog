@@ -23,6 +23,11 @@ public class AdminMemberDAO {
 		return sqlSession.insert(NAMESPACE+"setAdminJoin", adminMemberDTO);
 	}
 	
+	//grade 매칭
+	public int setAdminGradeJoin(AdminMemberDTO adminMemberDTO)throws Exception{
+		return sqlSession.insert(NAMESPACE+"setAdminGradeJoin", adminMemberDTO);
+	}
+	
 	//login
 	public AdminMemberDTO getAdminLogin(AdminMemberDTO adminMemberDTO)throws Exception{
 		return sqlSession.selectOne(NAMESPACE+"getAdminLogin", adminMemberDTO);

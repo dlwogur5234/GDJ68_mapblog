@@ -134,19 +134,18 @@
                     }
                 </style>
             <!-- Kakao Map -->
-                <div>
-                    <div style="display: flex;gap:10px">
-                        <input type="text" id="adrs" style="width:100%;height: 40px;">
-                        <button id="btn2" type="button" style="flex: none;
-                        height: 40px;
-                        width: 70px;
-                        background-color: #fde02f;
-                        text-align: center;">검색</button>
-                    </div>
-                    <div id="map"></div>
-                    <div id="clickLatlng"></div>
-                    <p id="result"></p>
+            <div>
+                <!-- 검색 -->
+                <div class="input-group mb-3" style="gap:10px;">
+                    <input type="text" id="adrs" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn btn2" style="flex: none; height: 40px; width: 70px !important;padding: 0; line-height:1;" type="button" id="btn2 button-addon2" >검색</button>
                 </div>
+        
+                <!-- 지도 -->
+                <div id="map" class="mt-3"></div>
+                <div id="clickLatlng"></div>
+                <p id="result"></p>
+            </div>
         
                 <form action="./update" method="post" id="updateFrm" enctype="multipart/form-data">
                     
@@ -201,6 +200,10 @@
         
                     <!-- 파일첨부 추가되는 영역 -->
                     <div id="fileList" class="my-5">
+                        <div class="input-group mb-3">
+                            <input type="file" name="photos" class="form-control">
+                        </div>
+        
                     </div>
         
                     <!-- 첨부되어있는 파일 -->
