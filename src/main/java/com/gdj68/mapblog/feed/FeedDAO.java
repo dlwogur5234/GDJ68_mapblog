@@ -80,6 +80,11 @@ public class FeedDAO {
 	public Long getTotal(Pager pager) throws Exception {
 		return sqlSession.selectOne(NAMESPACE + "getTotal", pager);
 	}
+	
+	//admin feed List를 위한 total
+	public Long getTotal2(Pager pager) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + "getTotal2", pager);
+	}
 
 	/* -------- FILE -------- */
 	

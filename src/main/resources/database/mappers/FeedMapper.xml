@@ -123,6 +123,12 @@
 		<include refid="searchSql"></include>
 	</select>
 	
+	<!-- admin feed list를 위함) -->
+	<select id="getTotal2" resultType="Long" parameterType="Pager">
+	 SELECT COUNT(FEEDNUM)
+	   FROM FEED
+	</select>
+	
 
 
 	<!-- GET SEQUENCE -->

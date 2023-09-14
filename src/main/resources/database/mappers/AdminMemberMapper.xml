@@ -41,23 +41,7 @@
 		</collection>
 		
 	</resultMap>
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
+
   	
   	
   	<!-- admin계정 생성 -->
@@ -77,6 +61,20 @@
   		WHERE
   			ADMINID = #{adminId}
   	</delete>
+  	
+  	<!-- admin계정 권한부여 -->
+  	<insert id="setAdminGradeJoin" parameterType="AdminMemberDTO">
+  		INSERT ALL 
+		  WHEN ADMINGRADE = 'MASTER' THEN
+		    INTO ADMINROLE VALUES (ADMINID, 3)
+		  WHEN ADMINGRADE = 'ADMIN' THEN
+		    INTO ADMINROLE VALUES (ADMINID, 2)
+		  WHEN ADMINGRADE = 'MANAGER' THEN
+		    INTO ADMINROLE VALUES (ADMINID, 1)
+		SELECT *
+		FROM ADMINMEMBER
+		WHERE ADMINID = #{adminId}
+  	</insert>
   	
   	<!-- admin계정 업데이트 -->
   	<update id="setAdminUpdate" parameterType="AdminMemberDTO">

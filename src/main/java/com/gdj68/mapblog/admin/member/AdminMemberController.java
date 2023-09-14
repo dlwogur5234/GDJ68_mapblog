@@ -55,7 +55,8 @@ public class AdminMemberController {
 	@PostMapping("adminJoin")
 	public String setAdminJoin(AdminMemberDTO adminMemberDTO)throws Exception{
 		adminMemberService.setAdminJoin(adminMemberDTO);
-		return "redirect:/admin/main";
+		adminMemberService.setAdminGradeJoin(adminMemberDTO);
+		return "redirect:./adminList";
 	}
 	
 	//list
