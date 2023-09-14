@@ -12,7 +12,7 @@
         <c:import url="../temp/bootStrap.jsp"></c:import>
 
         <!-- Kakao Map -->
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1b5744597ccc65933ecad3607daed47e&libraries=services"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d19d0bc22748e1c8a814e507a6e96ed2&libraries=services"></script>
 
 
         <meta name="description" content="">
@@ -122,9 +122,21 @@
             .mapArea{
                 padding: 10px;
                 box-shadow: .2em .2em .4em rgba(0,0,0,0.15);
-                border: solid 1px e5e6e9;
+                border: solid 1px #e5e6e9;
                 background-color: #fff;
                 height: fit-content;
+            }
+
+            .genric-btn.info {
+                color: #fff;
+                background: #38a4ff;
+                border: 1px solid transparent
+            }
+
+            .genric-btn.info:hover {
+                color: #38a4ff;
+                border: 1px solid #38a4ff;
+                background: #fff
             }
 
         </style>
@@ -241,7 +253,7 @@
 	<!-- Main start -->
     <main>
                 <div>
-                    <h1 class="a  text-center">Feed List</h1>
+                    <!-- <h1 class="a  text-center">Feed List</h1> -->
             
                    
                 </div>
@@ -258,7 +270,7 @@
                 <c:when test="${member.url eq follow.toUser}"></c:when>
                 <c:otherwise>
                     <c:if test="${followStatus < 1}">
-                    <button type="button" onclick="addFollow()">팔로우</button>
+                    <button type="button " onclick="addFollow()">팔로우</button>
                     </c:if>
                     <c:if test="${followStatus > 0}">
                     <button type="button" onclick="deleteFollow()">삭제</button>
@@ -346,7 +358,7 @@
                                             <div style="display: flex;justify-content: space-between;">
                                                 <small class="text-muted text-start">${f.createDate}</small>
                                                 <div style="display: flex;">
-                                                    <div> ♡ ${f.likes} </div>
+                                                    <div style="color: e5e6e9;"> ♡ ${f.likes} </div>
                                                     <!-- <button type="button" id="findMarker" class="showMapbBtn btn-sm btn-outline-secondary justify-content-end">지도보기</button> -->
                                                 </div> 
                                             </div>
