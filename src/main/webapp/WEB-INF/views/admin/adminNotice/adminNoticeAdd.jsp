@@ -65,7 +65,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
         <!-- 페이지별 내용 -->
         <form
-          action="./adminNotice/add"
+          action="./add"
           method="post"
           enctype="multipart/form-data"
         >
