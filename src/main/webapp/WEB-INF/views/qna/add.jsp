@@ -16,6 +16,26 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       type="image/x-icon"
       href="/resources/img/index/favicon.ico"
     />
+    <style>
+      .sel {
+        position: relative;
+        left: 813px;
+        top: -62px;
+      }
+      main {
+        text-align: center;
+        height: 1200px;
+      }
+      .frm > div {
+        margin: 0 auto;
+      }
+      #nick {
+        height: 41px;
+        border-radius: 6px;
+        /* border-left: none; */
+        margin-top: 8px;
+      }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link
@@ -63,8 +83,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Main start -->
     <main>
-      <h1>add Page</h1>
-      <form action="./add" method="post" enctype="multipart/form-data">
+      <h1>add Page</h1><form
+        action="./add"
+        method="post"
+        enctype="multipart/form-data"
+        class="frm"
+      >
         <div class="input-group mb-3" style="width: 845px">
           <span class="input-group-text" id="basic-addon2">제목</span
           ><input
@@ -78,7 +102,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
 
         <div class="input-group">
-          <span class="input-group-text" id="basic-addon2">내용</span
+          <span
+            class="input-group-text"
+            id="basic-addon2"
+            style="margin-left: 516.759px"
+            >내용</span
           ><textarea
             class="form-control"
             aria-label="With textarea"
@@ -90,23 +118,28 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           ></textarea>
         </div>
 
-        <div class="input-group text-center">
+        <div class="input-group mb-3" style="margin-top: 15px">
           <input type="hidden" name="memberId" value="${member.id}" />
-          <span class="input-group-text" id="basic-addon2">작성자</span>
+          <span
+            class="input-group-text"
+            id="basic-addon1"
+            style="margin: 10px 0 5px 516.759px"
+            >작성자</span
+          >
           <input
             readonly
             type="text"
             name="nickName"
             value="${member.nickName}"
+            id="nick"
           />
         </div>
-        <br />
-
-        <select name="privateContents">
-          <option value="0">비밀글</option>
-          <option value="1" selected>공개글</option>
-        </select>
-
+        <div>
+          <select name="privateContents" class="sel">
+            <option value="0">비밀글</option>
+            <option value="1" selected>공개글</option>
+          </select>
+        </div>
         <div>
           <button type="button" class="my btn btn-danger" id="fileBtn">
             File추가
@@ -121,7 +154,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</select> -->
         </p>
 
-        <button type="submit">등록</button>
+        <button type="submit" class="btn btn-outline-secondary">등록</button>
       </form>
     </main>
 

@@ -21,7 +21,7 @@
   </select>
   
   <insert id="setCommentAdd" parameterType="QnaCommentDTO">
-  		INSERT INTO QNACOMMENT VALUES (QNACOMMENT_SEQ.NEXTVAL,#{qnaNum},<!-- #{adminId} -->#{id},#{contents},SYSDATE,#{nickName},#{adminId}
+  		INSERT INTO QNACOMMENT VALUES (QNACOMMENT_SEQ.NEXTVAL,#{qnaNum},<!-- #{adminId} -->#{id},#{contents},SYSDATE,#{nickName})
   </insert>
   
   <delete id="setCommentDel" parameterType="QnaCommentDTO">
