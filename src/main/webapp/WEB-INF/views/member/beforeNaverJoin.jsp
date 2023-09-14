@@ -99,7 +99,7 @@ Mapper  서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감�
 여러분은 본 약관을 읽고 동의하신 후 회원 가입을 신청하실 수 있으며, Mapper는 이에 대한 승낙을 통해 회원 가입 절차를 완료하고 여러분께 Mapper 서비스 이용 계정(이하 ‘계정’)을 부여합니다. 계정이란 회원이 Mapper 서비스에 로그인한 이후 이용하는 각종 서비스 이용 이력을 회원 별로 관리하기 위해 설정한 회원 식별 단위를 말합니다. 회원은 자신의 계정을 통해 좀더 다양한 Mapper 서비스를 보다 편리하게 이용할 수 있습니다.
         </textarea><br>
         <input type="checkbox" class="cb" id="c1">
-        <label for="c1">1번(필수)</label>
+        <label for="c1">MAPPER 이용 약관(필수)(필수)</label>
         <br><br><br>
         <textarea cols="120" rows="8">
 개인정보 수집 및 이용
@@ -112,15 +112,15 @@ Mapper  서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감�
 - 비밀번호 없이 회원 가입 시에는 필수항목으로 아이디, 이름, 생년월일, 휴대전화번호를, 선택항목으로 비밀번호를 수집합니다.
         </textarea><br>
         <input type="checkbox" class="cb" id="c2">
-        <label for="c2">2번(필수)</label>
+        <label for="c2">개인정보 수집 및 이용(필수)</label>
         <br><br><br>
         <textarea cols="120" rows="8">
- 실명 인증된 이메일인증으로 가입
+ 실명 인증된 이메일 인증으로 가입
             
 실명 인증된 이메일로 가입하시면 본인인증이 필요한 서비스를 가입 후 바로 이용하실 수 있어요.
         </textarea><br>
         <input type="checkbox" class="cb" id="c3">
-        <label for="c3">3번(필수)</label>
+        <label for="c3">실명 인증된 이메일 인증으로 가입(필수)</label>
         <br><br><br>
         <textarea cols="120" rows="8">
 위치기반서비스 이용약관
@@ -134,7 +134,7 @@ Mapper  서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감�
 이 약관에 명시되지 않은 사항은 위치정보의 보호 및 이용 등에 관한 법률, 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률, 전기통신기본법, 전기통신사업법 등 관계법령과 회사의 이용약관 및 개인정보처리방침, 회사가 별도로 정한 지침 등에 의합니다.
         </textarea><br>
         <input type="checkbox" class="cb" id="c4">
-        <label for="c4">4번(필수)</label>
+        <label for="c4">위치기반서비스 이용약관(필수)</label>
         <br><br><br>
         <textarea cols="120" rows="8">
 이벤트・혜택 정보 수신
@@ -142,7 +142,7 @@ Mapper  서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감�
 Mapper  서비스 및 제휴 이벤트・혜택 등의 정보를 휴대전화(전화 또는 문자), 이메일로 받을 수 있습니다. 일부 서비스(별개의 회원 체계 운영, Mapper 가입 후 추가 가입하는 서비스 등)의 경우, 수신에 대해 별도로 안내드리며 동의를 구합니다.
         </textarea><br>
         <input type="checkbox" id="agree1" name="agree1">
-        <label for="c5">5번(선택)</label>
+        <label for="c5">이벤트・혜택 정보 수신(선택)</label>
         <br><br><br>
         <textarea cols="120" rows="8">
 프로필정보 추가 수집 동의
@@ -151,7 +151,7 @@ Mapper 는 개인정보를 안전하게 취급하는데 최선을 다합니다.
 아래에 동의하시면 계정의 프로필정보를 Mapper 가 제공하는 Mapper 계정 기반의 서비스에서 편리하게 이용하실 수 있습니다.
         </textarea><br>
         <input type="checkbox" id="agree2" name="agree2">
-        <label for="c6">6번(선택)</label>
+        <label for="c6">프로필정보 추가 수집 동의(선택)</label>
     </form><br><br>
 <div id="btn-div">
     <button id="btn" class="btn border-btn">회원 가입</button>

@@ -58,7 +58,7 @@
                 cursor: pointer;
                 background-color: #000;
             }
-                        html,body{background-color: #eee;}
+                        html,body{background-color: #fff;}
                         .main-header{
                             background-color: #fff;
                         }
@@ -190,9 +190,9 @@
                 </style>
                 <div>
                     <!-- 검색 -->
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" style="gap:10px;">
                         <input type="text" id="adrs" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="btn2 button-addon2">검색</button>
+                        <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn btn2" style="flex: none; height: 40px; width: 70px !important;padding: 0; line-height:1;" type="button" id="btn2 button-addon2" >검색</button>
                     </div>
             
                     <!-- 지도 -->
@@ -232,31 +232,30 @@
                             <textarea class="form-control" name="contents" id="contents" aria-label="With textarea" rows="10"></textarea>
                         </div>
                         
-                        <!-- 글 공개여부 -->
-                        <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group" style="display: flex; justify-content: center;">
-                            <input type="radio" value="0" class="btn-check publics" name="publics" id="publics1" autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="publics1">전체공개</label>
-                        
-                            <input type="radio" value="1" class="btn-check publics" name="publics" id="publics2" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="publics2">팔로워만</label>
-                        
-                            <input type="radio" value="2" class="btn-check publics" name="publics" id="publics3" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="publics3">비공개</label>
+                    <!-- publics -->
+                    <div class="btn-group mb-3" role="group" aria-label="Basic radio toggle button group" style="display: flex;justify-content: center;">
+                        <input type="radio" value="0" class="btn-check publics" name="publics" id="publics0" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="publics0">전체공개</label>
+                    
+                        <input type="radio" value="1" class="btn-check publics" name="publics" id="publics1" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="publics1">팔로워만</label>
+                    
+                        <input type="radio" value="2" class="btn-check publics" name="publics" id="publics2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="publics2">비공개</label>
+                    </div>
+                    
+                    <!-- Upload file *************************************** -->
+                    <div class="mb-1" style="margin:0 auto; width:fit-content;">
+                        <button type="button" class="btn btn-primary" id="add">File 추가</button>
+                    </div>
+        
+                    <!-- 파일첨부 추가되는 영역 -->
+                    <div id="fileList" class="my-5">
+                        <div class="input-group mb-3">
+                            <input type="file" name="photos" class="form-control">
                         </div>
-                        
-                        <!-- Upload file *************************************** -->
-                        <div class="mb-1">
-                            <button type="button" class="btn btn-primary" id="add">File 추가</button>
-                        </div>
-
-
-                        <!-- 파일첨부 추가되는 영역 -->
-                        <div id="fileList" class="my-5">
-                            <div class="input-group mb-3">
-                                <input type="file" name="photos" class="form-control">
-                            </div>
-            
-                        </div>
+        
+                    </div>
 
                         <div style="display: flex; gap:10px;padding-bottom: 40px; justify-content: center;">
                             <button class="btn btn-primary" type="button" id="addBtn">등록</button>

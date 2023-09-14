@@ -274,7 +274,7 @@
                     <h4 class="hidden">리스트 영역</h4>
                     <div style="display: flex; margin-bottom: 20px;align-items: center; gap:10px;">
                         <input type="text" id="adrs" style="width: 100%; border: none;border: 1px solid #000; height: 40px;" />
-                        <button id="btn2" type="button" style="flex: none; height: 40px; width: 70px; background-color: #fde02f;text-align: center;">검색</button>
+                        <button id="btn2" class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="button" style="flex: none; height: 40px; width: 70px !important;padding: 0; line-height:1;">검색</button>
                     </div>
                     <div id="map" style="width:100%;height:0;padding-bottom: 100%;"></div>
                         <c:forEach items="${list}" var="d" varStatus="i">
@@ -299,7 +299,7 @@
                                 .card-body h5{text-overflow: ellipsis; width: 100%;overflow: hidden;white-space: nowrap;}
                                 .cardImg{ 
                                     display: block;position: relative;left:0;top:0;
-                                    width: 100%;padding-bottom: 56.26%;
+                                    width: 100%;padding-bottom: 70%;
                                     overflow: hidden;
                                 }
                                 .cardImg img {
@@ -341,8 +341,8 @@
                                             <div style="display: flex;justify-content: space-between;">
                                                 <small class="text-muted text-start">${f.createDate}</small>
                                                 <div style="display: flex;">
-                                                    <button type="button" id="likes" class="likesBtn btn-sm btn-outline-secondary justify-content-end">♡ ${f.likes}</button>
-                                                    <button type="button" id="findMarker" class="showMapbBtn btn-sm btn-outline-secondary justify-content-end">지도보기</button>
+                                                    <div> ♡ ${f.likes} </div>
+                                                    <!-- <button type="button" id="findMarker" class="showMapbBtn btn-sm btn-outline-secondary justify-content-end">지도보기</button> -->
                                                 </div> 
                                             </div>
                                         </figcaption>
@@ -408,7 +408,8 @@
                     <div class="input-form mb-30">
                         <input type="text" name="search" style="border:solid 1px #e8e8e8;;" value="${pager.search}" />
                     </div>
-                    <div class="search-form mb-30">
+                    <div class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn mb-30" style="width:90px !important;padding: 0;height: 40px; display:flex; justify-content: center;
+                    align-items: center;">
                         <a href="#" onclick="$('#searchform').submit();">Search</a>
                     </div>   
                 </form>   
