@@ -50,7 +50,7 @@
 		<li class="float">
 		<button class="updateBtn btn btn-outline-secondary" data-commentnum="${com.commentNum}">수정</button>
 		<button data-num-del="${com.commentNum}" id="del" class="btn btn-outline-danger">삭제</button>
-	</li>
+		</li>
 
 
    		

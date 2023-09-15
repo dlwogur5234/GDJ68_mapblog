@@ -522,7 +522,7 @@
 		SELECT COUNT(*) FROM FOLLOW WHERE FROMUSER = #{fromUser} and TOUSER = (SELECT NICKNAME FROM MEMBER WHERE URL = #{toUser})
 	</select>
 
-	<select id="getFeedListUnF" resultType="FeedDTO" parameterType="String">
+	<select id="getFeedListUnF" resultType="FeedDTO" parameterType="Pager">
 		SELECT * FROM FEED WHERE ID=#{id} AND PUBLICS=0
 	</select>
 

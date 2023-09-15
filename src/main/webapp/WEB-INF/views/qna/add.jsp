@@ -83,11 +83,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
     <!-- Main start -->
     <main>
-      <h1>add Page</h1><form
+      <h1>add Page</h1>
+      <form
         action="./add"
         method="post"
         enctype="multipart/form-data"
         class="frm"
+        id="frm"
       >
         <div class="input-group mb-3" style="width: 845px">
           <span class="input-group-text" id="basic-addon2">제목</span
@@ -98,6 +100,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             placeholder="제목을 입력하세요"
             aria-label="Username"
             aria-describedby="basic-addon1"
+            id="title"
           />
         </div>
 
@@ -154,7 +157,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		</select> -->
         </p>
 
-        <button type="submit" class="btn btn-outline-secondary">등록</button>
+        <button type="button" class="btn btn-outline-secondary" id="btn">등록</button>
       </form>
     </main>
 
@@ -163,7 +166,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <c:import url="/WEB-INF/views/temp/footer.jsp"></c:import>
 
     <!-- Footer End-->
-
+</body>
     <!-- JS here -->
 
     <!-- All JS Custom Plugins Link Here here -->
@@ -214,6 +217,24 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           },
         },
       });
+    </script>
+    <script>
+      let btn = document.getElementById('btn');
+      let title = document.getElementById('title');
+      let frm = document.getElementById('frm');
+
+      btn.addEventListener('click',function(){
+
+        if (title.value == '') {
+          alert('제목은 필수입니다');
+          title.focus();
+        }
+        else{
+          frm.submit();
+        }
+      })
+
+      
     </script>
     <!-- Jquery, Popper, Bootstrap -->
     <script src="/resources/js/index/vendor/jquery-1.12.4.min.js"></script>

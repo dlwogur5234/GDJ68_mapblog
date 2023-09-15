@@ -77,6 +77,11 @@
                     width: 80%;
                     text-align: center;
                 }
+                .overflow{
+                    overflow: scroll;
+                    width: 100%;
+                    height: 100%;
+                }
 </style>
 
 </head>
@@ -128,7 +133,7 @@
                         </table>
                             <div class="secondTable">
                               
-                                <div>${dto.contents}</div>
+                                <div class="overflow">${dto.contents}</div>
                                 <c:forEach items="${dto.fileDTOs}" var="f">	
                                     <img src="../resources/upload/notice/${f.fileName}" style="width: 450px; height: 450px;">
                                 </c:forEach> 
@@ -136,7 +141,7 @@
                             
                 </div>
                 <c:if test="${not empty adminMember}">
-                    <a href="./update?noticeNum=${dto.noticeNum}" class="btn btn-outline-secondary" id="upBtn">수정</a>
+                    <a href="./update?noticeNum=${dto.noticeNum}" class="btn btn-outline-secondary" id="upBtn" style="width: 57.66px;">수정</a>
                    <form action="./delete?noticeNum=${dto.noticeNum}" method="post"> 
                    <button type="submit" class="btn btn-outline-danger" id="delBtn">삭제</button> 
                    </form>

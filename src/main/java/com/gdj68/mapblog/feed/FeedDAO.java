@@ -206,7 +206,7 @@ public class FeedDAO {
 	
 	// 전체 공개만 가져오기
 	public List<FeedDTO> getFeedList(String id) throws Exception {
-		return sqlSession.selectList(NAMESPACE + "getFeedList", id);
+		return sqlSession.selectList(NAMESPACE + "getFeedList5", id);
 	}
 
 	public IgnoreDTO confirmIgnore(IgnoreDTO ignoreDTO) throws Exception {
@@ -221,8 +221,8 @@ public class FeedDAO {
 		return sqlSession.selectList(NAMESPACE + "getFeedListF", id);
 	}
 
-	public List<FeedDTO> getFeedListUnF(String id) throws Exception {
-		return sqlSession.selectList(NAMESPACE + "getFeedListUnF", id);
+	public List<FeedDTO> getFeedListUnF(Pager pager) throws Exception {
+		return sqlSession.selectList(NAMESPACE + "getFeedListUnF", pager);
 	}
 	
 	

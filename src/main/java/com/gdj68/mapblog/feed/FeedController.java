@@ -367,6 +367,7 @@ public class FeedController {
 		String[] userUrl3 = userUrl2.split("/");
 		String userUrl4 = userUrl3[userUrl3.length-1];
 		pager.setUrl(userUrl4);
+		
 		model.addAttribute("url", userUrl4);
 		List<FeedDTO> li;
 				
@@ -435,7 +436,8 @@ public class FeedController {
 							model.addAttribute("list", li);
 						}else {
 							System.out.println("팔로우 안하는 중");
-							li = feedService.getFeedListUnF(m.getId());
+							pager.setId(m.getId());
+							li = feedService.getFeedListUnF(pager);
 							model.addAttribute("list", li);
 						}
 						
@@ -465,6 +467,8 @@ public class FeedController {
 			if(m.getPublics() == 1) {
 				// publics가 1인 사람은 전체 공개 계정
 				// 전체 게시글 중 publics가 0(전체공개)인 게시글만 불러오자
+				System.out.println("----");
+				System.out.println(pager.getUrl());
 				li = feedService.getFeedList(pager);
 				model.addAttribute("list", li);
 			}else {

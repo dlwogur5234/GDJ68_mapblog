@@ -82,17 +82,22 @@ $(document).ready(function () {
 
 $("#commentList").on("click", ".updateBtn", function () {
   alert("수정버튼 클릭");
-  let contents = $(this).siblings("#updateDiv").text();
+  let contents = $(this).parents().siblings("#updateDiv").text();
   console.log(contents);
 
   $(this)
+    .parents()
     .siblings("#updateDiv")
-    .html('<input type="text" id="contents" value="' + contents + '">');
-  $(this).attr("class", "updateBtn2");
+    .html('<input type="text" id="contents"  value="' + contents + '">');
+  $(this).attr("class", "updateBtn2 btn btn-outline-secondary");
 });
 
 $("#commentList").on("click", ".updateBtn2", function () {
-  let contents = $(this).siblings("#updateDiv").children("#contents").val();
+  let contents = $(this)
+    .parents()
+    .siblings("#updateDiv")
+    .children("#contents")
+    .val();
   let commentNum = this.dataset.commentnum;
   $.ajax({
     type: "post",
@@ -109,8 +114,11 @@ $("#commentList").on("click", ".updateBtn2", function () {
       $("#commentList .updateBtn2")
         .siblings("#updateDiv")
         .text(updatedContents);
-      $("#commentList .updateBtn2").attr("class", "updateBtn");
-
+      $("#commentList .updateBtn2").attr(
+        "class",
+        "updateBtn btn btn-outline-secondary"
+      );
+      location.reload();
       getCommentList(qnaNum, page);
     },
     error: function () {

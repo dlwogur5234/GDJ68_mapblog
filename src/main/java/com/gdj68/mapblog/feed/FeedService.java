@@ -318,8 +318,8 @@ public class FeedService {
 	}
 
 
-	public List<FeedDTO> getFeedListUnF(String id) throws Exception {
-		return feedDAO.getFeedList(id);
+	public List<FeedDTO> getFeedListUnF(Pager pager) throws Exception {
+		return feedDAO.getFeedListUnF(pager);
 	}
 
 	

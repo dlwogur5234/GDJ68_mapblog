@@ -68,6 +68,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           action="./add"
           method="post"
           enctype="multipart/form-data"
+          id="frm"
         >
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">제목</span>
@@ -78,6 +79,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               aria-label="Username"
               aria-describedby="basic-addon1"
               name="subject"
+              id="title"
             />
           </div>
 
@@ -119,7 +121,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					</select> -->
           </p>
 
-          <button type="submit" class="btn btn-outline-primary" id="btn">
+          <button type="button" class="btn btn-outline-primary" id="btn">
             등록
           </button>
         </form>
@@ -149,6 +151,19 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <!-- Logout Modal-->
 
     <!-- Bootstrap core JavaScript-->
+    <script>
+      let btn = document.getElementById("btn");
+      let title = document.getElementById("title");
+      let frm = document.getElementById("frm");
+      btn.addEventListener("click", function () {
+        if (title.value == "") {
+          alert("제목은 필수입니다");
+          title.focus();
+        } else {
+          frm.submit();
+        }
+      });
+    </script>
     <script src="/resources/vendor/jquery/jquery.min.js"></script>
     <script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
